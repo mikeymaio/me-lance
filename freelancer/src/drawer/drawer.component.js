@@ -1,9 +1,13 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 
-export default class DrawerMenu extends React.Component {
+import * as actions from '../header/header.actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+class DrawerMenu extends React.Component {
 
   constructor(props) {
     super(props);
@@ -24,14 +28,14 @@ export default class DrawerMenu extends React.Component {
         />*/}
         <button
             style={{height:30, width: 30, fontSize: '2em', color: 'white', backgroundColor: '#007766', border: 'none', marginLeft: 10, outline: 'none'}}
-            onTouchTap={this.handleToggle}>
+            onTouchTap={this.props.handleDrawer}>
           &#9776;
         </button>
         <Drawer
           docked={false}
           width={200}
-          open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
+          open={this.props.isDrawerOpen}
+          onRequestChange={this.props.handleDrawer}
         >
           <MenuItem
             //onTouchTap={this.handleClose}
@@ -56,3 +60,18 @@ export default class DrawerMenu extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        isDrawerOpen: state.headerReducer.isDrawerOpen,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        handleDrawer: actions.handleDrawer,
+        },
+        dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerMenu);

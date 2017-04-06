@@ -4,9 +4,14 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+
+import * as actions from '../header/header.actions';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 const styles = {
   headline: {
@@ -20,67 +25,45 @@ const styles = {
   },
 };
 
-export default class LoginModal extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      slideIndex: 0,
-      open: false,
-    };
-  }
-
-  handleOpen = () => {
-    this.setState({open: true});
-  };
-
-  handleClose = () => {
-    this.setState({open: false});
-  };
-
-  handleChange = (value) => {
-    this.setState({
-      slideIndex: value,
-    });
-  };
+class LoginModal extends React.Component {
 
   render() {
 
-    const actions = [
+    const actionButtons = [
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.props.handleModal}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.props.handleModal}
       />,
     ];
 
     return (
       <div>
-        <FlatButton {...this.props} label="Login / Demo Account" style={{color: 'white'}} onTouchTap={this.handleOpen}/>
+        <FlatButton label="Login / Demo Account" style={{color: 'white'}} onTouchTap={this.props.handleModal}/>
         <Dialog
           //title=""
-          actions={actions}
+          actions={actionButtons}
           modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
+          open={this.props.isModalOpen}
+          onRequestClose={this.props.handleModal}
           autoScrollBodyContent={true}
         >
         <Tabs
-          onChange={this.handleChange}
-          value={this.state.slideIndex}
+          onChange={this.props.handleLoginSlides}
+          value={this.props.modalSlideIndex}
         >
           <Tab label="Login" value={0} />
           <Tab label="Sign Up" value={1} />
         </Tabs>
         <SwipeableViews
-          index={this.state.slideIndex}
-          onChangeIndex={this.handleChange}
+          index={this.props.modalSlideIndex}
+          onChangeIndex={this.props.handleLoginSlides}
         >
           <div>
             {/*<h2 style={styles.headline}>Log In</h2>*/}
@@ -173,3 +156,21 @@ export default class LoginModal extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        isModalOpen: state.headerReducer.isModalOpen,
+        modalSlideIndex: state.headerReducer.modalSlideIndex,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        handleModal: actions.handleModal,
+        handleLoginSlides: actions.handleLoginSlides
+        // fetchDataFromApi: actions.fetchDataFromApi,
+        },
+        dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);

@@ -2,7 +2,7 @@ import React from 'react';
 // import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 
 export default class SideMenu extends React.Component {
