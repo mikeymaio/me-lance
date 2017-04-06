@@ -10,6 +10,8 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 import DrawerMenu from './drawer.component';
 
+import LoginModal from './login-modal.component';
+
 
 class Login extends Component {
   static muiName = 'FlatButton';
@@ -56,21 +58,21 @@ class Header extends Component {
     return (
       <div>
           <AppBar
-          title="Mentor"
-          style={{backgroundColor: '#222',
+          title="Freelancer"
+          style={{backgroundColor: '#007766',
                   //height: 150,
                   padding: 20,}}
           //iconElementLeft={<IconButton><NavigationClose /></IconButton>}
           iconElementLeft={<DrawerMenu />}
-          iconElementRight={this.state.logged ? <Logged /> : <Login />}
+          iconElementRight={this.state.logged ? <Logged /> : <LoginModal />}
         />
         <Toggle
-          label="Logged In Sim"
-          defaultToggled={false}
-          onToggle={this.handleChange}
-          labelPosition="right"
-          style={{margin: 20}}
-        />
+            label="Logged In Sim"
+            defaultToggled={false}
+            onToggle={this.handleChange}
+            labelPosition="right"
+            style={{margin: 20}}
+          />
       </div>
     );
   }

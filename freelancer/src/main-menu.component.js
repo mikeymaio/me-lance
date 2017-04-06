@@ -1,9 +1,11 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
+import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 
-export default class DrawerMenu extends React.Component {
+export default class SideMenu extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,17 +24,8 @@ export default class DrawerMenu extends React.Component {
           label="&#9776;"
           onTouchTap={this.handleToggle}
         />*/}
-        <button
-            style={{height:30, width: 30, fontSize: '2em', color: 'white', backgroundColor: '#007766', border: 'none', marginLeft: 10, outline: 'none'}}
-            onTouchTap={this.handleToggle}>
-          &#9776;
-        </button>
-        <Drawer
-          docked={false}
-          width={200}
-          open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
-        >
+        <Paper >
+        <Menu>
           <MenuItem
             //onTouchTap={this.handleClose}
             //leftIcon={}
@@ -51,7 +44,8 @@ export default class DrawerMenu extends React.Component {
             //onTouchTap={this.handleClose}
             >Timer
           </MenuItem>
-        </Drawer>
+        </Menu>
+        </Paper>
       </div>
     );
   }
