@@ -57,7 +57,7 @@ class Header extends Component {
             defaultToggled={this.props.isLoggedIn}
             onToggle={this.props.handleSession}
             labelPosition="right"
-            style={{margin: 20}}
+            style={{margin: 20, width: '50%'}}
           />
       </div>
     );

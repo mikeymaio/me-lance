@@ -163,7 +163,7 @@ class SignUp extends React.Component {
                 this.setState({stepIndex: 0, finished: false});
               }}
             >
-              Welcome to Mentor!
+              Welcome to Freelance!
             </a>
           </p>
         )}

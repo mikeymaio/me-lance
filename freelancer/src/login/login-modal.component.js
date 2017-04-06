@@ -8,6 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
+import SignUp from './signup-stepper.component';
+
 import * as actions from '../header/header.actions';
 
 import { connect } from 'react-redux';
@@ -86,7 +88,8 @@ class LoginModal extends React.Component {
             />
           </div>
           <div style={styles.slide}>
-            <TextField
+            <SignUp />
+            {/*<TextField
               floatingLabelText="Username"
               floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
@@ -148,7 +151,7 @@ class LoginModal extends React.Component {
               className="col-xs-9 col-xs-offset-3"
               hintText="555-555-5555"
               errorText="This field is required"
-            />
+            />*/}
           </div>
         </SwipeableViews>
         </Dialog>
