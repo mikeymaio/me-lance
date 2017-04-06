@@ -62,7 +62,7 @@ export default class LoginModal extends React.Component {
 
     return (
       <div>
-        <FlatButton {...this.props} label="Login" style={{color: 'white'}} onTouchTap={this.handleOpen}/>
+        <FlatButton {...this.props} label="Login / Demo Account" style={{color: 'white'}} onTouchTap={this.handleOpen}/>
         <Dialog
           //title=""
           actions={actions}

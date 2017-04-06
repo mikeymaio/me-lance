@@ -8,20 +8,10 @@ import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
-import DrawerMenu from './drawer.component';
+import DrawerMenu from '../drawer/drawer.component';
 
-import LoginModal from './login-modal.component';
+import LoginModal from '../login/login-modal.component';
 
-
-class Login extends Component {
-  static muiName = 'FlatButton';
-
-  render() {
-    return (
-      <FlatButton {...this.props} label="Login" />
-    );
-  }
-}
 
 const Logged = (props) => (
   <IconMenu
