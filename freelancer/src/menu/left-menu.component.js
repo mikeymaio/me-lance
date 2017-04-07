@@ -33,10 +33,10 @@ class SideMenu extends React.Component {
             >
             Invoices
           </MenuItem>
-            <MenuItem
+            {/*<MenuItem
             onTouchTap={() => this.props.handleMenuItemSelect('timer')}
             >Timer
-          </MenuItem>
+          </MenuItem>*/}
         </Menu>
         </Paper>
       </div>

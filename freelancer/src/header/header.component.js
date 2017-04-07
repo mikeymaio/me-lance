@@ -60,7 +60,7 @@ class Header extends Component {
             labelPosition="right"
             style={{margin: 20, width: '30%', display: 'inline-block'}}
           />
-          <TimeTracker style={{width: '50%', display: 'inline-block'}}/>
+          <TimeTracker style={{width: '42%', display: 'inline-block', float: 'right', marginTop: 15}}/>
       </div>
     );
   }

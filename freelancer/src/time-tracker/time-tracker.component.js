@@ -27,6 +27,7 @@ export default class TimeTracker extends Component {
   render() {
     return (
       <div style={this.props.style}>
+        <h4 style={{display: "inline-block", color: "#076", marginRight: 10}} >Timetracker</h4>
         <Stopwatch msecs start={this.state.stopwatchStart}
           reset={this.state.stopwatchReset}
           options={options}/>
@@ -48,7 +49,7 @@ const options = {
     height: '100%',
     display: 'inline-block',
     color: '#076',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   text: {
     fontSize: 30,

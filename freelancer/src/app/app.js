@@ -14,6 +14,7 @@ import SideMenu from '../menu/left-menu.component';
 import InvoiceList from '../invoices/invoice-list.component';
 
 import ClientList from '../clients/client-list.component';
+import ExampleChart from '../dashboard/dashboard.component';
 // import ClientDetail from '../clients/client-detail.component';
 
 
@@ -33,8 +34,9 @@ class App extends Component {
           <SideMenu />
           </div>
           <div className="col-xs-9" style={{textAlign: 'center'}}>
-            {this.props.selectedItem === 'invoices' ? <InvoiceList /> : false}
+            {this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
             {this.props.selectedItem === 'clients' ? <ClientList /> : false}
+            {this.props.selectedItem === 'invoices' ? <InvoiceList /> : false}
           </div>
         </div>
       </div>
