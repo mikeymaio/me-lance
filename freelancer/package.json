@@ -1,7 +1,12 @@
 {
-  "name": "mentor",
+  "name": "freelance app",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": "Michael Maio <michael.maio22@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "github.com/HypeUFO/freelancer.git"
+  },
   "dependencies": {
     "material-ui": "^0.17.1",
     "react": "^15.4.2",
