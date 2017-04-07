@@ -8,8 +8,7 @@ import Divider from 'material-ui/Divider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
-
-import * as actions from '../header/header.actions';
+import * as actions from './clients.actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -30,13 +29,13 @@ class ClientDetail extends React.Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.props.handleModal}
+        onTouchTap={this.props.handleClientDetailModal}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.props.handleClientDetail}
+        onTouchTap={this.props.handleClientDetailModal}
       />,
     ];
 
@@ -44,14 +43,14 @@ class ClientDetail extends React.Component {
         return (
 
       <div>
-        <FlatButton label="+" style={{margin: 'auto'}} onTouchTap={this.props.handleModal}/>
+        <FlatButton label="+" style={{margin: 'auto'}} onTouchTap={this.props.handleClientDetailModal}/>
         <Dialog
           title="Client Details"
           actions={this.actionButtons}
-          modal={true}
-          //open={this.props.isModalOpen}
+          modal={false}
+          //open={this.props.isDetailModalOpen}
           //onRequestClose={this.props.handleModal}
-          open={this.props.isModalOpen}
+          open={this.props.isDetailModalOpen}
           //onRequestClose={}
           autoScrollBodyContent={true}
         >
@@ -100,15 +99,13 @@ class ClientDetail extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        isModalOpen: state.headerReducer.isModalOpen,
-        modalSlideIndex: state.headerReducer.modalSlideIndex,
+        isDetailModalOpen: state.clientReducer.isDetailModalOpen,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        handleModal: actions.handleModal,
-        handleLoginSlides: actions.handleLoginSlides
+        handleClientDetailModal: actions.handleClientDetailModal,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);

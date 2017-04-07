@@ -1,19 +1,27 @@
 import React from 'react';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
-import TextField from 'material-ui/TextField';
-import Toggle from 'material-ui/Toggle';
+// import TextField from 'material-ui/TextField';
 
-const styles = {
-  propContainer: {
-    width: 200,
-    overflow: 'hidden',
-    margin: '20px auto 0',
-  },
-  propToggleHeader: {
-    margin: '20px auto 10px',
-  },
-};
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as actions from './invoices.actions';
+
+// const styles = {
+//   propContainer: {
+//     width: 200,
+//     overflow: 'hidden',
+//     margin: '20px auto 0',
+//   },
+//   propToggleHeader: {
+//     margin: '20px auto 10px',
+//   },
+// };
 
 const tableData = [
   {
@@ -36,7 +44,7 @@ const tableData = [
   },
 ];
 
-export default class InvoiceTable extends React.Component {
+class InvoiceDetail extends React.Component {
 
   constructor(props) {
     super(props);
@@ -55,19 +63,34 @@ export default class InvoiceTable extends React.Component {
     };
   }
 
-  handleToggle = (event, toggled) => {
-    this.setState({
-      [event.target.name]: toggled,
-    });
-  };
-
-  handleChange = (event) => {
-    this.setState({height: event.target.value});
-  };
+  actionButtons = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.props.handleInvoiceDetailModal}
+      />,
+      <FlatButton
+        label="Save"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.props.handleInvoiceDetailModal}
+      />,
+    ];
 
   render() {
+
     return (
       <div>
+        <FlatButton label="+" style={{margin: 'auto', width: '50%'}} onTouchTap={this.props.handleInvoiceDetailModal}/>
+        <Dialog
+          title="Invoice Details"
+          actions={this.actionButtons}
+          modal={true}
+          //open={this.props.isDetailModalOpen}
+          //onRequestClose={this.props.handleInvoiceDetailModal}
+          open={this.props.isDetailModalOpen}
+          //onRequestClose={}
+          autoScrollBodyContent={true}>
         <Table
           height={this.state.height}
           fixedHeader={this.state.fixedHeader}
@@ -128,10 +151,10 @@ export default class InvoiceTable extends React.Component {
           >
             {tableData.map( (row, index) => (
               <TableRow key={index} selected={row.selected}>
-                <TableRowColumn>{row.date}</TableRowColumn>
-                <TableRowColumn>{row.hours}</TableRowColumn>
-                <TableRowColumn>{row.description}</TableRowColumn>
-                <TableRowColumn>{row.status}</TableRowColumn>
+                <TableRowColumn colSpan="3">{row.date}</TableRowColumn>
+                <TableRowColumn colSpan="3">{row.hours}</TableRowColumn>
+                <TableRowColumn colSpan="3">{row.description}</TableRowColumn>
+                <TableRowColumn colSpan="3">{row.status}</TableRowColumn>
               </TableRow>
               ))}
           </TableBody>
@@ -139,18 +162,40 @@ export default class InvoiceTable extends React.Component {
             adjustForCheckbox={this.state.showCheckboxes}
           >
             <TableRow>
-              <TableRowColumn>ID</TableRowColumn>
-              <TableRowColumn>Name</TableRowColumn>
-              <TableRowColumn>Status</TableRowColumn>
+              <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
+                <RaisedButton label="Add Row" backgroundColor='#007766' labelColor="white" style={{margin: 10,}} />
+              </TableRowColumn>
             </TableRow>
             <TableRow>
+              <TableRowColumn colSpan="4">Subtotal</TableRowColumn>
+              <TableRowColumn colSpan="4">Tax</TableRowColumn>
+              <TableRowColumn colSpan="4">Total</TableRowColumn>
+            </TableRow>
+            {/*<TableRow>
               <TableRowColumn colSpan="3" style={{textAlign: 'center'}}>
                 Super Footer
               </TableRowColumn>
-            </TableRow>
+            </TableRow>*/}
           </TableFooter>
         </Table>
+        </Dialog>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        isDetailModalOpen: state.invoiceReducer.isDetailModalOpen,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        handleInvoiceDetailModal: actions.handleInvoiceDetailModal,
+        // fetchDataFromApi: actions.fetchDataFromApi,
+        },
+        dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InvoiceDetail);

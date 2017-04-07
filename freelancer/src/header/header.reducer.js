@@ -1,9 +1,9 @@
 const headerState = {
         isLoggedIn: false,
-        isModalOpen: false,
-        modalSlideIndex: 0,
+        isLoginModalOpen: false,
+        loginModalSlideIndex: 0,
         isDrawerOpen: false,
-        isLoading: false,
+        isisLoading: false,
 
     }
 
@@ -19,22 +19,22 @@ const headerReducer = (state=headerState, action) => {
         case 'REQUEST_DATA':
             return {
                 ...state,
-                loading: true
+                isLoading: true
             }
         case 'RECEIVE_DATA':
             return {
                 ...state,
-                loading: false, isLoggedIn: action.payload
+                isLoading: false, isLoggedIn: action.payload
             }
-        case 'UPDATE_MODAL':
+        case 'UPDATE_LOGIN_MODAL':
             return {
                 ...state,
-                isModalOpen: !state.isModalOpen
+                isLoginModalOpen: !state.isLoginModalOpen
             }
-        case 'UPDATE_MODAL_SLIDE':
+        case 'UPDATE_LOGIN_MODAL_SLIDE':
             return {
                 ...state,
-                modalSlideIndex: action.payload
+                loginModalSlideIndex: action.payload
             }
         case 'UPDATE_DRAWER':
             return {

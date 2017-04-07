@@ -35,36 +35,36 @@ class LoginModal extends React.Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.props.handleModal}
+        onTouchTap={this.props.handleLoginModal}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.props.handleModal}
+        onTouchTap={this.props.handleLoginModal}
       />,
     ];
 
     return (
       <div>
-        <FlatButton label="Login / Demo Account" style={{color: 'white'}} onTouchTap={this.props.handleModal}/>
+        <FlatButton label="Login / Demo Account" style={{color: 'white'}} onTouchTap={this.props.handleLoginModal}/>
         <Dialog
           //title=""
           actions={actionButtons}
           modal={false}
-          open={this.props.isModalOpen}
-          onRequestClose={this.props.handleModal}
+          open={this.props.isLoginModalOpen}
+          onRequestClose={this.props.handleLoginModal}
           autoScrollBodyContent={true}
         >
         <Tabs
           onChange={this.props.handleLoginSlides}
-          value={this.props.modalSlideIndex}
+          value={this.props.loginModalSlideIndex}
         >
           <Tab label="Login" value={0} />
           <Tab label="Sign Up" value={1} />
         </Tabs>
         <SwipeableViews
-          index={this.props.modalSlideIndex}
+          index={this.props.loginModalSlideIndex}
           onChangeIndex={this.props.handleLoginSlides}
         >
           <div>
@@ -162,14 +162,14 @@ class LoginModal extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        isModalOpen: state.headerReducer.isModalOpen,
-        modalSlideIndex: state.headerReducer.modalSlideIndex,
+        isLoginModalOpen: state.headerReducer.isLoginModalOpen,
+        loginModalSlideIndex: state.headerReducer.loginModalSlideIndex,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        handleModal: actions.handleModal,
+        handleLoginModal: actions.handleLoginModal,
         handleLoginSlides: actions.handleLoginSlides
         // fetchDataFromApi: actions.fetchDataFromApi,
         },

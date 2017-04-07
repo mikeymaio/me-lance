@@ -11,6 +11,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import DrawerMenu from '../drawer/drawer.component';
 
 import LoginModal from '../login/login-modal.component';
+import TimeTracker from '../time-tracker/time-tracker.component';
 
 import * as actions from './header.actions';
 import { connect } from 'react-redux';
@@ -57,8 +58,9 @@ class Header extends Component {
             defaultToggled={this.props.isLoggedIn}
             onToggle={this.props.handleSession}
             labelPosition="right"
-            style={{margin: 20, width: '50%'}}
+            style={{margin: 20, width: '30%', display: 'inline-block'}}
           />
+          <TimeTracker style={{width: '50%', display: 'inline-block'}}/>
       </div>
     );
   }

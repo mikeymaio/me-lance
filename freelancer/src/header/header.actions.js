@@ -1,18 +1,18 @@
 export function handleSession() {
-    const UPDATE_MODAL = 'UPDATE_SESSION';
+    const UPDATE_SESSION = 'UPDATE_SESSION';
     return {
-        type: UPDATE_MODAL,
+        type: UPDATE_SESSION,
     }
 }
 
-const requestDataFromAPI = () => ({
-  type: 'REQUEST_DATA'
-})
+// const requestDataFromAPI = () => ({
+//   type: 'REQUEST_DATA'
+// })
 
-const recieveDataFromAPI = (data) => ({
-  type: 'RECEIVE_DATA',
-  payload: data
-})
+// const recieveDataFromAPI = (data) => ({
+//   type: 'RECEIVE_DATA',
+//   payload: data
+// })
 
 
 // export const fetchDataFromApi = (q) => {
@@ -28,10 +28,10 @@ const recieveDataFromAPI = (data) => ({
 //   }
 // }
 
-export function handleModal() {
-    const UPDATE_MODAL = 'UPDATE_MODAL';
+export function handleLoginModal() {
+    const UPDATE_LOGIN_MODAL = 'UPDATE_LOGIN_MODAL';
     return {
-        type: UPDATE_MODAL,
+        type: UPDATE_LOGIN_MODAL,
     }
 }
 
@@ -43,9 +43,9 @@ export function handleDrawer() {
 }
 
 export function handleLoginSlides(value) {
-    const UPDATE_MODAL_SLIDE = "UPDATE_MODAL_SLIDE";
+    const UPDATE_LOGIN_MODAL_SLIDE = "UPDATE_LOGIN_MODAL_SLIDE";
     return{
-        type: UPDATE_MODAL_SLIDE,
+        type: UPDATE_LOGIN_MODAL_SLIDE,
         payload: value
     }
   };

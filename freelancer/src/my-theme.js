@@ -19,6 +19,9 @@ const muiTheme = getMuiTheme({
   tabs: {
       textColor: '#bbb',
     },
+  tableRow: {
+    hoverColor: '#eee',
+  },
 });
 
 export default muiTheme;

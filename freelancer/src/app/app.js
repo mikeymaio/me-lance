@@ -10,10 +10,11 @@ import Header from '../header/header.component';
 // import SignUpModal from '../login/signup-modal.component';
 import SideMenu from '../menu/left-menu.component';
 // import LoginModal from '../login/login-modal.component';
-import InvoiceTable from '../table/invoice-detail.component';
+// import InvoiceDetail from '../invoices/invoice-detail.component';
+import InvoiceList from '../invoices/invoice-list.component';
 
-import ClientList from '../table/client-list.component';
-import ClientDetail from '../table/client-detail.component';
+import ClientList from '../clients/client-list.component';
+// import ClientDetail from '../clients/client-detail.component';
 
 
 // Needed for onTouchTap
@@ -32,10 +33,8 @@ class App extends Component {
           <SideMenu />
           </div>
           <div className="col-xs-9" style={{textAlign: 'center'}}>
-            {this.props.selectedItem === 'invoices' ? <InvoiceTable /> : false}
+            {this.props.selectedItem === 'invoices' ? <InvoiceList /> : false}
             {this.props.selectedItem === 'clients' ? <ClientList /> : false}
-
-            {/*<ClientDetail />*/}
           </div>
         </div>
       </div>

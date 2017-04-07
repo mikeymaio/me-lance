@@ -136,7 +136,7 @@ export default class ClientList extends React.Component {
             adjustForCheckbox={this.state.showCheckboxes}
           >
             <TableRow>
-              <TableRowColumn colSpan="6" style={{textAlign: 'center'}}>
+              <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
                 <RaisedButton label="Add Client" backgroundColor='#007766' labelColor="white" style={{margin: 10,}} />
               </TableRowColumn>
             </TableRow>
