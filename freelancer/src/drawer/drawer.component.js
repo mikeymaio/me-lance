@@ -7,6 +7,8 @@ import * as actions from '../header/header.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import SideMenu from '../menu/left-menu.component';
+
 class DrawerMenu extends React.Component {
 
   constructor(props) {
@@ -37,24 +39,7 @@ class DrawerMenu extends React.Component {
           open={this.props.isDrawerOpen}
           onRequestChange={this.props.handleDrawer}
         >
-          <MenuItem
-            //onTouchTap={this.handleClose}
-            //leftIcon={}
-            >Clients
-          </MenuItem>
-          <MenuItem
-            //onTouchTap={this.handleClose}
-            >Projects
-          </MenuItem>
-          <MenuItem
-            //onTouchTap={this.handleClose}
-            >
-            Invoices
-          </MenuItem>
-            <MenuItem
-            //onTouchTap={this.handleClose}
-            >Timer
-          </MenuItem>
+         <SideMenu />
         </Drawer>
       </div>
     );
