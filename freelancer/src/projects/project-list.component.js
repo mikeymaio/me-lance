@@ -1,42 +1,49 @@
 import React from 'react';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
-import TextField from 'material-ui/TextField';
-import Toggle from 'material-ui/Toggle';
+import RaisedButton from 'material-ui/RaisedButton';
 
-const styles = {
-  propContainer: {
-    width: 200,
-    overflow: 'hidden',
-    margin: '20px auto 0',
-  },
-  propToggleHeader: {
-    margin: '20px auto 10px',
-  },
-};
+import ProjectDetail from './project-detail.component';
+
+// import classnames from 'classnames';
 
 const tableData = [
   {
-    date: '1/1/17',
-    hours: '5.5',
-    description: 'blahblahblah',
-    status: 'in progress',
+    id: '12321',
+    name: 'John Smith',
+    company: 'John Smith Inc',
+    address: '123 Main St, Los Angeles CA 90026',
+    email: 'email@email.com',
+    phone: '555-555-5555',
+    budget: '$5,000.00',
+    hoursWorked: 7,
+    deadline: '5/16/17'
   },
   {
-    date: '1/2/17',
-    hours: '6',
-    description: 'blahblahblah',
-    status: 'in progress',
+    id: '12321',
+    name: 'Sally Smith',
+    company: 'Sally Smith Inc',
+    address: '123 Main St, Los Angeles CA 90026',
+    email: 'email@email.com',
+    phone: '555-555-5555',
+    budget: '$3,000.00',
+    hoursWorked: 7,
+    deadline: '6/1/17'
   },
   {
-    date: '1/3/17',
-    hours: '5',
-    description: 'blahblahblah',
-    status: 'complete',
+    id: '12321',
+    name: 'John Doe',
+    company: 'John Doe LLC',
+    address: '123 Main St, Los Angeles CA 90026',
+    email: 'email@email.com',
+    phone: '555-555-5555',
+    budget: '$10,000.00',
+    hoursWorked: 9,
+    deadline: '6/21/17'
   },
 ];
 
-export default class InvoiceTable extends React.Component {
+export default class ProjectList extends React.Component {
 
   constructor(props) {
     super(props);
@@ -47,7 +54,7 @@ export default class InvoiceTable extends React.Component {
       stripedRows: false,
       showRowHover: true,
       selectable: true,
-      multiSelectable: true,
+      multiSelectable: false,
       enableSelectAll: true,
       deselectOnClickaway: false,
       showCheckboxes: false,
@@ -55,20 +62,17 @@ export default class InvoiceTable extends React.Component {
     };
   }
 
-  handleToggle = (event, toggled) => {
-    this.setState({
-      [event.target.name]: toggled,
-    });
-  };
+  handleAddClient = () => {
 
-  handleChange = (event) => {
-    this.setState({height: event.target.value});
-  };
+  }
 
   render() {
+
+    //   const clientDetailClass = classnames({'hide': })
     return (
       <div>
         <Table
+        colSpan="12"
           height={this.state.height}
           fixedHeader={this.state.fixedHeader}
           fixedFooter={this.state.fixedFooter}
@@ -76,51 +80,27 @@ export default class InvoiceTable extends React.Component {
           multiSelectable={this.state.multiSelectable}
         >
           <TableHeader
-            //style={{borderBottom: '3px solid #007766'}}
             displaySelectAll={this.state.showCheckboxes}
             adjustForCheckbox={this.state.showCheckboxes}
             enableSelectAll={this.state.enableSelectAll}
           >
             <TableRow>
-              <TableHeaderColumn colSpan="6" tooltip="Invoice #" style={{textAlign: 'left'}}>
-                Invoice #:
-              </TableHeaderColumn>
-              <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
-                Billing Period:
-              </TableHeaderColumn>
-            </TableRow>
-            <TableRow>
-                <TableHeaderColumn colSpan="6" tooltip="The project name" style={{textAlign: 'left'}}>
-                    Project Name:
-                </TableHeaderColumn>
-                <TableHeaderColumn colSpan="6" tooltip="The project's ID no." style={{textAlign: 'left'}}>
-                    Project Id:
-                </TableHeaderColumn>
-              </TableRow>
-            <TableRow>
-              <TableHeaderColumn colSpan="6" tooltip="Your Name" style={{textAlign: 'left'}}>
-                Name
-              </TableHeaderColumn>
-              <TableHeaderColumn colSpan="6" tooltip="The client's name" style={{textAlign: 'left'}}>
-                Client Name:
-              </TableHeaderColumn>
-              </TableRow>
-              <TableRow>
-              <TableHeaderColumn colSpan="6" tooltip="Your address" style={{textAlign: 'left'}}>
-                Adress:
-              </TableHeaderColumn>
-              <TableHeaderColumn colSpan="6" tooltip="the client's address" style={{textAlign: 'left'}}>
-                Client Address:
+              <TableHeaderColumn colSpan="12" style={{textAlign: 'center'}}>
+                Your Projects
               </TableHeaderColumn>
             </TableRow>
             <TableRow displayBorder={true} style={{borderTop: '2px solid #007766'}} >
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Date worked">Date</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Hours worked">Hours</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Description of task">Description</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="The status of the task">Status</TableHeaderColumn>
+              {/*<TableHeaderColumn colSpan="2" style={{textAlign: 'left'}}>ID</TableHeaderColumn>*/}
+              <TableHeaderColumn colSpan="4" style={{textAlign: 'left'}}>Name</TableHeaderColumn>
+              {/*<TableHeaderColumn colSpan="2" style={{textAlign: 'left'}}>Company</TableHeaderColumn>*/}
+              {/*<TableHeaderColumn colSpan="2" style={{textAlign: 'left'}}>Address</TableHeaderColumn>*/}
+              <TableHeaderColumn colSpan="4" style={{textAlign: 'left'}}>Email</TableHeaderColumn>
+              {/*<TableHeaderColumn colSpan="2" style={{textAlign: 'left'}}>Phone</TableHeaderColumn>*/}
+              <TableHeaderColumn colSpan="4" style={{textAlign: 'left'}}>Details</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
+            id="project-list"
             displayRowCheckbox={this.state.showCheckboxes}
             deselectOnClickaway={this.state.deselectOnClickaway}
             showRowHover={this.state.showRowHover}
@@ -128,10 +108,25 @@ export default class InvoiceTable extends React.Component {
           >
             {tableData.map( (row, index) => (
               <TableRow key={index} selected={row.selected}>
-                <TableRowColumn>{row.date}</TableRowColumn>
-                <TableRowColumn>{row.hours}</TableRowColumn>
-                <TableRowColumn>{row.description}</TableRowColumn>
-                <TableRowColumn>{row.status}</TableRowColumn>
+                {/*<TableRowColumn>{row.id}</TableRowColumn>*/}
+                <TableRowColumn colSpan="4">{row.name}</TableRowColumn>
+                {/*<TableRowColumn>{row.company}</TableRowColumn>*/}
+                {/*<TableRowColumn>{row.address}</TableRowColumn>*/}
+                <TableRowColumn colSpan="4">{row.email}</TableRowColumn>
+                {/*<TableRowColumn>{row.phone}</TableRowColumn>*/}
+                <TableRowColumn colSpan="4">
+                    <ProjectDetail
+                        id={row.id}
+                        name={row.name}
+                        budget={row.budget}
+                        deadline={row.deadline}
+                        hoursWorked={row.hoursWorked}
+                        company={row.company}
+                        address={row.address}
+                        email={row.email}
+                        phone={row.phone}
+                    />
+                </TableRowColumn>
               </TableRow>
               ))}
           </TableBody>
@@ -139,13 +134,8 @@ export default class InvoiceTable extends React.Component {
             adjustForCheckbox={this.state.showCheckboxes}
           >
             <TableRow>
-              <TableRowColumn>ID</TableRowColumn>
-              <TableRowColumn>Name</TableRowColumn>
-              <TableRowColumn>Status</TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn colSpan="3" style={{textAlign: 'center'}}>
-                Super Footer
+              <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
+                <RaisedButton label="Add Project" backgroundColor='#007766' labelColor="white" style={{margin: 10,}} />
               </TableRowColumn>
             </TableRow>
           </TableFooter>

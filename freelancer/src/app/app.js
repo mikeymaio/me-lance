@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import logo from '../logo.svg';
-import './app.css';
 
-// import Toggle from 'material-ui/Toggle';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Header from '../header/header.component';
-// import SignUpModal from '../login/signup-modal.component';
 import SideMenu from '../menu/left-menu.component';
-// import LoginModal from '../login/login-modal.component';
-// import InvoiceDetail from '../invoices/invoice-detail.component';
 import InvoiceList from '../invoices/invoice-list.component';
-
 import ClientList from '../clients/client-list.component';
+import ProjectList from '../projects/project-list.component';
 import ExampleChart from '../dashboard/dashboard.component';
-// import ClientDetail from '../clients/client-detail.component';
+
+import './app.css';
+
 
 
 // Needed for onTouchTap
@@ -36,6 +32,8 @@ class App extends Component {
           <div className="col-xs-9" style={{textAlign: 'center'}}>
             {this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
             {this.props.selectedItem === 'clients' ? <ClientList /> : false}
+            {this.props.selectedItem === 'projects' ? <ProjectList /> : false}
+            
             {this.props.selectedItem === 'invoices' ? <InvoiceList /> : false}
           </div>
         </div>

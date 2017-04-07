@@ -1,156 +1,124 @@
 import React from 'react';
-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
-  from 'material-ui/Table';
-import TextField from 'material-ui/TextField';
-import Toggle from 'material-ui/Toggle';
+// import MobileTearSheet from '../../../MobileTearSheet';
+import {List, ListItem} from 'material-ui/List';
+// import ActionGrade from 'material-ui/svg-icons/action/grade';
+import Divider from 'material-ui/Divider';
+// import Avatar from 'material-ui/Avatar';
+// import {pinkA200, transparent} from 'material-ui/styles/colors';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
-const styles = {
-  propContainer: {
-    width: 200,
-    overflow: 'hidden',
-    margin: '20px auto 0',
-  },
-  propToggleHeader: {
-    margin: '20px auto 10px',
-  },
-};
+import * as actions from './projects.actions';
 
-const tableData = [
-  {
-    date: '1/1/17',
-    hours: '5.5',
-    description: 'blahblahblah',
-    status: 'in progress',
-  },
-  {
-    date: '1/2/17',
-    hours: '6',
-    description: 'blahblahblah',
-    status: 'in progress',
-  },
-  {
-    date: '1/3/17',
-    hours: '5',
-    description: 'blahblahblah',
-    status: 'complete',
-  },
-];
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+// import CommunicationCall from 'material-ui/svg-icons/communication/call';
 
-export default class InvoiceTable extends React.Component {
+// import CommunicationEmail from 'material-ui/svg-icons/communication/email';
 
-  constructor(props) {
-    super(props);
+// import ActionHome from 'material-ui/svg-icons/action/home';
+// import ActionWork from 'material-ui/svg-icons/action/work';
 
-    this.state = {
-      fixedHeader: true,
-      fixedFooter: false,
-      stripedRows: false,
-      showRowHover: true,
-      selectable: true,
-      multiSelectable: true,
-      enableSelectAll: true,
-      deselectOnClickaway: false,
-      showCheckboxes: false,
-      height: '300px',
-    };
-  }
 
-  handleToggle = (event, toggled) => {
-    this.setState({
-      [event.target.name]: toggled,
-    });
-  };
 
-  handleChange = (event) => {
-    this.setState({height: event.target.value});
-  };
 
-  render() {
-    return (
+
+class ProjectDetail extends React.Component {
+
+    actionButtons = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.props.handleProjectDetailModal}
+      />,
+      <FlatButton
+        label="Save"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.props.handleProjectDetailModal}
+      />,
+    ];
+
+    render() {
+        return (
+
       <div>
-        <Table
-          height={this.state.height}
-          fixedHeader={this.state.fixedHeader}
-          fixedFooter={this.state.fixedFooter}
-          selectable={this.state.selectable}
-          multiSelectable={this.state.multiSelectable}
+        <FlatButton label="+" style={{margin: 'auto'}} onTouchTap={this.props.handleProjectDetailModal}/>
+        <Dialog
+          title="Project Details"
+          actions={this.actionButtons}
+          modal={false}
+          //open={this.props.isDetailModalOpen}
+          //onRequestClose={this.props.handleModal}
+          open={this.props.isDetailModalOpen}
+          //onRequestClose={}
+          autoScrollBodyContent={true}
         >
-          <TableHeader
-            //style={{borderBottom: '3px solid #007766'}}
-            displaySelectAll={this.state.showCheckboxes}
-            adjustForCheckbox={this.state.showCheckboxes}
-            enableSelectAll={this.state.enableSelectAll}
-          >
-            <TableRow>
-              <TableHeaderColumn colSpan="6" tooltip="Invoice #" style={{textAlign: 'left'}}>
-                Invoice #:
-              </TableHeaderColumn>
-              <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
-                Billing Period:
-              </TableHeaderColumn>
-            </TableRow>
-            <TableRow>
-                <TableHeaderColumn colSpan="6" tooltip="The project name" style={{textAlign: 'left'}}>
-                    Project Name:
-                </TableHeaderColumn>
-                <TableHeaderColumn colSpan="6" tooltip="The project's ID no." style={{textAlign: 'left'}}>
-                    Project Id:
-                </TableHeaderColumn>
-              </TableRow>
-            <TableRow>
-              <TableHeaderColumn colSpan="6" tooltip="Your Name" style={{textAlign: 'left'}}>
-                Name
-              </TableHeaderColumn>
-              <TableHeaderColumn colSpan="6" tooltip="The client's name" style={{textAlign: 'left'}}>
-                Client Name:
-              </TableHeaderColumn>
-              </TableRow>
-              <TableRow>
-              <TableHeaderColumn colSpan="6" tooltip="Your address" style={{textAlign: 'left'}}>
-                Adress:
-              </TableHeaderColumn>
-              <TableHeaderColumn colSpan="6" tooltip="the client's address" style={{textAlign: 'left'}}>
-                Client Address:
-              </TableHeaderColumn>
-            </TableRow>
-            <TableRow displayBorder={true} style={{borderTop: '2px solid #007766'}} >
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Date worked">Date</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Hours worked">Hours</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Description of task">Description</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="The status of the task">Status</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody
-            displayRowCheckbox={this.state.showCheckboxes}
-            deselectOnClickaway={this.state.deselectOnClickaway}
-            showRowHover={this.state.showRowHover}
-            stripedRows={this.state.stripedRows}
-          >
-            {tableData.map( (row, index) => (
-              <TableRow key={index} selected={row.selected}>
-                <TableRowColumn>{row.date}</TableRowColumn>
-                <TableRowColumn>{row.hours}</TableRowColumn>
-                <TableRowColumn>{row.description}</TableRowColumn>
-                <TableRowColumn>{row.status}</TableRowColumn>
-              </TableRow>
-              ))}
-          </TableBody>
-          <TableFooter
-            adjustForCheckbox={this.state.showCheckboxes}
-          >
-            <TableRow>
-              <TableRowColumn>ID</TableRowColumn>
-              <TableRowColumn>Name</TableRowColumn>
-              <TableRowColumn>Status</TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn colSpan="3" style={{textAlign: 'center'}}>
-                Super Footer
-              </TableRowColumn>
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </div>
-    );
-  }
+    <List className={this.props.className} >
+      <ListItem
+        primaryText="ID: 12321"
+      />
+      <Divider inset={true} />
+      <ListItem
+        primaryText={`Name: ${this.props.name}`}
+        //leftAvatar={<Avatar src="images/chexee-128.jpg" />}
+      />
+      <Divider inset={true} />
+      <ListItem
+        primaryText={`Client: ${this.props.client}`}
+        //leftIcon={<ActionHome color="#007766" />}
+      />
+      <Divider inset={true} />
+      <ListItem
+        primaryText={`Company: ${this.props.company}`}
+        //leftIcon={<ActionWork color="#007766" />}
+      />
+      <Divider inset={true} />
+      <ListItem
+        primaryText={`Email: ${this.props.email}`}
+        //leftIcon={<CommunicationEmail color="#007766" />}
+      />
+      <Divider inset={true} />
+      <ListItem
+        primaryText={`Phone No: ${this.props.phone}`}
+        //leftIcon={<CommunicationCall color="#007766" />}
+      />
+      <Divider inset={true} />
+      <ListItem
+        primaryText={`Deadline: ${this.props.deadline}`}
+        //leftIcon={<CommunicationCall color="#007766" />}
+      />
+      <Divider inset={true} />
+      <ListItem
+        primaryText={`Budget: ${this.props.budget}`}
+        //leftIcon={<CommunicationCall color="#007766" />}
+      />
+      <Divider inset={true} />
+      <ListItem
+        primaryText={`Hours Worked: ${this.props.hoursWorked}`}
+        //leftIcon={<CommunicationCall color="#007766" />}
+      />
+    </List>
+    </Dialog>
+    </div>
+);
+    }
 }
+
+// export default ListExampleContacts;
+
+function mapStateToProps(state) {
+    return {
+        isDetailModalOpen: state.projectReducer.isDetailModalOpen,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        handleProjectDetailModal: actions.handleProjectDetailModal,
+        // fetchDataFromApi: actions.fetchDataFromApi,
+        },
+        dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetail);
