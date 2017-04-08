@@ -3,6 +3,25 @@ import React, { Component } from 'react';
 import Stopwatch from './timer.component';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const options = {
+  container: {
+    backgroundColor: '#FFF',
+    padding: 5,
+    borderRadius: 5,
+    width: 220,
+    height: '100%',
+    display: 'inline-block',
+    color: '#076',
+    textAlign: 'center',
+  },
+  text: {
+    fontSize: 30,
+    color: '#076',
+    marginLeft: 7,
+  }
+};
+
+
 export default class TimeTracker extends Component {
   constructor(props) {
     super(props);
@@ -37,23 +56,3 @@ export default class TimeTracker extends Component {
     );
   }
 }
-
-const handleTimerComplete = () => alert("custom completion function");
-
-const options = {
-  container: {
-    backgroundColor: '#FFF',
-    padding: 5,
-    borderRadius: 5,
-    width: 220,
-    height: '100%',
-    display: 'inline-block',
-    color: '#076',
-    textAlign: 'center',
-  },
-  text: {
-    fontSize: 30,
-    color: '#076',
-    marginLeft: 7,
-  }
-};
