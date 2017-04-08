@@ -3,8 +3,12 @@ const express = require('express');
 
 const app = express();
 
-// API endpoints go here!
+const userRouter = require('./routes/user-router');
+const clientRouter = require('./routes/client-router');
 
+// API endpoints go here!
+app.use('/api/users', userRouter);
+app.use('/api/clients', clientRouter);
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
