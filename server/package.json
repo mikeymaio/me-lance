@@ -9,7 +9,14 @@
   "author": "Joe Turner <jturner@thinkful.com>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.14.1",
+    "express-session": "^1.15.0",
+    "mongoose": "^4.9.3",
+    "bcryptjs": "^2.4.0",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
     "nodemon": "^1.11.0"
   }
 }
