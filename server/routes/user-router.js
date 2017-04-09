@@ -14,47 +14,52 @@ mongoose.Promise = global.Promise;
 
 const { User } = require('../models/user-model');
 
-const localStrategy = new LocalStrategy(function(username, password, callback) {
-  let user;
-  User
-    .findOne({userName: username})
-    .exec()
-    .then(_user => {
-      user = _user;
-      if (!user) {
-        return callback(null, false, {message: 'Incorrect username or password'});
-      }
-      return user.validatePassword(password);
-    })
-    .then(isValid => {
-      if (!isValid) {
-        return callback(null, false, {message: 'Incorrect username or password'});
-      }
-      else {
-        return callback(null, user)
-      }
-    });
-});
+// const localStrategy = new LocalStrategy(function(username, password, callback) {
+//   let user;
+//   User
+//     .findOne({userName: username})
+//     .exec()
+//     .then(_user => {
+//       user = _user;
+//       if (!user) {
+//         return callback(null, false, {message: 'Incorrect username or password'});
+//       }
+//       return user.validatePassword(password);
+//     })
+//     .then(isValid => {
+//       if (!isValid) {
+//         return callback(null, false, {message: 'Incorrect username or password'});
+//       }
+//       else {
+//         return callback(null, user)
+//       }
+//     });
+// });
+// passport.use(localStrategy);
+// router.use(() => passport.initialize());
 
-passport.use(localStrategy);
-router.use(passport.initialize());
-router.use(passport.session());
+// //router.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
+// passport.deserializeUser(function(id, done) {
+//   User.findById(id, function(err, user) {
+//     done(err, user);
+//   });
+// });
+
+router.use(bodyParser.json());
+
+router.use(bodyParser.urlencoded({extended: false}));
 
 // USERS
 
   // Sign Up/Create User
 
 router.post('/', (req, res) => {
+  console.log(req.body);
   if (req.body.password !== req.body.passwordConfirm) {
     res.status(500).json({
       message: 'passwords do not match'
@@ -109,6 +114,7 @@ router.get('/dashboard', (req, res) => {
 router.post('/login',
   passport.authenticate('local', {session: true, successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: 'Incorrect username or password'}),
   (req, res) => {
+    console.log('user login post made')
     // if (req.body.userName === 'demo' && req.isAuthenticated()) {
   //   //seedDemoInfo();
   // }
@@ -162,4 +168,6 @@ router.delete('/:id', (req, res) => {
   .exec()
   .then(user => res.status(204).end())
   .catch(err => res.status(500).json({message: 'Internal server error'}));
-})
+});
+
+module.exports = router;

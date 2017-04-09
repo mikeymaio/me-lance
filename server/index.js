@@ -1,14 +1,29 @@
 const path = require('path');
 const express = require('express');
-
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const app = express();
 
 const userRouter = require('./routes/user-router');
 const clientRouter = require('./routes/client-router');
 
+mongoose.Promise = global.Promise;
+
+
+const { User } = require('./models/user-model');
+
+const {
+    //PORT,
+     DATABASE_URL} = require('./config');
+
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: false}));
+
 // API endpoints go here!
 app.use('/api/users', userRouter);
 app.use('/api/clients', clientRouter);
+
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));

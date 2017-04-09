@@ -8,8 +8,14 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+const {
+    //PORT,
+     DATABASE_URL} = require('../config');
 
 const { Client } = require('../models/client-model');
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({extended: false}));
 
 // GET CLIENT
 
@@ -116,4 +122,6 @@ router.delete('/:id', (req, res) => {
   .exec()
   .then(client => res.status(204).end())
   .catch(err => res.status(500).json({message: 'Internal server error'}));
-})
+});
+
+module.exports = router;
