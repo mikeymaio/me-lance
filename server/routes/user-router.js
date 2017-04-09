@@ -51,7 +51,6 @@ const { User } = require('../models/user-model');
 // });
 
 router.use(bodyParser.json());
-
 router.use(bodyParser.urlencoded({extended: false}));
 
 // USERS

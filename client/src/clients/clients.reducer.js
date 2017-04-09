@@ -24,10 +24,9 @@ const clientReducer = (state=clientState, action) => {
                 isDetailModalOpen: !state.isDetailModalOpen
             }
         default:
-            console.log('No action');
             return state;
         }
-        return state;
+        // return state;
     }
 
 export default clientReducer;

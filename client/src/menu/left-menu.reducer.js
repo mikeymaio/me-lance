@@ -11,11 +11,10 @@ const leftMenuReducer = (state=leftMenuState, action) => {
                 ...state,
                 selectedItem: action.payload,
             }
-        // default:
-        //     console.log('No action');
-        //     return state;
+        default:
+            return state;
         }
-        return state;
+        // return state;
     }
 
 export default leftMenuReducer;

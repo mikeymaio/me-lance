@@ -23,11 +23,15 @@ const styles = {
     fontWeight: 400,
   },
   slide: {
-    padding: 10,
+    //padding: 10,
   },
 };
 
 class LoginModal extends React.Component {
+
+//       componentDidMount() {
+//     this.props.fetchDataFromApi()
+//   }
 
   render() {
 
@@ -39,10 +43,12 @@ class LoginModal extends React.Component {
       />,
       <FlatButton
         label="Submit"
+        form="login-form"
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.props.handleLoginModal}
       />,
+      <button type="submit" form="login-form">MySubmitBtn</button>
     ];
 
     return (
@@ -67,12 +73,26 @@ class LoginModal extends React.Component {
           index={this.props.loginModalSlideIndex}
           onChangeIndex={this.props.handleLoginSlides}
         >
-          <div>
+          <div >
             {/*<h2 style={styles.headline}>Log In</h2>*/}
             <Paper>
               <h3 className="col-xs-9 col-xs-offset-3">To demo the app, log in with<br />username: demo<br />password: demo123</h3>
             </Paper>
+
+      <form id="login-form" onSubmit={(event) => {
+            event.preventDefault()
+
+            let userName = event.target.username.value
+            let password = event.target.password.value
+
+            this.props.handleLogin(userName, password)
+
+            event.target.username.value = ''
+            event.target.password.value = ''
+          }}>
             <TextField
+              id="username"
+              name="username"
               floatingLabelText="Username"
               floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
@@ -80,78 +100,19 @@ class LoginModal extends React.Component {
               errorText="This field is required"
             /><br />
             <TextField
+              id="password"
+              name="password"
+              type="password"
               floatingLabelText="Password"
               floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
               hintText="enter your password"
               errorText="This field is required"
             />
+            </form>
           </div>
           <div style={styles.slide}>
             <SignUp />
-            {/*<TextField
-              floatingLabelText="Username"
-              floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="enter your username"
-              errorText="This field is required"
-            /><br />
-            <TextField
-              floatingLabelText="Password"
-              floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="enter your password"
-              errorText="This field is required"
-            />
-            <TextField
-              floatingLabelText="Confirm Password"
-              floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="confirm your password"
-              errorText="This field is required"
-            />
-            <TextField
-              floatingLabelText="email"
-              floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="email@email.com"
-              errorText="This field is required"
-            />
-            <TextField
-              floatingLabelText="Address"
-              floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="123 Main St"
-              errorText="This field is required"
-            />
-            <TextField
-              floatingLabelText="City"
-              floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="Los Angeles"
-              errorText="This field is required"
-            />
-            <TextField
-              floatingLabelText="State/Province"
-              floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="CA"
-              errorText="This field is required"
-            />
-            <TextField
-              floatingLabelText="Zip Code"
-              floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="90026"
-              errorText="This field is required"
-            />
-            <TextField
-              floatingLabelText="Phone No."
-              floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="555-555-5555"
-              errorText="This field is required"
-            />*/}
           </div>
         </SwipeableViews>
         </Dialog>
@@ -170,10 +131,14 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleLoginModal: actions.handleLoginModal,
-        handleLoginSlides: actions.handleLoginSlides
-        // fetchDataFromApi: actions.fetchDataFromApi,
+        submitLoginForm: actions.submitLoginForm,
+        handleLoginSlides: actions.handleLoginSlides,
+        fetchDataFromApi: actions.fetchDataFromApi,
+        handleLogin: actions.handleLogin
         },
         dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);
+
+

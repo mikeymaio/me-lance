@@ -3,7 +3,8 @@ const headerState = {
         isLoginModalOpen: false,
         loginModalSlideIndex: 0,
         isDrawerOpen: false,
-        isisLoading: false,
+        isLoading: false,
+        user: null
 
     }
 
@@ -15,6 +16,11 @@ const headerReducer = (state=headerState, action) => {
             return {
                 ...state,
                 isLoggedIn: !state.isLoggedIn,
+            }
+        case 'RECIEVE_USER_DATA':
+            return {
+                ...state,
+                user: action.user
             }
         case 'REQUEST_DATA':
             return {
@@ -42,10 +48,9 @@ const headerReducer = (state=headerState, action) => {
                 isDrawerOpen: !state.isDrawerOpen
             }
         default:
-            console.log('No action');
             return state;
         }
-        return state;
+        // return state;
     }
 
 export default headerReducer;
