@@ -4,6 +4,7 @@ import leftMenuReducer from './menu/left-menu.reducer';
 import clientReducer from './clients/clients.reducer';
 import invoiceReducer from './invoices/invoices.reducer';
 import projectReducer from './projects/projects.reducer';
+import loginReducer from './login/login.reducer';
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     clientReducer,
     invoiceReducer,
     projectReducer,
+    loginReducer,
 });
 
 export default rootReducer;

@@ -110,14 +110,32 @@ router.get('/dashboard', (req, res) => {
   });
 })
 
-router.post('/login',
-  passport.authenticate('local', {session: true, successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: 'Incorrect username or password'}),
-  (req, res) => {
-    console.log('user login post made')
-    // if (req.body.userName === 'demo' && req.isAuthenticated()) {
-  //   //seedDemoInfo();
-  // }
+// router.post('/login',
+//   passport.authenticate('local', {session: true, successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: 'Incorrect username or password'}),
+//     (req, res) => {
+//       console.log('user login post made', req.body)
+//       res.status(200).json({
+//       user: req.user.apiRepr()
+//     });
+//   });
+
+// UNAUTHORIZED FOR TESTING
+  router.post('/login', (req, res) => {
+      console.log('user login post made', req.body)
+      let user;
+      User
+        .findOne({userName: req.body.userName})
+        .exec()
+        .then(_user => {
+          user = _user;
+            return res.status(200).json({
+            user: user.apiRepr()
+          });
+      });
   });
+
+
+
 
 
 router.get('/logout', function(req, res){

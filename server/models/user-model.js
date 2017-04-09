@@ -61,8 +61,8 @@ UserSchema.methods.apiRepr = function () {
         address: this.address || '',
         templates: this.templates || [],
         dateCreated: this.dateCreated || '',
-        dateModified: this.dateModified || ''
-        //userId: this._id || '',
+        dateModified: this.dateModified || '',
+        userId: this._id || '',
     };
 }
 

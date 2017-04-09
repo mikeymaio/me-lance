@@ -1,10 +1,10 @@
 const headerState = {
         isLoggedIn: false,
-        isLoginModalOpen: false,
-        loginModalSlideIndex: 0,
+        // isLoginModalOpen: false,
+        // loginModalSlideIndex: 0,
         isDrawerOpen: false,
-        isLoading: false,
-        user: null
+        // isLoading: false,
+        // user: null
 
     }
 
@@ -17,31 +17,31 @@ const headerReducer = (state=headerState, action) => {
                 ...state,
                 isLoggedIn: !state.isLoggedIn,
             }
-        case 'RECIEVE_USER_DATA':
-            return {
-                ...state,
-                user: action.user
-            }
-        case 'REQUEST_DATA':
-            return {
-                ...state,
-                isLoading: true
-            }
-        case 'RECEIVE_DATA':
-            return {
-                ...state,
-                isLoading: false, isLoggedIn: action.payload
-            }
-        case 'UPDATE_LOGIN_MODAL':
-            return {
-                ...state,
-                isLoginModalOpen: !state.isLoginModalOpen
-            }
-        case 'UPDATE_LOGIN_MODAL_SLIDE':
-            return {
-                ...state,
-                loginModalSlideIndex: action.payload
-            }
+        // case 'RECIEVE_USER_DATA':
+        //     return {
+        //         ...state,
+        //         user: action.user
+        //     }
+        // case 'REQUEST_DATA':
+        //     return {
+        //         ...state,
+        //         isLoading: true
+        //     }
+        // case 'RECEIVE_DATA':
+        //     return {
+        //         ...state,
+        //         isLoading: false, isLoggedIn: action.payload
+        //     }
+        // case 'UPDATE_LOGIN_MODAL':
+        //     return {
+        //         ...state,
+        //         isLoginModalOpen: !state.isLoginModalOpen
+        //     }
+        // case 'UPDATE_LOGIN_MODAL_SLIDE':
+        //     return {
+        //         ...state,
+        //         loginModalSlideIndex: action.payload
+        //     }
         case 'UPDATE_DRAWER':
             return {
                 ...state,

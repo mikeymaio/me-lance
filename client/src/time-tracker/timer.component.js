@@ -83,8 +83,8 @@ class StopWatch extends Component {
     let seconds = Math.floor(now / 1000);
     let minutes = Math.floor(now / 60000);
     let hours = Math.floor(now / 3600000);
-    seconds = seconds - (minutes * 60);
-    minutes = minutes - (hours * 60);
+    seconds -= (minutes * 60);
+    minutes -= (hours * 60);
     let formatted;
     if(this.props.msecs) {
       formatted = `${hours < 10 ? 0 : ""}${hours}:${minutes < 10 ?

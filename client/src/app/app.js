@@ -60,7 +60,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        isLoggedIn: state.headerReducer.isLoggedIn,
+        isLoggedIn: state.loginReducer.isLoggedIn,
         selectedItem: state.leftMenuReducer.selectedItem
     };
 }

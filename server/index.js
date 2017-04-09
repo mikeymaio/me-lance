@@ -36,23 +36,46 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(port=3001) {
+function runServer(databaseUrl=DATABASE_URL, port=3001) {
     return new Promise((resolve, reject) => {
-        server = app.listen(port, () => {
-            resolve();
-        }).on('error', reject);
-    });
-}
-
-function closeServer() {
-    return new Promise((resolve, reject) => {
-        server.close(err => {
+        mongoose.connect(databaseUrl, err => {
             if (err) {
                 return reject(err);
             }
-            resolve();
+            server = app.listen(port, () => {
+                resolve();
+            }).on('error', err => {
+                mongoose.disconnect();
+                reject(err);
+            });
         });
     });
+}
+
+
+// function closeServer() {
+//     return new Promise((resolve, reject) => {
+//         server.close(err => {
+//             if (err) {
+//                 return reject(err);
+//             }
+//             resolve();
+//         });
+//     });
+// }
+
+function closeServer() {
+  return mongoose.disconnect().then(() => {
+     return new Promise((resolve, reject) => {
+       console.log('Closing server');
+       server.close(err => {
+           if (err) {
+               return reject(err);
+           }
+           resolve();
+       });
+     });
+  });
 }
 
 if (require.main === module) {

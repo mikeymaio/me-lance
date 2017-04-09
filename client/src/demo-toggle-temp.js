@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import Toggle from 'material-ui/Toggle';
 
-import * as actions from './header/header.actions';
+import * as actions from './login/login.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -29,8 +29,8 @@ function mapStateToProps(state) {
     return {
         // isModalOpen: state.headerReducer.isModalOpen,
         // isDrawerOpen: state.headerReducer.isDrawerOpen,
-        isLoading: state.headerReducer.isLoading,
-        isLoggedIn: state.headerReducer.isLoggedIn,
+        isLoading: state.loginReducer.isLoading,
+        isLoggedIn: state.loginReducer.isLoggedIn,
     };
 }
 

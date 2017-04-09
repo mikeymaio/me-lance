@@ -26,7 +26,7 @@ const Logged = (props) => (
     targetOrigin={{horizontal: 'right', vertical: 'top'}}
     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
   >
-    <MenuItem value="1" primaryText="Settings" />
+    <MenuItem value="1" primaryText="Settings"/>
     <MenuItem value="2" primaryText="Help" />
     <MenuItem value="3" primaryText="Send feedback" />
     <MenuItem value="4" primaryText="Sign out" />
@@ -73,14 +73,15 @@ function mapStateToProps(state) {
     return {
         // isModalOpen: state.headerReducer.isModalOpen,
         // isDrawerOpen: state.headerReducer.isDrawerOpen,
-        isLoading: state.headerReducer.isLoading,
-        isLoggedIn: state.headerReducer.isLoggedIn,
+        isLoading: state.loginReducer.isLoading,
+        isLoggedIn: state.loginReducer.isLoggedIn,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleSession: actions.handleSession,
+        handleLogout: actions.handleLogout,
         // handleModal: actions.handleModal,
         // handleDrawer: actions.handleDrawer,
         // fetchDataFromApi: actions.fetchDataFromApi,
