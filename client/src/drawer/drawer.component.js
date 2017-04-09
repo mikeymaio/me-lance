@@ -4,7 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Menu from 'material-ui/Menu';
 // import RaisedButton from 'material-ui/RaisedButton';
 
-import * as actions from '../header/header.actions';
+import * as actions from './drawer.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -57,7 +57,7 @@ class DrawerMenu extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        isDrawerOpen: state.headerReducer.isDrawerOpen,
+        isDrawerOpen: state.drawerReducer.isDrawerOpen,
     };
 }
 

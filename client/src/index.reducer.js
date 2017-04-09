@@ -5,6 +5,7 @@ import clientReducer from './clients/clients.reducer';
 import invoiceReducer from './invoices/invoices.reducer';
 import projectReducer from './projects/projects.reducer';
 import loginReducer from './login/login.reducer';
+import drawerReducer from './drawer/drawer.reducer';
 
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     invoiceReducer,
     projectReducer,
     loginReducer,
+    drawerReducer,
 });
 
 export default rootReducer;

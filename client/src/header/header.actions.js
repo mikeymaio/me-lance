@@ -34,12 +34,12 @@ export const handleLogout = (userName) => {
 
     fetch('http://localhost:8080/api/users/logout', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        userName,
-      })
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     userName,
+    //   })
     })
     .then(response => response.json())
     .then(res => dispatch(receiveDataFromServer(res)))
