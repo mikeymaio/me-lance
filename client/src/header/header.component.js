@@ -9,6 +9,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 import DrawerMenu from '../drawer/drawer.component';
+import PopoverMenu from '../popover-menu/popover-menu.component';
 
 import LoginModal from '../login/login-modal.component';
 import TimeTracker from '../time-tracker/time-tracker.component';
@@ -17,28 +18,7 @@ import * as actions from './header.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-const Logged = (props) => (
-  <IconMenu
-    {...props}
-    iconButtonElement={
-      <IconButton><MoreVertIcon /></IconButton>
-    }
-    targetOrigin={{horizontal: 'right', vertical: 'top'}}
-    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-  >
-    <MenuItem value="1" primaryText="Settings"/>
-    <MenuItem value="2" primaryText="Help" />
-    <MenuItem value="3" primaryText="Send feedback" />
-    <MenuItem value="4" primaryText="Sign out" />
-  </IconMenu>
-);
 
-Logged.muiName = 'IconMenu';
-
-/**
- * This example is taking advantage of the composability of the `AppBar`
- * to render different components depending on the application state.
- */
 class Header extends Component {
 
   render() {
@@ -51,7 +31,7 @@ class Header extends Component {
                   padding: 20,}}
           //iconElementLeft={<IconButton><NavigationClose /></IconButton>}
           iconElementLeft={<DrawerMenu />}
-          iconElementRight={this.props.isLoggedIn ? <Logged /> : <LoginModal />}
+          iconElementRight={this.props.isLoggedIn ? <PopoverMenu /> : <LoginModal />}
         />
         <Toggle
             label="Logged In Sim"
