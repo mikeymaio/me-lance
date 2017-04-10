@@ -84,3 +84,22 @@ export function handleLoginSlides(value) {
         payload: value
     }
   };
+
+export const handleLogout = (userName) => {
+    console.log('handleLogout fired')
+  return dispatch => {
+    dispatch(requestDataFromServer())
+
+    fetch('http://localhost:8080/api/users/logout', {
+      method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     userName,
+    //   })
+    })
+    .then(response => response.json())
+    .then(res => dispatch(receiveDataFromServer(res)))
+  }
+}

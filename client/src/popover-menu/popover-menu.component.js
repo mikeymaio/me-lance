@@ -7,7 +7,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 
-import * as actions from '../header//header.actions';
+import * as actions from '../login/login.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 

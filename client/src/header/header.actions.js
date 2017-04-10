@@ -33,7 +33,7 @@ export const handleLogout = (userName) => {
     dispatch(requestDataFromServer())
 
     fetch('http://localhost:8080/api/users/logout', {
-      method: 'POST',
+      method: 'GET',
     //   headers: {
     //     'Content-Type': 'application/json'
     //   },
