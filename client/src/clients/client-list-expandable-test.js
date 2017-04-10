@@ -46,26 +46,52 @@ class ClientListExpandable extends React.Component {
             <div key={index}>
             <ListItem
                 key={index}
-                primaryText={<TextField
-                id={client.name}
-                name="clientName"
-                value={client.name}
-            />}
-                secondaryText={client.company}
+                primaryText={
+                  <TextField
+                    id={client.name}
+                    name="clientName"
+                    defaultValue={client.name}
+                />
+                }
+                secondaryText={client.company
+                 // <TextField
+                 //   id={client.company}
+                 //   name="company"
+                 //   defaultValue={client.company}
+                ///>
+              }
                 initiallyOpen={false}
-                primaryTogglesNestedList={true}
+                primaryTogglesNestedList={false}
                 nestedItems={[
                     <ListItem
                     key={`email${index}`}
-                    primaryText={client.email}
+                    primaryText={
+                      <TextField
+                        id={client.email}
+                        name="email"
+                        defaultValue={client.email}
+                      />
+                    }
                     />,
                     <ListItem
                     key={`phone${index}`}
-                    primaryText={client.phone}
+                    primaryText={
+                      <TextField
+                        id={client.phone}
+                        name="phone"
+                        defaultValue={client.phone}
+                      />
+                    }
                     />,
                     <ListItem
                     key={`address${index}`}
-                    primaryText={client.address}
+                    primaryText={
+                      <TextField
+                        id={client.address}
+                        name="address"
+                        defaultValue={client.address}
+                      />
+                    }
                     />,
                 ]}
                 />

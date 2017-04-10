@@ -9,6 +9,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import InvoiceDetail from './invoice-detail.component';
 
+import TextField from 'material-ui/TextField';
+
 // import classnames from 'classnames';
 
 // const styles = {
@@ -115,10 +117,10 @@ export default class ClientList extends React.Component {
             {tableData.map( (row, index) => (
               <TableRow key={index} selected={row.selected}>
                 {/*<TableRowColumn>{row.id}</TableRowColumn>*/}
-                <TableRowColumn colSpan="4">{row.client}</TableRowColumn>
+                <TableRowColumn colSpan="4"><TextField defaultValue={row.client} /></TableRowColumn>
                 {/*<TableRowColumn>{row.company}</TableRowColumn>*/}
                 {/*<TableRowColumn>{row.address}</TableRowColumn>*/}
-                <TableRowColumn colSpan="4">{row.project}</TableRowColumn>
+                <TableRowColumn colSpan="4"><TextField defaultValue={row.project} /></TableRowColumn>
                 {/*<TableRowColumn>{row.phone}</TableRowColumn>*/}
                 <TableRowColumn colSpan="4">
                     <InvoiceDetail

@@ -153,10 +153,10 @@ class InvoiceDetail extends React.Component {
           >
             {tableData.map( (row, index) => (
               <TableRow key={index} selected={row.selected}>
-                <TableRowColumn colSpan="3"><TextField value={row.date} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField value={row.hours} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField value={row.description} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField value={row.status} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField defaultValue={row.date} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField defaultValue={row.hours} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField defaultValue={row.description} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField defaultValue={row.status} /></TableRowColumn>
               </TableRow>
               ))}
           </TableBody>
