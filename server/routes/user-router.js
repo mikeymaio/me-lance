@@ -100,15 +100,15 @@ router.post('/', (req, res) => {
 
   // User Login
 
-router.get('/dashboard', (req, res) => {
-  if (!req.isAuthenticated()) {
-    res.redirect('/login');
-    return res.status(401).json({ message: 'Not logged in' });
-  }
-  res.status(200).redirect('/dashboard', {
-    user: req.user.apiRepr()
-  });
-})
+// router.get('/dashboard', (req, res) => {
+//   if (!req.isAuthenticated()) {
+//     res.redirect('/login');
+//     return res.status(401).json({ message: 'Not logged in' });
+//   }
+//   res.status(200).redirect('/dashboard', {
+//     user: req.user.apiRepr()
+//   });
+// })
 
 // router.post('/login',
 //   passport.authenticate('local', {session: true, successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: 'Incorrect username or password'}),

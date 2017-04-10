@@ -43,7 +43,7 @@ export const handleLogin = (userName, password) => {
       })
     })
     .then(response => response.json())
-    .then(user => dispatch(receiveDataFromServer(user)))
+    .then(res => dispatch(receiveDataFromServer(res.user)))
   }
 }
 

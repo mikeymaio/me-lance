@@ -3,9 +3,9 @@ const requestDataFromServer = () => ({
   type: 'REQUEST_DATA'
 })
 
-const receiveDataFromServer = (client) => ({
+const receiveDataFromServer = (clients) => ({
   type: 'RECEIVE_CLIENT_DATA',
-  client
+  clients
 })
 
 export function handleClientDetailModal() {
@@ -42,5 +42,21 @@ export const handleAddClient = (clientName, company, phone, email, address) => {
     })
     .then(response => response.json())
     .then(client => dispatch(receiveDataFromServer(client)))
+  }
+}
+
+export const fetchUserClients = (userId) => {
+    console.log('fetching your clients')
+  return dispatch => {
+    dispatch(requestDataFromServer())
+
+    fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    .then(res => dispatch(receiveDataFromServer(res.clients)))
   }
 }

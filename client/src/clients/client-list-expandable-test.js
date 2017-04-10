@@ -8,8 +8,9 @@ import {List, ListItem} from 'material-ui/List';
 // import ContentInbox from 'material-ui/svg-icons/content/inbox';
 // import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 // import ContentSend from 'material-ui/svg-icons/content/send';
-import Subheader from 'material-ui/Subheader';
-import Toggle from 'material-ui/Toggle';
+// import Subheader from 'material-ui/Subheader';
+// import Toggle from 'material-ui/Toggle';
+import * as actions from './clients.actions';
 
 import TextField from 'material-ui/TextField';
 
@@ -33,6 +34,10 @@ class ClientListExpandable extends React.Component {
       open: item.state.open,
     });
   };
+
+  componentDidMount() {
+    this.props.fetchUserClients(this.props.userId)
+  }
 
   render() {
     return (
@@ -108,12 +113,14 @@ class ClientListExpandable extends React.Component {
 function mapStateToProps(state) {
     return {
         // isAddClientModalOpen: state.clientReducer.isAddClientModalOpen,
-        clients: state.clientReducer.clients
+        clients: state.clientReducer.clients,
+        userId: state.loginReducer.user.userId,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+        fetchUserClients: actions.fetchUserClients,
         // handleAddClientModal: actions.handleAddClientModal,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },
