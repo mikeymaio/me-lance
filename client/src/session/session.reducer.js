@@ -1,4 +1,4 @@
-const headerState = {
+const sessionState = {
         isLoggedIn: false,
         isLoginModalOpen: false,
         loginModalSlideIndex: 0,
@@ -8,8 +8,8 @@ const headerState = {
     }
 
 
-const sessionReducer = (state=headerState, action) => {
-    state = state || headerState
+const sessionReducer = (state=sessionState, action) => {
+    state = state || sessionState
     switch(action.type) {
         case 'UPDATE_SESSION':
             return {
