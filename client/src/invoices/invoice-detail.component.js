@@ -7,6 +7,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import TextField from 'material-ui/TextField';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -109,12 +111,12 @@ class InvoiceDetail extends React.Component {
                 Invoice #:
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
-                Billing Period:
+                Billing Period: <TextField />
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
                 <TableHeaderColumn colSpan="6" tooltip="The project name" style={{textAlign: 'left'}}>
-                    Project Name:
+                    Project Name: <TextField />
                 </TableHeaderColumn>
                 <TableHeaderColumn colSpan="6" tooltip="The project's ID no." style={{textAlign: 'left'}}>
                     Project Id:
@@ -122,18 +124,18 @@ class InvoiceDetail extends React.Component {
               </TableRow>
             <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Your Name" style={{textAlign: 'left'}}>
-                Name
+                Name: <TextField />
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="The client's name" style={{textAlign: 'left'}}>
-                Client Name:
+                Client Name: <TextField />
               </TableHeaderColumn>
               </TableRow>
               <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Your address" style={{textAlign: 'left'}}>
-                Adress:
+                Adress: <TextField />
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="the client's address" style={{textAlign: 'left'}}>
-                Client Address:
+                Client Address: <TextField />
               </TableHeaderColumn>
             </TableRow>
             <TableRow displayBorder={true} style={{borderTop: '2px solid #007766'}} >
@@ -151,10 +153,10 @@ class InvoiceDetail extends React.Component {
           >
             {tableData.map( (row, index) => (
               <TableRow key={index} selected={row.selected}>
-                <TableRowColumn colSpan="3">{row.date}</TableRowColumn>
-                <TableRowColumn colSpan="3">{row.hours}</TableRowColumn>
-                <TableRowColumn colSpan="3">{row.description}</TableRowColumn>
-                <TableRowColumn colSpan="3">{row.status}</TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField value={row.date} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField value={row.hours} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField value={row.description} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField value={row.status} /></TableRowColumn>
               </TableRow>
               ))}
           </TableBody>
