@@ -7,6 +7,7 @@ import Header from '../header/header.component';
 import SideMenu from '../menu/left-menu.component';
 import InvoiceList from '../invoices/invoice-list.component';
 import ClientList from '../clients/client-list.component';
+import ClientListExpandable from '../clients/client-list-expandable-test';
 import ProjectList from '../projects/project-list.component';
 import ExampleChart from '../dashboard/dashboard.component';
 
@@ -39,7 +40,7 @@ class App extends Component {
           </div>
           <div className="col-xs-9" style={{textAlign: 'center'}}>
             {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'clients' ? <ClientList /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'clients' ? <ClientListExpandable /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'projects' ? <ProjectList /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' ? <InvoiceList /> : false}
           </div>
