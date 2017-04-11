@@ -12,7 +12,7 @@ import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as actions from './invoices.actions';
+import * as actions from './invoice.actions';
 
 // const styles = {
 //   propContainer: {
@@ -111,12 +111,12 @@ class InvoiceDetail extends React.Component {
                 Invoice #:
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
-                Billing Period: <TextField />
+                Billing Period: <TextField name="billingPeriod" />
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
                 <TableHeaderColumn colSpan="6" tooltip="The project name" style={{textAlign: 'left'}}>
-                    Project Name: <TextField />
+                    Project Name: <TextField name="projectName" />
                 </TableHeaderColumn>
                 <TableHeaderColumn colSpan="6" tooltip="The project's ID no." style={{textAlign: 'left'}}>
                     Project Id:
@@ -124,18 +124,18 @@ class InvoiceDetail extends React.Component {
               </TableRow>
             <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Your Name" style={{textAlign: 'left'}}>
-                Name: <TextField />
+                Name: <TextField name="yourName" />
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="The client's name" style={{textAlign: 'left'}}>
-                Client Name: <TextField />
+                Client Name: <TextField name="clientName" />
               </TableHeaderColumn>
               </TableRow>
               <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Your address" style={{textAlign: 'left'}}>
-                Adress: <TextField />
+                Adress: <TextField name="yourAddress" />
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="the client's address" style={{textAlign: 'left'}}>
-                Client Address: <TextField />
+                Client Address: <TextField name="clientAddress" />
               </TableHeaderColumn>
             </TableRow>
             <TableRow displayBorder={true} style={{borderTop: '2px solid #007766'}} >
@@ -153,10 +153,10 @@ class InvoiceDetail extends React.Component {
           >
             {tableData.map( (row, index) => (
               <TableRow key={index} selected={row.selected}>
-                <TableRowColumn colSpan="3"><TextField defaultValue={row.date} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField defaultValue={row.hours} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField defaultValue={row.description} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField defaultValue={row.status} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField name={row.date} defaultValue={row.date} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField name={row.hours} defaultValue={row.hours} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField name={row.description} defaultValue={row.description} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField name={row.status} defaultValue={row.status} /></TableRowColumn>
               </TableRow>
               ))}
           </TableBody>
@@ -165,7 +165,7 @@ class InvoiceDetail extends React.Component {
           >
             <TableRow>
               <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
-                <RaisedButton label="Add Row" backgroundColor='#007766' labelColor="white" style={{margin: 10,}} />
+                <RaisedButton label="Add Row" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} />
               </TableRowColumn>
             </TableRow>
             <TableRow>
