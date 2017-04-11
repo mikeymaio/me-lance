@@ -13,7 +13,7 @@ const invoiceState = {
             completed: false,
         },
         {
-            id: '12321',
+            id: '12322',
             client: 'Sally Smith',
             project: 'Another website',
             date: '4/22/17',
@@ -22,13 +22,13 @@ const invoiceState = {
             completed: false,
         },
         {
-            id: '12321',
+            id: '12323',
             client: 'John Doe',
             project: 'another website',
             date: '4/23/17',
             hours: '5',
             status: 'completed',
-            completed: true,
+            completed: false,
         },
         ]
 

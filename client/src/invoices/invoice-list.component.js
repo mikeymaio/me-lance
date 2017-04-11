@@ -127,7 +127,7 @@ const visibleInvoices = getVisibleInvoices(
             showRowHover={true}
             stripedRows={false}
           >
-            {this.props.invoices.map( (row, index) => (
+            {visibleInvoices.map( (row, index) => (
               <TableRow key={index} selected={row.selected}>
                 {/*<TableRowColumn>{row.id}</TableRowColumn>*/}
                 <TableRowColumn colSpan="4"><TextField name="clientName" defaultValue={row.client} /></TableRowColumn>
