@@ -28,7 +28,7 @@ const invoiceState = {
             date: '4/23/17',
             hours: '5',
             status: 'completed',
-            completed: false,
+            completed: true,
         },
         ]
 
