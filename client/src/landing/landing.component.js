@@ -8,7 +8,7 @@ import * as actions from '../header/header.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import LoggedToggle from '../demo-toggle-temp';
+// import LoggedToggle from '../demo-toggle-temp';
 
 
 class Landing extends Component {
@@ -27,7 +27,7 @@ class Landing extends Component {
         //backgroundColor: '#007766', color: 'white',
                   height: 500,
                   padding: 20,}}>
-                  <LoggedToggle />
+                  {/*<LoggedToggle />*/}
                   <p style={{textAlign: 'center'}}>Description of application here...(with images, icons, links, etc...)</p>
       </div>
       </div>
