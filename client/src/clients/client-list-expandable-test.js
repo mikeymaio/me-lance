@@ -2,19 +2,18 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import MobileTearSheet from '../../../MobileTearSheet';
+
 import {List, ListItem} from 'material-ui/List';
-// import ActionGrade from 'material-ui/svg-icons/action/grade';
-// import ContentInbox from 'material-ui/svg-icons/content/inbox';
-// import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-// import ContentSend from 'material-ui/svg-icons/content/send';
-// import Subheader from 'material-ui/Subheader';
-// import Toggle from 'material-ui/Toggle';
+
 import * as actions from './clients.actions';
 
 import TextField from 'material-ui/TextField';
 
 import Divider from 'material-ui/Divider';
+
+import FlatButton from 'material-ui/FlatButton';
+
+
 
 
 class ClientListExpandable extends React.Component {
@@ -43,19 +42,23 @@ class ClientListExpandable extends React.Component {
     return (
       <div>
         <br />
-        {/*<MobileTearSheet>*/}
           <List>
-              {/*<Subheader>Your Clients</Subheader>*/}
               <h3 style={{color: "#076"}} >Your Clients</h3>
+              <FlatButton
+                label="New Client"
+                primary={true}
+                keyboardFocused={false}
+                onTouchTap={() => this.props.handleClientView('addClient')}
+              />
         {this.props.clients.map( (client, index) => (
             <div key={index}>
             <ListItem
                 key={index}
                 primaryText={
                   <TextField
-                    id={client.name}
+                    id={index}
                     name="clientName"
-                    defaultValue={client.name}
+                    defaultValue={`${client.firstName} ${client.lastName}`}
                 />
                 }
                 secondaryText={client.company
@@ -104,7 +107,6 @@ class ClientListExpandable extends React.Component {
                 </div>
             ))}
           </List>
-        {/*</MobileTearSheet>*/}
       </div>
     );
   }
@@ -121,6 +123,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchUserClients: actions.fetchUserClients,
+        handleClientView: actions.handleClientView,
+        // filterClients: actions.filterClients,
         // handleAddClientModal: actions.handleAddClientModal,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },

@@ -1,3 +1,5 @@
+import update from 'immutability-helper';
+
 const clientState = {
         isDetailModalOpen: false,
         isAddClientModalOpen: false,
@@ -28,6 +30,7 @@ const clientState = {
         //     phone: '555-555-5555',
         // },
     ],
+    clientView: 'clientList'
 
     }
 
@@ -44,8 +47,20 @@ const clientReducer = (state=clientState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                clients: action.clients
+                clients: action.clients,
+                clientView: 'clientList',
             }
+        case 'UPDATE_CLIENT_DATA':
+        return update(state, {
+               clients: {
+                  $push: [action.clients]
+               },
+               isLoading: { $set: false },
+               clientView: { $set: 'clientList' }
+           })
+                // isLoading: false,
+                // clients: [...state.clients, action.clients],
+                // clientView: 'clientList',
         case 'UPDATE_CLIENT_DETAIL_MODAL':
             return {
                 ...state,
@@ -55,6 +70,11 @@ const clientReducer = (state=clientState, action) => {
             return {
                 ...state,
                 isAddClientModalOpen: !state.isAddClientModalOpen
+            }
+        case 'UPDATE_VIEW':
+            return {
+                ...state,
+                clientView: action.payload,
             }
         default:
             return state;
