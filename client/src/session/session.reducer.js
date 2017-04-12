@@ -5,6 +5,7 @@ const sessionState = {
         isLoading: false,
         user: null,
         signUpRes: null,
+        view: 'dashboard'
     }
 
 
