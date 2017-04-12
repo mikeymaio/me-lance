@@ -8,6 +8,7 @@
     "url": "github.com/HypeUFO/freelancer.git"
   },
   "dependencies": {
+    "immutability-helper": "^2.1.2",
     "material-ui": "^0.17.1",
     "mui-editable-table": "^0.3.0",
     "react": "^15.4.2",
