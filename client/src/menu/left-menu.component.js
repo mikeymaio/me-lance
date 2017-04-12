@@ -6,6 +6,8 @@ import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 
 import * as actions from './left-menu.actions';
+import { handleClientView } from '../clients/clients.actions';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -21,7 +23,8 @@ class SideMenu extends React.Component {
             >Dashboard
           </MenuItem>
           <MenuItem
-            onTouchTap={() => this.props.handleMenuItemSelect('clients')}
+            onTouchTap={() => { this.props.handleMenuItemSelect('clients');
+                                this.props.handleClientView('clientList')}}
             >Clients
           </MenuItem>
           <MenuItem
@@ -53,6 +56,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleMenuItemSelect: actions.handleMenuItemSelect,
+        handleClientView: handleClientView,
         },
         dispatch);
 }
