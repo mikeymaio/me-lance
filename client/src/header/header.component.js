@@ -31,14 +31,14 @@ class Header extends Component {
           iconElementLeft={<DrawerMenu />}
           iconElementRight={this.props.isLoggedIn ? <PopoverMenu /> : <LoginModal />}
         />
-        <Toggle
+        {/*<Toggle
             label="Logged In Sim"
             defaultToggled={this.props.isLoggedIn}
             onToggle={this.props.handleSession}
             labelPosition="right"
             style={{margin: 20, width: '30%', display: 'inline-block'}}
           />
-          <TimeTracker style={{width: '42%', display: 'inline-block', float: 'right', marginTop: 15}}/>
+          <TimeTracker style={{width: '42%', display: 'inline-block', float: 'right', marginTop: 15}}/>*/}
       </div>
     );
   }
