@@ -43,20 +43,21 @@ class ClientListExpandable extends React.Component {
       <div>
         <br />
           <List>
-              <h3 style={{color: "#076"}} >Your Clients</h3>
+              <h3 style={{color: "#076", display: "inline-block"}} >Your Clients</h3>
               <FlatButton
                 label="New Client"
                 primary={true}
                 keyboardFocused={false}
                 onTouchTap={() => this.props.handleClientView('addClient')}
+                style={{float: "right"}}
               />
         {this.props.clients.map( (client, index) => (
-            <div key={index}>
+            <div key={client.clientId}>
             <ListItem
-                key={index}
+                key={client.lastName+index}
                 primaryText={
                   <TextField
-                    id={index}
+                    id={client.lastName}
                     name="clientName"
                     defaultValue={`${client.firstName} ${client.lastName}`}
                 />
