@@ -85,3 +85,58 @@ export function handleClientEdit() {
         type: UPDATE_CLIENT_EDIT
     }
 }
+
+export const handleUpdateClient = (firstName, lastName, company, phone, email, address, clientId) => {
+    console.log('handleUpdateClient fired with client name:', firstName, lastName)
+  return dispatch => {
+    dispatch(requestDataFromServer())
+
+    fetch(`http://localhost:8080/api/clients/${clientId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        company,
+        phone,
+        email,
+        address,
+        clientId
+      })
+    })
+    .then(response => response.json())
+    .then(res => {console.log(res); dispatch(updateClientData(res))})
+  }
+}
+
+export const handleDeleteClient = (clientId, userId) => {
+    console.log('deleting client: ', clientId)
+  return dispatch => {
+    dispatch(requestDataFromServer())
+
+    fetch(`http://localhost:8080/api/clients/${clientId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        clientId
+      })
+    })
+    .then(response => response.json())
+    .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
+  }
+}
+
+export const testLoader = () => ({
+  type: 'REQUEST_DATA'
+})

@@ -14,26 +14,30 @@ import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 
 
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
+import Loader from '../loader/loader.component';
 
 class ClientListExpandable extends React.Component {
-
-  state = {
+constructor(props) {
+  super(props)
+  this.state = {
     open: false,
   };
 
-  handleToggle = () => {
+  this.handleToggle = () => {
     this.setState({
       open: !this.state.open,
     });
   };
 
-  handleNestedListToggle = (item) => {
+  this.handleNestedListToggle = (item) => {
     this.setState({
       open: item.state.open,
     });
   };
 
+}
   componentDidMount() {
     this.props.fetchUserClients(this.props.userId)
   }
@@ -53,77 +57,100 @@ class ClientListExpandable extends React.Component {
                 style={{float: "right"}}
               />
         {this.props.clients.map( (client, index) => (
-            <div key={client.clientId}>
-            <ListItem
-                key={client.lastName+index}
-                primaryText={
+            <Card key={index}>
+              <CardHeader
+                title={`${client.firstName} ${client.lastName}`}
+                subtitle={client.company}
+                //avatar="images/ok-128.jpg"
+                actAsExpander={true}
+                showExpandableButton={true}
+              />
+              <CardText expandable={true} children={
+              <form id="client-edit-form" onSubmit={(event) => {
+                  event.preventDefault()
+                  console.log('client-update-form submitted')
+                  let firstName = event.target.firstName.value
+                  let lastName = event.target.lastName.value
+                  let company = event.target.company.value
+                  let phone = event.target.phone.value
+                  let email = event.target.email.value
+                  let address = event.target.address.value
+                  let clientId = client.clientId
+
+                  this.props.handleUpdateClient(firstName, lastName, company, phone, email, address, clientId)
+                }}>
+                { this.props.isLoading ? <Loader /> : false }
                   <TextField
-                    id={client.lastName}
-                    floatingLabelText="Name"
-                    name="clientName"
-                    defaultValue={`${client.firstName} ${client.lastName}`}
-                    disabled={!this.props.clientEdit}
-                    underlineDisabledStyle={{display: 'none'}}
-                />
-                }
-                secondaryText={client.company
-                 // <TextField
-                 //   id={client.company}
-                 //   name="company"
-                 //   defaultValue={client.company}
-                ///>
+                      id={client.firstName}
+                      name="firstName"
+                      floatingLabelText="firstName"
+                      defaultValue={client.firstName}
+                      disabled={!this.props.clientEdit}
+                      underlineDisabledStyle={{display: 'none'}}
+                      />
+                  <TextField
+                      id={client.lastName}
+                      name="lastName"
+                      floatingLabelText="lastName"
+                      defaultValue={client.lastName}
+                      disabled={!this.props.clientEdit}
+                      underlineDisabledStyle={{display: 'none'}}
+                      />
+                  <br />
+                  <TextField
+                      id={client.company}
+                      name="company"
+                      floatingLabelText="company"
+                      defaultValue={client.company}
+                      disabled={!this.props.clientEdit}
+                      underlineDisabledStyle={{display: 'none'}}
+                      />
+                  <TextField
+                      id={client.phone}
+                      name="phone"
+                      floatingLabelText="phone"
+                      defaultValue={client.phone}
+                      disabled={!this.props.clientEdit}
+                      underlineDisabledStyle={{display: 'none'}}
+                      />
+                  <br />
+                  <TextField
+                      id={client.email}
+                      name="email"
+                      floatingLabelText="Email"
+                      defaultValue={client.email}
+                      disabled={!this.props.clientEdit}
+                      underlineDisabledStyle={{display: 'none'}}
+                      />
+                  <TextField
+                      id={client.address}
+                      name="address"
+                      floatingLabelText="address"
+                      defaultValue={client.email}
+                      disabled={!this.props.clientEdit}
+                      underlineDisabledStyle={{display: 'none'}}
+                      />
+                      <Divider inset={false} style={{color: "#076", height: 3}} />
+                      { this.props.clientEdit ?
+                        <div>
+                          <FlatButton key={`cancel${client.clientId}`} label="Cancel" onTouchTap={() => this.props.handleClientEdit()} />
+                          <FlatButton key={`save${client.clientId}`} type="submit" form="client-edit-form" label="Save" //onTouchTap={() => this.props.handleClientEdit()}
+                            />
+                            </div>
+                          :
+                          <div>
+                            <FlatButton
+                            className="pull-left"
+                            key={`delete${client.clientId}`} label="DELETE" onTouchTap={() => this.props.handleDeleteClient(client.clientId, this.props.userId)} />
+                            <FlatButton key={`edit${client.clientId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleClientEdit()} />
+
+                              {/*<FlatButton key={`test${client.clientId}`} label="Loader" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.testLoader()} />*/}
+
+                          </div>}
+                  </form>
               }
-                initiallyOpen={false}
-                primaryTogglesNestedList={false}
-                nestedItems={[
-                    <ListItem
-                    key={`email${index}`}
-                    primaryText={
-                      <TextField
-                        id={client.email}
-                        name="email"
-                        floatingLabelText="Email"
-                        defaultValue={client.email}
-                        disabled={!this.props.clientEdit}
-                        underlineDisabledStyle={{display: 'none'}}
-                      />
-                    }
-                    />,
-                    <ListItem
-                    key={`phone${index}`}
-                    primaryText={
-                      <TextField
-                        id={client.phone}
-                        name="phone"
-                        floatingLabelText="Phone"
-                        defaultValue={client.phone}
-                        disabled={!this.props.clientEdit}
-                        underlineDisabledStyle={{display: 'none'}}
-                      />
-                    }
-                    />,
-                    <ListItem
-                    key={`address${index}`}
-                    primaryText={
-                      <TextField
-                        id={client.address}
-                        name="address"
-                        floatingLabelText="Address"
-                        defaultValue={client.address}
-                        disabled={!this.props.clientEdit}
-                        underlineDisabledStyle={{display: 'none'}}
-                      />
-                    }
-                    />,
-                     this.props.clientEdit ?
-                     <FlatButton key={`save${client.clientId}`} label="Save" onTouchTap={() => this.props.handleClientEdit()} />
-                    :
-                    <FlatButton key={`edit${client.clientId}`} label="Edit" onTouchTap={() => this.props.handleClientEdit()} />
-                ]}
-                />
-                {/*<FlatButton label="Edit Client Info" />*/}
-                <Divider inset={true} style={{color: "#076", height: 3}} />
-                </div>
+              />
+            </Card>
             ))}
           </List>
       </div>
@@ -133,9 +160,9 @@ class ClientListExpandable extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        // isAddClientModalOpen: state.clientReducer.isAddClientModalOpen,
         clients: state.clientReducer.clients,
         clientEdit: state.clientReducer.clientEdit,
+        isLoading: state.clientReducer.isLoading,
         userId: state.loginReducer.user.userId,
     };
 }
@@ -145,6 +172,9 @@ function mapDispatchToProps(dispatch) {
         fetchUserClients: actions.fetchUserClients,
         handleClientView: actions.handleClientView,
         handleClientEdit: actions.handleClientEdit,
+        handleUpdateClient: actions.handleUpdateClient,
+        handleDeleteClient: actions.handleDeleteClient,
+        testLoader: actions.testLoader,
         // filterClients: actions.filterClients,
         // handleAddClientModal: actions.handleAddClientModal,
         // fetchDataFromApi: actions.fetchDataFromApi,
