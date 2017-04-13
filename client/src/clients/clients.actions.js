@@ -78,3 +78,10 @@ export function handleClientView(view) {
         payload: view
     }
 }
+
+export function handleClientEdit() {
+    const UPDATE_CLIENT_EDIT = 'UPDATE_CLIENT_EDIT';
+    return {
+        type: UPDATE_CLIENT_EDIT
+    }
+}

@@ -39,6 +39,7 @@ class ClientListExpandable extends React.Component {
   }
 
   render() {
+
     return (
       <div>
         <br />
@@ -58,8 +59,11 @@ class ClientListExpandable extends React.Component {
                 primaryText={
                   <TextField
                     id={client.lastName}
+                    floatingLabelText="Name"
                     name="clientName"
                     defaultValue={`${client.firstName} ${client.lastName}`}
+                    disabled={!this.props.clientEdit}
+                    underlineDisabledStyle={{display: 'none'}}
                 />
                 }
                 secondaryText={client.company
@@ -78,7 +82,10 @@ class ClientListExpandable extends React.Component {
                       <TextField
                         id={client.email}
                         name="email"
+                        floatingLabelText="Email"
                         defaultValue={client.email}
+                        disabled={!this.props.clientEdit}
+                        underlineDisabledStyle={{display: 'none'}}
                       />
                     }
                     />,
@@ -88,7 +95,10 @@ class ClientListExpandable extends React.Component {
                       <TextField
                         id={client.phone}
                         name="phone"
+                        floatingLabelText="Phone"
                         defaultValue={client.phone}
+                        disabled={!this.props.clientEdit}
+                        underlineDisabledStyle={{display: 'none'}}
                       />
                     }
                     />,
@@ -98,12 +108,20 @@ class ClientListExpandable extends React.Component {
                       <TextField
                         id={client.address}
                         name="address"
+                        floatingLabelText="Address"
                         defaultValue={client.address}
+                        disabled={!this.props.clientEdit}
+                        underlineDisabledStyle={{display: 'none'}}
                       />
                     }
                     />,
+                     this.props.clientEdit ?
+                     <FlatButton key={`save${client.clientId}`} label="Save" onTouchTap={() => this.props.handleClientEdit()} />
+                    :
+                    <FlatButton key={`edit${client.clientId}`} label="Edit" onTouchTap={() => this.props.handleClientEdit()} />
                 ]}
                 />
+                {/*<FlatButton label="Edit Client Info" />*/}
                 <Divider inset={true} style={{color: "#076", height: 3}} />
                 </div>
             ))}
@@ -117,6 +135,7 @@ function mapStateToProps(state) {
     return {
         // isAddClientModalOpen: state.clientReducer.isAddClientModalOpen,
         clients: state.clientReducer.clients,
+        clientEdit: state.clientReducer.clientEdit,
         userId: state.loginReducer.user.userId,
     };
 }
@@ -125,6 +144,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchUserClients: actions.fetchUserClients,
         handleClientView: actions.handleClientView,
+        handleClientEdit: actions.handleClientEdit,
         // filterClients: actions.filterClients,
         // handleAddClientModal: actions.handleAddClientModal,
         // fetchDataFromApi: actions.fetchDataFromApi,

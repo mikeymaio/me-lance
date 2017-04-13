@@ -30,7 +30,8 @@ const clientState = {
         //     phone: '555-555-5555',
         // },
     ],
-    clientView: 'clientList'
+    clientView: 'clientList',
+    clientEdit: false,
 
     }
 
@@ -75,6 +76,11 @@ const clientReducer = (state=clientState, action) => {
             return {
                 ...state,
                 clientView: action.payload,
+            }
+        case 'UPDATE_CLIENT_EDIT':
+            return {
+                ...state,
+                clientEdit: !state.clientEdit,
             }
         default:
             return state;
