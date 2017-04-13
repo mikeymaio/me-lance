@@ -19,6 +19,9 @@ const muiTheme = getMuiTheme({
   tableRow: {
     hoverColor: '#eee',
   },
+  textField: {
+    disabledTextColor: '#076',
+  },
 });
 
 export default muiTheme;
