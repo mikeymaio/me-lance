@@ -44,6 +44,7 @@ ClientSchema.methods.apiRepr = function () {
     return {
         firstName: this.firstName || '',
         lastName: this.lastName || '',
+        company: this.company || '',
         email: this.email || '',
         phone: this.phone || '',
         address: this.address || '',
