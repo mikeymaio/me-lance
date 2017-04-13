@@ -16,6 +16,8 @@ import ExampleChart from '../dashboard/dashboard.component';
 
 import Landing from '../landing/landing.component';
 
+import AddClient from '../clients/add-client.component';
+
 
 // import SubHeader from '../subheader/subheader.component';
 
@@ -41,9 +43,12 @@ class App extends Component {
             {/*<SubHeader />*/}
           <SideMenu />
           </div>
-          <div className="col-xs-9" style={{textAlign: 'center'}}>
+          <div
+            className="col-xs-9"
+            style={{textAlign: 'center'}}>
             {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'clients' ? <ClientListExpandable /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'clientList' ? <ClientListExpandable /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'addClient' ? <AddClient /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'projects' ? <ProjectListEditable /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' ? <InvoiceList /> : false}
           </div>
@@ -65,7 +70,8 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         isLoggedIn: state.loginReducer.isLoggedIn,
-        selectedItem: state.leftMenuReducer.selectedItem
+        selectedItem: state.leftMenuReducer.selectedItem,
+        clientView: state.clientReducer.clientView
     };
 }
 

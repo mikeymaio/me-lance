@@ -76,7 +76,7 @@ class LoginModal extends React.Component {
         keyboardFocused={true}
         //onTouchTap={this.props.handleLoginModal}
       />,
-      <button type="submit" form="sign-form">SignUp</button>
+      // <button type="submit" form="sign-form">SignUp</button>
     ];
 
     return (

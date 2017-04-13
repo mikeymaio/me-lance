@@ -27,3 +27,13 @@ export function handleInvoiceDetailModal() {
         type: UPDATE_INVOICE_DETAIL_MODAL,
     }
 }
+
+export const filterInvoices = filter => {
+    const SET_INVOICE_FILTER = 'SET_INVOICE_FILTER'
+    console.log('filter = ', filter);
+    return {
+          type: SET_INVOICE_FILTER,
+          filter
+    }
+      }
+

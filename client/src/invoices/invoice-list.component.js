@@ -1,5 +1,9 @@
 
 import React from 'react';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
 // import TextField from 'material-ui/TextField';
@@ -10,6 +14,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import InvoiceDetail from './invoice-detail.component';
 
 import TextField from 'material-ui/TextField';
+
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
+import * as actions from './invoice.actions';
 
 // import classnames from 'classnames';
 
@@ -24,73 +33,77 @@ import TextField from 'material-ui/TextField';
 //   },
 // };
 
-const tableData = [
-  {
-    id: '12321',
-    client: 'John Smith',
-    project: 'John\'s Website',
-    date: '4/21/17',
-    hours: '5',
-    status: 'in progress',
-  },
-  {
-    id: '12321',
-    client: 'Sally Smith',
-    project: 'Another website',
-    date: '4/22/17',
-    hours: '5',
-    status: 'in progress',
-  },
-  {
-    id: '12321',
-    client: 'John Doe',
-    project: 'another website',
-    date: '4/23/17',
-    hours: '5',
-    status: 'completed',
-  },
-];
 
-export default class ClientList extends React.Component {
 
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      fixedHeader: true,
-      fixedFooter: false,
-      stripedRows: false,
-      showRowHover: true,
-      selectable: true,
-      multiSelectable: false,
-      enableSelectAll: true,
-      deselectOnClickaway: false,
-      showCheckboxes: false,
-      height: '300px',
-    };
-  }
+class InvoiceList extends React.Component {
 
-  handleAddClient = () => {
-
-  }
 
   render() {
 
-    //   const clientDetailClass = classnames({'hide': })
+const FilterLink = ({
+  filter,
+  children
+}) => {
+  return (
+    <a href="#"
+    style={{marginLeft: '5px'}}
+    onClick={e => {
+      e.preventDefault();
+      this.props.filterInvoices(filter)
+    }} >
+    {children}
+    </a>
+  );
+};
+
+const getVisibleInvoices = (
+  invoices,
+  filter
+ ) => {
+    switch(filter) {
+      case 'SHOW_ALL':
+        return invoices
+      case 'SHOW_COMPLETED':
+        return invoices.filter(
+          i => i.completed
+        )
+      case 'SHOW_ACTIVE':
+        return invoices.filter(
+          i => !i.completed
+        )
+    }
+  }
+
+const visibleInvoices = getVisibleInvoices(
+  this.props.invoices,
+  this.props.invoiceFilter
+)
     return (
       <div>
+        {/*<SelectField
+            value={0}
+            onChange={this.props.filterInvoices}
+            floatingLabelText="Filter"
+            floatingLabelFixed={true}
+          >
+            <MenuItem key={0} value={0} primaryText="All" />
+            {this.props.invoices.map( (invoice, index) => (
+            <MenuItem key={index + 1} value={index + 1} primaryText={`${invoice.client}`} />
+          ))}
+          </SelectField>*/}
         <Table
         colSpan="12"
-          height={this.state.height}
-          fixedHeader={this.state.fixedHeader}
-          fixedFooter={this.state.fixedFooter}
-          selectable={this.state.selectable}
-          multiSelectable={this.state.multiSelectable}
+          height="300px"
+          fixedHeader={true}
+          fixedFooter={false}
+          selectable={true}
+          multiSelectable={false}
         >
           <TableHeader
-            displaySelectAll={this.state.showCheckboxes}
-            adjustForCheckbox={this.state.showCheckboxes}
-            enableSelectAll={this.state.enableSelectAll}
+            displaySelectAll={false}
+            adjustForCheckbox={false}
+            enableSelectAll={false}
           >
             <TableRow>
               <TableHeaderColumn colSpan="12" style={{textAlign: 'center'}}>
@@ -109,18 +122,18 @@ export default class ClientList extends React.Component {
           </TableHeader>
           <TableBody
             id="client-list"
-            displayRowCheckbox={this.state.showCheckboxes}
-            deselectOnClickaway={this.state.deselectOnClickaway}
-            showRowHover={this.state.showRowHover}
-            stripedRows={this.state.stripedRows}
+            displayRowCheckbox={false}
+            deselectOnClickaway={false}
+            showRowHover={true}
+            stripedRows={false}
           >
-            {tableData.map( (row, index) => (
+            {visibleInvoices.map( (row, index) => (
               <TableRow key={index} selected={row.selected}>
                 {/*<TableRowColumn>{row.id}</TableRowColumn>*/}
-                <TableRowColumn colSpan="4"><TextField defaultValue={row.client} /></TableRowColumn>
+                <TableRowColumn colSpan="4"><TextField name="clientName" defaultValue={row.client} /></TableRowColumn>
                 {/*<TableRowColumn>{row.company}</TableRowColumn>*/}
                 {/*<TableRowColumn>{row.address}</TableRowColumn>*/}
-                <TableRowColumn colSpan="4"><TextField defaultValue={row.project} /></TableRowColumn>
+                <TableRowColumn colSpan="4"><TextField name="projectName" defaultValue={row.project} /></TableRowColumn>
                 {/*<TableRowColumn>{row.phone}</TableRowColumn>*/}
                 <TableRowColumn colSpan="4">
                     <InvoiceDetail
@@ -136,17 +149,55 @@ export default class ClientList extends React.Component {
               ))}
           </TableBody>
           <TableFooter
-            adjustForCheckbox={this.state.showCheckboxes}
+            adjustForCheckbox={false}
           >
             <TableRow>
               <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
-                <RaisedButton label="New Invoice" backgroundColor='#007766' labelColor="white" style={{margin: 10,}} />
+                <RaisedButton label="New Invoice" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} />
               </TableRowColumn>
             </TableRow>
           </TableFooter>
         </Table>
+        <p>
+          Show:
+          <FilterLink
+            filter="SHOW_ALL"
+            >
+            All
+          </FilterLink>
+          <FilterLink
+            filter="SHOW_ACTIVE"
+            >
+            Active
+          </FilterLink>
+          <FilterLink
+            filter="SHOW_COMPLETED"
+            >
+            Completed
+          </FilterLink>
+          </p>
       </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+    return {
+        // isAddClientModalOpen: state.clientReducer.isAddClientModalOpen,
+        invoices: state.invoiceReducer.invoices,
+        invoiceFilter: state.invoiceReducer.invoiceFilter,
+        userId: state.loginReducer.user.userId,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        // fetchUserInvoices: actions.fetchUserInvoices,
+        filterInvoices: actions.filterInvoices,
+        // handleAddClientModal: actions.handleAddClientModal,
+        // fetchDataFromApi: actions.fetchDataFromApi,
+        },
+        dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InvoiceList);

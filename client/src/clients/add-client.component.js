@@ -1,30 +1,24 @@
 import React from 'react';
-// import MobileTearSheet from '../../../MobileTearSheet';
-// import {List, ListItem} from 'material-ui/List';
-// import ActionGrade from 'material-ui/svg-icons/action/grade';
-// import Divider from 'material-ui/Divider';
-// import Avatar from 'material-ui/Avatar';
-// import {pinkA200, transparent} from 'material-ui/styles/colors';
-import Dialog from 'material-ui/Dialog';
+
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
 
 import * as actions from './clients.actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import CommunicationCall from 'material-ui/svg-icons/communication/call';
 
-// import CommunicationEmail from 'material-ui/svg-icons/communication/email';
+const styles = {
+  textField: {
+    display: 'inline-block',
+    margin: 10,
 
-// import ActionHome from 'material-ui/svg-icons/action/home';
-// import ActionWork from 'material-ui/svg-icons/action/work';
-
-
-
-
-
+    width: '40%',
+    // float: 'left'
+  }
+}
 class AddClient extends React.Component {
 
     actionButtons = [
@@ -45,81 +39,109 @@ class AddClient extends React.Component {
         return (
 
       <div>
-        <RaisedButton label="Add Client" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} onTouchTap={this.props.handleAddClientModal} />
-        <Dialog
-          title="New Client"
-          actions={this.actionButtons}
-          modal={false}
-          //open={this.props.isAddClientModalOpen}
-          //onRequestClose={this.props.handleModal}
-          open={this.props.isAddClientModalOpen}
-          //onRequestClose={}
-          autoScrollBodyContent={true}
-        >
-        <form id="add-client" onSubmit={(event) => {
+        <h2>New Client</h2>
+        <Divider />
+        <form id="new-client-form" onSubmit={(event) => {
             event.preventDefault()
 
-            let clientName = event.target.clientName.value
+            let firstName = event.target.clientFirstName.value
+            let lastName = event.target.clientLastName.value
             let company = event.target.company.value
             let phone = event.target.phone.value
             let email = event.target.email.value
             let address = event.target.address.value
+            let userId = this.props.userId
 
-            this.props.handleAddClient(clientName, company, phone, email, address)
+            this.props.handleAddClient(firstName, lastName, company, phone, email, address, userId)
 
-            event.target.clientName.value = ''
-            event.target.password.value = ''
+            event.target.clientFirstName.value = ''
+            event.target.clientLastName.value = ''
+            event.target.company.value = ''
             event.target.phone.value = ''
             event.target.email.value = ''
             event.target.address.value = ''
           }}>
             <TextField
-              id="clientName"
-              name="clientName"
-              floatingLabelText="Client's Name"
+              id="clientFirstName"
+              //className="col-xs-5"
+              name="clientFirstName"
+              floatingLabelText="Client's First Name"
               floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
-              hintText="John Doe"
+              hintText="John"
               errorText="This field is required"
-            /><br />
+              style={styles.textField}
+            />
+            <TextField
+              id="clientLastName"
+              //className="col-xs-5"
+              name="clientLastName"
+              floatingLabelText="Client's Last Name"
+              floatingLabelFixed={true}
+              hintText="Doe"
+              errorText="This field is required"
+              style={styles.textField}
+            />
+            <br />
             <TextField
               id="company"
+              //className="col-xs-5"
               name="company"
               floatingLabelText="Company Name"
               floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
               hintText="John Doe Inc"
               errorText="This field is required"
-            /><br />
+              style={styles.textField}
+            />
+            {/*<br />*/}
             <TextField
               id="phone"
               name="phone"
               floatingLabelText="Client's Phone No."
               floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
               hintText="555-555-5555"
               errorText="This field is required"
-            /><br />
+              style={styles.textField}
+            />
+            <br />
             <TextField
               id="email"
               name="email"
               floatingLabelText="Client's Email"
               floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
               hintText="John Doe Inc"
               errorText="johndoe@johndoeinc.com"
-            /><br />
+              style={styles.textField}
+            />
+            {/*<br />*/}
             <TextField
               id="address"
               name="address"
               floatingLabelText="Client's Address"
               floatingLabelFixed={true}
-              className="col-xs-9 col-xs-offset-3"
               hintText="John Doe Inc"
               errorText="johndoe@johndoeinc.com"
-            /><br />
+              style={styles.textField}
+            />
+            {/*<br />*/}
             </form>
-        </Dialog>
+            <br />
+            <div className="col-xs-12" style={{marginTop: 10}} >
+              <Divider />
+              <FlatButton
+                label="Cancel"
+                primary={true}
+                onTouchTap={() => this.props.handleClientView('clientList')}
+              />
+              <FlatButton
+                label="Save"
+                form="new-client-form"
+                type="submit"
+                primary={true}
+                keyboardFocused={true}
+                //onTouchTap={() => this.props.handleClientView('clientList')}
+              />
+            </div>
+        {/*</Dialog>*/}
     </div>
 );
     }
@@ -130,12 +152,15 @@ class AddClient extends React.Component {
 function mapStateToProps(state) {
     return {
         isAddClientModalOpen: state.clientReducer.isAddClientModalOpen,
+        userId: state.loginReducer.user.userId
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        handleAddClientModal: actions.handleAddClientModal,
+        // handleAddClientModal: actions.handleAddClientModal,
+        handleClientView: actions.handleClientView,
+        handleAddClient: actions.handleAddClient,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);

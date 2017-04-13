@@ -3,10 +3,17 @@ const requestDataFromServer = () => ({
   type: 'REQUEST_DATA'
 })
 
-const receiveDataFromServer = (client) => ({
+const receiveClientDataFromServer = (clients) => ({
   type: 'RECEIVE_CLIENT_DATA',
-  client
+  clients
 })
+
+const updateClientData = (clients) => ({
+  type: 'UPDATE_CLIENT_DATA',
+  clients
+})
+
+'UPDATE_CLIENT_DATA'
 
 export function handleClientDetailModal() {
     const UPDATE_CLIENT_DETAIL_MODAL = 'UPDATE_CLIENT_DETAIL_MODAL';
@@ -22,8 +29,8 @@ export function handleAddClientModal() {
     }
 }
 
-export const handleAddClient = (clientName, company, phone, email, address) => {
-    console.log('handleAddClient fired with client name:', clientName)
+export const handleAddClient = (firstName, lastName, company, phone, email, address, userId) => {
+    console.log('handleAddClient fired with client name:', firstName, lastName)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -33,14 +40,41 @@ export const handleAddClient = (clientName, company, phone, email, address) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        clientName,
+        firstName,
+        lastName,
         company,
         phone,
         email,
-        address
+        address,
+        userId
       })
     })
     .then(response => response.json())
-    .then(client => dispatch(receiveDataFromServer(client)))
+    .then(res => {console.log(res); dispatch(updateClientData(res))})
   }
+}
+
+export const fetchUserClients = (userId) => {
+    console.log('fetching your clients')
+  return dispatch => {
+    dispatch(requestDataFromServer())
+
+    fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    .then(res => dispatch(receiveClientDataFromServer(res.clients)))
+  }
+}
+
+
+export function handleClientView(view) {
+    const UPDATE_VIEW = 'UPDATE_VIEW';
+    return {
+        type: UPDATE_VIEW,
+        payload: view
+    }
 }

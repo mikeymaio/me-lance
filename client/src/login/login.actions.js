@@ -27,8 +27,8 @@ const receiveSignUpResponse = (res) => ({
   res
 })
 
-export const handleLogin = (userName, password) => {
-    console.log('handleLogin fired with username:', userName)
+export const handleLogin = (username, password) => {
+    console.log('handleLogin fired with username:', username)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -38,12 +38,12 @@ export const handleLogin = (userName, password) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userName,
+        username,
         password,
       })
     })
     .then(response => response.json())
-    .then(user => dispatch(receiveDataFromServer(user)))
+    .then(res => dispatch(receiveDataFromServer(res.user)))
   }
 }
 

@@ -42,7 +42,6 @@ const ClientSchema = mongoose.Schema({
 
 ClientSchema.methods.apiRepr = function () {
     return {
-        userName: this.userName || '',
         firstName: this.firstName || '',
         lastName: this.lastName || '',
         email: this.email || '',
@@ -51,8 +50,8 @@ ClientSchema.methods.apiRepr = function () {
         projects: this.projects || [],
         clientId: this._id || '',
         dateCreated: this.dateCreated || '',
-        dateModified: this.dateModified || ''
-        //userId: this.userId || '',
+        dateModified: this.dateModified || '',
+        userId: this.userId || '',
     };
 }
 

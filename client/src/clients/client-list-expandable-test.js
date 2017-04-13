@@ -2,18 +2,18 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import MobileTearSheet from '../../../MobileTearSheet';
+
 import {List, ListItem} from 'material-ui/List';
-// import ActionGrade from 'material-ui/svg-icons/action/grade';
-// import ContentInbox from 'material-ui/svg-icons/content/inbox';
-// import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-// import ContentSend from 'material-ui/svg-icons/content/send';
-import Subheader from 'material-ui/Subheader';
-import Toggle from 'material-ui/Toggle';
+
+import * as actions from './clients.actions';
 
 import TextField from 'material-ui/TextField';
 
 import Divider from 'material-ui/Divider';
+
+import FlatButton from 'material-ui/FlatButton';
+
+
 
 
 class ClientListExpandable extends React.Component {
@@ -34,23 +34,32 @@ class ClientListExpandable extends React.Component {
     });
   };
 
+  componentDidMount() {
+    this.props.fetchUserClients(this.props.userId)
+  }
+
   render() {
     return (
       <div>
         <br />
-        {/*<MobileTearSheet>*/}
           <List>
-              {/*<Subheader>Your Clients</Subheader>*/}
-              <h3 style={{color: "#076"}} >Your Clients</h3>
+              <h3 style={{color: "#076", display: "inline-block"}} >Your Clients</h3>
+              <FlatButton
+                label="New Client"
+                primary={true}
+                keyboardFocused={false}
+                onTouchTap={() => this.props.handleClientView('addClient')}
+                style={{float: "right"}}
+              />
         {this.props.clients.map( (client, index) => (
-            <div key={index}>
+            <div key={client.clientId}>
             <ListItem
-                key={index}
+                key={client.lastName+index}
                 primaryText={
                   <TextField
-                    id={client.name}
+                    id={client.lastName}
                     name="clientName"
-                    defaultValue={client.name}
+                    defaultValue={`${client.firstName} ${client.lastName}`}
                 />
                 }
                 secondaryText={client.company
@@ -99,7 +108,6 @@ class ClientListExpandable extends React.Component {
                 </div>
             ))}
           </List>
-        {/*</MobileTearSheet>*/}
       </div>
     );
   }
@@ -108,12 +116,16 @@ class ClientListExpandable extends React.Component {
 function mapStateToProps(state) {
     return {
         // isAddClientModalOpen: state.clientReducer.isAddClientModalOpen,
-        clients: state.clientReducer.clients
+        clients: state.clientReducer.clients,
+        userId: state.loginReducer.user.userId,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+        fetchUserClients: actions.fetchUserClients,
+        handleClientView: actions.handleClientView,
+        // filterClients: actions.filterClients,
         // handleAddClientModal: actions.handleAddClientModal,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },

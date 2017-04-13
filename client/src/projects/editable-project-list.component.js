@@ -22,7 +22,7 @@ class ProjectListEditable extends React.Component {
   render() {
 
       const shouldBeReadOnly = function(rowData) {
-          return rowData['title'] != 'Mrs';
+          return rowData['title'] !== 'Mrs';
       };
 
     const colSpec = [
