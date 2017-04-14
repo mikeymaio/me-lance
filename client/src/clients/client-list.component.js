@@ -126,7 +126,8 @@ constructor(props) {
                             id={client.address}
                             name="address"
                             floatingLabelText="address"
-                            defaultValue={client.email}
+                            defaultValue={client.address}
+                            multiLine={true}
                             disabled={!this.props.clientEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             />
