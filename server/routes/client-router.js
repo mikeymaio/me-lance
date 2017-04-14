@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
 // const morgan = require('morgan');
 
 mongoose.Promise = global.Promise;
@@ -84,6 +85,10 @@ router.post('/', (req, res) => {
 });
 
 
+
+
+
+
 // UPDATE CLIENT
 
 router.put('/:id', (req, res) => {
@@ -126,5 +131,77 @@ router.delete('/:id', (req, res) => {
   .then(client => res.status(204).end())
   .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
+
+
+// ADD PROJECT
+
+router.post('/:id/projects', (req, res) => {
+  // if (!req.isAuthenticated()) {
+  //   return res.status(401).json({ message: 'Not logged in' });
+  // }
+  // ensure that the id in the request path and the one in request body match
+  if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body clientId ` +
+      `(${req.body.clientId}) must match`);
+    console.error(message);
+    res.status(400).json({message: message});
+  }
+
+  const newProject = req.body;
+  newProject._id = new mongoose.Types.ObjectId;
+  const clientId = req.params.id;
+
+  Client
+    .findByIdAndUpdate(clientId, {$push: {"projects": newProject}})
+    .exec()
+    .then(client => res.status(204).end())
+    .catch(err => res.status(500).json({message: err}));
+});
+
+// UPDATE PROJECTS
+
+router.put('/:id/projects/:projectId', (req, res) => {
+  // if (!req.isAuthenticated()) {
+  //   return res.status(401).json({ message: 'Not logged in' });
+  // }
+  // ensure that the id in the request path and the one in request body match
+  if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body clientId ` +
+      `(${req.body.clientId}) must match`);
+    console.error(message);
+    res.status(400).json({message: message});
+  }
+  const toUpdate = {dateModified: new Date().toISOString()};
+  const updateableFields = ['projects.clientName, projects.rate, projects.ratePer, projects.budget, projects.startDate, projects.endDate, projects.totalTimeSpent, projects.timeSpentThisBill, projects.notes, projects.completed'];
+
+  const clientId = req.params.id;
+  const projectId = req.params.projectId;
+  const project = req.body;
+
+  Client
+    .findById(clientId)
+    .exec()
+    .then(client => {
+      if (!client) {
+        return res.status(404).json({message: 'Client not found'});
+      }
+      const i = client.projects.findIndex((project) => project._id.toString() === projectId);
+      if (i === -1) {
+        return res.status(404).json({message: 'Project not found'});
+      }
+      updateableFields.forEach(field => {
+        if (field in project) {
+          client.projects[i][field] = project[field];
+        }
+      });
+      client.projects[i].dateModified = new Date().toISOString();
+      client.save();
+      res.status(204).json({message: 'Success!'}).end();
+    })
+    .catch(err => res.status(500).json({message: err}));
+});
+
 
 module.exports = router;
