@@ -72,7 +72,7 @@ const clientReducer = (state=clientState, action) => {
                 ...state,
                 isAddClientModalOpen: !state.isAddClientModalOpen
             }
-        case 'UPDATE_VIEW':
+        case 'UPDATE_CLIENT_VIEW':
             return {
                 ...state,
                 clientView: action.payload,

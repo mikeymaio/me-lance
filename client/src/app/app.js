@@ -8,15 +8,18 @@ import SideMenu from '../menu/left-menu.component';
 import InvoiceList from '../invoices/invoice-list.component';
 
 import ClientList from '../clients/client-list.component';
-// import ProjectList from '../projects/project-list.component';
+import AddClient from '../clients/add-client.component';
 
-import ProjectListEditable from '../projects/editable-project-list.component';
+import ProjectList from '../projects/editable-project-list.component';
+import AddProject from '../projects/add-project.component';
 
 import ExampleChart from '../dashboard/dashboard.component';
 
 import Landing from '../landing/landing.component';
 
-import AddClient from '../clients/add-client.component';
+
+
+
 
 
 // import SubHeader from '../subheader/subheader.component';
@@ -49,7 +52,8 @@ class App extends Component {
             {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'clientList' ? <ClientList /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'addClient' ? <AddClient /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'projects' ? <ProjectListEditable /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'projects' && this.props.projectView === 'projectList' ? <ProjectList /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'projects' && this.props.projectView === 'addProject' ? <AddProject /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' ? <InvoiceList /> : false}
           </div>
         </div>
@@ -71,7 +75,8 @@ function mapStateToProps(state) {
     return {
         isLoggedIn: state.loginReducer.isLoggedIn,
         selectedItem: state.leftMenuReducer.selectedItem,
-        clientView: state.clientReducer.clientView
+        clientView: state.clientReducer.clientView,
+        projectView: state.projectReducer.projectView
     };
 }
 

@@ -72,7 +72,7 @@ export const fetchUserClients = (userId) => {
 
 
 export function handleClientView(view) {
-    const UPDATE_VIEW = 'UPDATE_VIEW';
+    const UPDATE_VIEW = 'UPDATE_CLIENT_VIEW';
     return {
         type: UPDATE_VIEW,
         payload: view

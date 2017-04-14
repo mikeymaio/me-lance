@@ -93,7 +93,7 @@ router.put('/:id', (req, res) => {
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
     const message = (
-      `Request path id (${req.params.id}) and request body id ` +
+      `Request path id (${req.params.id}) and request body clientId ` +
       `(${req.body.clientId}) must match`);
     console.error(message);
     res.status(400).json({message: message});

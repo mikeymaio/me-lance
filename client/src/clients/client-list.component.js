@@ -38,9 +38,9 @@ constructor(props) {
   };
 
 }
-  componentDidMount() {
-    this.props.fetchUserClients(this.props.userId)
-  }
+  // componentDidMount() {
+  //   this.props.fetchUserClients(this.props.userId)
+  // }
 
   render() {
 
@@ -56,101 +56,102 @@ constructor(props) {
                 onTouchTap={() => this.props.handleClientView('addClient')}
                 style={{float: "right"}}
               />
-        {this.props.clients.map( (client, index) => (
-            <Card key={index}>
-              <CardHeader
-                title={`${client.firstName} ${client.lastName}`}
-                subtitle={client.company}
-                //avatar="images/ok-128.jpg"
-                actAsExpander={true}
-                showExpandableButton={true}
-              />
-              <CardText expandable={true} children={
-              <form id="client-edit-form" onSubmit={(event) => {
-                  event.preventDefault()
-                  console.log('client-update-form submitted')
-                  let firstName = event.target.firstName.value
-                  let lastName = event.target.lastName.value
-                  let company = event.target.company.value
-                  let phone = event.target.phone.value
-                  let email = event.target.email.value
-                  let address = event.target.address.value
-                  let clientId = client.clientId
+              {this.props.clients.map( (client, index) => (
+                  <Card key={index}>
+                    <CardHeader
+                      title={`${client.firstName} ${client.lastName}`}
+                      subtitle={client.company}
+                      //avatar="images/ok-128.jpg"
+                      actAsExpander={true}
+                      showExpandableButton={true}
+                    />
+                    <CardText expandable={true} children={
+                    <form id="client-edit-form" onSubmit={(event) => {
+                        event.preventDefault()
+                        console.log('client-update-form submitted')
+                        let firstName = event.target.firstName.value
+                        let lastName = event.target.lastName.value
+                        let company = event.target.company.value
+                        let phone = event.target.phone.value
+                        let email = event.target.email.value
+                        let address = event.target.address.value
+                        let clientId = client.clientId
 
-                  this.props.handleUpdateClient(firstName, lastName, company, phone, email, address, clientId)
-                }}>
-                { this.props.isLoading ? <Loader /> : false }
-                  <TextField
-                      id={client.firstName}
-                      name="firstName"
-                      floatingLabelText="firstName"
-                      defaultValue={client.firstName}
-                      disabled={!this.props.clientEdit}
-                      underlineDisabledStyle={{display: 'none'}}
-                      />
-                  <TextField
-                      id={client.lastName}
-                      name="lastName"
-                      floatingLabelText="lastName"
-                      defaultValue={client.lastName}
-                      disabled={!this.props.clientEdit}
-                      underlineDisabledStyle={{display: 'none'}}
-                      />
-                  <br />
-                  <TextField
-                      id={client.company}
-                      name="company"
-                      floatingLabelText="company"
-                      defaultValue={client.company}
-                      disabled={!this.props.clientEdit}
-                      underlineDisabledStyle={{display: 'none'}}
-                      />
-                  <TextField
-                      id={client.phone}
-                      name="phone"
-                      floatingLabelText="phone"
-                      defaultValue={client.phone}
-                      disabled={!this.props.clientEdit}
-                      underlineDisabledStyle={{display: 'none'}}
-                      />
-                  <br />
-                  <TextField
-                      id={client.email}
-                      name="email"
-                      floatingLabelText="Email"
-                      defaultValue={client.email}
-                      disabled={!this.props.clientEdit}
-                      underlineDisabledStyle={{display: 'none'}}
-                      />
-                  <TextField
-                      id={client.address}
-                      name="address"
-                      floatingLabelText="address"
-                      defaultValue={client.email}
-                      disabled={!this.props.clientEdit}
-                      underlineDisabledStyle={{display: 'none'}}
-                      />
-                      <Divider inset={false} style={{color: "#076", height: 3}} />
-                      { this.props.clientEdit ?
-                        <div>
-                          <FlatButton key={`cancel${client.clientId}`} label="Cancel" onTouchTap={() => this.props.handleClientEdit()} />
-                          <FlatButton key={`save${client.clientId}`} type="submit" form="client-edit-form" label="Save" //onTouchTap={() => this.props.handleClientEdit()}
+                        this.props.handleUpdateClient(firstName, lastName, company, phone, email, address, clientId)
+                      }}>
+                      { this.props.isLoading ? <Loader /> : false }
+                        <TextField
+                            id={client.firstName}
+                            name="firstName"
+                            floatingLabelText="firstName"
+                            defaultValue={client.firstName}
+                            disabled={!this.props.clientEdit}
+                            underlineDisabledStyle={{display: 'none'}}
                             />
-                            </div>
-                          :
-                          <div>
-                            <FlatButton
-                            className="pull-left"
-                            key={`delete${client.clientId}`} label="DELETE" onTouchTap={() => this.props.handleDeleteClient(client.clientId, this.props.userId)} />
-                            <FlatButton key={`edit${client.clientId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleClientEdit()} />
+                        <TextField
+                            id={client.lastName}
+                            name="lastName"
+                            floatingLabelText="lastName"
+                            defaultValue={client.lastName}
+                            disabled={!this.props.clientEdit}
+                            underlineDisabledStyle={{display: 'none'}}
+                            />
+                        <br />
+                        <TextField
+                            id={client.company}
+                            name="company"
+                            floatingLabelText="company"
+                            defaultValue={client.company}
+                            disabled={!this.props.clientEdit}
+                            underlineDisabledStyle={{display: 'none'}}
+                            />
+                        <TextField
+                            id={client.phone}
+                            name="phone"
+                            floatingLabelText="phone"
+                            defaultValue={client.phone}
+                            disabled={!this.props.clientEdit}
+                            underlineDisabledStyle={{display: 'none'}}
+                            />
+                        <br />
+                        <TextField
+                            id={client.email}
+                            name="email"
+                            floatingLabelText="Email"
+                            defaultValue={client.email}
+                            disabled={!this.props.clientEdit}
+                            underlineDisabledStyle={{display: 'none'}}
+                            />
+                        <TextField
+                            id={client.address}
+                            name="address"
+                            floatingLabelText="address"
+                            defaultValue={client.email}
+                            disabled={!this.props.clientEdit}
+                            underlineDisabledStyle={{display: 'none'}}
+                            />
+                            <Divider inset={false} style={{color: "#076", height: 3}} />
+                            { this.props.clientEdit ?
+                              <div>
+                                <FlatButton key={`cancel${client.clientId}`} label="Cancel" onTouchTap={() => this.props.handleClientEdit()} />
+                                <FlatButton key={`save${client.clientId}`} type="submit" form="client-edit-form" label="Save" //onTouchTap={() => this.props.handleClientEdit()}
+                                  />
+                                  </div>
+                                :
+                                <div>
+                                  <FlatButton
+                                  className="pull-left"
+                                  key={`delete${client.clientId}`} label="DELETE" onTouchTap={() => this.props.handleDeleteClient(client.clientId, this.props.userId)} />
+                                  <FlatButton key={`edit${client.clientId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleClientEdit()} />
 
-                              {/*<FlatButton key={`test${client.clientId}`} label="Loader" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.testLoader()} />*/}
+                                    {/*<FlatButton key={`test${client.clientId}`} label="Loader" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.testLoader()} />*/}
 
-                          </div>}
-                  </form>
-              }
-              />
-            </Card>
+                                </div>}
+                                <Divider inset={false} style={{color: "#076", height: 3}} />
+                        </form>
+                    }
+                  />
+              </Card>
             ))}
           </List>
       </div>
