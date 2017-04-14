@@ -23,19 +23,32 @@ const billingOptions = [
   <MenuItem key={5} value="other" primaryText="other" />,
 ];
 
+const styles = {
+    input: {
+    display: 'inline-block',
+    margin: 10,
+    width: '40%',
+    // float: 'left'
+  }
+}
 class AddProject extends React.Component {
 
     state = {
     billingOptionValue: "hr",
-    selectedClient: "Select A Client"
+    selectedClient: "Select A Client",
+    selectedTemplate: null
   };
 
-  handleBillingChange = (event, index, value) => {
+handleBillingChange = (event, index, value) => {
     this.setState({billingOptionValue: value});
   };
 
 handleClientChange = (event, index, value) => {
     this.setState({selectedClient: value});
+  };
+
+handleTemplateChange = (event, index, value) => {
+    this.setState({selectedTemplate: value});
   };
 
     actionButtons = [
@@ -56,7 +69,7 @@ handleClientChange = (event, index, value) => {
         return (
 
       <div>
-        <h2>New Client</h2>
+        <h3 style={{color: "#076", display: "inline-block"}} >New Project</h3>
         <Divider />
         <form id="project-add-form" onSubmit={(event) => {
             event.preventDefault()
@@ -70,9 +83,10 @@ handleClientChange = (event, index, value) => {
             let endDate = event.target.endDate.value
             let timeSpent = 0
             let billingCycle = event.target.billingCycle.value
+            let template = this.state.selectedTemplate
             let userId = this.props.userId
 
-            this.props.handleAddProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, userId)
+            this.props.handleAddProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId)
             }}>
             { this.props.isLoading ? <Loader /> : false }
             {/*<TextField
@@ -88,6 +102,7 @@ handleClientChange = (event, index, value) => {
                     name="clientName"
                     floatingLabelText="Client Name"
                     hintText="Client Name"
+                    style={styles.input}
                 >
                 {this.props.clients.map( ( client, index ) => (
                     <MenuItem key={index} value={`${client.firstName} ${client.lastName}`} primaryText={`${client.firstName} ${client.lastName}`} />
@@ -98,12 +113,32 @@ handleClientChange = (event, index, value) => {
                 name="projectName"
                 floatingLabelText="Project Name"
                 hintText="My Awesome Project"
+                style={styles.input}
                 />
+            <DatePicker
+                name="startDate"
+                hintText="Start Date"
+                container="inline"
+                mode="landscape"
+                autoOk={true}
+                style={styles.input}
+            />
+            {/*<br />*/}
+            <DatePicker
+                name="endDate"
+                hintText="End Date"
+                container="inline"
+                mode="landscape"
+                autoOk={true}
+                style={styles.input}
+                //formatDate={() => MM/DD/YY }
+            />
             <TextField
                 //id={project.rate}
                 name="rate"
                 floatingLabelText="Charge"
                 hintText="100"
+                style={styles.input}
                 />
                 <SelectField
                     value={this.state.billingOptionValue}
@@ -111,54 +146,59 @@ handleClientChange = (event, index, value) => {
                     //maxHeight={200}
                     name="ratePer"
                     floatingLabelText="Per"
+                    style={styles.input}
                 >
                     {billingOptions}
                 </SelectField>
-            {/*<TextField
-                //id={project.ratePer}
-                name="ratePer"
-                floatingLabelText="Per"
-                hintText="hour"
-                />*/}
-            <br />
             <TextField
                 //id={project.budget}
                 name="budget"
                 floatingLabelText="Budget"
                 hintText="10,000"
+                style={styles.input}
                 />
-            <DatePicker
-                name="startDate"
-                hintText="Start Date"
-                container="inline"
-                mode="landscape"
-                //autoOk={true}
-            />
-            <br />
-            <DatePicker name="endDate" hintText="End Date" container="inline" mode="landscape" autoOk={true} />
             <TextField
                 //id={project.notes}
                 name="notes"
                 floatingLabelText="Notes"
                 hintText="Notes about the project"
                 multiLine={true}
+                style={styles.input}
                 />
             <TextField
                 //id={project.billingCycle}
                 name="billingCycle"
                 floatingLabelText="Billing Cycle"
                 hintText="2 weeks"
+                style={styles.input}
                 />
-            <TextField
+            <SelectField
+                value={this.state.selectedTemplate}
+                onChange={this.handleTemplateChange}
+                //maxHeight={200}
+                name="invoiceTemp"
+                floatingLabelText="Invoice Template"
+                hintText="Select Invoice Template"
+                style={styles.input}
+            >
+            {this.props.templates === [] ?
+                <MenuItem key="newTemp" value="New Template" primaryText="New Template" /> :
+                this.props.templates.map( ( template, index ) => (
+                    <MenuItem key={index} value={template.title} primaryText={template.title} />
+                ))
+            }
+                </SelectField>
+            {/*<TextField
                 //id={project.invoiceTemp}
                 name="invoiceTemp"
                 floatingLabelText="Invoice Template"
                 hintText="none"
-                />
+                style={styles.input}
+                />*/}
                 <Divider inset={false} style={{color: "#076", height: 3}} />
                 {/*{ this.props.projectEdit ?*/}
                     <div>
-                        <FlatButton label="Cancel" onTouchTap={() => this.props.handleProjectEdit()} />
+                        <FlatButton label="Cancel" onTouchTap={() => this.props.handleProjectView("projectList")} />
                         <FlatButton type="submit" form="project-add-form" label="Save" //onTouchTap={() => this.props.handleClientEdit()}
                         />
                      </div>
@@ -197,7 +237,8 @@ function mapStateToProps(state) {
     return {
         isAddProjectModalOpen: state.clientReducer.isAddProjectModalOpen,
         clients: state.clientReducer.clients,
-        userId: state.loginReducer.user.userId
+        userId: state.loginReducer.user.userId,
+        templates: state.loginReducer.user.templates
     };
 }
 

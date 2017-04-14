@@ -27,13 +27,13 @@ export function handleAddProjectModal() {
     }
 }
 
-export const handleAddProject = (clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, userId) => {
-    console.log('handleAddProject fired with client name:', clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, userId)
+export const handleAddProject = (clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId) => {
+    console.log('handleAddProject fired with client name:', clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId)
 
 }
 
-// export const handleAddProject = (clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, userId) => {
-//     console.log('handleAddProject fired: ', clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, userId)
+// export const handleAddProject = (clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId) => {
+//     console.log('handleAddProject fired: ', clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId)
 //   return dispatch => {
 //     dispatch(requestDataFromServer())
 
@@ -52,6 +52,7 @@ export const handleAddProject = (clientName, projectName, rate, ratePer, budget,
 //         endDate,
 //         timeSpent,
 //         billingCycle,
+//         template,
 //         userId
 //       })
 //     })
