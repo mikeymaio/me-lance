@@ -6,8 +6,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Header from '../header/header.component';
 import SideMenu from '../menu/left-menu.component';
 import InvoiceList from '../invoices/invoice-list.component';
+
 import ClientList from '../clients/client-list.component';
-import ClientListExpandable from '../clients/client-list-expandable-test';
 // import ProjectList from '../projects/project-list.component';
 
 import ProjectListEditable from '../projects/editable-project-list.component';
@@ -47,7 +47,7 @@ class App extends Component {
             className="col-xs-9"
             style={{textAlign: 'center'}}>
             {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'clientList' ? <ClientListExpandable /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'clientList' ? <ClientList /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'addClient' ? <AddClient /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'projects' ? <ProjectListEditable /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' ? <InvoiceList /> : false}
