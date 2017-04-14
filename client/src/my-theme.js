@@ -22,6 +22,22 @@ const muiTheme = getMuiTheme({
   textField: {
     disabledTextColor: '#076',
   },
+   datePicker: {
+    color: '#ccc',
+    textColor: '#FFF',
+    calendarTextColor: '#076',
+    selectColor: '#076',
+    selectTextColor: '#eee',
+    calendarYearBackgroundColor: '#FFF',
+  },
+  // datePicker: {
+  //   color: muiTheme.palette.primary1Color,
+  //   textColor: muiTheme.palette.alternateTextColor,
+  //   calendarTextColor: muiTheme.palette.textColor,
+  //   selectColor: muiTheme.palette.primary2Color,
+  //   selectTextColor: muiTheme.palette.alternateTextColor,
+  //   calendarYearBackgroundColor: muiTheme.palette.canvasColor,
+  // },
 });
 
 export default muiTheme;
