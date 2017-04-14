@@ -36,6 +36,7 @@ class AddProject extends React.Component {
     state = {
     billingOptionValue: "hr",
     selectedClient: "Select A Client",
+    selectedClientIndex: null,
     selectedTemplate: null
   };
 
@@ -44,7 +45,7 @@ handleBillingChange = (event, index, value) => {
   };
 
 handleClientChange = (event, index, value) => {
-    this.setState({selectedClient: value});
+    this.setState({selectedClient: value, selectedClientIndex: index});
   };
 
 handleTemplateChange = (event, index, value) => {
@@ -74,19 +75,20 @@ handleTemplateChange = (event, index, value) => {
         <form id="project-add-form" onSubmit={(event) => {
             event.preventDefault()
             console.log('project-add-form submitted')
-            let clientName = this.state.selectedClient
-            let projectName = event.target.projectName.value
-            let rate = event.target.rate.value
-            let ratePer = this.state.billingOptionValue
-            let budget = event.target.budget.value
-            let startDate = event.target.startDate.value
-            let endDate = event.target.endDate.value
-            let timeSpent = 0
-            let billingCycle = event.target.billingCycle.value
-            let template = this.state.selectedTemplate
-            let userId = this.props.userId
+            let clientName = this.state.selectedClient;
+            let projectName = event.target.projectName.value;
+            let rate = event.target.rate.value;
+            let ratePer = this.state.billingOptionValue;
+            let budget = event.target.budget.value;
+            let startDate = event.target.startDate.value;
+            let endDate = event.target.endDate.value;
+            let timeSpent = 0;
+            let billingCycle = event.target.billingCycle.value;
+            let template = this.state.selectedTemplate;
+            let userId = this.props.userId;
+            let clientId = this.props.clients[this.state.selectedClientIndex].clientId;
 
-            this.props.handleAddProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId)
+            this.props.handleAddProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId, clientId)
             }}>
             { this.props.isLoading ? <Loader /> : false }
             {/*<TextField
@@ -142,7 +144,7 @@ handleTemplateChange = (event, index, value) => {
                 />
                 <SelectField
                     value={this.state.billingOptionValue}
-                    onChange={this.handleChange}
+                    onChange={this.handleBillingChange}
                     //maxHeight={200}
                     name="ratePer"
                     floatingLabelText="Per"

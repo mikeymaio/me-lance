@@ -11,7 +11,7 @@ const projectState = {
 const projectReducer = (state=projectState, action) => {
     state = state || projectState
     switch(action.type) {
-        case 'REQUEST_DATA':
+        case 'REQUEST_PROJECT_DATA':
             return {
                 ...state,
                 isLoading: true
@@ -20,7 +20,7 @@ const projectReducer = (state=projectState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                projects: action.projects,
+                // projects: action.projects,
                 projectView: 'projectList',
             }
         case 'UPDATE_PROJECT_DATA':
@@ -46,6 +46,11 @@ const projectReducer = (state=projectState, action) => {
                 ...state,
                 projectEdit: !state.projectEdit,
             }
+        // case 'TEST_LOADER':
+        //     return {
+        //         ...state,
+        //         isLoading: !state.isLoading
+        //     }
         default:
             return state;
         }

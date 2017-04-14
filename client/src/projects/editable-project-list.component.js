@@ -7,6 +7,8 @@ import {List} from 'material-ui/List';
 
 import * as actions from './projects.actions';
 
+import { fetchUserClients } from '../clients/clients.actions';
+
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
@@ -34,6 +36,7 @@ constructor(props) {
     open: false,
     billingOptionValue: "hr",
     selectedClient: "Select A Client",
+    selectedClientIndex: null,
   };
 
   this.handleToggle = () => {
@@ -48,10 +51,22 @@ constructor(props) {
     });
   };
 
+    this.handleBillingChange = (event, index, value) => {
+        this.setState({billingOptionValue: value});
+  };
+
+    this.handleClientChange = (event, index, value) => {
+        this.setState({selectedClient: value, selectedClientIndex: index});
+  };
+
+    this.handleTemplateChange = (event, index, value) => {
+        this.setState({selectedTemplate: value});
+  };
+
 }
-  componentDidMount() {
-    this.props.fetchUserClients(this.props.userId)
-  }
+//   componentDidUpdate() {
+//     this.props.fetchUserClients(this.props.userId)
+//   }
 
   render() {
 
@@ -71,8 +86,8 @@ constructor(props) {
                   client.projects.map( (project, index) => (
                     <Card key={project.projectName+index}>
                     <CardHeader
-                      title={project.name}
-                      subtitle={project.client}
+                      title={project.projectName}
+                      subtitle={project.clientName}
                       //avatar="images/ok-128.jpg"
                       actAsExpander={true}
                       showExpandableButton={true}
@@ -88,24 +103,25 @@ constructor(props) {
                         let budget = event.target.budget.value
                         let startDate = event.target.startDate.value
                         let endDate = event.target.endDate.value
-                        let timeSpent = event.target.timeSpent.value
+                        let totalTimeSpent = event.target.totalTimeSpent.value
                         let billingCycle = event.target.billingCycle.value
                         let completed = event.target.completed.value
                         let userId = this.props.userId
 
-                        this.props.handleUpdateProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, completed, userId)
+                        this.props.handleUpdateProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, totalTimeSpent, billingCycle, completed, userId)
                       }}>
                       { this.props.isLoading ? <Loader /> : false }
                       <TextField
                             id={project.clientName}
                             name="clientName"
                             floatingLabelText="Client"
-                            defaultValue={project.client}
+                            defaultValue={project.clientName}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             />
                         <SelectField
                             value={this.state.selectedClient}
+                            defaultValue={project.clientName}
                             onChange={this.handleClientChange}
                             //maxHeight={200}
                             name="clientName"
@@ -119,7 +135,7 @@ constructor(props) {
                         </SelectField>
                         <TextField
                             id={project.projectName}
-                            name="name"
+                            name="projectName"
                             floatingLabelText="Project Name"
                             defaultValue={project.projectName}
                             disabled={!this.props.projectEdit}
@@ -133,15 +149,15 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             />
-                        {/*<TextField
+                        <TextField
                             id={project.ratePer}
                             name="ratePer"
                             floatingLabelText="Per"
                             defaultValue={project.ratePer}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
-                            />*/}
-                        <SelectField
+                            />
+                        {/*<SelectField
                             value={this.state.billingOptionValue}
                             onChange={this.handleChange}
                             //maxHeight={200}
@@ -150,7 +166,7 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                         >
                             {billingOptions}
-                        </SelectField>
+                        </SelectField>*/}
                         <br />
                         <TextField
                             id={project.budget}
@@ -226,21 +242,31 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             />
+                        <TextField
+                            id={project.totalTimeSpent}
+                            name="totalTimeSpent"
+                            floatingLabelText="Total Time Spent"
+                            defaultValue={project.totalTimeSpent}
+                            disabled={!this.props.projectEdit}
+                            underlineDisabledStyle={{display: 'none'}}
+                            />
                             <Divider inset={false} style={{color: "#076", height: 3}} />
                             { this.props.projectEdit ?
                               <div>
-                                <FlatButton label="Cancel" onTouchTap={() => this.props.handleProjectEdit()} />
-                                <FlatButton label="Save" type="submit" form="project-edit-form" //onTouchTap={() => this.props.handleProjectEdit()}
+                                <FlatButton key={`cancel${project.projectId}`} label="Cancel" onTouchTap={() => this.props.handleProjectEdit()} />
+                                <FlatButton label="Save" key={`save${project.projectId}`} type="submit" form="project-edit-form"
+                                //onTouchTap={() => this.props.handleProjectEdit()}
                                   />
                                   </div>
                                 :
                                 <div>
                                   <FlatButton
                                   className="pull-left"
+                                  key={`delete${project.projectId}`}
                                   label="DELETE" onTouchTap={() => this.props.handleDeleteProject()} />
-                                  <FlatButton label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleProjectEdit()} />
+                                  <FlatButton key={`edit${project.projectId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleProjectEdit()} />
 
-                                    {/*<FlatButton key={`test${client.clientId}`} label="Loader" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.testLoader()} />*/}
+                                    {/*<FlatButton key={`test${project.projectId}`} label="Loader" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.testLoader()} />*/}
 
                                 </div>}
                                 <Divider inset={false} style={{color: "#076", height: 3}} />
@@ -272,6 +298,7 @@ function mapDispatchToProps(dispatch) {
         handleDeleteProject: actions.handleDeleteProject,
         handleProjectView: actions.handleProjectView,
         testLoader: actions.testLoader,
+        fetchUserClients: fetchUserClients,
         // filterClients: actions.filterClients,
         // handleAddClientModal: actions.handleAddClientModal,
         // fetchDataFromApi: actions.fetchDataFromApi,
