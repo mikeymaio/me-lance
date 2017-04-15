@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {List, ListItem} from 'material-ui/List';
+import { List } from 'material-ui/List';
 
 import * as actions from './clients.actions';
 
@@ -14,7 +14,7 @@ import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
 
 
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 
 import Loader from '../loader/loader.component';
 

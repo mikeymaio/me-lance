@@ -122,18 +122,19 @@ export const handleUpdateProject = (projectName, company, phone, email, address,
   }
 }
 
-export const handleDeleteProject = (clientId, userId) => {
-    console.log('deleting project: ', clientId)
+export const handleDeleteProject = (clientId, projectId, userId) => {
+    console.log('deleting project: ', projectId)
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch(`http://localhost:8080/api/clients/${clientId}`, {
+    fetch(`http://localhost:8080/api/clients/${clientId}/projects/${projectId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        clientId
+        clientId,
+        projectId
       })
     })
     .then(response => response.json())

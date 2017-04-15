@@ -13,8 +13,6 @@ const updateClientData = (clients) => ({
   clients
 })
 
-'UPDATE_CLIENT_DATA'
-
 export function handleClientDetailModal() {
     const UPDATE_CLIENT_DETAIL_MODAL = 'UPDATE_CLIENT_DETAIL_MODAL';
     return {

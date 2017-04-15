@@ -149,24 +149,24 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             />
-                        <TextField
+                        {/*<TextField
                             id={project.ratePer}
                             name="ratePer"
                             floatingLabelText="Per"
                             defaultValue={project.ratePer}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
-                            />
-                        {/*<SelectField
+                            />*/}
+                        <SelectField
                             value={this.state.billingOptionValue}
-                            onChange={this.handleChange}
+                            onChange={this.handleBillingChange}
                             //maxHeight={200}
                             name="ratePer"
                             floatingLabelText="Per"
                             disabled={!this.props.projectEdit}
                         >
                             {billingOptions}
-                        </SelectField>*/}
+                        </SelectField>
                         <br />
                         <TextField
                             id={project.budget}
@@ -263,7 +263,7 @@ constructor(props) {
                                   <FlatButton
                                   className="pull-left"
                                   key={`delete${project.projectId}`}
-                                  label="DELETE" onTouchTap={() => this.props.handleDeleteProject()} />
+                                  label="DELETE" onTouchTap={() => this.props.handleDeleteProject(project.clientId, project.projectId, project.userId)} />
                                   <FlatButton key={`edit${project.projectId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleProjectEdit()} />
 
                                     {/*<FlatButton key={`test${project.projectId}`} label="Loader" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.testLoader()} />*/}

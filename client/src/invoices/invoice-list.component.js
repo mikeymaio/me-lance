@@ -15,8 +15,8 @@ import InvoiceDetail from './invoice-detail.component';
 
 import TextField from 'material-ui/TextField';
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+// import SelectField from 'material-ui/SelectField';
+// import MenuItem from 'material-ui/MenuItem';
 
 import * as actions from './invoice.actions';
 
@@ -72,6 +72,8 @@ const getVisibleInvoices = (
         return invoices.filter(
           i => !i.completed
         )
+      default:
+        return invoices
     }
   }
 
