@@ -203,5 +203,32 @@ router.put('/:id/projects/:projectId', (req, res) => {
     .catch(err => res.status(500).json({message: err}));
 });
 
+// DELETE PROJECT
+
+router.delete('/:id/projects/:projectId', (req, res) => {
+  // if (!req.isAuthenticated()) {
+  //   return res.status(401).json({ message: 'Not logged in' });
+  // }
+
+  const clientId = req.params.id;
+  const projectId = req.params.projectId;
+  // const project = req.body;
+
+  Client
+  .findById(clientId)
+  .exec()
+  .then(client => {
+      if (!client) {
+        return res.status(404).json({message: 'Client not found'});
+      }
+      const i = client.projects.findIndex((project) => project._id.toString() === projectId);
+      if (i === -1) {
+        return res.status(404).json({message: 'Project not found'});
+      }
+      client.projects[i].remove()
+      res.status(204).json({message: 'Success!'}).end();
+    })
+    .catch(err => res.status(500).json({message: err}));
+});
 
 module.exports = router;
