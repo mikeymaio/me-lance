@@ -76,8 +76,9 @@ constructor(props) {
                         let email = event.target.email.value
                         let address = event.target.address.value
                         let clientId = client.clientId
+                        let userId = this.props.userId
 
-                        this.props.handleUpdateClient(firstName, lastName, company, phone, email, address, clientId)
+                        this.props.handleUpdateClient(firstName, lastName, company, phone, email, address, clientId, userId)
                       }}>
                       { this.props.isLoading ? <Loader /> : false }
                         <TextField
