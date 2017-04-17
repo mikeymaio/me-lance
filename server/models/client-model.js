@@ -42,6 +42,12 @@ const ProjectSchema = mongoose.Schema({
     billingCycle: {
         type: String,
     },
+    notes: {
+        type: String,
+    },
+    invoices: {
+        type: Array,
+    },
     template: {
         type: String,
     },
@@ -87,8 +93,9 @@ const ClientSchema = mongoose.Schema({
     },
     projects: {
         type: Array,
-        default: [ProjectSchema]
+        // default: [ProjectSchema]
     },
+    // projects: [ProjectSchema],
     userId: {
         type: String,
     },

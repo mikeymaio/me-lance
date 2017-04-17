@@ -164,111 +164,69 @@ router.post('/:id/projects', (req, res) => {
 
 // UPDATE PROJECTS
 
-// router.put('/:id/projects/:projectId', (req, res) => {
-//   // if (!req.isAuthenticated()) {
-//   //   return res.status(401).json({ message: 'Not logged in' });
-//   // }
-//   // ensure that the id in the request path and the one in request body match
-//   if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
-//     const message = (
-//       `Request path id (${req.params.id}) and request body clientId ` +
-//       `(${req.body.clientId}) must match`);
-//     console.error(message);
-//     res.status(400).json({message: message});
-//   }
-//   // const toUpdate = {dateModified: new Date().toISOString()};
-//   const updateableFields = ['clientName', 'projectName', 'rate', 'ratePer', 'budget', 'startDate', 'endDate', 'totalTimeSpent', 'timeSpentThisBill', 'notes', 'completed'];
-//     // const updateableFields = ['projects.clientName, projects.rate, projects.ratePer, projects.budget, projects.startDate, projects.endDate, projects.totalTimeSpent, projects.timeSpentThisBill, projects.notes, projects.completed'];
+router.put('/:id/projects/:projectId', (req, res) => {
+  // if (!req.isAuthenticated()) {
+  //   return res.status(401).json({ message: 'Not logged in' });
+  // }
+  // ensure that the id in the request path and the one in request body match
+  if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body clientId ` +
+      `(${req.body.clientId}) must match`);
+    console.error(message);
+    res.status(400).json({message: message});
+  }
 
-//   const clientId = req.params.id;
-//   const projectId = req.params.projectId;
-//   const project = req.body;
+  const updateableFields = ['clientName', 'projectName', 'rate', 'ratePer', 'budget', 'startDate', 'endDate', 'totalTimeSpent', 'timeSpentThisBill', 'notes', 'completed'];
 
-//   Client
-//     .findById(clientId)
-//     .exec()
-//     .then(client => {
-//       if (!client) {
-//         return res.status(404).json({message: 'Client not found'});
-//       }
-//       const i = client.projects.findIndex((project) => project._id.toString() === projectId);
-//       if (i === -1) {
-//         return res.status(404).json({message: 'Project not found'});
-//       }
-//       updateableFields.forEach(field => {
-//         if (field in project) {
-//           client.projects[i][field] = project[field];
-//         }
-//       });
-//       client.projects[i].dateModified = new Date().toISOString();
-//       console.log('line 201 of client-router = ', client.projects[i]);
+  const clientId = req.params.id;
+  const projectId = req.params.projectId;
+  const project = req.body;
 
-//       client.save();
-//     })
-//     .then( res => {
-//       res.status(204).json({message: 'Success!'}).end();
-//       // client.save( (err, updatedClient) => {
-//       //   if (err) return res.json({message: err});
-//       //   res.send(updatedClient) })
-//     })
-//     .catch(err => res.status(500).json({message: 'error on 214 = ' + err}));
-// });
-
-
+  Client
+    .findById(clientId)
+    .exec()
+    .then(client => {
+      if (!client) {
+        return res.status(404).json({message: 'Client not found'});
+      }
+      const i = client.projects.findIndex((project) => project._id.toString() === projectId);
+      if (i === -1) {
+        return res.status(404).json({message: 'Project not found'});
+      }
+      updateableFields.forEach(field => {
+        if (field in project) {
+          client.projects[i][field] = project[field];
+        }
+      });
+      client.projects[i].dateModified = new Date().toISOString();
+      const updatedProjects = client.projects;
+      return Client.update({_id: clientId}, {$set: {projects: updatedProjects}});
+    })
+    .then( () => {
+      res.status(200).json({message: 'Success!'});
+    })
+    .catch(err => res.status(500).json({message: 'error on 214 = ' + err}));
+});
 
 
 // DELETE PROJECT
-
-// router.delete('/:id/projects/:projectId', (req, res) => {
-//   // if (!req.isAuthenticated()) {
-//   //   return res.status(401).json({ message: 'Not logged in' });
-//   // }
-
-//   const clientId = req.params.id;
-//   const projectId = req.params.projectId;
-
-//   Client
-//   .findById(clientId)
-//   .exec()
-//   .then(client => {
-//       if (!client) {
-//         return res.status(404).json({message: 'Client not found'});
-//       }
-//       const i = client.projects.findIndex((project) => project._id.toString() === projectId);
-//       if (i === -1) {
-//         return res.status(404).json({message: 'Project not found'});
-//       }
-//       console.log('line 299: found project = ' + client.projects[i].projectName);
-
-
-//       client.projects[i].remove().exec();
-//       // client.projects[i].remove({_id: client.projects[i]._id});
-//       // client.projects[i].remove({_id: client.projects[i]._id});
-
-//       // res.status(204).json({message: 'Success!'}).end();
-//     })
-//     .then( () => res.status(204).json({message: 'Success!'}).end() )
-//     .catch(err => res.status(500).json({message: 'Something went wrong: ' + err}));
-// });
-
-
 
 router.delete('/:id/projects/:projectId', (req, res) => {
   // if (!req.isAuthenticated()) {
   //   return res.status(401).json({ message: 'Not logged in' });
   // }
-
   const clientId = req.params.id;
   const projectId = req.params.projectId;
 
   Client
   .findByIdAndUpdate(clientId, {
     $pull: {
-        projects: {_id: projectId}
+        projects: {_id: new mongoose.Types.ObjectId(projectId)}
     }
   }, {new: true})
   .exec()
-  .then( () => res.status(204).json({message: 'Success!'}).end() )
+  .then( () => res.status(200).json({message: 'Success!'}).end() )
   .catch(err => res.status(500).json({message: 'Something went wrong: ' + err}));
 });
 
