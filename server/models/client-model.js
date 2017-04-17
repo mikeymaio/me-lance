@@ -2,6 +2,62 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+// PROJECTS
+
+const ProjectSchema = mongoose.Schema({
+    clientName: {
+        type: String,
+        default: ""
+    },
+    projectName: {
+        type: String,
+        default: ""
+    },
+    rate: {
+        type: Number,
+        default: 0,
+    },
+    ratePer: {
+        type: String,
+        default: ""
+    },
+    budget: {
+        type: Number,
+        default: 0
+    },
+    startDate: {
+        type: Date,
+        default: null
+    },
+    endDate: {
+        type: Number,
+        default: null
+    },
+    totalTimeSpent: {
+        type: Number,
+    },
+    timeSpentThisBill: {
+        type: Number,
+    },
+    billingCycle: {
+        type: String,
+    },
+    template: {
+        type: String,
+    },
+    completed: {
+        type: Boolean,
+    },
+    clientId: {
+        type: String,
+    },
+    userId: {
+        type: String,
+    },
+    dateCreated: {type: Date},
+    dateModified: {type: Date}
+});
+
 // CLIENTS
 
 const ClientSchema = mongoose.Schema({
@@ -31,7 +87,7 @@ const ClientSchema = mongoose.Schema({
     },
     projects: {
         type: Array,
-        default: []
+        default: [ProjectSchema]
     },
     userId: {
         type: String,

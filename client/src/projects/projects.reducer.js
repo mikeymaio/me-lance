@@ -23,6 +23,13 @@ const projectReducer = (state=projectState, action) => {
                 // projects: action.projects,
                 projectView: 'projectList',
             }
+        case 'RECEIVE_CLIENT_DATA':
+            return {
+                ...state,
+                isLoading: false,
+                // projects: action.projects,
+                projectView: 'projectList',
+            }
         case 'UPDATE_PROJECT_DATA':
         return update(state, {
                projects: {

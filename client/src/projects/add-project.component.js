@@ -7,6 +7,8 @@ import Divider from 'material-ui/Divider';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import AutoComplete from 'material-ui/AutoComplete';
+
 
 import Loader from '../loader/loader.component';
 
@@ -15,30 +17,39 @@ import * as actions from './projects.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-const billingOptions = [
-  <MenuItem key={1} value="hr" primaryText="hr" />,
-  <MenuItem key={2} value="day" primaryText="day" />,
-  <MenuItem key={3} value="week" primaryText="week" />,
-  <MenuItem key={4} value="fixed price" primaryText="fixed price" />,
-  <MenuItem key={5} value="other" primaryText="other" />,
-];
+
+
+const billingOptions2 = ['hr', 'day', 'week', 'fixed price'];
+
 
 const styles = {
     input: {
     display: 'inline-block',
-    margin: 10,
-    width: '40%',
-    // float: 'left'
+    margin: 5,
+    width: '50%',
+    textAlign: 'left',
+  },
+  datePicker: {
+    marginTop: 15,
+  },
+  selectMenu: {
+    display: 'inline-block',
+    width: '50%',
+    textAlign: 'left',
+    margin: 0,
   }
 }
+
+
 class AddProject extends React.Component {
 
     state = {
     billingOptionValue: "hr",
-    selectedClient: "Select A Client",
-    selectedClientIndex: null,
-    selectedTemplate: null
+    selectedClient: '',
+    selectedClientIndex: '',
+    selectedTemplate: null,
   };
+
 
 handleBillingChange = (event, index, value) => {
     this.setState({billingOptionValue: value});
@@ -48,9 +59,11 @@ handleClientChange = (event, index, value) => {
     this.setState({selectedClient: value, selectedClientIndex: index});
   };
 
+
 handleTemplateChange = (event, index, value) => {
     this.setState({selectedTemplate: value});
   };
+
 
     actionButtons = [
       <FlatButton
@@ -66,7 +79,9 @@ handleTemplateChange = (event, index, value) => {
       />,
     ];
 
+
     render() {
+
         return (
 
       <div>
@@ -75,7 +90,8 @@ handleTemplateChange = (event, index, value) => {
         <form id="project-add-form" onSubmit={(event) => {
             event.preventDefault()
             console.log('project-add-form submitted')
-            let clientName = this.state.selectedClient;
+            //let clientName = this.state.selectedClient;
+            let clientName = `${this.props.clients[this.state.selectedClientIndex].firstName} ${this.props.clients[this.state.selectedClientIndex].lastName}`;
             let projectName = event.target.projectName.value;
             let rate = event.target.rate.value;
             let ratePer = this.state.billingOptionValue;
@@ -89,34 +105,40 @@ handleTemplateChange = (event, index, value) => {
             let clientId = this.props.clients[this.state.selectedClientIndex].clientId;
 
             this.props.handleAddProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId, clientId)
+
             }}>
+
             { this.props.isLoading ? <Loader /> : false }
-            {/*<TextField
-                //id={project.clientName}
+            {/*<div>*/}
+             <SelectField
+                value={this.state.selectedClient}
+                onChange={this.handleClientChange}
+                //maxHeight={200}
                 name="clientName"
                 floatingLabelText="Client Name"
-                hintText="John Doe"
-                />*/}
-            <SelectField
-                    value={this.state.selectedClient}
-                    onChange={this.handleClientChange}
-                    //maxHeight={200}
-                    name="clientName"
-                    floatingLabelText="Client Name"
-                    hintText="Client Name"
-                    style={styles.input}
-                >
-                {this.props.clients.map( ( client, index ) => (
-                    <MenuItem key={index} value={`${client.firstName} ${client.lastName}`} primaryText={`${client.firstName} ${client.lastName}`} />
-                ))}
+                //floatingLabelStyle={{textAlign: "left"}}
+                hintText="Select Client"
+                style={styles.selectMenu}
+            >
+            {
+                //this.props.templates === [] ?
+               // <MenuItem key="newTemp" value="New Template" primaryText="New Template" /> :
+                this.props.clients.map( ( client, index ) => (
+                    <MenuItem key={index} value={index} primaryText={`${client.firstName} ${client.lastName}`} />
+                ))
+            }
                 </SelectField>
+                <br />
             <TextField
+                //className="pull-right"
                 //id={project.projectName}
                 name="projectName"
                 floatingLabelText="Project Name"
+                //floatingLabelFixed={true}
                 hintText="My Awesome Project"
                 style={styles.input}
                 />
+                <br />
             <DatePicker
                 name="startDate"
                 hintText="Start Date"
@@ -124,8 +146,9 @@ handleTemplateChange = (event, index, value) => {
                 mode="landscape"
                 autoOk={true}
                 style={styles.input}
+                textFieldStyle={styles.datePicker}
             />
-            {/*<br />*/}
+            <br />
             <DatePicker
                 name="endDate"
                 hintText="End Date"
@@ -133,40 +156,44 @@ handleTemplateChange = (event, index, value) => {
                 mode="landscape"
                 autoOk={true}
                 style={styles.input}
+                textFieldStyle={styles.datePicker}
                 //formatDate={() => MM/DD/YY }
             />
+                <br />
             <TextField
                 //id={project.rate}
                 name="rate"
                 floatingLabelText="Charge"
                 hintText="100"
                 style={styles.input}
-                />
-                <SelectField
-                    value={this.state.billingOptionValue}
-                    onChange={this.handleBillingChange}
-                    //maxHeight={200}
-                    name="ratePer"
-                    floatingLabelText="Per"
-                    style={styles.input}
-                >
-                    {billingOptions}
-                </SelectField>
+            />
+            <br />
+            <AutoComplete
+                floatingLabelText="per"
+                filter={AutoComplete.caseInsensitiveFilter}
+                openOnFocus={true}
+                dataSource={billingOptions2}
+                style={styles.input}
+                //textFieldStyle={styles.input}
+            />
+                <br />
             <TextField
-                //id={project.budget}
+                //id={project.rate}
                 name="budget"
                 floatingLabelText="Budget"
                 hintText="10,000"
                 style={styles.input}
-                />
+            />
+            <br />
             <TextField
-                //id={project.notes}
+                //id={project.rate}
                 name="notes"
                 floatingLabelText="Notes"
-                hintText="Notes about the project"
+                hintText="Notes"
                 multiLine={true}
                 style={styles.input}
-                />
+            />
+                <br />
             <TextField
                 //id={project.billingCycle}
                 name="billingCycle"
@@ -174,6 +201,19 @@ handleTemplateChange = (event, index, value) => {
                 hintText="2 weeks"
                 style={styles.input}
                 />
+                <br />
+            {/*<AutoComplete
+                name="invoiceTemp"
+                floatingLabelText="Invoice Template"
+                filter={AutoComplete.caseInsensitiveFilter}
+                openOnFocus={true}
+                dataSource={this.props.templates.map(template => {
+                return template.title;
+            })}
+                style={styles.input}
+                    //textFieldStyle={styles.input}
+                />*/}
+                <br />
             <SelectField
                 value={this.state.selectedTemplate}
                 onChange={this.handleTemplateChange}
@@ -181,22 +221,16 @@ handleTemplateChange = (event, index, value) => {
                 name="invoiceTemp"
                 floatingLabelText="Invoice Template"
                 hintText="Select Invoice Template"
-                style={styles.input}
+                style={styles.selectMenu}
             >
-            {this.props.templates === [] ?
-                <MenuItem key="newTemp" value="New Template" primaryText="New Template" /> :
-                this.props.templates.map( ( template, index ) => (
+            {/*{this.props.templates === [] ?*/}
+                <MenuItem key="newTemp" value="New Template" primaryText="New Template" />
+                {this.props.templates.map( ( template, index ) => (
                     <MenuItem key={index} value={template.title} primaryText={template.title} />
-                ))
-            }
+                ))}
+            {/*}*/}
                 </SelectField>
-            {/*<TextField
-                //id={project.invoiceTemp}
-                name="invoiceTemp"
-                floatingLabelText="Invoice Template"
-                hintText="none"
-                style={styles.input}
-                />*/}
+
                 <Divider inset={false} style={{color: "#076", height: 3}} />
                 {/*{ this.props.projectEdit ?*/}
                     <div>
@@ -204,30 +238,7 @@ handleTemplateChange = (event, index, value) => {
                         <FlatButton type="submit" form="project-add-form" label="Save" //onTouchTap={() => this.props.handleClientEdit()}
                         />
                      </div>
-                    {/*:*/}
-                    {/*<div>*/}
-                    {/*</div>*/}
-                    {/*}*/}
-                    {/*<Divider inset={false} style={{color: "#076", height: 3}} />*/}
             </form>
-            <br />
-            {/*<div className="col-xs-12" style={{marginTop: 10}} >
-              <Divider />
-              <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={() => this.props.handleProjectView('projectList')}
-              />
-              <FlatButton
-                label="Save"
-                form="project-add-form"
-                type="submit"
-                primary={true}
-                keyboardFocused={true}
-                //onTouchTap={() => this.props.handleProjectView('projectList')}
-              />
-            </div>*/}
-        {/*</Dialog>*/}
     </div>
 );
     }

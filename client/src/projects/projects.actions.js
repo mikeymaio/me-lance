@@ -8,6 +8,11 @@ const receiveProjectDataFromServer = (projects) => ({
   projects
 })
 
+const receiveClientDataFromServer = (clients) => ({
+  type: 'RECEIVE_CLIENT_DATA',
+  clients
+})
+
 const addClientSuccess = () => ({
   type: 'RECEIVE_PROJECT_DATA',
 })
@@ -31,10 +36,6 @@ export function handleAddProjectModal() {
     }
 }
 
-// export const handleAddProject = (clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId) => {
-//     console.log('handleAddProject fired with client name:', clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId)
-
-// }
 
 export const handleAddProject = (clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId, clientId) => {
     console.log('handleAddProject fired: ', clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId, clientId)
@@ -63,6 +64,14 @@ export const handleAddProject = (clientName, projectName, rate, ratePer, budget,
     })
     // .then(response => response.json())
     .then(() =>  dispatch(addClientSuccess()))
+    .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
   }
 }
 
@@ -98,29 +107,46 @@ export function handleProjectEdit() {
     }
 }
 
-export const handleUpdateProject = (projectName, company, phone, email, address, clientId) => {
+export const handleUpdateProject = (clientName, projectName, rate, ratePer, budget, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId) => {
     console.log('handleUpdateProject fired with project name:', projectName)
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch(`http://localhost:8080/api/clients/${clientId}`, {
+    fetch(`http://localhost:8080/api/clients/${clientId}/projects/${projectId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        clientName,
         projectName,
-        company,
-        phone,
-        email,
-        address,
-        clientId
+        rate,
+        ratePer,
+        budget,
+        startDate,
+        endDate,
+        totalTimeSpent,
+        billingCycle,
+        completed,
+        userId,
+        clientId,
+        projectId
       })
     })
+    // .then(response => response.json())
+    // .then(res => {console.log(res); dispatch(updateProjectData(res))})
+    .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
     .then(response => response.json())
-    .then(res => {console.log(res); dispatch(updateProjectData(res))})
+    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
   }
 }
+
+
 
 export const handleDeleteProject = (clientId, projectId, userId) => {
     console.log('deleting project: ', projectId)
@@ -137,7 +163,7 @@ export const handleDeleteProject = (clientId, projectId, userId) => {
         projectId
       })
     })
-    .then(response => response.json())
+    .then(response => response.text())
     .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
@@ -145,7 +171,7 @@ export const handleDeleteProject = (clientId, projectId, userId) => {
       },
     })
     .then(response => response.json())
-    .then(res => dispatch(receiveProjectDataFromServer(res.clients.projects))))
+    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
   }
 }
 

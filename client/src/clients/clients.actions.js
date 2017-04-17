@@ -73,36 +73,6 @@ export const handleAddClient = (firstName, lastName, company, phone, email, addr
   }
 }
 
-// export const handleUpdateClient = (firstName, lastName, company, phone, email, address, clientId) => {
-//     console.log('handleUpdateClient fired with client name:', firstName, lastName)
-//   return dispatch => {
-//     dispatch(requestDataFromServer())
-
-//     fetch(`http://localhost:8080/api/clients/${clientId}`, {
-//       method: 'PUT',
-//       mode: 'same-origin',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({
-//         firstName,
-//         lastName,
-//         company,
-//         phone,
-//         email,
-//         address,
-//         clientId
-//       })
-//     })
-//     .then(response => response.json())
-//     .then(res => {console.log(res); return dispatch(updateClientData(res))})
-//     // .then(res => res.text() )
-//     // .then( res => { completeUpdate(res) })
-//     .catch((err) => console.log('updateClient failed: ', err))
-//   }
-// }
-
-
 export const handleUpdateClient = (firstName, lastName, company, phone, email, address, clientId, userId) => {
     console.log('handleUpdateClient fired with client name:', firstName, lastName)
   return dispatch => {

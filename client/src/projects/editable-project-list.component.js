@@ -74,7 +74,7 @@ constructor(props) {
       <div>
         <br />
           <List>
-              <h3 style={{color: "#076", display: "inline-block"}} >Your Projects</h3>
+              <h3 style={{color: "#076", display: "inline-block"}}>Your Projects</h3>
               <FlatButton
                 label="New Project"
                 primary={true}
@@ -96,19 +96,22 @@ constructor(props) {
                     <form id="project-edit-form" onSubmit={(event) => {
                         event.preventDefault()
                         console.log('project-update-form submitted')
-                        let clientName = this.state.selectedClient
-                        let projectName = event.target.projectName.value
-                        let rate = event.target.rate.value
-                        let ratePer = this.state.billingOptionValue
-                        let budget = event.target.budget.value
-                        let startDate = event.target.startDate.value
-                        let endDate = event.target.endDate.value
-                        let totalTimeSpent = event.target.totalTimeSpent.value
-                        let billingCycle = event.target.billingCycle.value
-                        let completed = event.target.completed.value
-                        let userId = this.props.userId
+                        {/*let clientName = this.state.selectedClient;*/}
+                        let clientName = event.target.clientName.value;
+                        let projectName = event.target.projectName.value;
+                        let rate = event.target.rate.value;
+                        let ratePer = this.state.billingOptionValue;
+                        let budget = event.target.budget.value;
+                        let startDate = event.target.startDate.value;
+                        let endDate = event.target.endDate.value;
+                        let totalTimeSpent = event.target.totalTimeSpent.value;
+                        let billingCycle = event.target.billingCycle.value;
+                        let completed = event.target.completed.value;
+                        let userId = this.props.userId;
+                        let clientId = project.clientId;
+                        let projectId = project._id;
 
-                        this.props.handleUpdateProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, totalTimeSpent, billingCycle, completed, userId)
+                        this.props.handleUpdateProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId)
                       }}>
                       { this.props.isLoading ? <Loader /> : false }
                       <TextField
@@ -119,7 +122,7 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             />
-                        <SelectField
+                        {/*<SelectField
                             value={this.state.selectedClient}
                             defaultValue={project.clientName}
                             onChange={this.handleClientChange}
@@ -132,7 +135,7 @@ constructor(props) {
                         {this.props.clients.map( ( client, index ) => (
                             <MenuItem key={index} value={`${client.firstName} ${client.lastName}`} primaryText={`${client.firstName} ${client.lastName}`} />
                         ))}
-                        </SelectField>
+                        </SelectField>*/}
                         <TextField
                             id={project.projectName}
                             name="projectName"
@@ -149,15 +152,15 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             />
-                        {/*<TextField
+                        <TextField
                             id={project.ratePer}
                             name="ratePer"
                             floatingLabelText="Per"
                             defaultValue={project.ratePer}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
-                            />*/}
-                        <SelectField
+                            />
+                        {/*<SelectField
                             value={this.state.billingOptionValue}
                             onChange={this.handleBillingChange}
                             //maxHeight={200}
@@ -166,7 +169,7 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                         >
                             {billingOptions}
-                        </SelectField>
+                        </SelectField>*/}
                         <br />
                         <TextField
                             id={project.budget}
@@ -176,19 +179,20 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             />
-                        {/*<TextField
+                        <TextField
                             id={project.startDate}
                             name="startDate"
                             floatingLabelText="Start Date"
                             defaultValue={project.startDate}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
-                            />*/}
-                        <DatePicker
+                            />
+                        {/*<DatePicker
                             name="startDate"
                             hintText="Start Date"
                             container="inline"
                             mode="landscape"
+                            //defaultDate={project.startDate}
                             autoOk={true}
                             disabled={!this.props.projectEdit}
                         />
@@ -198,18 +202,19 @@ constructor(props) {
                             hintText="End Date"
                             container="inline"
                             mode="landscape"
+                            //defaultDate={project.endDate}
                             autoOk={true}
                             disabled={!this.props.projectEdit}
-                        />
+                        />*/}
                         <br />
-                        {/*<TextField
+                        <TextField
                             id={project.endDate}
                             name="endDate"
                             floatingLabelText="End Date"
                             defaultValue={project.endDate}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
-                            />*/}
+                            />
                         <TextField
                             id={project.notes}
                             name="notes"
@@ -238,7 +243,7 @@ constructor(props) {
                             id={project.completed}
                             name="completed"
                             floatingLabelText="Status"
-                            defaultValue={project.completed}
+                            defaultValue={project.completed ? "completed" : "in progress"}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             />
@@ -263,7 +268,7 @@ constructor(props) {
                                   <FlatButton
                                   className="pull-left"
                                   key={`delete${project.projectId}`}
-                                  label="DELETE" onTouchTap={() => this.props.handleDeleteProject(project.clientId, project.projectId, project.userId)} />
+                                  label="DELETE" onTouchTap={() => this.props.handleDeleteProject(project.clientId, project._id, project.userId)} />
                                   <FlatButton key={`edit${project.projectId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleProjectEdit()} />
 
                                     {/*<FlatButton key={`test${project.projectId}`} label="Loader" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.testLoader()} />*/}

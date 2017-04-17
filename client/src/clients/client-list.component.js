@@ -48,7 +48,7 @@ constructor(props) {
       <div>
         <br />
           <List>
-              <h3 style={{color: "#076", display: "inline-block"}} >Your Clients</h3>
+              <h3 style={{color: "#076", display: "inline-block"}}>Your Clients</h3>
               <FlatButton
                 label="New Client"
                 primary={true}
