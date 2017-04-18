@@ -37,8 +37,8 @@ export function handleAddProjectModal() {
 }
 
 
-export const handleAddProject = (clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId, clientId) => {
-    console.log('handleAddProject fired: ', clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId, clientId)
+export const handleAddProject = (clientName, projectName, rate, ratePer, budget, notes, startDate, endDate, timeSpent, billingCycle, template, userId, clientId) => {
+    console.log('handleAddProject fired: ', clientName, projectName, rate, ratePer, budget, notes, startDate, endDate, timeSpent, billingCycle, template, userId, clientId)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -53,6 +53,7 @@ export const handleAddProject = (clientName, projectName, rate, ratePer, budget,
         rate,
         ratePer,
         budget,
+        notes,
         startDate,
         endDate,
         timeSpent,
@@ -107,7 +108,7 @@ export function handleProjectEdit() {
     }
 }
 
-export const handleUpdateProject = (clientName, projectName, rate, ratePer, budget, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId) => {
+export const handleUpdateProject = (clientName, projectName, rate, ratePer, budget, notes, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId) => {
     console.log('handleUpdateProject fired with project name:', projectName)
   return dispatch => {
     dispatch(requestDataFromServer())
@@ -123,6 +124,7 @@ export const handleUpdateProject = (clientName, projectName, rate, ratePer, budg
         rate,
         ratePer,
         budget,
+        notes,
         startDate,
         endDate,
         totalTimeSpent,

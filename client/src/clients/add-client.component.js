@@ -132,7 +132,7 @@ class AddClient extends React.Component {
               name="email"
               floatingLabelText="Client's Email"
               floatingLabelFixed={true}
-              hintText="John Doe Inc"
+              hintText="jdoe@jdoe.com"
               //errorText="johndoe@johndoeinc.com"
               style={styles.textField}
             />
@@ -142,7 +142,7 @@ class AddClient extends React.Component {
               name="address"
               floatingLabelText="Client's Address"
               floatingLabelFixed={true}
-              hintText="John Doe Inc"
+              hintText="123 Main St"
               //errorText="johndoe@johndoeinc.com"
               style={styles.textField}
             />

@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import AutoComplete from 'material-ui/AutoComplete';
+// import AutoComplete from 'material-ui/AutoComplete';
 
 
 import Loader from '../loader/loader.component';
@@ -16,10 +16,6 @@ import * as actions from './projects.actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-
-
-const billingOptions2 = ['hr', 'day', 'week', 'fixed price'];
 
 
 const styles = {
@@ -40,11 +36,19 @@ const styles = {
   }
 }
 
+const billingOptions = [
+  <MenuItem key={1} value="hr" primaryText="hr" />,
+  <MenuItem key={2} value="day" primaryText="day" />,
+  <MenuItem key={3} value="week" primaryText="week" />,
+  <MenuItem key={4} value="fixed price" primaryText="fixed price" />,
+  <MenuItem key={5} value="other" primaryText="other" />,
+];
 
 class AddProject extends React.Component {
 
     state = {
-    billingOptionValue: "hr",
+    //billingOptionValue: "hr",
+    billingOptionValue: "",
     selectedClient: '',
     selectedClientIndex: '',
     selectedTemplate: null,
@@ -96,6 +100,7 @@ handleTemplateChange = (event, index, value) => {
             let rate = event.target.rate.value;
             let ratePer = this.state.billingOptionValue;
             let budget = event.target.budget.value;
+            let notes = event.target.notes.value;
             let startDate = event.target.startDate.value;
             let endDate = event.target.endDate.value;
             let timeSpent = 0;
@@ -104,7 +109,7 @@ handleTemplateChange = (event, index, value) => {
             let userId = this.props.userId;
             let clientId = this.props.clients[this.state.selectedClientIndex].clientId;
 
-            this.props.handleAddProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, timeSpent, billingCycle, template, userId, clientId)
+            this.props.handleAddProject(clientName, projectName, rate, ratePer, budget, notes, startDate, endDate, timeSpent, billingCycle, template, userId, clientId)
 
             }}>
 
@@ -164,18 +169,31 @@ handleTemplateChange = (event, index, value) => {
                 //id={project.rate}
                 name="rate"
                 floatingLabelText="Charge"
-                hintText="100"
+                hintText="$"
                 style={styles.input}
             />
             <br />
-            <AutoComplete
+            <SelectField
+                value={this.state.billingOptionValue}
+                onChange={this.handleBillingChange}
+                name="ratePer"
+                floatingLabelText="Per"
+                //floatingLabelFixed={true}
+                //hintText="hr"
+                style={styles.selectMenu}
+                //hintStyle={{color: '#076'}}
+                labelStyle={{color: '#076'}}
+            >
+                {billingOptions}
+            </SelectField>
+            {/*<AutoComplete
                 floatingLabelText="per"
                 filter={AutoComplete.caseInsensitiveFilter}
                 openOnFocus={true}
                 dataSource={billingOptions2}
                 style={styles.input}
                 //textFieldStyle={styles.input}
-            />
+            />*/}
                 <br />
             <TextField
                 //id={project.rate}
@@ -198,7 +216,7 @@ handleTemplateChange = (event, index, value) => {
                 //id={project.billingCycle}
                 name="billingCycle"
                 floatingLabelText="Billing Cycle"
-                hintText="2 weeks"
+                hintText="weekly, bi-weekly, monthly..."
                 style={styles.input}
                 />
                 <br />

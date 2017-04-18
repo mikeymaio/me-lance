@@ -29,6 +29,7 @@ const projectReducer = (state=projectState, action) => {
                 isLoading: false,
                 // projects: action.projects,
                 projectView: 'projectList',
+                projectEdit: false,
             }
         case 'UPDATE_PROJECT_DATA':
         return update(state, {

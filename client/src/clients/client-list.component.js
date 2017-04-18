@@ -84,7 +84,7 @@ constructor(props) {
                         <TextField
                             id={client.firstName}
                             name="firstName"
-                            floatingLabelText="firstName"
+                            floatingLabelText="First Name"
                             defaultValue={client.firstName}
                             disabled={!this.props.clientEdit}
                             underlineDisabledStyle={{display: 'none'}}
@@ -92,7 +92,7 @@ constructor(props) {
                         <TextField
                             id={client.lastName}
                             name="lastName"
-                            floatingLabelText="lastName"
+                            floatingLabelText="last Name"
                             defaultValue={client.lastName}
                             disabled={!this.props.clientEdit}
                             underlineDisabledStyle={{display: 'none'}}
@@ -101,7 +101,7 @@ constructor(props) {
                         <TextField
                             id={client.company}
                             name="company"
-                            floatingLabelText="company"
+                            floatingLabelText="Company"
                             defaultValue={client.company}
                             disabled={!this.props.clientEdit}
                             underlineDisabledStyle={{display: 'none'}}
@@ -109,7 +109,7 @@ constructor(props) {
                         <TextField
                             id={client.phone}
                             name="phone"
-                            floatingLabelText="phone"
+                            floatingLabelText="Phone"
                             defaultValue={client.phone}
                             disabled={!this.props.clientEdit}
                             underlineDisabledStyle={{display: 'none'}}
@@ -126,7 +126,7 @@ constructor(props) {
                         <TextField
                             id={client.address}
                             name="address"
-                            floatingLabelText="address"
+                            floatingLabelText="Address"
                             defaultValue={client.address}
                             multiLine={true}
                             disabled={!this.props.clientEdit}

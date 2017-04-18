@@ -30,7 +30,7 @@ const ProjectSchema = mongoose.Schema({
         default: null
     },
     endDate: {
-        type: Number,
+        type: Date,
         default: null
     },
     totalTimeSpent: {
@@ -91,11 +91,11 @@ const ClientSchema = mongoose.Schema({
         type: String,
         default: ""
     },
-    projects: {
-        type: Array,
-        // default: [ProjectSchema]
-    },
-    // projects: [ProjectSchema],
+    // projects: {
+    //     type: Array,
+    //     // default: [ProjectSchema]
+    // },
+    projects: [ProjectSchema],
     userId: {
         type: String,
     },

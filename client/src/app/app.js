@@ -5,7 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Header from '../header/header.component';
 import SideMenu from '../menu/left-menu.component';
-import InvoiceList from '../invoices/invoice-list.component';
+import InvoiceList from '../invoices/invoice-list-2.component';
 
 import ClientList from '../clients/client-list.component';
 import AddClient from '../clients/add-client.component';

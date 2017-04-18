@@ -177,7 +177,7 @@ router.put('/:id/projects/:projectId', (req, res) => {
     res.status(400).json({message: message});
   }
 
-  const updateableFields = ['clientName', 'projectName', 'rate', 'ratePer', 'budget', 'startDate', 'endDate', 'totalTimeSpent', 'timeSpentThisBill', 'notes', 'completed'];
+  const updateableFields = ['clientName', 'projectName', 'rate', 'ratePer', 'budget', 'startDate', 'endDate', 'totalTimeSpent', 'timeSpentThisBill', 'billingCycle', 'notes', 'completed'];
 
   const clientId = req.params.id;
   const projectId = req.params.projectId;

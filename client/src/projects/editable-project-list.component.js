@@ -20,6 +20,26 @@ import DatePicker from 'material-ui/DatePicker';
 import Loader from '../loader/loader.component';
 
 
+const styles = {
+    input: {
+    display: 'inline-block',
+    margin: 0,
+    width: '50%',
+    textAlign: 'left',
+  },
+  datePicker: {
+    marginTop: 15,
+    width: '50%',
+  },
+  selectMenu: {
+    display: 'inline-block',
+    width: '50%',
+    textAlign: 'left',
+    margin: 0,
+  }
+}
+
+
 const billingOptions = [
   <MenuItem key={1} value="hr" primaryText="hr" />,
   <MenuItem key={2} value="day" primaryText="day" />,
@@ -35,8 +55,10 @@ constructor(props) {
   this.state = {
     open: false,
     billingOptionValue: "hr",
-    selectedClient: "Select A Client",
+    selectedClient: "",
     selectedClientIndex: null,
+    selectedTemplate: "",
+    completed: "",
   };
 
   this.handleToggle = () => {
@@ -59,14 +81,17 @@ constructor(props) {
         this.setState({selectedClient: value, selectedClientIndex: index});
   };
 
+
     this.handleTemplateChange = (event, index, value) => {
         this.setState({selectedTemplate: value});
   };
 
+      this.handleStatus = (event, index, value) => {
+        this.setState({completed: value});
+  };
+
+
 }
-//   componentDidUpdate() {
-//     this.props.fetchUserClients(this.props.userId)
-//   }
 
   render() {
 
@@ -96,164 +121,233 @@ constructor(props) {
                     <form id="project-edit-form" onSubmit={(event) => {
                         event.preventDefault()
                         console.log('project-update-form submitted')
-                        {/*let clientName = this.state.selectedClient;*/}
-                        let clientName = event.target.clientName.value;
+                        let clientName = this.state.selectedClient;
+                        {/*let clientName = `${this.props.clients[this.state.selectedClientIndex].firstName} ${this.props.clients[this.state.selectedClientIndex].lastName}`;*/}
                         let projectName = event.target.projectName.value;
                         let rate = event.target.rate.value;
                         let ratePer = this.state.billingOptionValue;
                         let budget = event.target.budget.value;
+                        let notes = event.target.notes.value;
                         let startDate = event.target.startDate.value;
                         let endDate = event.target.endDate.value;
                         let totalTimeSpent = event.target.totalTimeSpent.value;
                         let billingCycle = event.target.billingCycle.value;
-                        let completed = event.target.completed.value;
+                        let completed = this.state.completed;
+                        {/*let template = this.state.selectedTemplate;*/}
                         let userId = this.props.userId;
                         let clientId = project.clientId;
                         let projectId = project._id;
 
-                        this.props.handleUpdateProject(clientName, projectName, rate, ratePer, budget, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId)
+                        this.props.handleUpdateProject(clientName, projectName, rate, ratePer, budget, notes, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId)
                       }}>
                       { this.props.isLoading ? <Loader /> : false }
+
                       <TextField
-                            id={project.clientName}
+                            value={project.clientName}
+                            //onChange={this.handleClientChange}
                             name="clientName"
-                            floatingLabelText="Client"
-                            defaultValue={project.clientName}
-                            disabled={!this.props.projectEdit}
+                            floatingLabelText="Client Name"
+                            floatingLabelFixed={true}
+                            hintText={project.clientName}
+                            style={styles.input}
+                            hintStyle={{color: '#076'}}
+                            //labelStyle={{color: '#076'}}
+                            //disabled={!this.props.projectEdit}
+                            disabled={true}
                             underlineDisabledStyle={{display: 'none'}}
-                            />
+                        />
                         {/*<SelectField
-                            value={this.state.selectedClient}
-                            defaultValue={project.clientName}
+                            //value={this.state.selectedClient}
+                            value={project.clientName}
                             onChange={this.handleClientChange}
                             //maxHeight={200}
                             name="clientName"
                             floatingLabelText="Client Name"
-                            hintText="Client Name"
-                            disabled={!this.props.projectEdit}
+                            floatingLabelFixed={true}
+                            hintText={project.clientName}
+                            //floatingLabelStyle={{textAlign: "left"}}
+                            style={styles.selectMenu}
+                            hintStyle={{color: '#076'}}
+                            labelStyle={{color: '#076'}}
+                            //disabled={!this.props.projectEdit}
+                            disabled={true}
+                            underlineDisabledStyle={{display: 'none'}}
                         >
-                        {this.props.clients.map( ( client, index ) => (
-                            <MenuItem key={index} value={`${client.firstName} ${client.lastName}`} primaryText={`${client.firstName} ${client.lastName}`} />
-                        ))}
-                        </SelectField>*/}
+                        {
+                            //this.props.templates === [] ?
+                        // <MenuItem key="newTemp" value="New Template" primaryText="New Template" /> :
+                            this.props.clients.map( ( client, index ) => (
+                                <MenuItem key={index} value={`${client.firstName} ${client.lastName}`} primaryText={`${client.firstName} ${client.lastName}`} />
+                            ))
+                        }
+                            </SelectField>*/}
+                        <br />
                         <TextField
-                            id={project.projectName}
+                            //id={project.projectName}
                             name="projectName"
                             floatingLabelText="Project Name"
+                            floatingLabelFixed={true}
                             defaultValue={project.projectName}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
+                            style={styles.input}
                             />
+                            <br />
                         <TextField
-                            id={project.rate}
+                            //id={project.rate}
                             name="rate"
                             floatingLabelText="Charge"
+                            floatingLabelFixed={true}
+                            hintText="$"
                             defaultValue={project.rate}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
+                            style={styles.input}
                             />
-                        <TextField
-                            id={project.ratePer}
-                            name="ratePer"
-                            floatingLabelText="Per"
-                            defaultValue={project.ratePer}
-                            disabled={!this.props.projectEdit}
-                            underlineDisabledStyle={{display: 'none'}}
-                            />
-                        {/*<SelectField
+                            <br />
+                        <SelectField
                             value={this.state.billingOptionValue}
                             onChange={this.handleBillingChange}
-                            //maxHeight={200}
                             name="ratePer"
                             floatingLabelText="Per"
+                            floatingLabelFixed={true}
+                            hintText={project.ratePer}
                             disabled={!this.props.projectEdit}
+                            underlineDisabledStyle={{display: 'none'}}
+                            style={styles.selectMenu}
+                            hintStyle={{color: '#076'}}
+                            labelStyle={{color: '#076'}}
                         >
                             {billingOptions}
-                        </SelectField>*/}
+                        </SelectField>
                         <br />
                         <TextField
-                            id={project.budget}
+                            //id={project.budget}
                             name="budget"
                             floatingLabelText="Budget"
+                            floatingLabelFixed={true}
+                            hintText="$"
                             defaultValue={project.budget}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
+                            style={styles.input}
                             />
-                        <TextField
-                            id={project.startDate}
-                            name="startDate"
-                            floatingLabelText="Start Date"
-                            defaultValue={project.startDate}
-                            disabled={!this.props.projectEdit}
-                            underlineDisabledStyle={{display: 'none'}}
-                            />
-                        {/*<DatePicker
+                            <br />
+                        <DatePicker
                             name="startDate"
                             hintText="Start Date"
+                            floatingLabelText="Start Date"
+                            floatingLabelFixed={true}
                             container="inline"
                             mode="landscape"
-                            //defaultDate={project.startDate}
+                            defaultDate={new Date(project.startDate)}
                             autoOk={true}
                             disabled={!this.props.projectEdit}
+                            textFieldStyle={styles.datePicker}
+                            underlineDisabledStyle={{display: 'none'}}
                         />
                         <br />
                         <DatePicker
                             name="endDate"
                             hintText="End Date"
+                            floatingLabelText="End Date"
+                            floatingLabelFixed={true}
                             container="inline"
                             mode="landscape"
-                            //defaultDate={project.endDate}
+                            defaultDate={new Date(project.endDate)}
                             autoOk={true}
                             disabled={!this.props.projectEdit}
-                        />*/}
+                            textFieldStyle={styles.datePicker}
+                            underlineDisabledStyle={{display: 'none'}}
+                        />
                         <br />
                         <TextField
-                            id={project.endDate}
-                            name="endDate"
-                            floatingLabelText="End Date"
-                            defaultValue={project.endDate}
-                            disabled={!this.props.projectEdit}
-                            underlineDisabledStyle={{display: 'none'}}
-                            />
-                        <TextField
-                            id={project.notes}
+                            //id={project.notes}
                             name="notes"
                             floatingLabelText="Notes"
+                            floatingLabelFixed={true}
+                            floatingLabelStyle={{textAlign: 'left', float: 'left'}}
                             defaultValue={project.notes}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
+                            multiLine={true}
+                            style={styles.input}
                             />
+                            <br />
                         <TextField
-                            id={project.billingCycle}
+                            //id={project.billingCycle}
                             name="billingCycle"
                             floatingLabelText="Billing Cycle"
+                            floatingLabelFixed={true}
                             defaultValue={project.billingCycle}
+                            hintText="weekly, bi-weekly, monthly..."
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
+                            style={styles.input}
                             />
-                        <TextField
-                            id={project.invoiceTemp}
+                            <br />
+                            <SelectField
                             name="invoiceTemp"
+                            value={this.state.selectedTemplate}
+                            onChange={this.handleTemplateChange}
                             floatingLabelText="Invoice Template"
-                            defaultValue={project.invoiceTemp}
+                            floatingLabelFixed={true}
+                            hintText={project.template}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
-                            />
-                        <TextField
-                            id={project.completed}
+                            style={styles.selectMenu}
+                            hintStyle={{color: '#076'}}
+                            labelStyle={{color: '#076'}}
+                        >
+                        {/*{ this.props.user.templates ?
+                            this.props.user.templates.map( ( template, index ) => (
+                                <MenuItem key={index} value={template.title} primaryText={template.title} />
+                            ))
+                            :*/}
+                            {<MenuItem key={0} value="New Template" primaryText="New Template" />}
+                        {/*}*/}
+                        </SelectField>
+                        <br />
+                        <SelectField
+                            name="completed"
+                            //value={this.state.completed}
+                            //onChange={this.handleStatus}
+                            value={project.completed ? 1 : 0}
+                            floatingLabelText="Status"
+                            floatingLabelFixed={true}
+                            disabled={!this.props.projectEdit}
+                            //disabled={true}
+                            underlineDisabledStyle={{display: 'none'}}
+                            style={styles.selectMenu}
+                            //hintStyle={{color: '#076'}}
+                            labelStyle={{color: '#076'}}
+                        >
+                        {[
+                            <MenuItem key={0} value={0} primaryText="in progress" />,
+                            <MenuItem key={1} value={1} primaryText="completed" />
+                        ]}
+                        </SelectField>
+                        <br />
+                        {/*<TextField
+                            //id={project.completed}
                             name="completed"
                             floatingLabelText="Status"
+                            floatingLabelFixed={true}
                             defaultValue={project.completed ? "completed" : "in progress"}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
+                            style={styles.input}
                             />
+                            <br />*/}
                         <TextField
-                            id={project.totalTimeSpent}
+                            //id={project.totalTimeSpent}
                             name="totalTimeSpent"
                             floatingLabelText="Total Time Spent"
+                            floatingLabelFixed={true}
                             defaultValue={project.totalTimeSpent}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
+                            style={styles.input}
                             />
                             <Divider inset={false} style={{color: "#076", height: 3}} />
                             { this.props.projectEdit ?
@@ -293,6 +387,7 @@ function mapStateToProps(state) {
         projectEdit: state.projectReducer.projectEdit,
         isLoading: state.projectReducer.isLoading,
         userId: state.loginReducer.user.userId,
+        user: state.loginReducer.user,
     };
 }
 
