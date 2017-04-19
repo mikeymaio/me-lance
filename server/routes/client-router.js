@@ -231,4 +231,142 @@ router.delete('/:id/projects/:projectId', (req, res) => {
 });
 
 
+
+
+// ADD INVOICE
+
+router.post('/:id/projects/:projectId/invoices', (req, res) => {
+  // if (!req.isAuthenticated()) {
+  //   return res.status(401).json({ message: 'Not logged in' });
+  // }
+  // ensure that the id in the request path and the one in request body match
+  if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body clientId ` +
+      `(${req.body.clientId}) must match`);
+    console.error(message);
+    res.status(400).json({message: message});
+  }
+
+  const newInvoice = req.body;
+  newInvoice._id = new mongoose.Types.ObjectId;
+  newInvoice.dateCreated = new Date().toISOString();
+  newInvoice.dateModified = new Date().toISOString();
+  const clientId = req.params.id;
+  const projectId = req.params.projectId;
+
+  Client
+    .findById(clientId)
+    .exec()
+    .then(client => {
+      if (!client) {
+        return res.status(404).json({message: 'Client not found'});
+      }
+      const i = client.projects.findIndex((project) => project._id.toString() === projectId);
+      if (i === -1) {
+        return res.status(404).json({message: 'Project not found'});
+      }
+      client.projects[i].invoices.push(newInvoice);
+      const updatedInvoices = client.projects;
+      return Client.update({_id: clientId}, {$set: {projects: updatedInvoices}});
+    })
+    .then( () => {
+      res.status(200).json({message: 'Success!'});
+    })
+    .catch(err => res.status(500).json({message: 'error on 214 = ' + err}));
+});
+
+//   Client
+//     .findByIdAndUpdate(clientId, {"projects": {_id: projectId} }, {$push: { "invoices": newInvoice}})
+//     .exec()
+//     .then(client => res.status(204).json(client).end())
+//     .catch(err => res.status(500).json({message: 'error on 162 = ' + err}));
+// });
+
+// UPDATE INVOICE
+
+router.put('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
+  // if (!req.isAuthenticated()) {
+  //   return res.status(401).json({ message: 'Not logged in' });
+  // }
+  // ensure that the id in the request path and the one in request body match
+  if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body clientId ` +
+      `(${req.body.clientId}) must match`);
+    console.error(message);
+    res.status(400).json({message: message});
+  }
+
+  const updateableFields = ['billingPeriod', 'task', 'hoursWorked'];
+
+  const clientId = req.params.id;
+  const projectId = req.params.projectId;
+  const invoiceId = req.params.invoiceId;
+  const invoice = req.body;
+
+  Client
+    .findById(clientId)
+    .exec()
+    .then(client => {
+      if (!client) {
+        return res.status(404).json({message: 'Client not found'});
+      }
+      const i = client.projects.findIndex((project) => project._id.toString() === projectId);
+      if (i === -1) {
+        return res.status(404).json({message: 'Project not found'});
+      }
+      const project = client.projects[i];
+      console.log(project);
+      const j = project.invoices.findIndex((invoice) => invoice._id.toString() === invoiceId);
+      if (j === -1) {
+        return res.status(404).json({message: 'Invoice not found'});
+      }
+
+      updateableFields.forEach(field => {
+        if (field in invoice) {
+          client.projects[i].invoices[j][field] = invoice[field];
+        }
+      });
+      client.projects[i].invoices[j].dateModified = new Date().toISOString();
+      const updatedInvoices = client.projects[i].invoices;
+      // return Client.update({_id: clientId}, {$set: {projects: {_id: projectId, invoices: updatedInvoices }}});
+
+      return Client.update( { _id: clientId }, { projects: {_id: projectId} }, { $set: {invoices: updatedInvoices} } );
+    })
+    .then( () => {
+      res.status(200).json({message: 'Success!'});
+    })
+    .catch(err => res.status(500).json({message: 'error on 214 = ' + err}));
+});
+
+
+// DELETE INVOICE
+
+router.delete('/:id/projects/:projectId', (req, res) => {
+  // if (!req.isAuthenticated()) {
+  //   return res.status(401).json({ message: 'Not logged in' });
+  // }
+  const clientId = req.params.id;
+  const projectId = req.params.projectId;
+  const invoiceId = req.params.invoiceId;
+
+  Client
+    .findByIdAndUpdate(clientId,
+      { 'projects' : { '$elemMatch' : { "_id": new mongoose.Types.ObjectId("projectId"), "invoices": {"_id": invoiceId } } } }, { $pull : { 'projects.$.invoices._id' : new mongoose.Types.ObjectId(invoiceId) } }, {new: true} )
+
+  // Client
+  // .findByIdAndUpdate(clientId, {
+  //   $pull: {
+  //       projects: {_id: new mongoose.Types.ObjectId(projectId), invoices: {_id: new mongoose.Types.ObjectId(invoiceId)}}
+  //   }
+  // }, {new: true})
+  .exec()
+  .then( () => res.status(200).json({message: 'Success!'}).end() )
+  .catch(err => res.status(500).json({message: 'Something went wrong: ' + err}));
+});
+
+
+
+
 module.exports = router;

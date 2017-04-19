@@ -2,6 +2,31 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+// INVOICES
+
+const TaskSchema = mongoose.Schema({
+    description: {
+        type: String
+    },
+    hoursSpent: {
+        type: Number
+    },
+})
+
+const InvoiceSchema = mongoose.Schema({
+    billingPeriodStart: {
+        type: Date
+    },
+    billingPeriodEnd: {
+        type: Date
+    },
+    tasks: [TaskSchema],
+    hoursWorked: {
+        type: Number,
+        default: 0
+    }
+})
+
 // PROJECTS
 
 const ProjectSchema = mongoose.Schema({
@@ -45,9 +70,7 @@ const ProjectSchema = mongoose.Schema({
     notes: {
         type: String,
     },
-    invoices: {
-        type: Array,
-    },
+    invoices: [InvoiceSchema],
     template: {
         type: String,
     },
