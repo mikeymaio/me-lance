@@ -11,6 +11,9 @@ const TaskSchema = mongoose.Schema({
     hoursSpent: {
         type: Number
     },
+    date: {
+        type: Date
+    }
 })
 
 const InvoiceSchema = mongoose.Schema({
