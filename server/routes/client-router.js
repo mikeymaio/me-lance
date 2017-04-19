@@ -292,7 +292,7 @@ router.put('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
     res.status(400).json({message: message});
   }
 
-  const updateableFields = ['billingPeriod', 'task', 'hoursWorked'];
+  const updateableFields = ['billingPeriodStart', 'billingPeriodEnd', 'tasks.description', 'tasks.hoursSpent'];
 
   const clientId = req.params.id;
   const projectId = req.params.projectId;
@@ -340,7 +340,7 @@ router.put('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
 
 // DELETE INVOICE
 
-router.delete('/:id/projects/:projectId', (req, res) => {
+router.delete('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
   // if (!req.isAuthenticated()) {
   //   return res.status(401).json({ message: 'Not logged in' });
   // }
@@ -348,17 +348,27 @@ router.delete('/:id/projects/:projectId', (req, res) => {
   const projectId = req.params.projectId;
   const invoiceId = req.params.invoiceId;
 
-  Client
-    .findByIdAndUpdate(clientId,
-      { 'projects' : { '$elemMatch' : { "_id": new mongoose.Types.ObjectId("projectId"), "invoices": {"_id": invoiceId } } } }, { $pull : { 'projects.$.invoices._id' : new mongoose.Types.ObjectId(invoiceId) } }, {new: true} )
-
-  // Client
-  // .findByIdAndUpdate(clientId, {
-  //   $pull: {
-  //       projects: {_id: new mongoose.Types.ObjectId(projectId), invoices: {_id: new mongoose.Types.ObjectId(invoiceId)}}
-  //   }
-  // }, {new: true})
+Client
+  .findById(clientId)
   .exec()
+  .then(client => {
+    if (!client) {
+      return res.status(404).json({message: 'Client not found'});
+    }
+    const i = client.projects.findIndex((project) => project._id.toString() === projectId);
+    if (i === -1) {
+      return res.status(404).json({message: 'Project not found'});
+    }
+    const j = client.projects[i].invoices.findIndex((invoice) => invoice._id.toString() === invoiceId);
+    if (j === -1) {
+      return res.status(404).json({message: 'Invoice not found'});
+    }
+
+    client.projects[i].invoices.splice(j, 1);
+    const updatedInvoices = client.projects;
+    return Client.update({_id: clientId}, {$set: {projects: updatedInvoices}});
+  })
+  // .exec()
   .then( () => res.status(200).json({message: 'Success!'}).end() )
   .catch(err => res.status(500).json({message: 'Something went wrong: ' + err}));
 });

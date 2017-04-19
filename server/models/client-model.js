@@ -21,10 +21,6 @@ const InvoiceSchema = mongoose.Schema({
         type: Date
     },
     tasks: [TaskSchema],
-    hoursWorked: {
-        type: Number,
-        default: 0
-    }
 })
 
 // PROJECTS
