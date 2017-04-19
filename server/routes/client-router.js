@@ -276,12 +276,6 @@ router.post('/:id/projects/:projectId/invoices', (req, res) => {
     .catch(err => res.status(500).json({message: 'error on 214 = ' + err}));
 });
 
-//   Client
-//     .findByIdAndUpdate(clientId, {"projects": {_id: projectId} }, {$push: { "invoices": newInvoice}})
-//     .exec()
-//     .then(client => res.status(204).json(client).end())
-//     .catch(err => res.status(500).json({message: 'error on 162 = ' + err}));
-// });
 
 // UPDATE INVOICE
 
@@ -328,11 +322,14 @@ router.put('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
           client.projects[i].invoices[j][field] = invoice[field];
         }
       });
+
       client.projects[i].invoices[j].dateModified = new Date().toISOString();
-      const updatedInvoices = client.projects[i].invoices;
+      const updatedInvoices = client.projects;
+
+      return Client.update({_id: clientId}, {$set: {projects: updatedInvoices}});
       // return Client.update({_id: clientId}, {$set: {projects: {_id: projectId, invoices: updatedInvoices }}});
 
-      return Client.update( { _id: clientId }, { projects: {_id: projectId} }, { $set: {invoices: updatedInvoices} } );
+      // return Client.update( { _id: clientId }, { projects: {_id: projectId} }, { $set: {invoices: updatedInvoices} } );
     })
     .then( () => {
       res.status(200).json({message: 'Success!'});
