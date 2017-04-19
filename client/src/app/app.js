@@ -17,6 +17,8 @@ import ExampleChart from '../dashboard/dashboard.component';
 
 import Landing from '../landing/landing.component';
 
+import NewInvoice from '../invoices/add-invoice.component';
+
 
 
 
@@ -49,6 +51,7 @@ class App extends Component {
           <div
             className="col-xs-9"
             style={{textAlign: 'center'}}>
+            {/*<NewInvoice />*/}
             {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'clientList' ? <ClientList /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'addClient' ? <AddClient /> : false}

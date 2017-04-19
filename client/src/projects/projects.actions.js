@@ -165,7 +165,7 @@ export const handleDeleteProject = (clientId, projectId, userId) => {
         projectId
       })
     })
-    .then(response => response.text())
+    // .then(response => response.text())
     .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {

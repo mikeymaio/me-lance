@@ -5,6 +5,8 @@ import Divider from 'material-ui/Divider';
 import PieChart from './charts/time-worked-pie.component';
 import BarChart from './charts/time-to-income-bar.component';
 
+import PieChart2 from './charts/pie';
+
 import { fetchUserClients } from '../clients/clients.actions';
 
 import { connect } from 'react-redux';
@@ -19,6 +21,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
+        <PieChart2 />
         <PieChart />
         <Divider style={{height: 3}} />
         <BarChart />

@@ -6,17 +6,18 @@ import { bindActionCreators } from 'redux';
 
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
-// import TextField from 'material-ui/TextField';
-// import Toggle from 'material-ui/Toggle';
+
 
 import RaisedButton from 'material-ui/RaisedButton';
 
-// import InvoiceDetail from './invoice-detail.component';
+
 
 import TextField from 'material-ui/TextField';
 
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import ModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import Check from 'material-ui/svg-icons/navigation/check';
 
+import EditTable from 'material-ui-table-edit';
 // import SelectField from 'material-ui/SelectField';
 // import MenuItem from 'material-ui/MenuItem';
 
@@ -60,6 +61,19 @@ const tableData = [
   },
 ];
 
+
+const headers = [
+  {value: 'Date', type: 'TextField', width: 200},
+  {value: 'Hours', type: 'TextField', width: 200},
+  {value: 'Description', type: 'TextField', width: 200},
+  {value: 'Status', type: 'TextField', width: 50},
+]
+const rows = []
+
+const onChange = (row) => {
+  console.log(row)
+}
+
 class InvoiceList extends React.Component {
 
 constructor(props) {
@@ -81,78 +95,10 @@ constructor(props) {
 
   render() {
 
-const FilterLink = ({
-  filter,
-  children
-}) => {
-  return (
-    <a href="#"
-    style={{marginLeft: '5px'}}
-    onClick={e => {
-      e.preventDefault();
-      this.props.filterInvoices(filter)
-    }} >
-    {children}
-    </a>
-  );
-};
-
-const getVisibleInvoices = (
-  invoices,
-  filter
- ) => {
-    switch(filter) {
-      case 'SHOW_ALL':
-        return invoices
-      case 'SHOW_COMPLETED':
-        return invoices.filter(
-          i => i.completed
-        )
-      case 'SHOW_ACTIVE':
-        return invoices.filter(
-          i => !i.completed
-        )
-      default:
-        return invoices
-    }
-  }
-
-const visibleInvoices = getVisibleInvoices(
-  this.props.invoices,
-  this.props.invoiceFilter
-)
     return (
       <div>
-          <h3 style={{color: "#076", display: "inline-block"}}>Your Invoices</h3>
-          <p>
-          Show:
-          <FilterLink
-            filter="SHOW_ALL"
-            >
-            All
-          </FilterLink>
-          <FilterLink
-            filter="SHOW_ACTIVE"
-            >
-            Active
-          </FilterLink>
-          <FilterLink
-            filter="SHOW_COMPLETED"
-            >
-            Completed
-          </FilterLink>
-          </p>
-            {visibleInvoices.map( (row, index) => (
-                   <Card key={index}>
-                    <CardHeader
-                      title={row.client}
-                      subtitle={row.project}
-                      //avatar="images/ok-128.jpg"
-                      actAsExpander={true}
-                      showExpandableButton={true}
-                    />
-                    <CardText expandable={true}
-                    children={
+          <h3 style={{color: "#076", display: "inline-block"}}>New Invoice</h3>
+
                  <Table
                     height={this.state.height}
                     fixedHeader={this.state.fixedHeader}
@@ -168,7 +114,7 @@ const visibleInvoices = getVisibleInvoices(
                     >
                       <TableRow>
                         <TableHeaderColumn colSpan="6" tooltip="Invoice #" style={{textAlign: 'left'}}>
-                          Invoice #: {row._id}
+                          Invoice #:
                         </TableHeaderColumn>
                         <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
                           Billing Period: <TextField name="billingPeriod" />
@@ -211,14 +157,17 @@ const visibleInvoices = getVisibleInvoices(
                       showRowHover={this.state.showRowHover}
                       stripedRows={this.state.stripedRows}
                     >
-                      {tableData.map( (row, index) => (
-                        <TableRow key={index} selected={row.selected}>
-                          <TableRowColumn colSpan="3"><TextField name={row.date} defaultValue={row.date} /></TableRowColumn>
-                          <TableRowColumn colSpan="3"><TextField name={row.hours} defaultValue={row.hours} /></TableRowColumn>
-                          <TableRowColumn colSpan="3"><TextField name={row.description} defaultValue={row.description} /></TableRowColumn>
-                          <TableRowColumn colSpan="3"><TextField name={row.status} defaultValue={row.status} /></TableRowColumn>
+                    <EditTable
+                        onChange={onChange}
+                        rows={rows}
+                        headerColumns={headers}
+                    />
+                        <TableRow>
+                          <TableRowColumn colSpan="3"><TextField /></TableRowColumn>
+                          <TableRowColumn colSpan="3"><TextField /></TableRowColumn>
+                          <TableRowColumn colSpan="3"><TextField/></TableRowColumn>
+                          <TableRowColumn colSpan="3"><TextField/></TableRowColumn>
                         </TableRow>
-                        ))}
                     </TableBody>
                     <TableFooter
                       adjustForCheckbox={this.state.showCheckboxes}
@@ -240,10 +189,6 @@ const visibleInvoices = getVisibleInvoices(
                       </TableRow>*/}
                     </TableFooter>
                   </Table>
-                    }
-                  />
-              </Card>
-            ))}
       </div>
     );
   }
