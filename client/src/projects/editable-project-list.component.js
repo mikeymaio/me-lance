@@ -142,48 +142,7 @@ constructor(props) {
                       }}>
                       { this.props.isLoading ? <Loader /> : false }
 
-                      <TextField
-                            value={project.clientName}
-                            //onChange={this.handleClientChange}
-                            name="clientName"
-                            floatingLabelText="Client Name"
-                            floatingLabelFixed={true}
-                            hintText={project.clientName}
-                            style={styles.input}
-                            hintStyle={{color: '#076'}}
-                            //labelStyle={{color: '#076'}}
-                            //disabled={!this.props.projectEdit}
-                            disabled={true}
-                            underlineDisabledStyle={{display: 'none'}}
-                        />
-                        {/*<SelectField
-                            //value={this.state.selectedClient}
-                            value={project.clientName}
-                            onChange={this.handleClientChange}
-                            //maxHeight={200}
-                            name="clientName"
-                            floatingLabelText="Client Name"
-                            floatingLabelFixed={true}
-                            hintText={project.clientName}
-                            //floatingLabelStyle={{textAlign: "left"}}
-                            style={styles.selectMenu}
-                            hintStyle={{color: '#076'}}
-                            labelStyle={{color: '#076'}}
-                            //disabled={!this.props.projectEdit}
-                            disabled={true}
-                            underlineDisabledStyle={{display: 'none'}}
-                        >
-                        {
-                            //this.props.templates === [] ?
-                        // <MenuItem key="newTemp" value="New Template" primaryText="New Template" /> :
-                            this.props.clients.map( ( client, index ) => (
-                                <MenuItem key={index} value={`${client.firstName} ${client.lastName}`} primaryText={`${client.firstName} ${client.lastName}`} />
-                            ))
-                        }
-                            </SelectField>*/}
-                        <br />
                         <TextField
-                            //id={project.projectName}
                             name="projectName"
                             floatingLabelText="Project Name"
                             floatingLabelFixed={true}
@@ -194,7 +153,6 @@ constructor(props) {
                             />
                             <br />
                         <TextField
-                            //id={project.rate}
                             name="rate"
                             floatingLabelText="Charge"
                             floatingLabelFixed={true}
@@ -222,7 +180,6 @@ constructor(props) {
                         </SelectField>
                         <br />
                         <TextField
-                            //id={project.budget}
                             name="budget"
                             floatingLabelText="Budget"
                             floatingLabelFixed={true}
@@ -262,7 +219,6 @@ constructor(props) {
                         />
                         <br />
                         <TextField
-                            //id={project.notes}
                             name="notes"
                             floatingLabelText="Notes"
                             floatingLabelFixed={true}
@@ -275,7 +231,6 @@ constructor(props) {
                             />
                             <br />
                         <TextField
-                            //id={project.billingCycle}
                             name="billingCycle"
                             floatingLabelText="Billing Cycle"
                             floatingLabelFixed={true}
@@ -286,7 +241,7 @@ constructor(props) {
                             style={styles.input}
                             />
                             <br />
-                            <SelectField
+                            {/*<SelectField
                             name="invoiceTemp"
                             value={this.state.selectedTemplate}
                             onChange={this.handleTemplateChange}
@@ -298,15 +253,15 @@ constructor(props) {
                             style={styles.selectMenu}
                             hintStyle={{color: '#076'}}
                             labelStyle={{color: '#076'}}
-                        >
+                        >*/}
                         {/*{ this.props.user.templates ?
                             this.props.user.templates.map( ( template, index ) => (
                                 <MenuItem key={index} value={template.title} primaryText={template.title} />
                             ))
                             :*/}
-                            {<MenuItem key={0} value="New Template" primaryText="New Template" />}
+                            {/*{<MenuItem key={0} value="New Template" primaryText="New Template" />}*/}
                         {/*}*/}
-                        </SelectField>
+                        {/*</SelectField>*/}
                         <br />
                         <SelectField
                             name="completed"
@@ -329,7 +284,6 @@ constructor(props) {
                         </SelectField>
                         <br />
                         {/*<TextField
-                            //id={project.completed}
                             name="completed"
                             floatingLabelText="Status"
                             floatingLabelFixed={true}
@@ -340,7 +294,6 @@ constructor(props) {
                             />
                             <br />*/}
                         <TextField
-                            //id={project.totalTimeSpent}
                             name="totalTimeSpent"
                             floatingLabelText="Total Time Spent"
                             floatingLabelFixed={true}
