@@ -1,66 +1,64 @@
-const projectState = {
-        isDetailModalOpen: false,
-        isLoading: false,
-        projects: [
-        {
-            id: '12321',
-            name: 'John Smith\'s Website',
-            client: 'John Smith',
-            company: 'John Smith Inc',
-            address: '123 Main St, Los Angeles CA 90026',
-            email: 'email@email.com',
-            phone: '555-555-5555',
-            budget: '$5,000.00',
-            hoursWorked: 7,
-            deadline: '5/16/17'
-        },
-        {
-            id: '12321',
-            name: 'Sally\'s Website',
-            client: 'Sally Smith',
-            company: 'Sally Smith Inc',
-            address: '123 Main St, Los Angeles CA 90026',
-            email: 'email@email.com',
-            phone: '555-555-5555',
-            budget: '$3,000.00',
-            hoursWorked: 7,
-            deadline: '6/1/17'
-        },
-        {
-            id: '12321',
-            name: 'John Doe\'s Website',
-            client: 'John Doe',
-            company: 'John Doe LLC',
-            address: '123 Main St, Los Angeles CA 90026',
-            email: 'email@email.com',
-            phone: '555-555-5555',
-            budget: '$10,000.00',
-            hoursWorked: 9,
-            deadline: '6/21/17'
-        },
-        ]
+import update from 'immutability-helper';
 
+const projectState = {
+        isLoading: false,
+        projectView: 'projectList',
+        projectEdit: false,
+        projects: [],
     }
 
 
 const projectReducer = (state=projectState, action) => {
     state = state || projectState
     switch(action.type) {
-        case 'REQUEST_DATA':
+        case 'REQUEST_PROJECT_DATA':
             return {
                 ...state,
                 isLoading: true
             }
-        case 'RECEIVE_DATA':
+        case 'RECEIVE_PROJECT_DATA':
             return {
                 ...state,
-                isLoading: false, isLoggedIn: action.payload
+                isLoading: false,
+                // projects: action.projects,
+                projectView: 'projectList',
             }
+        case 'RECEIVE_CLIENT_DATA':
+            return {
+                ...state,
+                isLoading: false,
+                // projects: action.projects,
+                projectView: 'projectList',
+                projectEdit: false,
+            }
+        case 'UPDATE_PROJECT_DATA':
+        return update(state, {
+               projects: {
+                  $push: [action.projects]
+               },
+               isLoading: { $set: false },
+               projectView: { $set: 'projectList' }
+           })
         case 'UPDATE_PROJECT_DETAIL_MODAL':
             return {
                 ...state,
                 isDetailModalOpen: !state.isDetailModalOpen
             }
+        case 'UPDATE_PROJECT_VIEW':
+            return {
+                ...state,
+                projectView: action.payload,
+            }
+        case 'UPDATE_PROJECT_EDIT':
+            return {
+                ...state,
+                projectEdit: !state.projectEdit,
+            }
+        // case 'TEST_LOADER':
+        //     return {
+        //         ...state,
+        //         isLoading: !state.isLoading
+        //     }
         default:
             return state;
         }

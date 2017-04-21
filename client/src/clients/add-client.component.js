@@ -10,6 +10,9 @@ import * as actions from './clients.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Validation, fieldValidatorCore } from "react-validation-framework";
+import validator from "validator";
+
 const styles = {
   textField: {
     display: 'inline-block',
@@ -35,11 +38,19 @@ class AddClient extends React.Component {
       />,
     ];
 
+// componentWillMount(){
+//     fieldValidatorCore.addSupport("TextField", (args)=>{
+//       return args[0].target.value;
+//     }, (callback, args)=>{
+//       callback(args[0]);
+//     }, "errorText");
+//   }
+
     render() {
         return (
 
       <div>
-        <h2>New Client</h2>
+        <h3 style={{color: "#076", display: "inline-block"}} >New Client</h3>
         <Divider />
         <form id="new-client-form" onSubmit={(event) => {
             event.preventDefault()
@@ -61,6 +72,19 @@ class AddClient extends React.Component {
             event.target.email.value = ''
             event.target.address.value = ''
           }}>
+          {/*<Validation group="myGroup1"
+		    //closures={{area}}
+        closures={[]}
+	        validators={[
+			    {
+	         validator: (val) => !validator.isEmpty(val),
+	         errorMessage: "This field is required"
+	        },
+          {
+	         validator: (val) => !validator.isEmail(val),
+	         errorMessage: "This field must be a valid email address"
+	        }
+          ]}>*/}
             <TextField
               id="clientFirstName"
               //className="col-xs-5"
@@ -68,7 +92,7 @@ class AddClient extends React.Component {
               floatingLabelText="Client's First Name"
               floatingLabelFixed={true}
               hintText="John"
-              errorText="This field is required"
+              //errorText="This field is required"
               style={styles.textField}
             />
             <TextField
@@ -78,7 +102,7 @@ class AddClient extends React.Component {
               floatingLabelText="Client's Last Name"
               floatingLabelFixed={true}
               hintText="Doe"
-              errorText="This field is required"
+              //errorText="This field is required"
               style={styles.textField}
             />
             <br />
@@ -89,7 +113,7 @@ class AddClient extends React.Component {
               floatingLabelText="Company Name"
               floatingLabelFixed={true}
               hintText="John Doe Inc"
-              errorText="This field is required"
+              //errorText="This field is required"
               style={styles.textField}
             />
             {/*<br />*/}
@@ -99,7 +123,7 @@ class AddClient extends React.Component {
               floatingLabelText="Client's Phone No."
               floatingLabelFixed={true}
               hintText="555-555-5555"
-              errorText="This field is required"
+              //errorText="This field is required"
               style={styles.textField}
             />
             <br />
@@ -108,8 +132,8 @@ class AddClient extends React.Component {
               name="email"
               floatingLabelText="Client's Email"
               floatingLabelFixed={true}
-              hintText="John Doe Inc"
-              errorText="johndoe@johndoeinc.com"
+              hintText="jdoe@jdoe.com"
+              //errorText="johndoe@johndoeinc.com"
               style={styles.textField}
             />
             {/*<br />*/}
@@ -118,10 +142,11 @@ class AddClient extends React.Component {
               name="address"
               floatingLabelText="Client's Address"
               floatingLabelFixed={true}
-              hintText="John Doe Inc"
-              errorText="johndoe@johndoeinc.com"
+              hintText="123 Main St"
+              //errorText="johndoe@johndoeinc.com"
               style={styles.textField}
             />
+            {/*</Validation>*/}
             {/*<br />*/}
             </form>
             <br />
