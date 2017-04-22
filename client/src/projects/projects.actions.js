@@ -13,9 +13,9 @@ const receiveClientDataFromServer = (clients) => ({
   clients
 })
 
-const addClientSuccess = () => ({
-  type: 'RECEIVE_PROJECT_DATA',
-})
+// const addClientSuccess = () => ({
+//   type: 'RECEIVE_PROJECT_DATA',
+// })
 
 const updateProjectData = (projects) => ({
   type: 'UPDATE_PROJECT_DATA',
@@ -61,15 +61,17 @@ export const handleAddProject = (clientName, projectName, rate, ratePer, budget,
         template,
         userId,
         clientId
-      })
+      }),
+      credentials: 'same-origin'
     })
     // .then(response => response.json())
-    .then(() =>  dispatch(addClientSuccess()))
+    // .then(() =>  dispatch(addClientSuccess()))
     .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
@@ -86,6 +88,7 @@ export const fetchUserProjects = (userId) => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveProjectDataFromServer(res.clients.projects)))
@@ -133,7 +136,8 @@ export const handleUpdateProject = (clientName, projectName, rate, ratePer, budg
         userId,
         clientId,
         projectId
-      })
+      }),
+      credentials: 'same-origin'
     })
     // .then(response => response.json())
     // .then(res => {console.log(res); dispatch(updateProjectData(res))})
@@ -142,6 +146,7 @@ export const handleUpdateProject = (clientName, projectName, rate, ratePer, budg
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
@@ -163,7 +168,8 @@ export const handleDeleteProject = (clientId, projectId, userId) => {
       body: JSON.stringify({
         clientId,
         projectId
-      })
+      }),
+      credentials: 'same-origin'
     })
     // .then(response => response.text())
     .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
@@ -171,6 +177,7 @@ export const handleDeleteProject = (clientId, projectId, userId) => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))

@@ -5,7 +5,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Header from '../header/header.component';
 import SideMenu from '../menu/left-menu.component';
-import InvoiceList from '../invoices/invoice-list-2.component';
+// import InvoiceList from '../invoices/invoice-list-2.component';
+
+import InvoiceList from '../invoices/editable-invoice-list.component';
 
 import ClientList from '../clients/client-list.component';
 import AddClient from '../clients/add-client.component';
@@ -44,12 +46,12 @@ class App extends Component {
         <div>
         <Header className="app-header" />
         <div className="container-fluid" style={{backgroundColor: "#eee"}}>
-          <div className="col-xs-3">
+          <div className="col-xs-2">
             {/*<SubHeader />*/}
           <SideMenu />
           </div>
           <div
-            className="col-xs-9"
+            className="col-xs-10"
             style={{textAlign: 'center'}}>
             {/*<NewInvoice />*/}
             {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}

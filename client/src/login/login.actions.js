@@ -98,6 +98,7 @@ export const handleLogout = (userName) => {
     //   body: JSON.stringify({
     //     userName,
     //   })
+    credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveDataFromServer(res)))

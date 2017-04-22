@@ -252,7 +252,7 @@ const visibleInvoices = getVisibleInvoices(
 function mapStateToProps(state) {
     return {
         // isAddClientModalOpen: state.clientReducer.isAddClientModalOpen,
-        invoices: state.invoiceReducer.invoices,
+        invoices: state.clientReducer.clients.projects.invoices,
         invoiceFilter: state.invoiceReducer.invoiceFilter,
         userId: state.loginReducer.user.userId,
     };

@@ -42,6 +42,7 @@ export const fetchUserClients = (userId) => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients)))
@@ -66,7 +67,8 @@ export const handleAddClient = (firstName, lastName, company, phone, email, addr
         email,
         address,
         userId
-      })
+      }),
+      credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(res => dispatch(updateClientData(res)))
@@ -91,7 +93,8 @@ export const handleUpdateClient = (firstName, lastName, company, phone, email, a
         email,
         address,
         clientId
-      })
+      }),
+      credentials: 'same-origin'
     })
     // .then(response => response.text())
     .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
@@ -99,6 +102,7 @@ export const handleUpdateClient = (firstName, lastName, company, phone, email, a
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
@@ -120,7 +124,8 @@ export const handleDeleteClient = (clientId, userId) => {
       },
       body: JSON.stringify({
         clientId
-      })
+      }),
+      credentials: 'same-origin'
     })
     .then(response => response.text())
     .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
@@ -128,6 +133,7 @@ export const handleDeleteClient = (clientId, userId) => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
