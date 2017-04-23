@@ -21,12 +21,6 @@
 //   }
 // }
 
-export function handleInvoiceDetailModal() {
-    const UPDATE_INVOICE_DETAIL_MODAL = 'UPDATE_INVOICE_DETAIL_MODAL';
-    return {
-        type: UPDATE_INVOICE_DETAIL_MODAL,
-    }
-}
 
 export const filterInvoices = filter => {
     const SET_INVOICE_FILTER = 'SET_INVOICE_FILTER'
@@ -35,5 +29,16 @@ export const filterInvoices = filter => {
           type: SET_INVOICE_FILTER,
           filter
     }
-      }
+}
+
+export const handleInvoiceView = ( view, cIndex, pIndex, iIndex ) => {
+    const UPDATE_INVOICE_VIEW = 'UPDATE_INVOICE_VIEW';
+    return {
+        type: UPDATE_INVOICE_VIEW,
+        view,
+        cIndex,
+        pIndex,
+        iIndex
+    }
+}
 

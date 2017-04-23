@@ -111,9 +111,9 @@ constructor(props) {
           </FilterLink>
           </p>
             {/*{visibleInvoices.map( (row, index) => (*/}
-            {this.props.clients.map( client => (
-                client.projects.reverse().map( (project, index) => (
-                   <Card key={index}>
+            {this.props.clients.map( ( client, cIndex ) => (
+                client.projects.reverse().map( (project, pIndex) => (
+                   <Card key={pIndex}>
                         <CardHeader
                         title={project.clientName}
                         subtitle={project.projectName}
@@ -131,7 +131,7 @@ constructor(props) {
                                         value={iIndex}
                                         primaryText={`${this.formatDate(invoice.billingPeriodStart)} - ${this.formatDate(invoice.billingPeriodEnd)}`}
                                         secondaryText={`Invoice#: ${invoice._id}`}
-                                        rightIconButton={<IconButton tooltip="View Details" touch={true} tooltipPosition="bottom-left" children={<i className="material-icons">&#xE145;</i>} />}
+                                        rightIconButton={<IconButton tooltip="View Details" touch={true} tooltipPosition="bottom-left" onTouchTap={() => this.props.handleInvoiceView("invoiceDetail", cIndex, pIndex, iIndex)} children={<i className="material-icons">&#xE145;</i>} />}
                                         />
                                 })}
                             </List>
@@ -158,8 +158,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         // fetchUserInvoices: actions.fetchUserInvoices,
+        handleInvoiceView: actions.handleInvoiceView,
         filterInvoices: actions.filterInvoices,
-        // handleAddClientModal: actions.handleAddClientModal,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);

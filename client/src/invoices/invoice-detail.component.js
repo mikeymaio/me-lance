@@ -14,37 +14,16 @@ import { bindActionCreators } from 'redux';
 
 import * as actions from './invoice.actions';
 
-// const styles = {
-//   propContainer: {
-//     width: 200,
-//     overflow: 'hidden',
-//     margin: '20px auto 0',
-//   },
-//   propToggleHeader: {
-//     margin: '20px auto 10px',
-//   },
-// };
+import moment from 'moment';
 
-const tableData = [
-  {
-    date: '1/1/17',
-    hours: '5.5',
-    description: 'blahblahblah',
-    status: 'in progress',
-  },
-  {
-    date: '1/2/17',
-    hours: '6',
-    description: 'blahblahblah',
-    status: 'in progress',
-  },
-  {
-    date: '1/3/17',
-    hours: '5',
-    description: 'blahblahblah',
-    status: 'complete',
-  },
-];
+import EditTable from 'material-ui-table-edit';
+
+
+const headers = [
+  {value: 'Date', type: 'TextField', width: 200},
+  {value: 'Hours Worked', type: 'TextField', width: 200},
+  {value: 'Description', type: 'TextField', width: 200},
+]
 
 class InvoiceDetail extends React.Component {
 
@@ -63,36 +42,22 @@ class InvoiceDetail extends React.Component {
       showCheckboxes: false,
       height: '300px',
     };
+
+        this.formatDate = date => {
+    return moment(date).format("MM/DD/YY")
+}
+
   }
 
-  actionButtons = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.props.handleInvoiceDetailModal}
-      />,
-      <FlatButton
-        label="Save"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.props.handleInvoiceDetailModal}
-      />,
-    ];
 
   render() {
 
+    const client = this.props.clients[this.props.cIndex];
+    const project = client.projects[this.props.pIndex];
+    const invoice = project.invoices[this.props.iIndex];
+
     return (
       <div>
-        <FlatButton label="+" style={{margin: 'auto', width: '50%'}} onTouchTap={this.props.handleInvoiceDetailModal}/>
-        <Dialog
-          title="Invoice Details"
-          actions={this.actionButtons}
-          modal={true}
-          //open={this.props.isDetailModalOpen}
-          //onRequestClose={this.props.handleInvoiceDetailModal}
-          open={this.props.isDetailModalOpen}
-          //onRequestClose={}
-          autoScrollBodyContent={true}>
         <Table
           height={this.state.height}
           fixedHeader={this.state.fixedHeader}
@@ -108,42 +73,41 @@ class InvoiceDetail extends React.Component {
           >
             <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Invoice #" style={{textAlign: 'left'}}>
-                Invoice #:
+                Invoice #: {invoice._id}
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
-                Billing Period: <TextField name="billingPeriod" />
+                Billing Period: {`${moment(invoice.billingPeriodStart).format("MM/DD/YY")} - ${moment(invoice.billingPeriodEnd).format("MM/DD/YY")}` }
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
                 <TableHeaderColumn colSpan="6" tooltip="The project name" style={{textAlign: 'left'}}>
-                    Project Name: <TextField name="projectName" />
+                    Project Name: {project.projectName}
                 </TableHeaderColumn>
                 <TableHeaderColumn colSpan="6" tooltip="The project's ID no." style={{textAlign: 'left'}}>
-                    Project Id:
+                    Project Id: {project._id}
                 </TableHeaderColumn>
               </TableRow>
             <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Your Name" style={{textAlign: 'left'}}>
-                Name: <TextField name="yourName" />
+                Name: {`${this.props.user.firstName} ${this.props.user.lastName}`}
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="The client's name" style={{textAlign: 'left'}}>
-                Client Name: <TextField name="clientName" />
+                Client Name: {project.clientName}
               </TableHeaderColumn>
               </TableRow>
               <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Your address" style={{textAlign: 'left'}}>
-                Adress: <TextField name="yourAddress" />
+                Address: {this.props.user.address}
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="the client's address" style={{textAlign: 'left'}}>
-                Client Address: <TextField name="clientAddress" />
+                Client Address: {client.address}
               </TableHeaderColumn>
             </TableRow>
-            <TableRow displayBorder={true} style={{borderTop: '2px solid #007766'}} >
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Date worked">Date</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Hours worked">Hours</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Description of task">Description</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="The status of the task">Status</TableHeaderColumn>
-            </TableRow>
+            {/*<TableRow displayBorder={true} style={{borderTop: '2px solid #007766'}} >
+              <TableHeaderColumn colSpan="4" style={{textAlign: 'left'}} tooltip="Date worked">Date</TableHeaderColumn>
+              <TableHeaderColumn colSpan="4" style={{textAlign: 'left'}} tooltip="Hours worked">Hours</TableHeaderColumn>
+              <TableHeaderColumn colSpan="4" style={{textAlign: 'left'}} tooltip="Description of task">Description</TableHeaderColumn>
+            </TableRow>*/}
           </TableHeader>
           <TableBody
             displayRowCheckbox={this.state.showCheckboxes}
@@ -151,23 +115,33 @@ class InvoiceDetail extends React.Component {
             showRowHover={this.state.showRowHover}
             stripedRows={this.state.stripedRows}
           >
-            {tableData.map( (row, index) => (
-              <TableRow key={index} selected={row.selected}>
-                <TableRowColumn colSpan="3"><TextField name={row.date} defaultValue={row.date} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField name={row.hours} defaultValue={row.hours} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField name={row.description} defaultValue={row.description} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField name={row.status} defaultValue={row.status} /></TableRowColumn>
-              </TableRow>
-              ))}
+          {/*{invoice.tasks.map( (row, index) => (*/}
+          {/*<TableRow key={index} selected={row.selected}>
+                <TableRowColumn colSpan="4"><TextField name={row.date} defaultValue={row.date} /></TableRowColumn>
+                <TableRowColumn colSpan="4"><TextField name={row.hours} defaultValue={row.hoursSpent} /></TableRowColumn>
+                <TableRowColumn colSpan="4"><TextField name={row.description} defaultValue={row.description} /></TableRowColumn>
+                {/*<TableRowColumn colSpan="3"><TextField name={row.status} defaultValue={row.status} /></TableRowColumn>*/}
+              {/*</TableRow>*/}
+              {/*))}>*/}
+          <EditTable
+            headerColumns={headers}
+            rows={invoice.tasks.map( row => (
+              {columns: [
+                {value: row.date},
+                {value: row.hoursSpent},
+                {value: row.description}
+                ]}
+            ))}>
+            </EditTable>
           </TableBody>
           <TableFooter
             adjustForCheckbox={this.state.showCheckboxes}
           >
-            <TableRow>
+            {/*<TableRow>
               <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
                 <RaisedButton label="Add Row" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} />
               </TableRowColumn>
-            </TableRow>
+            </TableRow>*/}
             <TableRow>
               <TableRowColumn colSpan="4">Subtotal</TableRowColumn>
               <TableRowColumn colSpan="4">Tax</TableRowColumn>
@@ -180,7 +154,6 @@ class InvoiceDetail extends React.Component {
             </TableRow>*/}
           </TableFooter>
         </Table>
-        </Dialog>
       </div>
     );
   }
@@ -188,13 +161,16 @@ class InvoiceDetail extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        isDetailModalOpen: state.invoiceReducer.isDetailModalOpen,
+        cIndex: state.invoiceReducer.clientIndex,
+        pIndex: state.invoiceReducer.projectIndex,
+        iIndex: state.invoiceReducer.invoiceIndex,
+        clients: state.clientReducer.clients,
+        user: state.loginReducer.user,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        handleInvoiceDetailModal: actions.handleInvoiceDetailModal,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);

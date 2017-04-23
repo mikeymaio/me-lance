@@ -8,6 +8,7 @@ import SideMenu from '../menu/left-menu.component';
 // import InvoiceList from '../invoices/invoice-list-2.component';
 
 import InvoiceList from '../invoices/editable-invoice-list.component';
+import InvoiceDetail from '../invoices/invoice-detail.component';
 
 import ClientList from '../clients/client-list.component';
 import AddClient from '../clients/add-client.component';
@@ -59,7 +60,8 @@ class App extends Component {
             {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'addClient' ? <AddClient /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'projects' && this.props.projectView === 'projectList' ? <ProjectList /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'projects' && this.props.projectView === 'addProject' ? <AddProject /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'invoices' ? <InvoiceList /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceList' ? <InvoiceList /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceDetail' ? <InvoiceDetail /> : false}
           </div>
         </div>
         </div>
@@ -81,7 +83,8 @@ function mapStateToProps(state) {
         isLoggedIn: state.loginReducer.isLoggedIn,
         selectedItem: state.leftMenuReducer.selectedItem,
         clientView: state.clientReducer.clientView,
-        projectView: state.projectReducer.projectView
+        projectView: state.projectReducer.projectView,
+        invoiceView: state.invoiceReducer.invoiceView,
     };
 }
 
