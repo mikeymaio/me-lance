@@ -89,7 +89,7 @@ constructor(props) {
     return (
       <div>
           <h3 style={{color: "#076", display: "inline-block"}}>Your Invoices</h3>
-          <p>
+          {/*<p>
           Show:
           <FilterLink
             filter="SHOW_ALL"
@@ -106,7 +106,7 @@ constructor(props) {
             >
             Completed
           </FilterLink>
-          </p>
+          </p>*/}
             {/*{visibleInvoices.map( (row, index) => (*/}
             {this.props.clients.map( ( client, cIndex ) => (
                 client.projects.reverse().map( (project, pIndex) => (
