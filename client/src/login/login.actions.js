@@ -100,7 +100,9 @@ export const handleLogout = () => {
     //   })
     credentials: 'include'
     })
-    .then(response => response.json())
-    .then(res => dispatch(receiveDataFromServer(res)))
+    // .then(response => response.json())
+    // .then(res => dispatch(receiveDataFromServer(res)))
+    .then(() => dispatch(handleSession()))
+    .catch( err => console.log(err))
   }
 }
