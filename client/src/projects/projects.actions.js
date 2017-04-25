@@ -111,7 +111,7 @@ export function handleProjectEdit() {
     }
 }
 
-export const handleUpdateProject = (clientName, projectName, rate, ratePer, budget, notes, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId) => {
+export const handleUpdateProject = (projectName, rate, ratePer, budget, notes, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId) => {
     console.log('handleUpdateProject fired with project name:', projectName)
   return dispatch => {
     dispatch(requestDataFromServer())
@@ -122,7 +122,6 @@ export const handleUpdateProject = (clientName, projectName, rate, ratePer, budg
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        clientName,
         projectName,
         rate,
         ratePer,

@@ -5,10 +5,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Header from '../header/header.component';
 import SideMenu from '../menu/left-menu.component';
-// import InvoiceList from '../invoices/invoice-list-2.component';
+
 
 import InvoiceList from '../invoices/editable-invoice-list.component';
 import InvoiceDetail from '../invoices/invoice-detail.component';
+import AddInvoice from '../invoices/add-invoice.component';
 
 import ClientList from '../clients/client-list.component';
 import AddClient from '../clients/add-client.component';
@@ -21,10 +22,6 @@ import ExampleChart from '../dashboard/dashboard.component';
 import Landing from '../landing/landing.component';
 
 import NewInvoice from '../invoices/add-invoice.component';
-
-
-
-
 
 
 // import SubHeader from '../subheader/subheader.component';
@@ -54,7 +51,6 @@ class App extends Component {
           <div
             className="col-xs-10"
             style={{textAlign: 'center'}}>
-            {/*<NewInvoice />*/}
             {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'clientList' ? <ClientList /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'addClient' ? <AddClient /> : false}
@@ -62,14 +58,12 @@ class App extends Component {
             {this.props.isLoggedIn && this.props.selectedItem === 'projects' && this.props.projectView === 'addProject' ? <AddProject /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceList' ? <InvoiceList /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceDetail' ? <InvoiceDetail /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'addInvoice' ? <AddInvoice /> : false}
           </div>
         </div>
         </div>
         :
-        //<div>
             <Landing />
-            //<LoggedToggle />
-          //</div>
         }
       </div>
     );

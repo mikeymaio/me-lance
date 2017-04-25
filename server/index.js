@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const app = express();
 
 const userRouter = require('./routes/user-router');
@@ -9,18 +9,11 @@ const clientRouter = require('./routes/client-router');
 
 mongoose.Promise = global.Promise;
 
-
-const { User } = require('./models/user-model');
-
 const {
     //PORT,
      DATABASE_URL} = require('./config');
 
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: false}));
-
-// API endpoints go here!
 app.use('/api/users', userRouter);
 app.use('/api/clients', clientRouter);
 
@@ -52,17 +45,6 @@ function runServer(databaseUrl=DATABASE_URL, port=3001) {
     });
 }
 
-
-// function closeServer() {
-//     return new Promise((resolve, reject) => {
-//         server.close(err => {
-//             if (err) {
-//                 return reject(err);
-//             }
-//             resolve();
-//         });
-//     });
-// }
 
 function closeServer() {
   return mongoose.disconnect().then(() => {

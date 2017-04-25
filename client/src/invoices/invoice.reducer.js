@@ -2,6 +2,7 @@ const invoiceState = {
         isLoading: false,
         invoiceFilter: 'SHOW_ALL',
         invoiceView: 'invoiceList',
+        invoiceEdit: false,
         clientIndex: null,
         projectIndex: null,
         invoiceIndex: null,
@@ -34,6 +35,12 @@ const invoiceReducer = (state=invoiceState, action) => {
                 clientIndex: action.cIndex,
                 projectIndex: action.pIndex,
                 invoiceIndex: action.iIndex,
+                invoiceEdit: false,
+            }
+        case 'UPDATE_INVOICE_EDIT':
+            return {
+                ...state,
+                invoiceEdit: !state.invoiceEdit,
             }
         default:
             return state;

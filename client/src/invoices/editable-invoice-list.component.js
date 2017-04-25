@@ -7,10 +7,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 
 import TextField from 'material-ui/TextField';
 
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 
 import {List, ListItem, makeSelectable} from 'material-ui/List';
 
@@ -134,6 +135,9 @@ constructor(props) {
                                         rightIconButton={<IconButton tooltip="View Details" touch={true} tooltipPosition="bottom-left" onTouchTap={() => this.props.handleInvoiceView("invoiceDetail", cIndex, pIndex, iIndex)} children={<i className="material-icons">&#xE145;</i>} />}
                                         />
                                 })}
+                                <CardActions>
+                                    <FlatButton label="New Invoice" onTouchTap={ () => this.props.handleInvoiceView("addInvoice", cIndex, pIndex)} />
+                                </CardActions>
                             </List>
                             }
                         />

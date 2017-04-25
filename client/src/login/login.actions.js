@@ -85,7 +85,7 @@ export function handleLoginSlides(value) {
     }
   };
 
-export const handleLogout = (userName) => {
+export const handleLogout = () => {
     console.log('handleLogout fired')
   return dispatch => {
     dispatch(requestDataFromServer())

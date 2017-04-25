@@ -292,7 +292,7 @@ router.put('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
     res.status(400).json({message: message});
   }
 
-  const updateableFields = ['billingPeriodStart', 'billingPeriodEnd', 'tasks.description', 'tasks.hoursSpent'];
+  const updateableFields = ['billingPeriodStart', 'billingPeriodEnd', 'tasks'];
 
   const clientId = req.params.id;
   const projectId = req.params.projectId;
