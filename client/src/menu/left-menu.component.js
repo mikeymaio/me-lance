@@ -6,7 +6,14 @@ import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 
 import * as actions from './left-menu.actions';
+
+import { handleView } from '../session/session.actions';
+
 import { handleClientView } from '../clients/clients.actions';
+
+import { handleProjectView } from '../projects/projects.actions';
+
+import { handleInvoiceView } from '../invoices/invoice.actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -28,11 +35,13 @@ class SideMenu extends React.Component {
             >Clients
           </MenuItem>
           <MenuItem
-            onTouchTap={() => this.props.handleMenuItemSelect('projects')}
+            onTouchTap={() => { this.props.handleMenuItemSelect('projects')
+                              this.props.handleProjectView('projectList')}}
             >Projects
           </MenuItem>
           <MenuItem
-            onTouchTap={() => this.props.handleMenuItemSelect('invoices')}
+            onTouchTap={() => { this.props.handleMenuItemSelect('invoices')
+                                this.props.handleInvoiceView('invoiceList', null, null, null)}}
             >
             Invoices
           </MenuItem>
@@ -50,6 +59,7 @@ class SideMenu extends React.Component {
 function mapStateToProps(state) {
     return {
         selectedItem: state.leftMenuReducer.selectedItem,
+        //view: state.sessionReducer.view
     };
 }
 
@@ -57,6 +67,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleMenuItemSelect: actions.handleMenuItemSelect,
         handleClientView: handleClientView,
+        handleProjectView: handleProjectView,
+        handleInvoiceView: handleInvoiceView,
         },
         dispatch);
 }
