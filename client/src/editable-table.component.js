@@ -12,6 +12,7 @@ import PromoteIcon from 'material-ui/svg-icons/navigation/arrow-drop-up';
 import DemoteIcon from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import $ from "jquery";
 
+
 class MuiEditableTable extends React.Component {
 
     constructor(props) {
@@ -21,6 +22,7 @@ class MuiEditableTable extends React.Component {
             rowData: [],
             colSpec: [],
             reorderable: false,
+            editable: false,
             onChange: function () {
             }
         };
@@ -37,6 +39,7 @@ class MuiEditableTable extends React.Component {
                 rowData: $.extend(true, [], this.props.rowData),
                 colSpec: this.props.colSpec,
                 reorderable: this.props.reorderable || false,
+                editable: this.props.editable || false,
                 onChange: this.props.onChange
             }
         );
@@ -143,7 +146,9 @@ class MuiEditableTable extends React.Component {
                     style={{width: column.width}}
                     value={column.fieldName in rowData ? rowData[column.fieldName] : ''}
                     multiLine={true}
-                    type={column.type}
+                    //type={column.type}
+                    disabled={!this.props.editable}
+                    underlineDisabledStyle={{display: "none"}}
                     onChange={this.onFieldChange(index, column.fieldName)}
                 />
             )
@@ -153,7 +158,13 @@ class MuiEditableTable extends React.Component {
                     ref={column.fieldName + index}
                     id={column.fieldName + index}
                     style={{width: column.width}}
-                    //value={column.fieldName in rowData ? new Date(rowData[column.fieldName]) : new Date() }
+                    value={column.fieldName in rowData ? rowData[column.fieldName] : new Date() }
+                    formatDate={ column.formatDate }
+                    firstDayOfWeek={this.props.firstDayOfWeek || 0}
+                    autoOk={this.props.autoOk || true}
+                    disabled={!this.props.editable}
+                    textFieldStyle={{textDecoration: "none", underline: "none"}}
+                    underlineDisabledStyle={{display: "none"}}
                     onChange={this.onFieldChange(index, column.fieldName)}
                 />
             )
@@ -164,6 +175,7 @@ class MuiEditableTable extends React.Component {
                     id={column.fieldName + index}
                     style={{width: column.width}}
                     value={column.fieldName in rowData ? rowData[column.fieldName] : ''}
+                    disabled={!this.props.editable}
                     onChange={this.onFieldChange(index, column.fieldName)}
                 >
                     {column.selectOptions.map((option) => (
@@ -178,6 +190,7 @@ class MuiEditableTable extends React.Component {
                     id={column.fieldName + index}
                     style={{width: column.width}}
                     defaultToggled={column.fieldName in rowData ? rowData[column.fieldName] : false}
+                    disabled={!this.props.editable}
                     onToggle={this.onFieldChange(index, column.fieldName)}
                 />
             )
