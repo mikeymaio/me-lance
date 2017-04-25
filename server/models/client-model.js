@@ -23,6 +23,9 @@ const InvoiceSchema = mongoose.Schema({
     billingPeriodEnd: {
         type: Date
     },
+    tax: {
+        type: Number
+    },
     tasks: [TaskSchema],
 })
 
