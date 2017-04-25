@@ -12,10 +12,65 @@ import * as actions from './invoice.actions';
 
 import moment from 'moment';
 
-
 import MuiEditableTable from '../editable-table.component';
 
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
+const taxByState = [
+{name: "Alabama", abbrev: "AL", tax: 4},
+{name: "Alaska", abbrev: "AK", tax: 0},
+{name: "Arizona", abbrev: "AZ", tax: 5.6},
+{name: "Arkansas", abbrev: "AR", tax: 6.5},
+{name: "California", abbrev: "CA", tax: 7.5},
+{name: "Colorado", abbrev: "CO", tax: 2.9},
+{name: "Connecticut", abbrev: "CT", tax: 6.35},
+{name: "Delaware", abbrev: "DE", tax: 0},
+{name: "District of Columbia", abbrev: "DC", tax: 5.75},
+{name: "Florida", abbrev: "FL", tax: 6},
+{name: "Georgia", abbrev: "GA", tax: 4},
+{name: "Hawaii", abbrev: "HI", tax: 4},
+{name: "Idaho", abbrev: "ID", tax: 6},
+{name: "Illinois", abbrev: "IL", tax: 6.25},
+// Indiana: 7,
+// Iowa: 6,
+// Kansas: 6.5,
+// Kentucky: 6,
+// Louisiana: 4,
+// Maine: 5.5,
+// Maryland: 6,
+// Massachusetts: 6.25,
+// Michigan: 6,
+// Minnesota: 6.88,
+// Mississippi: 7,
+// Missouri: 4.23,
+// Montana: 0,
+// Nebraska: 5.5,
+// Nevada: 6.85,
+// New Hampshire: 0,
+// New Jersey: 7
+// New Mexico: 5.13
+// New York: 4,
+// North Carolina: 4.75
+// North Dakota: 5,
+// Ohio: 5.75,
+// Oklahoma: 4.5
+// Oregon: 0,
+// Pennsylvania: 6,
+// Puerto Rico: 6,
+// Rhode Island: 7,
+// South Carolina: 6,
+// South Dakota: 4,
+// Tennessee: 7,
+// Texas: 6.25
+// Utah: 5.95
+// Vermont: 6,
+// Virginia: 5.3,
+// Washington: 6.5,
+// West Virginia: 6,
+// Wisconsin: 5,
+// Wyoming: 4
+]
 
 const colSpec = [
     {title: 'Date', fieldName: 'date', inputType: "DatePicker", type: "date", width: 200},
@@ -42,6 +97,7 @@ class InvoiceDetail extends React.Component {
       showCheckboxes: false,
       height: '300px',
       dataTable: [],
+      taxValue: 0,
     };
 
         this.formatDate = date => {
@@ -53,8 +109,35 @@ class InvoiceDetail extends React.Component {
     this.setState({dataTable})
 };
 
+this.handleTaxChange = (event, index, value) => this.setState({taxValue: value});
+
+  this.formatPrice =  rate => {
+        // const rateInCents = rate/100;
+        return rate.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2});
+    }
+
+
+    this.getTotal = (invoice, project) => {
+            let hours = 0;
+            invoice.tasks.map ( task => {
+                task.hoursSpent ? hours += task.hoursSpent : hours += 0;
+            })
+            console.log(hours);
+            let total = hours * project.rate;
+            return total;
+        }
+
 }
 
+componentDidMount() {
+  const client = this.props.clients[this.props.cIndex];
+  const project = client.projects[this.props.pIndex];
+  const invoice = project.invoices[this.props.iIndex];
+
+  invoice.tax ? this.setState({taxValue: invoice.tax}) : false;
+
+  this.setState({dataTable: invoice.tasks});
+}
 
   render() {
 
@@ -64,29 +147,20 @@ class InvoiceDetail extends React.Component {
 
     return (
       <div>
-        { this.props.invoiceEdit ?
-                <div>
-                  <RaisedButton label="Cancel" backgroundColor='#fff' labelColor="#076" style={{margin: 10,}} type="button" onTouchTap={() => this.props.handleInvoiceEdit()} />
-                  <RaisedButton label="Save" backgroundColor='#076' labelColor="#fff" style={{margin: 10,}} type="submit" form="invoice-update-form"/>
-                  <RaisedButton label="Delete" backgroundColor='#007766' labelColor="#fff" style={{margin: 10, float:"right"}} type="button" onTouchTap={() => this.props.handleDeleteInvoice(this.props.user.userId, client.clientId, project._id, invoice._id)} />
-                </div>
-                :
-                <div>
-                  {/*<a
-                    href="#"
-                    style={{marginTop: 20, float: "left", color: "#076"}}
-                    onClick={e => {
-                    e.preventDefault();
-                    this.props.handleInvoiceView("invoiceList")
-                    }} >
-                    back
-                  </a>*/}
+        <div style={{margin: 10, height: 30}}>
+        <a
+          href="#"
+          style={{paddingTop: 5, float: "left", color: "#076"}}
+          onClick={e => {
+          e.preventDefault();
+          this.props.handleInvoiceView("invoiceList")
+          }} >
+          back
+        </a>
+        </div>
 
-                  {/*<FlatButton label="<- Back" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "left"}} onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />*/}
+        {/*<FlatButton label="<- Back" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "left"}} onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />*/}
 
-                  <RaisedButton label="Edit" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} onTouchTap={() => this.props.handleInvoiceEdit()}/>
-                </div>
-        }
         <form id="invoice-update-form" onSubmit={ event => {
           event.preventDefault();
             let tasks = this.state.dataTable;
@@ -94,9 +168,10 @@ class InvoiceDetail extends React.Component {
             let projectId = project._id;
             let invoiceId = invoice._id
             let userId = this.props.user.userId
+            let tax = this.state.taxValue
             console.log(tasks);
 
-            this.props.handleUpdateInvoice(tasks, userId, clientId, projectId, invoiceId)
+            this.props.handleUpdateInvoice(tasks, tax, userId, clientId, projectId, invoiceId)
           } } >
         <Table
           height={this.state.height}
@@ -183,20 +258,35 @@ class InvoiceDetail extends React.Component {
             adjustForCheckbox={this.state.showCheckboxes}
           >
             <TableRow>
-              <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
-                 {/*{ this.props.invoiceEdit ?
-                 <div>
-                <RaisedButton label="Cancel" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} type="button" onTouchTap={() => this.props.handleInvoiceEdit()} />
-                <RaisedButton label="Save" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} type="submit" form="invoice-update-form"/>
-                </div>
-                : false
-                 }*/}
-              </TableRowColumn>
-            </TableRow>
-            <TableRow>
               <TableRowColumn colSpan="4">Subtotal</TableRowColumn>
               <TableRowColumn colSpan="4">Tax</TableRowColumn>
-              <TableRowColumn colSpan="4">Total</TableRowColumn>
+              <TableRowColumn colSpan="4"><strong>Total</strong></TableRowColumn>
+            </TableRow>
+            <TableRow>
+              <TableRowColumn colSpan="4"><p style={{fontSize: 16}}>{this.formatPrice(this.getTotal(invoice, project))}</p></TableRowColumn>
+              <TableRowColumn colSpan="4">
+                <SelectField value={this.state.taxValue} onChange={this.handleTaxChange} style={{width: 120, height:45, lineHeight: 50, margin: 0, padding: 0, display: "static"}}>
+                    { taxByState.map( state => {
+                        return <MenuItem value={state.tax} label={`${state.tax}%`} primaryText={state.abbrev} />
+                    })}
+                </SelectField>
+              </TableRowColumn>
+              <TableRowColumn colSpan="4"><p style={{fontSize: 16}}><strong>{this.formatPrice((this.getTotal(invoice, project) * (this.state.taxValue / 100)) + this.getTotal(invoice, project))}</strong></p></TableRowColumn>
+            </TableRow>
+            <TableRow>
+              <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
+                { this.props.invoiceEdit ?
+                <div>
+                  <RaisedButton label="Cancel" backgroundColor='#fff' labelColor="#076" style={{margin: 10,}} type="button" onTouchTap={() => this.props.handleInvoiceEdit()} />
+                  <RaisedButton label="Save" backgroundColor='#076' labelColor="#fff" style={{margin: 10,}} type="submit" form="invoice-update-form"/>
+                  <RaisedButton label="Delete" backgroundColor='#007766' labelColor="#fff" style={{margin: 10, float:"right"}} type="button" onTouchTap={() => this.props.handleDeleteInvoice(this.props.user.userId, client.clientId, project._id, invoice._id)} />
+                </div>
+                :
+                <div>
+                  <RaisedButton label="Edit" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} onTouchTap={() => this.props.handleInvoiceEdit()}/>
+                </div>
+        }
+              </TableRowColumn>
             </TableRow>
             {/*<TableRow>
               <TableRowColumn colSpan="3" style={{textAlign: 'center'}}>

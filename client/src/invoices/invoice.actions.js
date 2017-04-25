@@ -111,7 +111,7 @@ export const handleAddInvoice = (billingPeriodStart, billingPeriodEnd, tasks, us
 
 
 
-export const handleUpdateInvoice = (tasks, userId, clientId, projectId, invoiceId) => {
+export const handleUpdateInvoice = (tasks, tax, userId, clientId, projectId, invoiceId) => {
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -122,6 +122,7 @@ export const handleUpdateInvoice = (tasks, userId, clientId, projectId, invoiceI
       },
       body: JSON.stringify({
         tasks,
+        tax,
         clientId
       }),
       credentials: 'include'
