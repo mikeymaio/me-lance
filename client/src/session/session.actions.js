@@ -32,7 +32,7 @@ export const handleLogin = (userName, password) => {
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch('http://localhost:8080/api/users/login', {
+    fetch('/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export const handleSignUp = (userName, password, passwordConfirm, email) => {
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch('http://localhost:8080/api/users', {
+    fetch('/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ export const handleLogout = (userName) => {
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch('http://localhost:8080/api/users/logout', {
+    fetch('/api/users/logout', {
       method: 'GET',
     //   headers: {
     //     'Content-Type': 'application/json'
@@ -99,7 +99,7 @@ export const handleLogout = (userName) => {
     //   body: JSON.stringify({
     //     userName,
     //   })
-    credentials: 'same-origin'
+    credentials: 'include'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveDataFromServer(res)))

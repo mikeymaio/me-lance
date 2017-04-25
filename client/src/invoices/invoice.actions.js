@@ -80,7 +80,7 @@ export const handleAddInvoice = (billingPeriodStart, billingPeriodEnd, tasks, us
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch(`http://localhost:8080/api/clients/${clientId}/projects/${projectId}/invoices`, {
+    fetch(`/api/clients/${clientId}/projects/${projectId}/invoices`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -91,16 +91,16 @@ export const handleAddInvoice = (billingPeriodStart, billingPeriodEnd, tasks, us
         tasks,
         clientId
       }),
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     // .then(response => response.json())
     // .then(() =>  dispatch(addClientSuccess()))
-    .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+    .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
@@ -115,7 +115,7 @@ export const handleUpdateInvoice = (tasks, userId, clientId, projectId, invoiceI
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch(`http://localhost:8080/api/clients/${clientId}/projects/${projectId}/invoices/${invoiceId}`, {
+    fetch(`/api/clients/${clientId}/projects/${projectId}/invoices/${invoiceId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -124,15 +124,15 @@ export const handleUpdateInvoice = (tasks, userId, clientId, projectId, invoiceI
         tasks,
         clientId
       }),
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     // .then( () => dispatch(handleInvoiceEdit()))
-    .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+    .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
@@ -148,7 +148,7 @@ export const handleDeleteInvoice = (userId, clientId, projectId, invoiceId) => {
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch(`http://localhost:8080/api/clients/${clientId}/projects/${projectId}/invoices/${invoiceId}`, {
+    fetch(`/api/clients/${clientId}/projects/${projectId}/invoices/${invoiceId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -158,15 +158,15 @@ export const handleDeleteInvoice = (userId, clientId, projectId, invoiceId) => {
         projectId,
         invoiceId
       }),
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     // .then(response => response.text())
-    .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+    .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
