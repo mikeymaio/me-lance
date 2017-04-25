@@ -1,14 +1,9 @@
 import React from 'react';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
-// import TextField from 'material-ui/TextField';
 
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import TextField from 'material-ui/TextField';
-import DatePicker from 'material-ui/DatePicker';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,23 +12,10 @@ import * as actions from './invoice.actions';
 
 import moment from 'moment';
 
-import EditTable from 'material-ui-table-edit';
-
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
 
 import MuiEditableTable from '../editable-table.component';
 
 
-
-const rows = []
-
-
-const headers = [
-  {value: 'Date', type: 'DatePicker', width: "25%"},
-  {value: 'Hours Worked', type: 'TextField', width: "25%"},
-  {value: 'Description', type: 'TextField', width: "25%"},
-]
 
 const colSpec = [
     {title: 'Date', fieldName: 'date', inputType: "DatePicker", type: "date", width: 200},
@@ -41,11 +23,6 @@ const colSpec = [
     {title: 'Description', fieldName: 'description', inputType: "TextField", type: "text", width: 200},
 ];
 
-const rowData = [
-    { date: new Date("03/27/17"), hours: '2', description: 'build landing page'},
-    { date: new Date("05/19/17"), hours: '1', description: 'build sign up form'},
-    { date: new Date("06/17/17"), hours: '3', description: 'user auth and login'}
-];
 
 
 class InvoiceDetail extends React.Component {

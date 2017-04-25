@@ -21,8 +21,6 @@ import ExampleChart from '../dashboard/dashboard.component';
 
 import Landing from '../landing/landing.component';
 
-import NewInvoice from '../invoices/add-invoice.component';
-
 
 // import SubHeader from '../subheader/subheader.component';
 

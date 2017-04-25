@@ -3,11 +3,9 @@ import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow,
   from 'material-ui/Table';
 // import TextField from 'material-ui/TextField';
 
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+
 import RaisedButton from 'material-ui/RaisedButton';
 
-import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 
 import { connect } from 'react-redux';
@@ -17,31 +15,8 @@ import * as actions from './invoice.actions';
 
 import moment from 'moment';
 
-import EditTable from 'material-ui-table-edit';
-
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
-
 import MuiEditableTable from '../editable-table.component';
 
-
-const styles = {
-    input: {
-    display: 'inline-block',
-    margin: 5,
-    width: '50%',
-    textAlign: 'left',
-  },
-  datePicker: {
-    marginTop: 15,
-  },
-  selectMenu: {
-    display: 'inline-block',
-    width: '50%',
-    textAlign: 'left',
-    margin: 0,
-  }
-}
 
 const colSpec = [
     {title: 'Date', fieldName: 'date', inputType: "DatePicker", type: "date", width: 200},
@@ -107,7 +82,6 @@ class AddInvoice extends React.Component {
             let tasks = this.state.dataTable;
             let clientId = client.clientId;
             let projectId = project._id;
-            {/*let invoiceId = invoice._id*/}
             let userId = this.props.user.userId
             console.log(tasks);
 

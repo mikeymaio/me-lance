@@ -13,15 +13,6 @@ const receiveClientDataFromServer = (clients) => ({
   clients
 })
 
-// const addClientSuccess = () => ({
-//   type: 'RECEIVE_PROJECT_DATA',
-// })
-
-const updateProjectData = (projects) => ({
-  type: 'UPDATE_PROJECT_DATA',
-  projects
-})
-
 export function handleProjectDetailModal() {
     const UPDATE_PROJECT_DETAIL_MODAL = 'UPDATE_PROJECT_DETAIL_MODAL';
     return {

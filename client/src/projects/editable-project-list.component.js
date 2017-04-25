@@ -121,8 +121,6 @@ constructor(props) {
                     <form id="project-edit-form" onSubmit={(event) => {
                         event.preventDefault()
                         console.log('project-update-form submitted')
-                        {/*let clientName = this.state.selectedClient;*/}
-                        {/*let clientName = `${this.props.clients[this.state.selectedClientIndex].firstName} ${this.props.clients[this.state.selectedClientIndex].lastName}`;*/}
                         let projectName = event.target.projectName.value;
                         let rate = event.target.rate.value;
                         let ratePer = this.state.billingOptionValue;
@@ -133,7 +131,6 @@ constructor(props) {
                         let totalTimeSpent = event.target.totalTimeSpent.value;
                         let billingCycle = event.target.billingCycle.value;
                         let completed = this.state.completed;
-                        {/*let template = this.state.selectedTemplate;*/}
                         let userId = this.props.userId;
                         let clientId = project.clientId;
                         let projectId = project._id;

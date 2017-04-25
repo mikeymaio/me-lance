@@ -6,10 +6,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-
-import TextField from 'material-ui/TextField';
 
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 
@@ -18,7 +15,6 @@ import {List, ListItem, makeSelectable} from 'material-ui/List';
 
 import * as actions from './invoice.actions';
 
-import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 
 
