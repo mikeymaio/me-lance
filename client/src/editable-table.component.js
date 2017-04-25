@@ -163,7 +163,7 @@ class MuiEditableTable extends React.Component {
                     firstDayOfWeek={this.props.firstDayOfWeek || 0}
                     autoOk={this.props.autoOk || true}
                     disabled={!this.props.editable}
-                    textFieldStyle={{textDecoration: "none", underline: "none"}}
+                    //textFieldStyle={{textDecoration: "none", underline: "none"}}
                     underlineDisabledStyle={{display: "none"}}
                     onChange={this.onFieldChange(index, column.fieldName)}
                 />
@@ -206,6 +206,7 @@ class MuiEditableTable extends React.Component {
     }
 
     renderRowButtons(index) {
+        if (this.props.editable) {
         let buttons = [
             this.iconButton(index, 'delete', this.onDeleteRow(index), <DeleteIcon />)
         ];
@@ -228,6 +229,9 @@ class MuiEditableTable extends React.Component {
                 {buttons}
             </div>
         )
+    } else {
+        return;
+    }
     }
 
     iconButton(rowKey, action, clickEvent, muiIcon) {
