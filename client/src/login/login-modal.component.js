@@ -60,7 +60,6 @@ class LoginModal extends React.Component {
         keyboardFocused={true}
         onTouchTap={this.props.handleLoginModal}
       />,
-      <button type="submit" form="login-form">LogIn</button>
     ] :
     [
       <FlatButton
