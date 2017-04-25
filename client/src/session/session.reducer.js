@@ -52,6 +52,11 @@ const sessionReducer = (state=sessionState, action) => {
                 ...state,
                 loginModalSlideIndex: action.payload
             }
+        case 'UPDATE_VIEW':
+            return {
+                ...state,
+                view: action.view
+            }
         default:
             return state;
         }

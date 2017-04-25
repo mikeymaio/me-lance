@@ -105,3 +105,8 @@ export const handleLogout = (userName) => {
     .then(res => dispatch(receiveDataFromServer(res)))
   }
 }
+
+export const handleView = view => {
+  type: 'UPDATE_VIEW',
+  view
+}

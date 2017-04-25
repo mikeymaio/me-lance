@@ -29,6 +29,7 @@ const muiTheme = getMuiTheme({
     selectColor: '#076',
     selectTextColor: '#eee',
     calendarYearBackgroundColor: '#FFF',
+    disabledTextColor: '#076',
   },
   // datePicker: {
   //   color: muiTheme.palette.primary1Color,
