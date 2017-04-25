@@ -8,43 +8,45 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import TextField from 'material-ui/TextField';
+import DatePicker from 'material-ui/DatePicker';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as actions from './invoice.actions';
 
-// const styles = {
-//   propContainer: {
-//     width: 200,
-//     overflow: 'hidden',
-//     margin: '20px auto 0',
-//   },
-//   propToggleHeader: {
-//     margin: '20px auto 10px',
-//   },
-// };
+import moment from 'moment';
 
-const tableData = [
-  {
-    date: '1/1/17',
-    hours: '5.5',
-    description: 'blahblahblah',
-    status: 'in progress',
-  },
-  {
-    date: '1/2/17',
-    hours: '6',
-    description: 'blahblahblah',
-    status: 'in progress',
-  },
-  {
-    date: '1/3/17',
-    hours: '5',
-    description: 'blahblahblah',
-    status: 'complete',
-  },
+import EditTable from 'material-ui-table-edit';
+
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
+
+import MuiEditableTable from '../editable-table.component';
+
+
+
+const rows = []
+
+
+const headers = [
+  {value: 'Date', type: 'DatePicker', width: "25%"},
+  {value: 'Hours Worked', type: 'TextField', width: "25%"},
+  {value: 'Description', type: 'TextField', width: "25%"},
+]
+
+const colSpec = [
+    {title: 'Date', fieldName: 'date', inputType: "DatePicker", type: "date", width: 200},
+    {title: 'Hours', fieldName: 'hoursSpent', inputType: "TextField", type: "number", width: 200},
+    {title: 'Description', fieldName: 'description', inputType: "TextField", type: "text", width: 200},
 ];
+
+const rowData = [
+    { date: new Date("03/27/17"), hours: '2', description: 'build landing page'},
+    { date: new Date("05/19/17"), hours: '1', description: 'build sign up form'},
+    { date: new Date("06/17/17"), hours: '3', description: 'user auth and login'}
+];
+
 
 class InvoiceDetail extends React.Component {
 
@@ -56,43 +58,69 @@ class InvoiceDetail extends React.Component {
       fixedFooter: false,
       stripedRows: false,
       showRowHover: true,
-      selectable: true,
+      selectable: false,
       multiSelectable: true,
       enableSelectAll: true,
       deselectOnClickaway: false,
       showCheckboxes: false,
       height: '300px',
+      dataTable: [],
     };
-  }
 
-  actionButtons = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.props.handleInvoiceDetailModal}
-      />,
-      <FlatButton
-        label="Save"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.props.handleInvoiceDetailModal}
-      />,
-    ];
+        this.formatDate = date => {
+    return moment(date).format("MM/DD/YY")
+}
+
+  this.onChange = (dataTable) => {
+    console.log(dataTable)
+    this.setState({dataTable})
+};
+
+}
+
 
   render() {
 
+    const client = this.props.clients[this.props.cIndex];
+    const project = client.projects[this.props.pIndex];
+    const invoice = project.invoices[this.props.iIndex];
+
     return (
       <div>
-        <FlatButton label="+" style={{margin: 'auto', width: '50%'}} onTouchTap={this.props.handleInvoiceDetailModal}/>
-        <Dialog
-          title="Invoice Details"
-          actions={this.actionButtons}
-          modal={true}
-          //open={this.props.isDetailModalOpen}
-          //onRequestClose={this.props.handleInvoiceDetailModal}
-          open={this.props.isDetailModalOpen}
-          //onRequestClose={}
-          autoScrollBodyContent={true}>
+        { this.props.invoiceEdit ?
+                <div>
+                  <RaisedButton label="Cancel" backgroundColor='#fff' labelColor="#076" style={{margin: 10,}} type="button" onTouchTap={() => this.props.handleInvoiceEdit()} />
+                  <RaisedButton label="Save" backgroundColor='#076' labelColor="#fff" style={{margin: 10,}} type="submit" form="invoice-update-form"/>
+                  <RaisedButton label="Delete" backgroundColor='#007766' labelColor="#fff" style={{margin: 10, float:"right"}} type="button" onTouchTap={() => this.props.handleDeleteInvoice(this.props.user.userId, client.clientId, project._id, invoice._id)} />
+                </div>
+                :
+                <div>
+                  {/*<a
+                    href="#"
+                    style={{marginTop: 20, float: "left", color: "#076"}}
+                    onClick={e => {
+                    e.preventDefault();
+                    this.props.handleInvoiceView("invoiceList")
+                    }} >
+                    back
+                  </a>*/}
+
+                  {/*<FlatButton label="<- Back" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "left"}} onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />*/}
+
+                  <RaisedButton label="Edit" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} onTouchTap={() => this.props.handleInvoiceEdit()}/>
+                </div>
+        }
+        <form id="invoice-update-form" onSubmit={ event => {
+          event.preventDefault();
+            let tasks = this.state.dataTable;
+            let clientId = client.clientId;
+            let projectId = project._id;
+            let invoiceId = invoice._id
+            let userId = this.props.user.userId
+            console.log(tasks);
+
+            this.props.handleUpdateInvoice(tasks, userId, clientId, projectId, invoiceId)
+          } } >
         <Table
           height={this.state.height}
           fixedHeader={this.state.fixedHeader}
@@ -108,64 +136,84 @@ class InvoiceDetail extends React.Component {
           >
             <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Invoice #" style={{textAlign: 'left'}}>
-                Invoice #:
+                Invoice #: {invoice._id}
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
-                Billing Period: <TextField name="billingPeriod" />
+                Billing Period: {`${moment(invoice.billingPeriodStart).format("MM/DD/YY")} - ${moment(invoice.billingPeriodEnd).format("MM/DD/YY")}` }
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
                 <TableHeaderColumn colSpan="6" tooltip="The project name" style={{textAlign: 'left'}}>
-                    Project Name: <TextField name="projectName" />
+                    Project Name: {project.projectName}
                 </TableHeaderColumn>
                 <TableHeaderColumn colSpan="6" tooltip="The project's ID no." style={{textAlign: 'left'}}>
-                    Project Id:
+                    Project Id: {project._id}
                 </TableHeaderColumn>
               </TableRow>
             <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Your Name" style={{textAlign: 'left'}}>
-                Name: <TextField name="yourName" />
+                Name: {`${this.props.user.firstName} ${this.props.user.lastName}`}
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="The client's name" style={{textAlign: 'left'}}>
-                Client Name: <TextField name="clientName" />
+                Client Name: {project.clientName}
               </TableHeaderColumn>
               </TableRow>
               <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Your address" style={{textAlign: 'left'}}>
-                Adress: <TextField name="yourAddress" />
+                Address: {this.props.user.address}
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="the client's address" style={{textAlign: 'left'}}>
-                Client Address: <TextField name="clientAddress" />
+                Client Address: {client.address}
               </TableHeaderColumn>
             </TableRow>
-            <TableRow displayBorder={true} style={{borderTop: '2px solid #007766'}} >
+            {/*<TableRow displayBorder={true} style={{borderTop: '2px solid #007766'}} >
               <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Date worked">Date</TableHeaderColumn>
               <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Hours worked">Hours</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="Description of task">Description</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3" style={{textAlign: 'left'}} tooltip="The status of the task">Status</TableHeaderColumn>
-            </TableRow>
+              <TableHeaderColumn colSpan="5" style={{textAlign: 'left'}} tooltip="Description of task">Description</TableHeaderColumn>
+              <TableHeaderColumn colSpan="1" style={{textAlign: 'left'}} tooltip="Edit"></TableHeaderColumn>
+            </TableRow>*/}
           </TableHeader>
           <TableBody
+          id="table-body"
             displayRowCheckbox={this.state.showCheckboxes}
             deselectOnClickaway={this.state.deselectOnClickaway}
             showRowHover={this.state.showRowHover}
             stripedRows={this.state.stripedRows}
           >
-            {tableData.map( (row, index) => (
-              <TableRow key={index} selected={row.selected}>
-                <TableRowColumn colSpan="3"><TextField name={row.date} defaultValue={row.date} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField name={row.hours} defaultValue={row.hours} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField name={row.description} defaultValue={row.description} /></TableRowColumn>
-                <TableRowColumn colSpan="3"><TextField name={row.status} defaultValue={row.status} /></TableRowColumn>
+          {/*{invoice.tasks.map( (row, index) => (
+          <TableRow key={index} selected={row.selected}>
+                <TableRowColumn colSpan="3"><DatePicker name={`date${index}`} defaultValue={row.date} disabled={!this.props.invoiceEdit} /></TableRowColumn>
+                <TableRowColumn colSpan="3"><TextField name={`hours${index}`} defaultValue={row.hoursSpent} disabled={!this.props.invoiceEdit}/></TableRowColumn>
+                <TableRowColumn colSpan="5"><TextField name={`description${index}`} defaultValue={row.description} multiLine={true} disabled={!this.props.invoiceEdit}/></TableRowColumn>
+                <TableRowColumn colSpan="1"><IconButton tooltip={this.props.invoiceEdit ? "Done" : "Edit"} touch={true} tooltipPosition="bottom-left" onTouchTap={() => this.props.handleInvoiceEdit()} children={this.props.invoiceEdit ? <i className="material-icons">&#xE876;</i> : <i className="material-icons">&#xE254;</i>} /></TableRowColumn>
               </TableRow>
-              ))}
+              ))}>*/}
+
+            <MuiEditableTable
+              colSpec={colSpec}
+              rowData={invoice.tasks.map( row => {
+                return {date: row.date,
+                hoursSpent: row.hoursSpent,
+                description: row.description}
+              })}
+              onChange={this.onChange}
+              style={{textAlign: "left"}}
+              //reorderable={true}
+          />
+
           </TableBody>
           <TableFooter
             adjustForCheckbox={this.state.showCheckboxes}
           >
             <TableRow>
               <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
-                <RaisedButton label="Add Row" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} />
+                 {/*{ this.props.invoiceEdit ?
+                 <div>
+                <RaisedButton label="Cancel" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} type="button" onTouchTap={() => this.props.handleInvoiceEdit()} />
+                <RaisedButton label="Save" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} type="submit" form="invoice-update-form"/>
+                </div>
+                : false
+                 }*/}
               </TableRowColumn>
             </TableRow>
             <TableRow>
@@ -180,7 +228,7 @@ class InvoiceDetail extends React.Component {
             </TableRow>*/}
           </TableFooter>
         </Table>
-        </Dialog>
+        </form>
       </div>
     );
   }
@@ -188,13 +236,21 @@ class InvoiceDetail extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        isDetailModalOpen: state.invoiceReducer.isDetailModalOpen,
+        cIndex: state.invoiceReducer.clientIndex,
+        pIndex: state.invoiceReducer.projectIndex,
+        iIndex: state.invoiceReducer.invoiceIndex,
+        clients: state.clientReducer.clients,
+        user: state.loginReducer.user,
+        invoiceEdit: state.invoiceReducer.invoiceEdit,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        handleInvoiceDetailModal: actions.handleInvoiceDetailModal,
+      handleInvoiceEdit: actions.handleInvoiceEdit,
+      handleInvoiceView: actions.handleInvoiceView,
+      handleUpdateInvoice: actions.handleUpdateInvoice,
+      handleDeleteInvoice: actions.handleDeleteInvoice,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);

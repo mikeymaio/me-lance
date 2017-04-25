@@ -42,7 +42,7 @@ export const handleAddProject = (clientName, projectName, rate, ratePer, budget,
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch(`http://localhost:8080/api/clients/${clientId}/projects`, {
+    fetch(`/api/clients/${clientId}/projects`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -62,16 +62,16 @@ export const handleAddProject = (clientName, projectName, rate, ratePer, budget,
         userId,
         clientId
       }),
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     // .then(response => response.json())
     // .then(() =>  dispatch(addClientSuccess()))
-    .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+    .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
@@ -83,12 +83,12 @@ export const fetchUserProjects = (userId) => {
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+    fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveProjectDataFromServer(res.clients.projects)))
@@ -111,18 +111,17 @@ export function handleProjectEdit() {
     }
 }
 
-export const handleUpdateProject = (clientName, projectName, rate, ratePer, budget, notes, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId) => {
+export const handleUpdateProject = (projectName, rate, ratePer, budget, notes, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId) => {
     console.log('handleUpdateProject fired with project name:', projectName)
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch(`http://localhost:8080/api/clients/${clientId}/projects/${projectId}`, {
+    fetch(`/api/clients/${clientId}/projects/${projectId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        clientName,
         projectName,
         rate,
         ratePer,
@@ -137,16 +136,16 @@ export const handleUpdateProject = (clientName, projectName, rate, ratePer, budg
         clientId,
         projectId
       }),
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     // .then(response => response.json())
     // .then(res => {console.log(res); dispatch(updateProjectData(res))})
-    .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+    .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
@@ -160,7 +159,7 @@ export const handleDeleteProject = (clientId, projectId, userId) => {
   return dispatch => {
     dispatch(requestDataFromServer())
 
-    fetch(`http://localhost:8080/api/clients/${clientId}/projects/${projectId}`, {
+    fetch(`/api/clients/${clientId}/projects/${projectId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -169,15 +168,15 @@ export const handleDeleteProject = (clientId, projectId, userId) => {
         clientId,
         projectId
       }),
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     // .then(response => response.text())
-    .then(fetch(`http://localhost:8080/api/clients?userId=${userId}`, {
+    .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      credentials: 'same-origin'
+      credentials: 'include'
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))

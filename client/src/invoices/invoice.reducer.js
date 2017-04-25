@@ -1,36 +1,11 @@
 const invoiceState = {
-        isDetailModalOpen: false,
         isLoading: false,
         invoiceFilter: 'SHOW_ALL',
-        invoices: [
-        {
-            id: '12321',
-            client: 'John Smith',
-            project: 'John\'s Website',
-            date: '4/21/17',
-            hours: '5',
-            status: 'in progress',
-            completed: false,
-        },
-        {
-            id: '12322',
-            client: 'Sally Smith',
-            project: 'Another website',
-            date: '4/22/17',
-            hours: '5',
-            status: 'in progress',
-            completed: false,
-        },
-        {
-            id: '12323',
-            client: 'John Doe',
-            project: 'another website',
-            date: '4/23/17',
-            hours: '5',
-            status: 'completed',
-            completed: true,
-        },
-        ]
+        invoiceView: 'invoiceList',
+        invoiceEdit: false,
+        clientIndex: null,
+        projectIndex: null,
+        invoiceIndex: null,
 
     }
 
@@ -48,15 +23,24 @@ const invoiceReducer = (state=invoiceState, action) => {
                 ...state,
                 isLoading: false, isLoggedIn: action.payload
             }
-        case 'UPDATE_INVOICE_DETAIL_MODAL':
-            return {
-                ...state,
-                isDetailModalOpen: !state.isDetailModalOpen
-            }
         case 'SET_INVOICE_FILTER':
             return {
                 ...state,
                 invoiceFilter: action.filter
+            }
+        case 'UPDATE_INVOICE_VIEW':
+            return {
+                ...state,
+                invoiceView: action.view,
+                clientIndex: action.cIndex,
+                projectIndex: action.pIndex,
+                invoiceIndex: action.iIndex,
+                invoiceEdit: false,
+            }
+        case 'UPDATE_INVOICE_EDIT':
+            return {
+                ...state,
+                invoiceEdit: !state.invoiceEdit,
             }
         default:
             return state;
