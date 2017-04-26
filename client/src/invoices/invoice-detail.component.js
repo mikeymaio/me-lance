@@ -251,7 +251,7 @@ componentDidMount() {
           >
             <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Invoice #" style={{textAlign: 'left'}}>
-                Invoice #: {invoice._id}
+                Invoice #: {invoice.invoiceNo}
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
                 Billing Period: {`${moment(invoice.billingPeriodStart).format("MM/DD/YY")} - ${moment(invoice.billingPeriodEnd).format("MM/DD/YY")}` }

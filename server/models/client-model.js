@@ -17,6 +17,9 @@ const TaskSchema = mongoose.Schema({
 })
 
 const InvoiceSchema = mongoose.Schema({
+    invoiceNo: {
+        type: Number
+    },
     billingPeriodStart: {
         type: Date
     },

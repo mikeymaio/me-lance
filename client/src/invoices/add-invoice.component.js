@@ -68,15 +68,10 @@ class AddInvoice extends React.Component {
         return (
 
      <div>
-
-        <div>
-            <RaisedButton label="Cancel" backgroundColor='#fff' labelColor="#076" style={{margin: 10,}} type="button" onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />
-            <RaisedButton label="Save" backgroundColor='#076' labelColor="#fff" style={{margin: 10,}} type="submit" form="invoice-add-form"/>
-        </div>
-
         <form id="invoice-add-form" onSubmit={ event => {
             event.preventDefault();
 
+            let invoiceNo = project.invoices.length + 1
             let billingPeriodStart = event.target.billingPeriodStart.value === '' ? event.target.billingPeriodStart.value : event.target.billingPeriodStart.value;
             let billingPeriodEnd = event.target.billingPeriodEnd.value === '' ? event.target.billingPeriodEnd.value : event.target.billingPeriodEnd.value;
             let tasks = this.state.dataTable;
@@ -86,7 +81,7 @@ class AddInvoice extends React.Component {
             console.log(tasks);
 
 
-            this.props.handleAddInvoice(billingPeriodStart, billingPeriodEnd, tasks, userId, clientId, projectId)
+            this.props.handleAddInvoice(invoiceNo, billingPeriodStart, billingPeriodEnd, tasks, userId, clientId, projectId)
           } } >
         <Table
           height={this.state.height}
@@ -185,11 +180,14 @@ class AddInvoice extends React.Component {
               <TableRowColumn colSpan="4">Tax</TableRowColumn>
               <TableRowColumn colSpan="4">Total</TableRowColumn>
             </TableRow>
-            {/*<TableRow>
-              <TableRowColumn colSpan="3" style={{textAlign: 'center'}}>
-                Super Footer
+            <TableRow>
+              <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
+                {/*<div>*/}
+            <RaisedButton label="Cancel" backgroundColor='#fff' labelColor="#076" style={{margin: 10,}} type="button" onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />
+            <RaisedButton label="Save" backgroundColor='#076' labelColor="#fff" style={{margin: 10,}} type="submit" form="invoice-add-form"/>
+        {/*</div>*/}
               </TableRowColumn>
-            </TableRow>*/}
+            </TableRow>
           </TableFooter>
         </Table>
         </form>

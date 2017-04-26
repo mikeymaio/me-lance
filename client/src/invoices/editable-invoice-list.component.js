@@ -14,6 +14,7 @@ import {List, ListItem, makeSelectable} from 'material-ui/List';
 
 
 import * as actions from './invoice.actions';
+import { fetchUserClients } from '../clients/clients.actions';
 
 import IconButton from 'material-ui/IconButton';
 
@@ -42,6 +43,9 @@ constructor(props) {
 
   }
 
+componentDidMount() {
+    this.props.fetchUserClients(this.props.userId)
+  }
 
   render() {
 
@@ -109,7 +113,7 @@ constructor(props) {
           </p>*/}
             {/*{visibleInvoices.map( (row, index) => (*/}
             {this.props.clients.map( ( client, cIndex ) => (
-                client.projects.reverse().map( (project, pIndex) => (
+                client.projects.map( (project, pIndex) => (
                    <Card key={pIndex}>
                         <CardHeader
                         title={project.clientName}
@@ -122,15 +126,15 @@ constructor(props) {
                         children={
                             <List>
                                 {console.log(project.invoices)}
-                                { project.invoices.reverse().map( (invoice, iIndex) => {
+                                { project.invoices.map( (invoice, iIndex) => {
                                     return <ListItem
                                         key={iIndex}
                                         value={iIndex}
                                         primaryText={`${this.formatDate(invoice.billingPeriodStart)} - ${this.formatDate(invoice.billingPeriodEnd)}`}
-                                        secondaryText={`Invoice#: ${invoice._id}`}
+                                        secondaryText={`Invoice#: ${invoice.invoiceNo}`}
                                         rightIconButton={<IconButton tooltip="View Details" touch={true} tooltipPosition="bottom-left" onTouchTap={() => this.props.handleInvoiceView("invoiceDetail", cIndex, pIndex, iIndex)} children={<i className="material-icons">&#xE145;</i>} />}
                                         />
-                                })}
+                                }).sort(() => 1 )}
                                 <CardActions>
                                     <FlatButton label="New Invoice" onTouchTap={ () => this.props.handleInvoiceView("addInvoice", cIndex, pIndex)} />
                                 </CardActions>
@@ -160,6 +164,7 @@ function mapDispatchToProps(dispatch) {
         // fetchUserInvoices: actions.fetchUserInvoices,
         handleInvoiceView: actions.handleInvoiceView,
         filterInvoices: actions.filterInvoices,
+        fetchUserClients: fetchUserClients,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);

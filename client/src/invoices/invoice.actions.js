@@ -75,7 +75,7 @@ const receiveClientDataFromServer = (clients) => ({
 
 
 
-export const handleAddInvoice = (billingPeriodStart, billingPeriodEnd, tasks, userId, clientId, projectId) => {
+export const handleAddInvoice = (invoiceNo, billingPeriodStart, billingPeriodEnd, tasks, userId, clientId, projectId) => {
     console.log('handleAddInvoicefired: ');
   return dispatch => {
     dispatch(requestDataFromServer())
@@ -86,6 +86,7 @@ export const handleAddInvoice = (billingPeriodStart, billingPeriodEnd, tasks, us
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        invoiceNo,
         billingPeriodStart,
         billingPeriodEnd,
         tasks,
