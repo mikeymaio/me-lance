@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import headerReducer from './header/header.reducer';
-import leftMenuReducer from './menu/left-menu.reducer';
+import menuReducer from './menu/menu.reducer';
 import clientReducer from './clients/clients.reducer';
 import invoiceReducer from './invoices/invoice.reducer';
 import projectReducer from './projects/projects.reducer';
@@ -10,7 +10,7 @@ import drawerReducer from './drawer/drawer.reducer';
 
 const rootReducer = combineReducers({
     headerReducer,
-    leftMenuReducer,
+    menuReducer,
     clientReducer,
     invoiceReducer,
     projectReducer,

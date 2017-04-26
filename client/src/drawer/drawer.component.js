@@ -8,7 +8,7 @@ import * as actions from './drawer.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import SideMenu from '../menu/left-menu.component';
+import MainMenu from '../menu/menu.component';
 import FlatButton from 'material-ui/FlatButton';
 
 import Divider from 'material-ui/Divider';
@@ -41,7 +41,7 @@ class DrawerMenu extends React.Component {
         <FlatButton label="X" className="pull-right" onTouchTap={this.props.handleDrawer} />
           <h4 className="pull-left">Freelancer</h4>
           <Divider style={{height: 3}} />
-          <SideMenu />
+          <MainMenu style={{width: "100%", float: "left"}} menuItemStyle={{display: "block", width: "100%", float: "left"}} />
           <Divider style={{height: 3}} />
           <Menu>
             <MenuItem value="1" primaryText="Settings" />

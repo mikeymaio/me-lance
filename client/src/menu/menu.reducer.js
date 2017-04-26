@@ -1,10 +1,10 @@
-const leftMenuState = {
+const menuState = {
         selectedItem: 'dashboard',
     }
 
 
-const leftMenuReducer = (state=leftMenuState, action) => {
-    state = state || leftMenuState
+const menuReducer = (state=menuState, action) => {
+    state = state || menuState
     switch(action.type) {
         case 'MENU_ITEM_SELECTED':
             return {
@@ -17,5 +17,5 @@ const leftMenuReducer = (state=leftMenuState, action) => {
         // return state;
     }
 
-export default leftMenuReducer;
+export default menuReducer;
 

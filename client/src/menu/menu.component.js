@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 // import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 
-import * as actions from './left-menu.actions';
+import * as actions from './menu.actions';
 
 import { handleView } from '../session/session.actions';
 
@@ -24,40 +24,40 @@ const style = {
   width: '100%'
 };
 
-const styleq = {
+const styleItem = {
   display: 'inline',
   float: 'left',
   width: '25%',
   textAlign: 'center'
 };
 
-class SideMenu extends React.Component {
+class MainMenu extends React.Component {
 
   render() {
     return (
       <div>
         <Paper style={{width:'100%'}}>
-              <Menu autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}}>
+              <Menu autoWidth={this.props.autoWidth} width={this.props.width} listStyle={this.props.listStyle} style={this.props.style}>
                 <MenuItem
                   primaryText="Dashboard"
-                  style={styleq}
+                  style={this.props.menuItemStyle}
                   onTouchTap={() => this.props.handleMenuItemSelect('dashboard')}
                 />
                 <MenuItem
                   primaryText="Clients"
-                  style={styleq}
+                  style={this.props.menuItemStyle}
                   onTouchTap={() => { this.props.handleMenuItemSelect('clients');
                                       this.props.handleClientView('clientList')}}
                 />
                 <MenuItem
                   primaryText="Projects"
-                  style={styleq}
+                  style={this.props.menuItemStyle}
                   onTouchTap={() => { this.props.handleMenuItemSelect('projects')
                                     this.props.handleProjectView('projectList')}}
                 />
                 <MenuItem
                   primaryText="Invoices"
-                  style={styleq}
+                  style={this.props.menuItemStyle}
                   onTouchTap={() => { this.props.handleMenuItemSelect('invoices')
                                       this.props.handleInvoiceView('invoiceList', null, null, null)}}
                 />
@@ -70,7 +70,7 @@ class SideMenu extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        selectedItem: state.leftMenuReducer.selectedItem,
+        selectedItem: state.menuReducer.selectedItem,
         //view: state.sessionReducer.view
     };
 }
@@ -85,4 +85,4 @@ function mapDispatchToProps(dispatch) {
         dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(MainMenu);

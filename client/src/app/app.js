@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Header from '../header/header.component';
-import SideMenu from '../menu/left-menu.component';
+import MainMenu from '../menu/menu.component';
 
 
 import InvoiceList from '../invoices/editable-invoice-list.component';
@@ -26,7 +26,12 @@ import Landing from '../landing/landing.component';
 
 import './app.css';
 
-
+const styleItem = {
+  display: 'inline',
+  float: 'left',
+  width: '25%',
+  textAlign: 'center'
+};
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -44,7 +49,7 @@ class App extends Component {
         <div className="container-fluid" style={{backgroundColor: "#eee"}}>
           <div className="row">
             {/*<SubHeader />*/}
-          <SideMenu />
+          <MainMenu autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}} menuItemStyle={styleItem}/>
           </div>
           <div
             className="col-xs-12 col-md-10 col-md-offset-1"
@@ -73,7 +78,7 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         isLoggedIn: state.loginReducer.isLoggedIn,
-        selectedItem: state.leftMenuReducer.selectedItem,
+        selectedItem: state.menuReducer.selectedItem,
         clientView: state.clientReducer.clientView,
         projectView: state.projectReducer.projectView,
         invoiceView: state.invoiceReducer.invoiceView,
