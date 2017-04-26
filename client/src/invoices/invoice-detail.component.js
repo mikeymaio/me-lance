@@ -306,13 +306,12 @@ componentDidMount() {
 
             <MuiEditableTable
               colSpec={colSpec}
-              rowData={invoice.tasks.length > 0 ? invoice.tasks.map( (row, index) => {
-                return {date: new Date(row.date),
-                hoursSpent: row.hoursSpent.toString(),
+              rowData={invoice.tasks.map( (row, index) => {
+                return {date: new Date(row.date) || new Date(),
+                hoursSpent: row.hoursSpent.toString() || 0,
                 description: row.description,
                 key: index}
-              }) :
-              []
+              })
               }
               onChange={this.onChange}
               style={{textAlign: "left"}}
