@@ -42,12 +42,12 @@ class App extends Component {
         <div>
         <Header className="app-header" />
         <div className="container-fluid" style={{backgroundColor: "#eee"}}>
-          <div className="col-xs-2">
+          <div className="row">
             {/*<SubHeader />*/}
           <SideMenu />
           </div>
           <div
-            className="col-xs-10"
+            className="col-xs-12 col-md-10 col-md-offset-1"
             style={{textAlign: 'center'}}>
             {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'clientList' ? <ClientList /> : false}
