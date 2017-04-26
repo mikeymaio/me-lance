@@ -306,7 +306,7 @@ componentDidMount() {
 
             <MuiEditableTable
               colSpec={colSpec}
-              rowData={invoice.tasks ? invoice.tasks.map( (row, index) => {
+              rowData={invoice.tasks.length > 0 ? invoice.tasks.map( (row, index) => {
                 return {date: new Date(row.date),
                 hoursSpent: row.hoursSpent.toString(),
                 description: row.description,
