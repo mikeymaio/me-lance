@@ -308,7 +308,7 @@ componentDidMount() {
               colSpec={colSpec}
               rowData={invoice.tasks.map( (row, index) => {
                 return {date: new Date(row.date) || new Date(),
-                hoursSpent: row.hoursSpent.toString() || 0,
+                hoursSpent: row.hoursSpent ? row.hoursSpent.toString() : '0',
                 description: row.description,
                 key: index}
               })
