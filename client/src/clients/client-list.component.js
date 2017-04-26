@@ -139,17 +139,14 @@ constructor(props) {
                                 <FlatButton key={`cancel${client.clientId}`} label="Cancel" onTouchTap={() => this.props.handleClientEdit()} />
                                 <FlatButton key={`save${client.clientId}`} type="submit" form="client-edit-form" label="Save" //onTouchTap={() => this.props.handleClientEdit()}
                                   />
-                                  </div>
+                              </div>
                                 :
-                                <div>
-                                  <FlatButton
-                                  className="pull-left"
-                                  key={`delete${client.clientId}`} label="DELETE" onTouchTap={() => this.props.handleDeleteClient(client.clientId, this.props.userId)} />
-                                  <FlatButton key={`edit${client.clientId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleClientEdit()} />
-
-                                    {/*<FlatButton key={`test${client.clientId}`} label="Loader" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.testLoader()} />*/}
-
-                                </div>}
+                              <div>
+                                <FlatButton key={`edit${client.clientId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleClientEdit()} />
+                                <FlatButton
+                                className="pull-right"
+                                key={`delete${client.clientId}`} label="DELETE" onTouchTap={() => this.props.handleDeleteClient(client.clientId, this.props.userId)} />
+                              </div>}
                                 <Divider inset={false} style={{color: "#076", height: 3}} />
                         </form>
                     }

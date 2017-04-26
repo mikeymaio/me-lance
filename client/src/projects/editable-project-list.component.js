@@ -301,22 +301,21 @@ constructor(props) {
                             />
                             <Divider inset={false} style={{color: "#076", height: 3}} />
                             { this.props.projectEdit ?
-                              <div>
-                                <FlatButton key={`cancel${project.projectId}`} label="Cancel" onTouchTap={() => this.props.handleProjectEdit()} />
-                                <FlatButton label="Save" key={`save${project.projectId}`} type="submit" form="project-edit-form"
-                                //onTouchTap={() => this.props.handleProjectEdit()}
-                                  />
-                                  </div>
+                                <div>
+                                    <FlatButton key={`cancel${project.projectId}`} label="Cancel" onTouchTap={() =>                 this.props.handleProjectEdit()}
+                                    />
+                                    <FlatButton label="Save" key={`save${project.projectId}`} type="submit"                         form="project-edit-form"
+                                    />
+                                </div>
                                 :
                                 <div>
-                                  <FlatButton
-                                  className="pull-left"
-                                  key={`delete${project.projectId}`}
-                                  label="DELETE" onTouchTap={() => this.props.handleDeleteProject(project.clientId, project._id, project.userId)} />
-                                  <FlatButton key={`edit${project.projectId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleProjectEdit()} />
-
-                                    {/*<FlatButton key={`test${project.projectId}`} label="Loader" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.testLoader()} />*/}
-
+                                    <FlatButton key={`edit${project.projectId}`} label="Edit" style={{color: "#FFF",               backgroundColor: "#076"}} onTouchTap={() => this.props.handleProjectEdit()}
+                                    />
+                                    <FlatButton
+                                        className="pull-right"
+                                        key={`delete${project.projectId}`}
+                                        label="DELETE" onTouchTap={() => this.props.handleDeleteProject(project.clientId, project._id, project.userId)}
+                                    />
                                 </div>}
                                 <Divider inset={false} style={{color: "#076", height: 3}} />
                         </form>

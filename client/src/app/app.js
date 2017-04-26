@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import Header from '../header/header.component';
 import MainMenu from '../menu/menu.component';
 
@@ -22,8 +20,6 @@ import ExampleChart from '../dashboard/dashboard.component';
 import Landing from '../landing/landing.component';
 
 
-// import SubHeader from '../subheader/subheader.component';
-
 import './app.css';
 
 const styleItem = {
@@ -33,9 +29,6 @@ const styleItem = {
   textAlign: 'center'
 };
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
 
 class App extends Component {
   render() {
