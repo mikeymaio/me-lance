@@ -27,13 +27,18 @@ const styles = {
     //padding: 10,
   },
   paper: {
-    height: 150,
+    // height: 150,
   //width: '45%',
   //margin: 'auto',
-  padding: 5,
+  // padding: 5,
   textAlign: 'center',
   backgroundColor: '#eee'
   }
+};
+
+const customContentStyle = {
+  width: '100%',
+  maxWidth: 700,
 };
 
 class LoginModal extends React.Component {
@@ -88,6 +93,7 @@ class LoginModal extends React.Component {
           onRequestClose={this.props.handleLoginModal}
           autoScrollBodyContent={true}
           bodyStyle={{padding: 1}}
+          contentStyle={customContentStyle}
         >
         <Tabs
           onChange={this.props.handleLoginSlides}
