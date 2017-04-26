@@ -131,6 +131,7 @@ constructor(props) {
                             multiLine={true}
                             disabled={!this.props.clientEdit}
                             underlineDisabledStyle={{display: 'none'}}
+                            textareaStyle={{marginBottom: -5}}
                             />
                             <Divider inset={false} style={{color: "#076", height: 3}} />
                             { this.props.clientEdit ?
