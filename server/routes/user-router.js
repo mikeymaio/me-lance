@@ -6,60 +6,60 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 // const morgan = require('morgan');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const session = require('express-session');
+// const LocalStrategy = require('passport-local').Strategy;
+// const session = require('express-session');
 
 mongoose.Promise = global.Promise;
 
 
 const { User } = require('../models/user-model');
 
-const localStrategy = new LocalStrategy(function(username, password, callback) {
-  console.log('strategy start')
-  let user;
-  User
-    .findOne({userName: username})
-    .exec()
-    .then(_user => {
-      user = _user;
-      if (!user) {
-        return callback(null, false, {message: 'Incorrect username or password'});
-      }
-      return user.validatePassword(password);
-    })
-    .then(isValid => {
-      if (!isValid) {
-        return callback(null, false, {message: 'Incorrect username or password'});
-      }
-      else {
-        return callback(null, user)
-      }
-    });
-});
-passport.use(localStrategy);
+// const localStrategy = new LocalStrategy(function(username, password, callback) {
+//   console.log('strategy start')
+//   let user;
+//   User
+//     .findOne({userName: username})
+//     .exec()
+//     .then(_user => {
+//       user = _user;
+//       if (!user) {
+//         return callback(null, false, {message: 'Incorrect username or password'});
+//       }
+//       return user.validatePassword(password);
+//     })
+//     .then(isValid => {
+//       if (!isValid) {
+//         return callback(null, false, {message: 'Incorrect username or password'});
+//       }
+//       else {
+//         return callback(null, user)
+//       }
+//     });
+// });
+// passport.use(localStrategy);
 
-router.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}));
-router.use(passport.initialize());
-router.use(passport.session());
-
-// router.use(() => passport.initialize());
-
+// router.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: true }
+// }));
+// router.use(passport.initialize());
 // router.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
+// // router.use(() => passport.initialize());
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
+// // router.use(passport.session());
+
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
+
+// passport.deserializeUser(function(id, done) {
+//   User.findById(id, function(err, user) {
+//     done(err, user);
+//   });
+// });
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));

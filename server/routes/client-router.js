@@ -21,10 +21,10 @@ router.use(bodyParser.urlencoded({extended: false}));
 // GET CLIENT
 
 router.get('/', (req, res) => {
+  console.log(req.user);
   // if (!req.isAuthenticated()) {
   //   return res.status(401).json({ message: 'Not logged in' });
   // }
-  console.log(req.query.userId);
   Client
     .find({ userId: req.query.userId })
     // .find({ userId: req.user.id })
@@ -327,9 +327,6 @@ router.put('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
       const updatedInvoices = client.projects;
 
       return Client.update({_id: clientId}, {$set: {projects: updatedInvoices}});
-      // return Client.update({_id: clientId}, {$set: {projects: {_id: projectId, invoices: updatedInvoices }}});
-
-      // return Client.update( { _id: clientId }, { projects: {_id: projectId} }, { $set: {invoices: updatedInvoices} } );
     })
     .then( () => {
       res.status(200).json({message: 'Success!'});

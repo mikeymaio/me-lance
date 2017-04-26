@@ -42,6 +42,7 @@ export const fetchUserClients = (userId) => {
       headers: {
         'Content-Type': 'application/json'
       },
+      // mode: 'same-origin',
       credentials: 'include'
     })
     .then(response => response.json())
