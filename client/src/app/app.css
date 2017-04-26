@@ -1,3 +1,4 @@
+@media screen {
 body {
     background-color: #eee;
 }
@@ -29,3 +30,29 @@ body {
   to { transform: rotate(360deg); }
 }
 
+}
+
+@media print {
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  #invoice-update-form, #invoice-update-form * {
+    visibility: visible !important;
+  }
+
+  #invoice-update-form {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+
+  @page { margin: 0.5cm; }
+
+  #no-print, #no-print * {
+    visibility: hidden !important;
+    /*position: fixed !important;
+    bottom: 0 !important;*/
+  }
+}

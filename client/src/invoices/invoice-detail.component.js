@@ -166,31 +166,26 @@ this.handleTaxChange = (event, index, value) => this.setState({taxValue: value})
         scaledContext.scale(2, 2);
 
         html2canvas(element, {
+          onrendered: function(canvas) {
+            window.print(canvas);
+          },
             imageTimeout: 2000,
             removeContainer: true,
             canvas: scaledCanvas
-        }).then((canvas) => {
-            // Has to be JPEG since PNG crashes jsPDF
-            // https://github.com/MrRio/jsPDF/issues/702
-            var img = canvas.toDataURL('image/jpeg');
-            pdf.addImage(img, 'JPEG', 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height);
+        })
+        // .then((canvas) => {
+        //     // Has to be JPEG since PNG crashes jsPDF
+        //     // https://github.com/MrRio/jsPDF/issues/702
+        //     var img = canvas.toDataURL('image/jpeg');
+        //     pdf.addImage(img, 'JPEG', 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height);
+        //     pdf.save(name + '.pdf');
 
-            switch(method) {
-                // case 'gcp':
-                    // let rawData = pdf.output('datauristring').split(',')[1];
-                    // gadget.setPrintDocument('application/pdf', name, rawData, 'base64');
-                    // gadget.openPrintDialog();
-                    // break;
-                default:
-                    pdf.save(name + '.pdf');
-            }
+        // });
 
-        });
+        // element.style.position = 'relative';
+        // element.style.width = cache_width;
 
-        element.style.position = 'relative';
-        element.style.width = cache_width;
-
-        document.body.classList.remove('print-preview');
+        // document.body.classList.remove('print-preview');
     }
 
 
@@ -206,48 +201,16 @@ componentDidMount() {
 
   render() {
 
-      const form = document.getElementById('invoice-update-form');
-  // const cache_width = form.width()
-  const a4 = [595.28, 841.89]; // for a4 size paper width and height
-
-const download =  () => {
-  // document.body.scrollTop(0);
-  createPDF();
- };
- //create pdf
-const createPDF = () => {
-  getCanvas().then(function(canvas) {
-   var
-    img = canvas.toDataURL("image/png"),
-    doc = new jsPDF({
-     unit: 'px',
-     format: 'a4'
-    });
-   doc.addImage(img, 'JPEG', 20, 20);
-   doc.save('techumber-html-to-pdf.pdf');
-  //  form.width(cache_width);
-  });
- }
-
- // create canvas object
-const getCanvas = () => {
-  // form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
-  return html2canvas(form, {
-   imageTimeout: 2000,
-   removeContainer: true
-  });
- }
-
     const client = this.props.clients[this.props.cIndex];
     const project = client.projects[this.props.pIndex];
     const invoice = project.invoices[this.props.iIndex];
 
     return (
-      <div>
+      <div style={{width: '100%'}}>
         <div style={{margin: 10, height: 30}}>
         <a
           href="#"
-          style={{paddingTop: 5, float: "left", color: "#076"}}
+          style={{fontSize: 16, paddingTop: 5, float: "left", color: "#076"}}
           onClick={e => {
           e.preventDefault();
           this.props.handleInvoiceView("invoiceList")
@@ -273,11 +236,12 @@ const getCanvas = () => {
             this.props.handleUpdateInvoice(tasks, tax, userId, clientId, projectId, invoiceId)
           } } >
         <Table
-          height={this.state.height}
+          //height={this.state.height}
           fixedHeader={this.state.fixedHeader}
           fixedFooter={this.state.fixedFooter}
           selectable={this.state.selectable}
           multiSelectable={this.state.multiSelectable}
+          wrapperStyle={{width: "100%"}}
         >
           <TableHeader
             //style={{borderBottom: '3px solid #007766'}}
@@ -390,7 +354,7 @@ const getCanvas = () => {
               </TableRowColumn>
               <TableRowColumn colSpan="4"><p style={{fontSize: 16}}><strong>{this.formatPrice((this.getTotal(invoice, project) * (this.state.taxValue / 100)) + this.getTotal(invoice, project))}</strong></p></TableRowColumn>
             </TableRow>
-            <TableRow>
+            <TableRow id="no-print">
               <TableRowColumn id="invoice-editor-btns" colSpan="12" style={{textAlign: 'center'}}>
                 { this.props.invoiceEdit ?
                 <div>
@@ -405,14 +369,25 @@ const getCanvas = () => {
         }
               </TableRowColumn>
             </TableRow>
-            {/*<TableRow>
-              <TableRowColumn colSpan="3" style={{textAlign: 'center'}}>
-                Super Footer
+            <TableRow>
+              <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
+                Please transfer the amount within 30 days
               </TableRowColumn>
-            </TableRow>*/}
+            </TableRow>
           </TableFooter>
         </Table>
         </form>
+        {/*{ this.props.invoiceEdit ?
+                <div>
+                  <RaisedButton label="Cancel" backgroundColor='#fff' labelColor="#076" style={{margin: 10,}} type="button" onTouchTap={() => this.props.handleInvoiceEdit()} />
+                  <RaisedButton label="Save" backgroundColor='#076' labelColor="#fff" style={{margin: 10,}} type="submit" form="invoice-update-form"/>
+                  <RaisedButton label="Delete" backgroundColor='#007766' labelColor="#fff" style={{margin: 10, float:"right"}} type="button" onTouchTap={() => this.props.handleDeleteInvoice(this.props.user.userId, client.clientId, project._id, invoice._id)} />
+                </div>
+                :
+                <div>
+                  <RaisedButton label="Edit" backgroundColor='#007766' labelColor="#fff" style={{margin: 10,}} onTouchTap={() => this.props.handleInvoiceEdit()}/>
+                </div>
+        }*/}
       </div>
     );
   }
