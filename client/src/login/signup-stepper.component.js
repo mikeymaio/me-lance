@@ -76,19 +76,19 @@ class SignUp extends React.Component {
             <StepContent>
               <TextField
                 hintText="email@email.com"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="Email Address"
                 floatingLabelFixed={true}
               />
               <TextField
                 hintText="enter a password"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="Password"
                 floatingLabelFixed={true}
               />
               <TextField
                 hintText="confirm your password"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="Confirm Password"
                 floatingLabelFixed={true}
               />
@@ -101,37 +101,37 @@ class SignUp extends React.Component {
               {/*<p>Do this here...</p>*/}
               <TextField
                 hintText="John Doe"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="Name"
                 floatingLabelFixed={true}
               />
               <TextField
                 hintText="555-555-5555"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="Phone No."
                 floatingLabelFixed={true}
               />
               <TextField
                 hintText="123 Main St"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="Address"
                 floatingLabelFixed={true}
               />
               <TextField
                 hintText="Los Angeles"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="City"
                 floatingLabelFixed={true}
               />
               <TextField
                 hintText="CA"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="State"
                 floatingLabelFixed={true}
               />
               <TextField
                 hintText="postal code"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="Postal Code"
                 floatingLabelFixed={true}
               />
@@ -146,7 +146,7 @@ class SignUp extends React.Component {
               </p>
               <TextField
                 hintText="hint"
-                errorText="This field is required"
+                //errorText="This field is required"
                 floatingLabelText="Label"
                 floatingLabelFixed={true}
               />

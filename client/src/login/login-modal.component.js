@@ -132,7 +132,7 @@ class LoginModal extends React.Component {
               floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
               hintText="enter your username"
-              errorText="This field is required"
+              //errorText="This field is required"
             /><br />
             <TextField
               id="password"
@@ -142,7 +142,7 @@ class LoginModal extends React.Component {
               floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
               hintText="enter your password"
-              errorText="This field is required"
+              //errorText="This field is required"
             />
             </form>
           </div>
@@ -180,7 +180,7 @@ class LoginModal extends React.Component {
               floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
               hintText="enter your username"
-              errorText="This field is required"
+              //errorText="This field is required"
             /><br />
             <TextField
               id="password"
@@ -190,7 +190,7 @@ class LoginModal extends React.Component {
               floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
               hintText="enter your password"
-              errorText="This field is required"
+              //errorText="This field is required"
             />
             <TextField
               id="passwordConfirm"
@@ -200,7 +200,7 @@ class LoginModal extends React.Component {
               floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
               hintText="re-enter your password"
-              errorText="This field is required"
+              //errorText="This field is required"
             /><br />
             <TextField
               id="email"
@@ -209,7 +209,7 @@ class LoginModal extends React.Component {
               floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
               hintText="enter your email"
-              errorText="This field is required"
+              //errorText="This field is required"
             />
             </form>
           </div>
