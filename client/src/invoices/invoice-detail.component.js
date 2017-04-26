@@ -20,6 +20,10 @@ import AutoComplete from 'material-ui/AutoComplete';
 
 import taxByState from '../tax-by-state';
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+
   const formatDate = date => {
     return moment(date).format("MM/DD/YY")
 }
@@ -30,10 +34,10 @@ const colSpec = [
     {title: 'Description', fieldName: 'description', inputType: "TextField", width: 200},
 ];
 
-const dataSourceConfig = {
-  text: 'abbrev',
-  value: 'tax',
-};
+// const dataSourceConfig = {
+//   text: 'abbrev',
+//   value: 'tax',
+// };
 
 class InvoiceDetail extends React.Component {
 
@@ -54,6 +58,28 @@ class InvoiceDetail extends React.Component {
       dataTable: [],
       taxValue: 0,
     };
+
+
+
+// this.download = invoice => {
+// const doc = new jsPDF('l','pt','c6');
+
+//     doc.setFontSize(22);
+
+//     var specialElementHandlers = {
+//         '#invoice-editor-btns': function (element, renderer) {
+//             return true;
+//         }
+//     };
+//     const source = document.getElementById('invoice-update-form')
+//         doc.fromHTML(source.innerHTML, 15, 15, {
+//             'width': 170,
+//             'elementHandlers': specialElementHandlers
+//         });
+//         doc.save(`invoice${invoice._id}.pdf`);
+//   }
+
+
 
 
   this.onChange = (dataTable) => {
@@ -81,7 +107,92 @@ this.handleTaxChange = (event, index, value) => this.setState({taxValue: value})
             return total;
         }
 
+        this.save = this.save.bind(this);
+        this.saveToComputer = this.saveToComputer.bind(this);
+        this.syncToDrive = this.syncToDrive.bind(this);
+
 }
+
+    saveToComputer() {
+        this.save('save');
+    }
+    syncToDrive(){
+        this.save('gcp');
+    }
+    save(method) {
+
+        if (!navigator.onLine) {
+            console.warn('No active internet connection!');
+            return false;
+        }
+
+        // const gadget = new cloudprint.Gadget();
+        const name = 'invoice';
+        const a4 = {
+            width: 595.28,
+            height: 841.89
+        };
+        const element = document.querySelector('#invoice-update-form');
+        const cache_width = element.style.width;
+
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const zoomFactor = 1.33333;
+
+        //RETINA
+        const originalWidth = element.offsetWidth;
+        const originalHeight = element.offsetHeight;
+        const scaledCanvas = document.createElement('canvas');
+        const scaledContext = scaledCanvas.getContext('2d');
+
+        // document.body.classList.add('print-preview');
+        element.style.width = (a4.width * zoomFactor) + 'px';
+        element.style.height = (a4.height * zoomFactor) + 'px';
+
+        //RETINA
+        element.style.width = originalWidth + "px";
+        element.style.height = originalHeight + "px";
+        element.style.position = 'absolute';
+        element.style.top = '0';
+        element.style.left = '0';
+
+        scaledCanvas.width = originalWidth * 2;
+        scaledCanvas.height = originalHeight * 2;
+        scaledCanvas.style.width = originalWidth + 'px';
+        scaledCanvas.style.height = originalHeight + 'px';
+
+        scaledContext.webkitImageSmoothingEnabled = false;
+        scaledContext.mozImageSmoothingEnabled = false;
+        scaledContext.imageSmoothingEnabled = false;
+        scaledContext.scale(2, 2);
+
+        html2canvas(element, {
+            imageTimeout: 2000,
+            removeContainer: true,
+            canvas: scaledCanvas
+        }).then((canvas) => {
+            // Has to be JPEG since PNG crashes jsPDF
+            // https://github.com/MrRio/jsPDF/issues/702
+            var img = canvas.toDataURL('image/jpeg');
+            pdf.addImage(img, 'JPEG', 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height);
+
+            switch(method) {
+                // case 'gcp':
+                    // let rawData = pdf.output('datauristring').split(',')[1];
+                    // gadget.setPrintDocument('application/pdf', name, rawData, 'base64');
+                    // gadget.openPrintDialog();
+                    // break;
+                default:
+                    pdf.save(name + '.pdf');
+            }
+
+        });
+
+        element.style.position = 'relative';
+        element.style.width = cache_width;
+
+        document.body.classList.remove('print-preview');
+    }
+
 
 componentDidMount() {
   const client = this.props.clients[this.props.cIndex];
@@ -94,6 +205,38 @@ componentDidMount() {
 }
 
   render() {
+
+      const form = document.getElementById('invoice-update-form');
+  // const cache_width = form.width()
+  const a4 = [595.28, 841.89]; // for a4 size paper width and height
+
+const download =  () => {
+  // document.body.scrollTop(0);
+  createPDF();
+ };
+ //create pdf
+const createPDF = () => {
+  getCanvas().then(function(canvas) {
+   var
+    img = canvas.toDataURL("image/png"),
+    doc = new jsPDF({
+     unit: 'px',
+     format: 'a4'
+    });
+   doc.addImage(img, 'JPEG', 20, 20);
+   doc.save('techumber-html-to-pdf.pdf');
+  //  form.width(cache_width);
+  });
+ }
+
+ // create canvas object
+const getCanvas = () => {
+  // form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+  return html2canvas(form, {
+   imageTimeout: 2000,
+   removeContainer: true
+  });
+ }
 
     const client = this.props.clients[this.props.cIndex];
     const project = client.projects[this.props.pIndex];
@@ -111,6 +254,8 @@ componentDidMount() {
           }} >
           back
         </a>
+
+        <RaisedButton label="Download" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "right"}} onTouchTap={this.saveToComputer} />
         </div>
 
         {/*<FlatButton label="<- Back" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "left"}} onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />*/}
@@ -246,7 +391,7 @@ componentDidMount() {
               <TableRowColumn colSpan="4"><p style={{fontSize: 16}}><strong>{this.formatPrice((this.getTotal(invoice, project) * (this.state.taxValue / 100)) + this.getTotal(invoice, project))}</strong></p></TableRowColumn>
             </TableRow>
             <TableRow>
-              <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
+              <TableRowColumn id="invoice-editor-btns" colSpan="12" style={{textAlign: 'center'}}>
                 { this.props.invoiceEdit ?
                 <div>
                   <RaisedButton label="Cancel" backgroundColor='#fff' labelColor="#076" style={{margin: 10,}} type="button" onTouchTap={() => this.props.handleInvoiceEdit()} />
