@@ -161,6 +161,7 @@ class AddInvoice extends React.Component {
               rowData={rowData}
               onChange={this.onChange}
               style={{textAlign: "left"}}
+              editable={true}
               //reorderable={true}
           />
 

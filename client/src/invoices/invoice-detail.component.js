@@ -306,12 +306,14 @@ componentDidMount() {
 
             <MuiEditableTable
               colSpec={colSpec}
-              rowData={invoice.tasks.map( (row, index) => {
+              rowData={invoice.tasks ? invoice.tasks.map( (row, index) => {
                 return {date: new Date(row.date),
                 hoursSpent: row.hoursSpent.toString(),
                 description: row.description,
                 key: index}
-              })}
+              }) :
+              []
+              }
               onChange={this.onChange}
               style={{textAlign: "left"}}
               editable={this.props.invoiceEdit}
