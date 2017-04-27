@@ -3,7 +3,7 @@ import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow,
   from 'material-ui/Table';
 
 import RaisedButton from 'material-ui/RaisedButton';
-
+import FlatButton from 'material-ui/FlatButton';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -111,7 +111,6 @@ this.handleTaxChange = (event, index, value) => this.setState({taxValue: value})
 
         this.save = this.save.bind(this);
         this.saveToComputer = this.saveToComputer.bind(this);
-        this.syncToDrive = this.syncToDrive.bind(this);
 
 }
 
@@ -206,8 +205,8 @@ componentDidMount() {
 
     return (
       <div style={{width: '100%'}}>
-        <div style={{margin: 10, height: 30}}>
-        <a
+        <div style={{margin: 0, width: "100%", height: 40, position: "relative", zIndex: 2000}}>
+        {/*<a
           href="#"
           style={{fontSize: 16, paddingTop: 5, float: "left", color: "#076"}}
           onClick={e => {
@@ -215,12 +214,13 @@ componentDidMount() {
           this.props.handleInvoiceView("invoiceList")
           }} >
           back
-        </a>
+        </a>*/}
+        <FlatButton label="<- Back" backgroundColor='transparent' style={{margin: 0, float: "left"}} onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />
 
-        <RaisedButton label="Export" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "right"}} onTouchTap={this.saveToComputer} />
+        <RaisedButton label="Export" backgroundColor='#fff' labelColor="#076" style={{margin: 0, float: "right"}} onTouchTap={this.saveToComputer} />
         </div>
 
-        {/*<FlatButton label="<- Back" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "left"}} onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />*/}
+
 
         <form id="invoice-update-form" onSubmit={ event => {
           event.preventDefault();
@@ -234,6 +234,9 @@ componentDidMount() {
 
             this.props.handleUpdateInvoice(tasks, tax, userId, clientId, projectId, invoiceId)
           } } >
+
+        <h1 className="print-only" style={{color: "#076", textAlign: "left"}} >{ this.props.user.company ? this.props.user.company : `${this.props.user.firstName} ${this.props.user.lastName}`}</h1>
+
         <Table
           //height={this.state.height}
           fixedHeader={this.state.fixedHeader}
@@ -248,6 +251,11 @@ componentDidMount() {
             adjustForCheckbox={this.state.showCheckboxes}
             enableSelectAll={this.state.enableSelectAll}
           >
+
+         
+
+
+
             <TableRow>
               <TableHeaderColumn colSpan="6" tooltip="Invoice #" style={{textAlign: 'left'}}>
                 Invoice #: {invoice.invoiceNo}

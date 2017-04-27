@@ -25,6 +25,12 @@ body {
   font-size: large;
 }
 
+.print-only {
+  visibility: hidden;
+  font-size: 3px;
+  /*display: none;*/
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -43,12 +49,17 @@ body {
   }
 
   #invoice-update-form {
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
+    position: static !important;
+    /*left: 0 !important;*/
+    /*top: 0 !important;*/
   }
 
   @page { margin: 0.5cm; }
+
+  .print-only {
+    visibility: visible;
+    display: block;
+  }
 
   #no-print, #no-print * {
     visibility: hidden !important;
