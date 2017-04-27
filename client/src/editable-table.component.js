@@ -56,7 +56,9 @@ class MuiEditableTable extends React.Component {
 
         return (
             <div className="container">
-                <div className="mui-editable-table" style={editableTableStyle}>
+                <div className="mui-editable-table container-fluid"
+                //style={editableTableStyle}
+                >
                     {this.renderHeader()}
 
                     {this.state.rowData.map((dataRow, i) => (
@@ -89,7 +91,9 @@ class MuiEditableTable extends React.Component {
         };
 
         return (
-            <div className="mui-editable-table-row header-row" style={headerRowStyle}>
+            <div className="mui-editable-table-row header-row"
+            style={headerRowStyle}
+            >
                 {this.state.colSpec.map((col) => (
                     <div
                         className={"row-cell header-cell " + col.fieldName}

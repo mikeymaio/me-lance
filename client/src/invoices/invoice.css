@@ -1,0 +1,11 @@
+th {
+    white-space: normal !important;
+    font-size: 14px !important;
+    color: #777 !important;
+}
+
+.header-row {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #777 !important;
+}

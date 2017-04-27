@@ -23,15 +23,17 @@ import taxByState from '../tax-by-state';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
+import './invoice.css';
+
 
   const formatDate = date => {
     return moment(date).format("MM/DD/YY")
 }
 
 const colSpec = [
-    {title: 'Date', fieldName: 'date', inputType: "DatePicker", formatDate: formatDate,  width: 200},
-    {title: 'Hours', fieldName: 'hoursSpent', inputType: "TextField", width: 200},
-    {title: 'Description', fieldName: 'description', inputType: "TextField", width: 200},
+    {title: 'Date', fieldName: 'date', inputType: "DatePicker", formatDate: formatDate,  width: 225},
+    {title: 'Hours', fieldName: 'hoursSpent', inputType: "TextField", width: 225},
+    {title: 'Description', fieldName: 'description', inputType: "TextField", width: 225},
 ];
 
 // const dataSourceConfig = {
@@ -115,9 +117,6 @@ this.handleTaxChange = (event, index, value) => this.setState({taxValue: value})
 
     saveToComputer() {
         this.save('save');
-    }
-    syncToDrive(){
-        this.save('gcp');
     }
     save(method) {
 
@@ -218,7 +217,7 @@ componentDidMount() {
           back
         </a>
 
-        <RaisedButton label="Download" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "right"}} onTouchTap={this.saveToComputer} />
+        <RaisedButton label="Export" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "right"}} onTouchTap={this.saveToComputer} />
         </div>
 
         {/*<FlatButton label="<- Back" backgroundColor='#fff' labelColor="#076" style={{margin: 10, float: "left"}} onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />*/}
