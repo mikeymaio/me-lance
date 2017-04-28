@@ -93,7 +93,7 @@ handleTemplateChange = (event, index, value) => {
         <Divider />
         <form id="project-add-form" onSubmit={(event) => {
             event.preventDefault()
-            console.log('project-add-form submitted')
+            console.log('project-add-form submitted' + this.props.userId)
             //let clientName = this.state.selectedClient;
             let clientName = `${this.props.clients[this.state.selectedClientIndex].firstName} ${this.props.clients[this.state.selectedClientIndex].lastName}`;
             let projectName = event.target.projectName.value;
@@ -104,12 +104,12 @@ handleTemplateChange = (event, index, value) => {
             let startDate = event.target.startDate.value;
             let endDate = event.target.endDate.value;
             let timeSpent = 0;
-            let billingCycle = event.target.billingCycle.value;
-            let template = this.state.selectedTemplate;
+            {/*let billingCycle = event.target.billingCycle.value;*/}
+            {/*let template = this.state.selectedTemplate;*/}
             let userId = this.props.userId;
             let clientId = this.props.clients[this.state.selectedClientIndex].clientId;
 
-            this.props.handleAddProject(clientName, projectName, rate, ratePer, budget, notes, startDate, endDate, timeSpent, billingCycle, template, userId, clientId)
+            this.props.handleAddProject(clientName, projectName, rate, ratePer, notes, startDate, endDate, timeSpent, userId, clientId)
 
             }}>
 

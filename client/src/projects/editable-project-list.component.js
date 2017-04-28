@@ -20,6 +20,10 @@ import DatePicker from 'material-ui/DatePicker';
 import Loader from '../loader/loader.component';
 
 
+import Checkbox from 'material-ui/Checkbox';
+
+
+
 const styles = {
     input: {
     display: 'inline-block',
@@ -28,7 +32,7 @@ const styles = {
     textAlign: 'left',
   },
   datePicker: {
-    marginTop: 15,
+    marginTop: 0,
     width: '50%',
   },
   selectMenu: {
@@ -36,7 +40,15 @@ const styles = {
     width: '50%',
     textAlign: 'left',
     margin: 0,
-  }
+  },
+  checkbox: {
+    width: '50%',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  block: {
+    maxWidth: 250,
+  },
 }
 
 
@@ -54,11 +66,11 @@ constructor(props) {
   super(props)
   this.state = {
     open: false,
-    billingOptionValue: "hr",
+    billingCycleValue: null,
     selectedClient: "",
     selectedClientIndex: null,
-    selectedTemplate: "",
-    completed: "",
+    // selectedTemplate: "",
+    completed: null,
   };
 
   this.handleToggle = () => {
@@ -74,7 +86,11 @@ constructor(props) {
   };
 
     this.handleBillingChange = (event, index, value) => {
-        this.setState({billingOptionValue: value});
+        this.setState({billingCycleValue: value});
+  };
+
+      this.handleStatusChange = (event, index, value) => {
+        this.setState({completed: value});
   };
 
     this.handleClientChange = (event, index, value) => {
@@ -92,6 +108,12 @@ constructor(props) {
 
 
 }
+
+// componentDidMount() {
+//     this.setState({
+
+//     })
+// }
 
   render() {
 
@@ -123,19 +145,19 @@ constructor(props) {
                         console.log('project-update-form submitted')
                         let projectName = event.target.projectName.value;
                         let rate = event.target.rate.value;
-                        let ratePer = this.state.billingOptionValue;
-                        let budget = event.target.budget.value;
+                        let ratePer = this.state.billingCycleValue;
+                        {/*let budget = event.target.budget.value;*/}
                         let notes = event.target.notes.value;
                         let startDate = event.target.startDate.value;
                         let endDate = event.target.endDate.value;
                         let totalTimeSpent = event.target.totalTimeSpent.value;
-                        let billingCycle = event.target.billingCycle.value;
+                        let billingCycle = this.state.billingCycleValue;
                         let completed = this.state.completed;
                         let userId = this.props.userId;
                         let clientId = project.clientId;
                         let projectId = project._id;
 
-                        this.props.handleUpdateProject(projectName, rate, ratePer, budget, notes, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId)
+                        this.props.handleUpdateProject(projectName, rate, ratePer, notes, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId)
                       }}>
                       { this.props.isLoading ? <Loader /> : false }
 
@@ -161,7 +183,7 @@ constructor(props) {
                             />
                             <br />
                         <SelectField
-                            value={this.state.billingOptionValue}
+                            value={this.state.billingCycleValue}
                             onChange={this.handleBillingChange}
                             name="ratePer"
                             floatingLabelText="Per"
@@ -176,7 +198,7 @@ constructor(props) {
                             {billingOptions}
                         </SelectField>
                         <br />
-                        <TextField
+                        {/*<TextField
                             name="budget"
                             floatingLabelText="Budget"
                             floatingLabelFixed={true}
@@ -185,7 +207,7 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             style={styles.input}
-                            />
+                            />*/}
                             <br />
                         <DatePicker
                             name="startDate"
@@ -227,7 +249,7 @@ constructor(props) {
                             style={styles.input}
                             />
                             <br />
-                        <TextField
+                        {/*<TextField
                             name="billingCycle"
                             floatingLabelText="Billing Cycle"
                             floatingLabelFixed={true}
@@ -236,8 +258,8 @@ constructor(props) {
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             style={styles.input}
-                            />
-                            <br />
+                            />*/}
+                            {/*<br />*/}
                             {/*<SelectField
                             name="invoiceTemp"
                             value={this.state.selectedTemplate}
@@ -261,23 +283,20 @@ constructor(props) {
                         {/*</SelectField>*/}
                         <br />
                         <SelectField
-                            name="completed"
-                            //value={this.state.completed}
-                            //onChange={this.handleStatus}
-                            value={project.completed ? 1 : 0}
+                            value={this.state.completed}
+                            onChange={this.handleStatusChange}
+                            name="Status"
                             floatingLabelText="Status"
                             floatingLabelFixed={true}
+                            hintText={project.completed ? "completed" : "in progress"}
                             disabled={!this.props.projectEdit}
-                            //disabled={true}
                             underlineDisabledStyle={{display: 'none'}}
                             style={styles.selectMenu}
-                            //hintStyle={{color: '#076'}}
+                            hintStyle={{color: '#076'}}
                             labelStyle={{color: '#076'}}
                         >
-                        {[
-                            <MenuItem key={0} value={0} primaryText="in progress" />,
-                            <MenuItem key={1} value={1} primaryText="completed" />
-                        ]}
+                           {[ <MenuItem key={0} value={0} primaryText="in progress" />,
+                            <MenuItem key={1} value={1} primaryText="completed" /> ]}
                         </SelectField>
                         <br />
                         {/*<TextField
