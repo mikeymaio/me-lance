@@ -30,6 +30,7 @@ const projectReducer = (state=projectState, action) => {
                 // projects: action.projects,
                 projectView: 'projectList',
                 projectEdit: false,
+                projectFilter: 'SHOW_ALL',
             }
         case 'UPDATE_PROJECT_DATA':
         return update(state, {
@@ -39,6 +40,11 @@ const projectReducer = (state=projectState, action) => {
                isLoading: { $set: false },
                projectView: { $set: 'projectList' }
            })
+        case 'SET_PROJECT_FILTER':
+            return {
+                ...state,
+                projectFilter: action.filter
+            }
         case 'UPDATE_PROJECT_DETAIL_MODAL':
             return {
                 ...state,

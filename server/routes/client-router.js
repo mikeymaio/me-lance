@@ -22,9 +22,9 @@ router.use(bodyParser.urlencoded({extended: false}));
 
 router.get('/', (req, res) => {
   console.log(req.user);
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
   Client
     .find({ userId: req.query.userId })
     // .find({ userId: req.user.id })
@@ -43,9 +43,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
   Client
     .findById(req.params.id)
     .exec()
@@ -59,9 +59,9 @@ router.get('/:id', (req, res) => {
 // CREATE CLIENT
 
 router.post('/', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
     Client
     .create({
       firstName: req.body.firstName,
@@ -92,9 +92,9 @@ router.post('/', (req, res) => {
 // UPDATE CLIENT
 
 router.put('/:id', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
     const message = (
@@ -122,9 +122,9 @@ router.put('/:id', (req, res) => {
 // DELETE CLIENT
 
 router.delete('/:id', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
 
   const clientId = req.params.id
 
@@ -139,9 +139,9 @@ router.delete('/:id', (req, res) => {
 // ADD PROJECT
 
 router.post('/:id/projects', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
     const message = (
@@ -165,9 +165,9 @@ router.post('/:id/projects', (req, res) => {
 // UPDATE PROJECTS
 
 router.put('/:id/projects/:projectId', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
     const message = (
@@ -213,9 +213,9 @@ router.put('/:id/projects/:projectId', (req, res) => {
 // DELETE PROJECT
 
 router.delete('/:id/projects/:projectId', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
   const clientId = req.params.id;
   const projectId = req.params.projectId;
 
@@ -236,9 +236,9 @@ router.delete('/:id/projects/:projectId', (req, res) => {
 // ADD INVOICE
 
 router.post('/:id/projects/:projectId/invoices', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
     const message = (
@@ -280,9 +280,9 @@ router.post('/:id/projects/:projectId/invoices', (req, res) => {
 // UPDATE INVOICE
 
 router.put('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.clientId && req.params.id === req.body.clientId)) {
     const message = (
@@ -338,9 +338,9 @@ router.put('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
 // DELETE INVOICE
 
 router.delete('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
-  // if (!req.isAuthenticated()) {
-  //   return res.status(401).json({ message: 'Not logged in' });
-  // }
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
   const clientId = req.params.id;
   const projectId = req.params.projectId;
   const invoiceId = req.params.invoiceId;

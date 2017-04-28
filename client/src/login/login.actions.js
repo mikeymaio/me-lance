@@ -40,10 +40,15 @@ export const handleLogin = (username, password) => {
       body: JSON.stringify({
         username,
         password,
-      })
+      }),
+      credentials: "include"
     })
-    .then(response => response.json())
-    .then(res => dispatch(receiveDataFromServer(res.user)))
+    .then(response => {
+      console.log(response.headers);
+      return response.json() })
+    .then(res => {
+      return dispatch(receiveDataFromServer(res.user))
+    })
   }
 }
 

@@ -71,6 +71,7 @@ constructor(props) {
     selectedClientIndex: null,
     // selectedTemplate: "",
     completed: null,
+    totalTimeSpent: 0,
   };
 
   this.handleToggle = () => {
@@ -109,13 +110,52 @@ constructor(props) {
 
 }
 
-// componentDidMount() {
-//     this.setState({
-
-//     })
-// }
+componentDidMount() {
+    this.props.fetchUserClients(this.props.userId)
+}
 
   render() {
+
+          const FilterLink = ({
+        filter,
+        children
+        }) => {
+            return (
+                <a href="#"
+                style={{marginLeft: '5px'}}
+                onClick={e => {
+                e.preventDefault();
+                this.props.filterProjects(filter)
+                }} >
+                {children}
+                </a>
+            );
+    };
+
+    const getVisibleProjects = (
+        projects,
+        filter
+        ) => {
+            switch(filter) {
+            case 'SHOW_ALL':
+                return projects
+            case 'SHOW_COMPLETED':
+                return projects.filter(
+                p => p.completed
+                )
+            case 'SHOW_ACTIVE':
+                return projects.filter(
+                p => !p.completed
+                )
+            default:
+                return projects
+            }
+    }
+
+    // const visibleProjects = getVisibleProjects(
+    //     this.props.invoices,
+    //     this.props.invoiceFilter
+    // )
 
     return (
       <div>
@@ -129,9 +169,30 @@ constructor(props) {
                 onTouchTap={() => this.props.handleProjectView('addProject')}
                 style={{float: "right"}}
               />
+              {/*<p>
+          Show:
+          <FilterLink
+            filter="SHOW_ALL"
+            >
+            All
+          </FilterLink>
+          <FilterLink
+            filter="SHOW_ACTIVE"
+            >
+            Active
+          </FilterLink>
+          <FilterLink
+            filter="SHOW_COMPLETED"
+            >
+            Completed
+          </FilterLink>
+          </p>*/}
               {this.props.clients.map( client => (
-                  client.projects.map( (project, index) => (
-                    <Card key={project.projectName+index}>
+                  client.projects.map( (project, index) => {
+                  //console.log(client.projects);
+                 //let visibleProjects = getVisibleProjects( (client.projects, this.props.projectFilter) );
+                  //visibleProjects.map( (project, index) => (
+                   return <Card key={project.projectName+index}>
                     <CardHeader
                       title={project.projectName}
                       subtitle={project.clientName}
@@ -299,21 +360,11 @@ constructor(props) {
                             <MenuItem key={1} value={1} primaryText="completed" /> ]}
                         </SelectField>
                         <br />
-                        {/*<TextField
-                            name="completed"
-                            floatingLabelText="Status"
-                            floatingLabelFixed={true}
-                            defaultValue={project.completed ? "completed" : "in progress"}
-                            disabled={!this.props.projectEdit}
-                            underlineDisabledStyle={{display: 'none'}}
-                            style={styles.input}
-                            />
-                            <br />*/}
                         <TextField
                             name="totalTimeSpent"
                             floatingLabelText="Total Time Spent"
                             floatingLabelFixed={true}
-                            defaultValue={project.totalTimeSpent}
+                            defaultValue={this.state.totalTimeSpent}
                             disabled={!this.props.projectEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             style={styles.input}
@@ -341,7 +392,7 @@ constructor(props) {
                     }
                   />
               </Card>
-                  ))
+                  }).sort(() => 1 )
             ))}
           </List>
       </div>
@@ -356,6 +407,7 @@ function mapStateToProps(state) {
         isLoading: state.projectReducer.isLoading,
         userId: state.loginReducer.user.userId,
         user: state.loginReducer.user,
+        projectFilter: state.projectReducer.projectFilter,
     };
 }
 
@@ -367,6 +419,7 @@ function mapDispatchToProps(dispatch) {
         handleProjectView: actions.handleProjectView,
         testLoader: actions.testLoader,
         fetchUserClients: fetchUserClients,
+        filterProjects: actions.filterProjects,
         // filterClients: actions.filterClients,
         // handleAddClientModal: actions.handleAddClientModal,
         // fetchDataFromApi: actions.fetchDataFromApi,

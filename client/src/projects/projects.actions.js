@@ -27,6 +27,15 @@ export function handleAddProjectModal() {
     }
 }
 
+export const filterProjects = filter => {
+    const SET_PROJECT_FILTER = 'SET_PROJECT_FILTER'
+    console.log('projectFilter = ', filter);
+    return {
+          type: SET_PROJECT_FILTER,
+          filter
+    }
+}
+
 
 export const handleAddProject = (clientName, projectName, rate, ratePer, notes, startDate, endDate, timeSpent, userId, clientId) => {
     console.log('handleAddProject fired: ', clientName, projectName, rate, ratePer, notes, startDate, endDate, timeSpent, userId, clientId)

@@ -40,7 +40,7 @@ export const fetchUserClients = (userId) => {
     fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       // mode: 'same-origin',
       credentials: 'include'
