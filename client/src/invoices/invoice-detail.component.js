@@ -31,9 +31,9 @@ import './invoice.css';
 }
 
 const colSpec = [
-    {title: 'Date', fieldName: 'date', inputType: "DatePicker", formatDate: formatDate,  width: 225},
-    {title: 'Hours', fieldName: 'hoursSpent', inputType: "TextField", width: 225},
-    {title: 'Description', fieldName: 'description', inputType: "TextField", width: 225},
+    {title: 'Date', fieldName: 'date', inputType: "DatePicker", formatDate: formatDate,  width: "25%"},
+    {title: 'Hours', fieldName: 'hoursSpent', inputType: "TextField", width: "25%"},
+    {title: 'Description', fieldName: 'description', inputType: "TextField", width: "25%"},
 ];
 
 // const dataSourceConfig = {

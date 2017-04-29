@@ -55,8 +55,9 @@ class MuiEditableTable extends React.Component {
         };
 
         return (
-            <div className="container">
-                <div className="mui-editable-table container-fluid"
+            <div className="wrapper" style={{width: "1203%"}}>
+                <div className="mui-editable-table"
+                style={{width: "100%"}}
                 //style={editableTableStyle}
                 >
                     {this.renderHeader()}
@@ -79,14 +80,18 @@ class MuiEditableTable extends React.Component {
     renderHeader() {
         const headerRowStyle = {
             width: "100%",
+            minWidth: 320,
+            justifyContent: "flex-start",
             display: "flex",
             flexFlow: "row nowrap",
+            flexShrink: 2,
             border: "0",
-            height: "40px",
+            height: "100%",
             color: "rgb(158, 158, 158)",
             fontSize: "12px",
             borderBottom: "1px solid #ccc",
             paddingTop: "10px",
+            paddingLeft: "24px",
             textAlign: "left"
         };
 
@@ -104,7 +109,7 @@ class MuiEditableTable extends React.Component {
                     </div>
                 ))}
                 { this.props.editable ?
-                <div className={"row-cell header-cell action"} style={{width: "100px"}}>
+                <div className={"row-cell header-cell action"} >
                     {this.iconButton('', 'add', this.onAddRow(), <AddIcon />)}
                 </div>
                 :
@@ -121,6 +126,19 @@ class MuiEditableTable extends React.Component {
             alignItems: "center",
             border: "0",
            // height: "40px",
+            width: "100%",
+            minWidth: 320,
+            justifyContent: "flex-start",
+            display: "flex",
+            flexFlow: "row nowrap",
+            flexShrink: 2,
+            border: "0",
+            height: "100%",
+            color: "rgb(158, 158, 158)",
+            fontSize: "12px",
+            paddingTop: "10px",
+            paddingLeft: "24px",
+            textAlign: "left",
             borderBottom: "1px solid rgb(224, 224, 224)"
         };
 
@@ -150,7 +168,7 @@ class MuiEditableTable extends React.Component {
                 <TextField
                     ref={column.fieldName + index}
                     id={column.fieldName + index}
-                    style={{width: column.width}}
+                    style={{width: "100%"}}
                     value={column.fieldName in rowData ? rowData[column.fieldName] : ''}
                     multiLine={true}
                     //type={column.type}
@@ -164,7 +182,7 @@ class MuiEditableTable extends React.Component {
                 <DatePicker
                     ref={column.fieldName + index}
                     id={column.fieldName + index}
-                    style={{width: column.width}}
+                    style={{width: "100%"}}
                     value={column.fieldName in rowData ? rowData[column.fieldName] : new Date() }
                     formatDate={ column.formatDate }
                     firstDayOfWeek={this.props.firstDayOfWeek || 0}
@@ -180,7 +198,7 @@ class MuiEditableTable extends React.Component {
                 <SelectField
                     ref={column.fieldName + index}
                     id={column.fieldName + index}
-                    style={{width: column.width}}
+                    style={{width: "100%"}}
                     value={column.fieldName in rowData ? rowData[column.fieldName] : ''}
                     disabled={!this.props.editable}
                     onChange={this.onFieldChange(index, column.fieldName)}
@@ -195,7 +213,7 @@ class MuiEditableTable extends React.Component {
                 <Toggle
                     ref={column.fieldName + index}
                     id={column.fieldName + index}
-                    style={{width: column.width}}
+                    style={{width: "100%"}}
                     defaultToggled={column.fieldName in rowData ? rowData[column.fieldName] : false}
                     disabled={!this.props.editable}
                     onToggle={this.onFieldChange(index, column.fieldName)}
@@ -243,13 +261,13 @@ class MuiEditableTable extends React.Component {
 
     iconButton(rowKey, action, clickEvent, muiIcon) {
         return (
-            <div className="cell action" key={"action" + action + rowKey} style={{width: "45px", display: "inline"}}>
+            <div className="cell action" key={"action" + action + rowKey} style={{width: "100%", display: "inline"}}>
 
                 <FlatButton
                     className={"action-button " + action + "-row-button" + rowKey}
                     primary={true}
                     onClick={clickEvent}
-                    style={{minWidth: "45px"}}
+                    style={{width: "100%"}}
                     icon={muiIcon}
                 />
             </div>
