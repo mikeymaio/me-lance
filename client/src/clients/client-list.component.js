@@ -38,9 +38,9 @@ constructor(props) {
   };
 
 }
-  // componentDidMount() {
-  //   this.props.fetchUserClients(this.props.userId)
-  // }
+  componentDidMount() {
+    this.props.fetchUserClients(this.props.userId)
+  }
 
   render() {
 
