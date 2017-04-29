@@ -19,6 +19,8 @@ import ExampleChart from '../dashboard/dashboard.component';
 
 import Landing from '../landing/landing.component';
 
+import Loader from '../loader/loader.component';
+
 
 import './app.css';
 
@@ -36,6 +38,7 @@ class App extends Component {
       <div className="app">
         {/*<div className="app-header">
         </div>*/}
+        {this.props.isLoading ? <Loader style={{zIndex: 5000}}/> : false}
         { this.props.isLoggedIn ?
         <div>
         <Header className="app-header" />
@@ -70,6 +73,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
+        isLoading: state.appReducer.isLoading,
         isLoggedIn: state.loginReducer.isLoggedIn,
         selectedItem: state.menuReducer.selectedItem,
         clientView: state.clientReducer.clientView,

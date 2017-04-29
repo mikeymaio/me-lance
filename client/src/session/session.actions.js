@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-fetch'
 
 export function handleSession() {
-    const UPDATE_SESSION = 'UPDATE_SESSION';
+    const USER_LOGOUT = 'USER_LOGOUT';
     return {
-        type: UPDATE_SESSION,
+        type: USER_LOGOUT,
     }
 }
 

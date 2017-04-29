@@ -1,15 +1,14 @@
-const loginState = {
+const initialState = {
         isLoggedIn: false,
         isLoginModalOpen: false,
         loginModalSlideIndex: 0,
-        isLoading: false,
         user: null,
         signUpRes: null,
     }
 
 
-const loginReducer = (state=loginState, action) => {
-    state = state || loginState
+const loginReducer = (state=initialState, action) => {
+    state = state || initialState
     switch(action.type) {
         case 'UPDATE_SESSION':
             return {
@@ -20,7 +19,6 @@ const loginReducer = (state=loginState, action) => {
             return {
                 ...state,
                 user: action.user,
-                isLoading: false,
                 isLoginModalOpen: false,
                 isLoggedIn: true
             }
@@ -28,18 +26,7 @@ const loginReducer = (state=loginState, action) => {
             return {
                 ...state,
                 signUpRes: action.res,
-                isLoading: false,
                 loginModalSlideIndex: 0
-            }
-        case 'REQUEST_DATA':
-            return {
-                ...state,
-                isLoading: true
-            }
-        case 'RECEIVE_DATA':
-            return {
-                ...state,
-                isLoading: false, isLoggedIn: action.payload
             }
         case 'UPDATE_LOGIN_MODAL':
             return {

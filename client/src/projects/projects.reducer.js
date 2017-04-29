@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-const projectState = {
+const initialState = {
         isLoading: false,
         projectView: 'projectList',
         projectEdit: false,
@@ -104,8 +104,8 @@ const projectState = {
     }
 
 
-const projectReducer = (state=projectState, action) => {
-    state = state || projectState
+const projectReducer = (state=initialState, action) => {
+    state = state || initialState
     switch(action.type) {
         case 'REQUEST_PROJECT_DATA':
             return {

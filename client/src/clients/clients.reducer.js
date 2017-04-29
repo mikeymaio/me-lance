@@ -1,31 +1,31 @@
 import update from 'immutability-helper';
 
-const clientState = {
-        isLoading: false,
+const initialState = {
+        //isLoading: false,
         clients: [],
         clientView: 'clientList',
         clientEdit: false,
     }
 
 
-const clientReducer = (state=clientState, action) => {
-    state = state || clientState
+const clientReducer = (state=initialState, action) => {
+    state = state || initialState
     switch(action.type) {
         case 'REQUEST_DATA':
             return {
                 ...state,
-                isLoading: true
+                //isLoading: true
             }
         case 'COMPLETE_UPDATE':
             return {
                 ...state,
-                isLoading: false,
+                //isLoading: false,
                 clientView: 'clientList',
             }
-        case 'RECEIVE_CLIENT_DATA':
+        case 'RECEIVE_DATA':
             return {
                 ...state,
-                isLoading: false,
+                //isLoading: false,
                 clients: action.clients,
                 clientView: 'clientList',
                 clientEdit: false
@@ -35,7 +35,7 @@ const clientReducer = (state=clientState, action) => {
                clients: {
                   $push: [action.clients]
                },
-               isLoading: { $set: false },
+               //isLoading: { $set: false },
                clientView: { $set: 'clientList' }
            })
         case 'UPDATE_CLIENT_VIEW':

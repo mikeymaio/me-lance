@@ -4,7 +4,7 @@ const requestDataFromServer = () => ({
 })
 
 const receiveClientDataFromServer = (clients) => ({
-  type: 'RECEIVE_CLIENT_DATA',
+  type: 'RECEIVE_DATA',
   clients
 })
 

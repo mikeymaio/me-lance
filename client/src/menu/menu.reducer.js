@@ -1,10 +1,10 @@
-const menuState = {
+const initialState = {
         selectedItem: 'dashboard',
     }
 
 
-const menuReducer = (state=menuState, action) => {
-    state = state || menuState
+const menuReducer = (state=initialState, action) => {
+    state = state || initialState
     switch(action.type) {
         case 'MENU_ITEM_SELECTED':
             return {

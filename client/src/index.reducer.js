@@ -6,9 +6,11 @@ import invoiceReducer from './invoices/invoice.reducer';
 import projectReducer from './projects/projects.reducer';
 import loginReducer from './login/login.reducer';
 import drawerReducer from './drawer/drawer.reducer';
+import appReducer from './app/app.reducer';
 
 
-const rootReducer = combineReducers({
+const indexReducer = combineReducers({
+    appReducer,
     headerReducer,
     menuReducer,
     clientReducer,
@@ -17,6 +19,14 @@ const rootReducer = combineReducers({
     loginReducer,
     drawerReducer,
 });
+
+
+const rootReducer = (state, action) => {
+  if (action.type === 'USER_LOGOUT') {
+    state = undefined
+  }
+  return indexReducer(state, action)
+}
 
 export default rootReducer;
 

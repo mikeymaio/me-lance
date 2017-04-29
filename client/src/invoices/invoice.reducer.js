@@ -1,4 +1,4 @@
-const invoiceState = {
+const initialState = {
         isLoading: false,
         invoiceFilter: 'SHOW_ALL',
         invoiceView: 'invoiceList',
@@ -10,8 +10,8 @@ const invoiceState = {
     }
 
 
-const invoiceReducer = (state=invoiceState, action) => {
-    state = state || invoiceState
+const invoiceReducer = (state=initialState, action) => {
+    state = state || initialState
     switch(action.type) {
         case 'REQUEST_DATA':
             return {
