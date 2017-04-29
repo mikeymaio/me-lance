@@ -4,22 +4,19 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-// import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
-import CircularProgress from 'material-ui/CircularProgress';
 
-// import SignUp from './signup-stepper.component';
+import CircularProgress from 'material-ui/CircularProgress';
+import RaisedButton from 'material-ui/RaisedButton';
+import Formsy from 'formsy-react';
+import { FormsyText } from 'formsy-material-ui/lib';
 
 import * as actions from './login.actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import RaisedButton from 'material-ui/RaisedButton';
-import Formsy from 'formsy-react';
-import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-    FormsySelect, FormsyText, FormsyTime, FormsyToggle, FormsyAutoComplete } from 'formsy-material-ui/lib';
+
 
 const styles = {
   headline: {
@@ -117,14 +114,6 @@ class LoginModal extends React.Component {
     console.error('Form error:', data);
   }
 
-Formsy.addValidationRule('isTrue', function (values, value, otherField) {
-  // The this context points to an object containing the values
-  // {childAge: "", parentAge: "5"}
-  // otherField argument is from the validations rule ("childAge")
-  return value === values[otherField];
-});
-
-
   let {paperStyle, switchStyle, submitStyle } = this.styles;
     let { wordsError, numericError, urlError } = this.errorMessages;
 
@@ -136,7 +125,6 @@ Formsy.addValidationRule('isTrue', function (values, value, otherField) {
         primary={true}
         onTouchTap={this.props.handleLoginModal}
       />,
-      // <FlatButton
       <RaisedButton
         label="Submit"
         form="login-form"
@@ -254,6 +242,8 @@ Formsy.addValidationRule('isTrue', function (values, value, otherField) {
             <FormsyText
               name="password"
               className="col-xs-9 col-xs-offset-3"
+              validations="minLength:8"
+              validationError="Password must be at least 8 characters"
               required
               type="password"
               floatingLabelText="Password"
@@ -263,8 +253,8 @@ Formsy.addValidationRule('isTrue', function (values, value, otherField) {
             <FormsyText
               name="passwordConfirm"
               className="col-xs-9 col-xs-offset-3"
-              validationError="Passwords do not match"
-              validations="isTrue:password"
+              //validations="equalsField:password"
+              //validationError="Passwords do not match"
               required
               type="password"
               floatingLabelText="Password Confirmation"
