@@ -31,7 +31,8 @@ const styles = {
   paper: {
     // height: 150,
   //width: '45%',
-  //margin: 'auto',
+  marginTop: 30,
+  marginBottom: 20,
   // padding: 5,
   textAlign: 'center',
   backgroundColor: '#eee'
@@ -188,9 +189,9 @@ class LoginModal extends React.Component {
               //className="col-xs-9 col-xs-offset-3"
               >To demo the app, log in with<br />username: demo<br />password: demo123</h3>
               } />
-              { this.props.isLoading ?
+              {/*{ this.props.isLoading ?
             <CircularProgress style={{position: 'absolute', left: '47%', top: '45%', zIndex: 500}} size={60} thickness={7} />
-            : false }
+            : false }*/}
           <Formsy.Form
             id="login-form"
             onValid={enableButton}
