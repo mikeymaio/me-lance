@@ -16,11 +16,6 @@ import * as actions from './login.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import RaisedButton from 'material-ui/RaisedButton';
-import Formsy from 'formsy-react';
-import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-    FormsySelect, FormsyText, FormsyTime, FormsyToggle, FormsyAutoComplete } from 'formsy-material-ui/lib';
-
 const styles = {
   headline: {
     fontSize: 24,
@@ -47,86 +42,12 @@ const customContentStyle = {
 };
 
 class LoginModal extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      canSubmit: false,
-    };
-
-  this.errorMessages = {
-    wordsError: "Please only use letters and numbers",
-    numericError: "Please provide a number",
-    urlError: "Please provide a valid URL",
-  }
-
-  this.styles = {
-    paperStyle: {
-      width: 300,
-      margin: 'auto',
-      padding: 20,
-    },
-    switchStyle: {
-      marginBottom: 16,
-    },
-    submitStyle: {
-      marginTop: 32,
-    },
-  }
-  }
-
 
 //       componentDidMount() {
 //     this.props.fetchDataFromApi()
 //   }
 
   render() {
-
-       const enableButton = () => {
-    this.setState({
-      canSubmit: true,
-    });
-  }
-
-  const disableButton = () => {
-    this.setState({
-      canSubmit: false,
-    });
-  }
-
-
-  const submitLoginForm = (data) => {
-    let userName = data.username;
-    let password = data.password;
-
-    this.props.handleLogin(userName, password)
-  }
-
-  const submitSignupForm = (data) => {
-    console.log(data);
-    let userName = data.username
-    let password = data.password
-    let passwordConfirm = data.passwordConfirm
-    let email = data.email
-
-    this.props.handleSignUp(userName, password, passwordConfirm, email)
-
-  }
-
-  const notifyFormError = (data) => {
-    console.error('Form error:', data);
-  }
-
-Formsy.addValidationRule('isTrue', function (values, value, otherField) {
-  // The this context points to an object containing the values
-  // {childAge: "", parentAge: "5"}
-  // otherField argument is from the validations rule ("childAge")
-  return value === values[otherField];
-});
-
-
-  let {paperStyle, switchStyle, submitStyle } = this.styles;
-    let { wordsError, numericError, urlError } = this.errorMessages;
 
     const actionButtons =
     this.props.loginModalSlideIndex === 0 ?
@@ -136,16 +57,13 @@ Formsy.addValidationRule('isTrue', function (values, value, otherField) {
         primary={true}
         onTouchTap={this.props.handleLoginModal}
       />,
-      // <FlatButton
-      <RaisedButton
+      <FlatButton
         label="Submit"
         form="login-form"
         type="submit"
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.props.handleLoginModal}
-        style={submitStyle}
-        disabled={!this.state.canSubmit}
       />,
     ] :
     [
@@ -154,16 +72,15 @@ Formsy.addValidationRule('isTrue', function (values, value, otherField) {
         primary={true}
         onTouchTap={this.props.handleLoginModal}
       />,
-      <RaisedButton
+      <FlatButton
         label="Submit"
         form="signup-form"
         type="submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.props.handleLoginModal}
-        style={submitStyle}
-        disabled={!this.state.canSubmit}
+        //onTouchTap={this.props.handleLoginModal}
       />,
+      // <button type="submit" form="sign-form">SignUp</button>
     ];
 
     return (
@@ -203,84 +120,104 @@ Formsy.addValidationRule('isTrue', function (values, value, otherField) {
               { this.props.isLoading ?
             <CircularProgress style={{position: 'absolute', left: '47%', top: '45%', zIndex: 500}} size={60} thickness={7} />
             : false }
-          <Formsy.Form
-            id="login-form"
-            onValid={enableButton}
-            onInvalid={disableButton}
-            onValidSubmit={submitLoginForm}
-            onInvalidSubmit={notifyFormError}
-          >
-            <FormsyText
+      <form id="login-form" onSubmit={(event) => {
+            event.preventDefault()
+
+            let userName = event.target.username.value
+            let password = event.target.password.value
+
+            this.props.handleLogin(userName, password)
+
+            event.target.username.value = ''
+            event.target.password.value = ''
+          }}>
+            <TextField
+              id="username"
               name="username"
-              className="col-xs-9 col-xs-offset-3"
-              validations="isAlphanumeric"
-              validationError={wordsError}
-              required
-              hintText="demo"
               floatingLabelText="Username"
-            />
-            <br />
-            <FormsyText
-              name="password"
+              floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
-              hintText="demo123"
+              hintText="enter your username"
+              //errorText="This field is required"
+            /><br />
+            <TextField
+              id="password"
+              name="password"
               type="password"
               floatingLabelText="Password"
+              floatingLabelFixed={true}
+              className="col-xs-9 col-xs-offset-3"
+              hintText="enter your password"
+              //errorText="This field is required"
             />
-          </Formsy.Form>
+            </form>
           </div>
           <div style={styles.slide}>
+            {/*<SignUp />*/}
+            {/*<Paper
+            className="col-xs-6 col-xs-offset-3"
+            style={styles.paper}
+            zDepth={2}
+              children={
+              <CircularProgress size={60} thickness={7} />
+              } />*/}
               { this.props.isLoading ?
               <CircularProgress style={{position: 'absolute', left: '147%', top: '45%', zIndex: 500}} size={60} thickness={7} />
               : false }
-              <Formsy.Form
-            id="signup-form"
-            onValid={enableButton}
-            onInvalid={disableButton}
-            onValidSubmit={submitSignupForm}
-            onInvalidSubmit={notifyFormError}
-          >
-          <h3 style={{textAlign: "center"}}>Sign Up</h3>
-            <FormsyText
+            <form id="signup-form" onSubmit={(event) => {
+            event.preventDefault()
+
+            let userName = event.target.username.value
+            let password = event.target.password.value
+            let passwordConfirm = event.target.passwordConfirm.value
+            let email = event.target.email.value
+
+            this.props.handleSignUp(userName, password, passwordConfirm, email)
+
+            event.target.username.value = ''
+            event.target.password.value = ''
+            event.target.passwordConfirm.value = ''
+            event.target.email.value = ''
+          }}>
+            <TextField
+              id="username"
               name="username"
-              className="col-xs-9 col-xs-offset-3"
-              validations="isAlphanumeric"
-              validationError={wordsError}
-              required
-              hintText="demo"
               floatingLabelText="Username"
-            />
-            <br />
-            <FormsyText
-              name="password"
+              floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
-              required
+              hintText="enter your username"
+              //errorText="This field is required"
+            /><br />
+            <TextField
+              id="password"
+              name="password"
               type="password"
               floatingLabelText="Password"
-              hintText="enter a password"
+              floatingLabelFixed={true}
+              className="col-xs-9 col-xs-offset-3"
+              hintText="enter your password"
+              //errorText="This field is required"
             />
-            <br />
-            <FormsyText
+            <TextField
+              id="passwordConfirm"
               name="passwordConfirm"
-              className="col-xs-9 col-xs-offset-3"
-              validationError="Passwords do not match"
-              validations="isTrue:password"
-              required
               type="password"
-              floatingLabelText="Password Confirmation"
-              hintText="Re-enter password"
-            />
-            <br />
-            <FormsyText
-              name="password"
+              floatingLabelText="Confirm Password"
+              floatingLabelFixed={true}
               className="col-xs-9 col-xs-offset-3"
-              validations="isEmail"
-              validationError="Please enter a valid email address"
-              required
+              hintText="re-enter your password"
+              //errorText="This field is required"
+            /><br />
+            <TextField
+              id="email"
+              name="email"
               floatingLabelText="Email"
-              hintText="email@email.com"
+              floatingLabelFixed={true}
+              className="col-xs-9 col-xs-offset-3"
+              hintText="enter your email"
+              //errorText="This field is required"
             />
-          </Formsy.Form>
+            </form>
           </div>
         </SwipeableViews>
         </Dialog>
