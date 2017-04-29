@@ -21,7 +21,6 @@ router.use(bodyParser.urlencoded({extended: false}));
 // GET CLIENT
 
 router.get('/', (req, res) => {
-  console.log(req.user);
   if (!req.isAuthenticated()) {
     return res.status(401).json({ message: 'Not logged in' });
   }
