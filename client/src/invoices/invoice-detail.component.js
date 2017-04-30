@@ -257,34 +257,34 @@ componentDidMount() {
 
 
             <TableRow>
-              <TableHeaderColumn colSpan="6" tooltip="Invoice #" style={{textAlign: 'left'}}>
+              <TableHeaderColumn colSpan="6" style={{textAlign: 'left'}}>
                 Invoice #: {invoice.invoiceNo}
               </TableHeaderColumn>
-              <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
+              <TableHeaderColumn colSpan="6" style={{textAlign: 'left'}}>
                 Billing Period: {`${moment(invoice.billingPeriodStart).format("MM/DD/YY")} - ${moment(invoice.billingPeriodEnd).format("MM/DD/YY")}` }
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
-                <TableHeaderColumn colSpan="6" tooltip="The project name" style={{textAlign: 'left'}}>
+                <TableHeaderColumn colSpan="6" style={{textAlign: 'left'}}>
                     Project Name: {project.projectName}
                 </TableHeaderColumn>
-                <TableHeaderColumn colSpan="6" tooltip="The project's ID no." style={{textAlign: 'left'}}>
+                <TableHeaderColumn colSpan="6" style={{textAlign: 'left'}}>
                     Project Id: {project._id}
                 </TableHeaderColumn>
               </TableRow>
             <TableRow>
-              <TableHeaderColumn colSpan="6" tooltip="Your Name" style={{textAlign: 'left'}}>
+              <TableHeaderColumn colSpan="6" style={{textAlign: 'left'}}>
                 Name: {`${this.props.user.firstName} ${this.props.user.lastName}`}
               </TableHeaderColumn>
-              <TableHeaderColumn colSpan="6" tooltip="The client's name" style={{textAlign: 'left'}}>
+              <TableHeaderColumn colSpan="6" style={{textAlign: 'left'}}>
                 Client Name: {project.clientName}
               </TableHeaderColumn>
               </TableRow>
               <TableRow>
-              <TableHeaderColumn colSpan="6" tooltip="Your address" style={{textAlign: 'left'}}>
+              <TableHeaderColumn colSpan="6" style={{textAlign: 'left'}}>
                 Address: {this.props.user.address}
               </TableHeaderColumn>
-              <TableHeaderColumn colSpan="6" tooltip="the client's address" style={{textAlign: 'left'}}>
+              <TableHeaderColumn colSpan="6" style={{textAlign: 'left'}}>
                 Client Address: {client.address}
               </TableHeaderColumn>
             </TableRow>
