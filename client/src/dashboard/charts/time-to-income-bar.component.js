@@ -21,7 +21,7 @@ const getData = clients => {
       console.log(projectName, hours);
       if (project.ratePer === "hr") {
         return data.dataArray.push([projectName, hours, hours * rate]);
-      } else if (project.ratePer === "fixed") {
+      } if (project.ratePer === "fixed price") {
         return data.dataArray.push([projectName, hours, rate]);
       }
     })
