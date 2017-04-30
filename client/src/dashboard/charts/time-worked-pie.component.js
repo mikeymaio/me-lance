@@ -1,6 +1,32 @@
 import { Chart } from 'react-google-charts';
 import React from 'react';
 
+import { fetchUserClients } from '../../clients/clients.actions';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+const data = { dataArray: [] }
+
+const getData = clients => {
+	  data.dataArray = [['Task', 'Hours Worked']];
+    clients.map( client => (
+    client.projects.map( project => {
+      let projectName = project.projectName;
+      let hours = 0;
+      project.invoices.map( invoice => (
+        invoice.tasks.map( task => (
+          hours += task.hoursSpent
+        ))
+      ))
+      console.log(projectName, hours);
+      return data.dataArray.push([projectName, hours]);
+    })
+  ))
+  console.log('data = ' + data);
+  // this.setState({data});
+}
+
 class PieChart extends React.Component {
   constructor(props) {
     super(props);
@@ -10,20 +36,40 @@ class PieChart extends React.Component {
         is3D: true,
       },
       data: [
-          ['Task', 'Hours Worked'],
-          ['John Doe\'s Website',     9],
-          ['Sally Smiths\'s Website',      6],
-          ['John Smith\'s Website',  2],
-          ['My Web App', 4],
+          // ['Task', 'Hours Worked'],
+          // ['John Doe\'s Website',     9],
+          // ['Sally Smiths\'s Website',      6],
+          // ['John Smith\'s Website',  2],
+          // ['My Web App', 4],
         ]
 
     };
   }
+
+// componentDidMount() {
+//   let data = [['Task', 'Hours Worked']];
+//   this.props.clients.map( client => (
+//     client.projects.map( project => {
+//       let projectName = project.projectName;
+//       let hours = 0;
+//       project.invoices.map( invoice => (
+//         invoice.tasks.map( task => (
+//           hours += task.hoursSpent
+//         ))
+//       ))
+//       console.log(projectName, hours);
+//       return data.push([projectName, hours]);
+//     })
+//   ))
+//   console.log('data = ' + data);
+//   this.setState({data});
+// }
   render() {
+    getData(this.props.clients);
     return (
       <Chart
         chartType="PieChart"
-        data={this.state.data}
+        data={data.dataArray}
         options={this.state.options}
         graph_id="PieChart"
         width={'100%'}
@@ -33,4 +79,22 @@ class PieChart extends React.Component {
     );
   }
 }
-export default PieChart;
+// export default PieChart;
+
+function mapStateToProps(state) {
+    return {
+        clients: state.clientReducer.clients,
+        clientEdit: state.clientReducer.clientEdit,
+        isLoading: state.clientReducer.isLoading,
+        userId: state.loginReducer.user.userId,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        fetchUserClients: fetchUserClients,
+        },
+        dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PieChart);

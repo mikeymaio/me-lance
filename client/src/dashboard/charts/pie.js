@@ -2,35 +2,73 @@
 import React from 'react';
 import {Pie} from 'react-chartjs-2';
 
+import { fetchUserClients } from '../../clients/clients.actions';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 const data = {
-	labels: [
-		'Red',
-		'Green',
-		'Yellow'
-	],
+	labels: [],
 	datasets: [{
-		data: [300, 50, 100],
-		backgroundColor: [
-		'#FF0900',
-		'#007766',
-		'#FFCE56'
-		],
-		hoverBackgroundColor: [
-		'#FF6384',
-		'#55ccbb',
-		'#FFCE56'
-		]
+		data: [],
+		backgroundColor: [],
+		// hoverBackgroundColor: []
 	}]
 };
 
-export default class PieChart2 extends React.Component {
+const getData = clients => {
+		data.labels = []
+		data.datasets = [{data: [], backgroundColor: [], hoverBackgroundColor: []}]
+		clients.map( client => (
+    client.projects.map( project => {
+      data.labels.push(project.projectName)
+      let hours = 0;
+      project.invoices.map( invoice => {
+        invoice.tasks.map( task => (
+          hours += task.hoursSpent
+        ))
+				let color = '#'+Math.floor(Math.random()*16777215).toString(16);
+				return data.datasets[0].backgroundColor.push(color);
+			})
+      return data.datasets[0].data.push(hours);
+    })
+  ))
+}
+
+class PieChart2 extends React.Component {
+
 
   render() {
+		getData(this.props.clients)
     return (
       <div>
-        <h2>Pie Example</h2>
-        <Pie data={data} />
+        <h2>Time Usage</h2>
+        <Pie data={data}
+					width={100}
+					height={100}
+					options={{
+        		maintainAspectRatio: false
+    			}}
+				/>
       </div>
     );
   }
 };
+
+function mapStateToProps(state) {
+    return {
+        clients: state.clientReducer.clients,
+        clientEdit: state.clientReducer.clientEdit,
+        isLoading: state.clientReducer.isLoading,
+        userId: state.loginReducer.user.userId,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        fetchUserClients: fetchUserClients,
+        },
+        dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PieChart2);
