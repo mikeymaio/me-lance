@@ -85,11 +85,11 @@ class InvoiceDetail extends React.Component {
 
 
   this.onChange = (dataTable) => {
-    console.log(dataTable)
-    this.setState({dataTable})
-};
+      console.log(dataTable)
+      this.setState({dataTable})
+  };
 
-this.handleTaxChange = (event, index, value) => this.setState({taxValue: value});
+  this.handleTaxChange = (event, index, value) => this.setState({taxValue: value});
 
 
   this.formatPrice =  rate => {
@@ -100,14 +100,19 @@ this.handleTaxChange = (event, index, value) => this.setState({taxValue: value})
 
 
     this.getTotal = (invoice, project) => {
-            let hours = 0;
-            invoice.tasks.map ( task => {
-                task.hoursSpent ? hours += Number(task.hoursSpent) : hours += 0;
-            })
-            console.log(hours);
-            let total = hours * project.rate;
-            return total;
-        }
+      console.log(project.ratePer)
+      if (project.ratePer === "hr") {
+        let hours = 0;
+        invoice.tasks.map ( task => {
+            task.hoursSpent ? hours += Number(task.hoursSpent) : hours += 0;
+        })
+        console.log(hours);
+        let total = hours * project.rate;
+        return total;
+      } else if (project.ratePer === "fixed price") {
+          return project.rate;
+      }
+    }
 
         this.save = this.save.bind(this);
         this.saveToComputer = this.saveToComputer.bind(this);

@@ -19,7 +19,11 @@ const getData = clients => {
         ))
     })
       console.log(projectName, hours);
-      return data.dataArray.push([projectName, hours, hours * rate]);
+      if (project.ratePer === "hr") {
+        return data.dataArray.push([projectName, hours, hours * rate]);
+      } else if (project.ratePer === "fixed") {
+        return data.dataArray.push([projectName, hours, rate]);
+      }
     })
   ))
   console.log('data = ' + data);
@@ -48,20 +52,14 @@ class BarChart extends React.Component {
           }
       },
 
-      data:[
-          ['Project', 'Time Spent', 'Income'],
-          ['John Doe\'s Website', 9, 800],
-          ['John Smith\'s Website', 6, 500],
-          ['Sally Doe\'s Website', 4, 250],
-          ['My Web App', 4, 0],
-      ]
+      data:[]
     }
   }
   render() {
     getData(this.props.clients);
     return (
       <Chart
-        chartType="BarChart"
+        chartType="ColumnChart"
         //rows={this.state.rows}
         //columns={this.state.columns}
         data={data.dataArray}
