@@ -18,6 +18,7 @@ import { fetchUserClients } from '../clients/clients.actions';
 
 import IconButton from 'material-ui/IconButton';
 
+import FilterLink from '../filter-link.component';
 
 class InvoiceList extends React.Component {
 
@@ -49,51 +50,6 @@ componentDidMount() {
 
   render() {
 
-    const FilterLink = ({
-        filter,
-        currentFilter,
-        children
-    }) => {
-        if (filter === currentFilter) {
-            return <span style={{marginLeft: '5px', color: "#aaa"}}>{children}</span>;
-        }
-        return (
-            <a href="#"
-            style={{marginLeft: '5px', color: "#076"}}
-            onClick={e => {
-            e.preventDefault();
-            this.props.filterInvoices(filter)
-            }} >
-            {children}
-            </a>
-        );
-    };
-
-    // const getVisibleInvoices = (
-    //     invoices,
-    //     filter
-    //     ) => {
-    //         switch(filter) {
-    //         case 'SHOW_ALL':
-    //             return invoices
-    //         case 'SHOW_COMPLETED':
-    //             return invoices.filter(
-    //             i => i.completed
-    //             )
-    //         case 'SHOW_ACTIVE':
-    //             return invoices.filter(
-    //             i => !i.completed
-    //             )
-    //         default:
-    //             return invoices
-    //         }
-    // }
-
-    // const visibleInvoices = getVisibleInvoices(
-    //     this.props.invoices,
-    //     this.props.invoiceFilter
-    // )
-
     return (
       <div>
           <h3 style={{color: "#076", display: "inline-block"}}>Your Invoices</h3>
@@ -102,40 +58,39 @@ componentDidMount() {
                 <FilterLink
                     filter="SHOW_ALL"
                     currentFilter={this.props.invoiceFilter}
+                    action={this.props.filterInvoices}
                     >
                     All
                 </FilterLink>
                 <FilterLink
                     filter="SHOW_ACTIVE"
                     currentFilter={this.props.invoiceFilter}
+                    action={this.props.filterInvoices}
                     >
                     Active
                 </FilterLink>
                 <FilterLink
                     filter="SHOW_COMPLETED"
                     currentFilter={this.props.invoiceFilter}
+                    action={this.props.filterInvoices}
                     >
                     Completed
                 </FilterLink>
             </p>
-            {/*{visibleInvoices.map( (row, index) => (*/}
             {this.props.clients.map( ( client, cIndex ) => (
                 client.projects.map( (project, pIndex) => (
                    <Card key={pIndex}>
                         <CardHeader
                         title={project.clientName}
                         subtitle={project.projectName}
-                        //avatar="images/ok-128.jpg"
                         actAsExpander={true}
                         showExpandableButton={true}
                         />
                         <CardText expandable={true}
                         children={
                             <List>
-                                {console.log(project.invoices)}
                                 { project.invoices.filter(i => {
                                     new Date(i.billingPeriodEnd) < new Date() ? i.completed = true : false;
-                                    console.log(i);
                                     if (this.props.invoiceFilter === 'SHOW_ALL') {
                                         return true;
                                     }

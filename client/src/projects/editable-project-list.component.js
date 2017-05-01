@@ -22,6 +22,8 @@ import Loader from '../loader/loader.component';
 
 import Checkbox from 'material-ui/Checkbox';
 
+import FilterLink from '../filter-link.component';
+
 
 
 const styles = {
@@ -116,46 +118,6 @@ componentDidMount() {
 
   render() {
 
-    const FilterLink = ({
-        filter,
-        currentFilter,
-        children
-    }) => {
-        if (filter === currentFilter) {
-            return <span style={{marginLeft: '5px', color: "#aaa"}}>{children}</span>;
-        }
-        return (
-            <a href="#"
-            style={{marginLeft: '5px', color: "#076"}}
-            onClick={e => {
-            e.preventDefault();
-            this.props.filterProjects(filter)
-            }} >
-            {children}
-            </a>
-        );
-    };
-
-    const getVisibleProjects = (
-        projects,
-        filter
-        ) => {
-            switch(filter) {
-            case 'SHOW_ALL':
-                return projects
-            case 'SHOW_COMPLETED':
-                return projects.filter(
-                p => p.completed
-                )
-            case 'SHOW_ACTIVE':
-                return projects.filter(
-                p => !p.completed
-                )
-            default:
-                return projects
-            }
-    }
-
     return (
       <div>
         <br />
@@ -173,18 +135,21 @@ componentDidMount() {
                     <FilterLink
                         filter="SHOW_ALL"
                         currentFilter={this.props.projectFilter}
+                        action={this.props.filterProjects}
                         >
                         All
                     </FilterLink>
                     <FilterLink
                         filter="SHOW_ACTIVE"
                         currentFilter={this.props.projectFilter}
+                        action={this.props.filterProjects}
                         >
                         Active
                     </FilterLink>
                     <FilterLink
                         filter="SHOW_COMPLETED"
                         currentFilter={this.props.projectFilter}
+                        action={this.props.filterProjects}
                         >
                         Completed
                     </FilterLink>
