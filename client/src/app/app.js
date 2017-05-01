@@ -15,6 +15,8 @@ import AddClient from '../clients/add-client.component';
 import ProjectList from '../projects/editable-project-list.component';
 import AddProject from '../projects/add-project.component';
 
+import Settings from '../settings/settings.component';
+
 import ExampleChart from '../dashboard/dashboard.component';
 
 import Landing from '../landing/landing.component';
@@ -58,6 +60,7 @@ class App extends Component {
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceList' ? <InvoiceList /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceDetail' ? <InvoiceDetail /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'addInvoice' ? <AddInvoice /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'settings' ? <Settings /> : false}
           </div>
         </div>
         </div>
