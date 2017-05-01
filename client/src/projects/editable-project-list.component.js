@@ -116,20 +116,24 @@ componentDidMount() {
 
   render() {
 
-          const FilterLink = ({
+    const FilterLink = ({
         filter,
+        currentFilter,
         children
-        }) => {
-            return (
-                <a href="#"
-                style={{marginLeft: '5px'}}
-                onClick={e => {
-                e.preventDefault();
-                this.props.filterProjects(filter)
-                }} >
-                {children}
-                </a>
-            );
+    }) => {
+        if (filter === currentFilter) {
+            return <span style={{marginLeft: '5px', color: "#aaa"}}>{children}</span>;
+        }
+        return (
+            <a href="#"
+            style={{marginLeft: '5px', color: "#076"}}
+            onClick={e => {
+            e.preventDefault();
+            this.props.filterProjects(filter)
+            }} >
+            {children}
+            </a>
+        );
     };
 
     const getVisibleProjects = (
@@ -152,11 +156,6 @@ componentDidMount() {
             }
     }
 
-    // const visibleProjects = getVisibleProjects(
-    //     this.props.invoices,
-    //     this.props.invoiceFilter
-    // )
-
     return (
       <div>
         <br />
@@ -169,26 +168,40 @@ componentDidMount() {
                 onTouchTap={() => this.props.handleProjectView('addProject')}
                 style={{float: "right"}}
               />
-              {/*<p>
-          Show:
-          <FilterLink
-            filter="SHOW_ALL"
-            >
-            All
-          </FilterLink>
-          <FilterLink
-            filter="SHOW_ACTIVE"
-            >
-            Active
-          </FilterLink>
-          <FilterLink
-            filter="SHOW_COMPLETED"
-            >
-            Completed
-          </FilterLink>
-          </p>*/}
+              <p style={{color: '#076'}}>
+                Show:
+                    <FilterLink
+                        filter="SHOW_ALL"
+                        currentFilter={this.props.projectFilter}
+                        >
+                        All
+                    </FilterLink>
+                    <FilterLink
+                        filter="SHOW_ACTIVE"
+                        currentFilter={this.props.projectFilter}
+                        >
+                        Active
+                    </FilterLink>
+                    <FilterLink
+                        filter="SHOW_COMPLETED"
+                        currentFilter={this.props.projectFilter}
+                        >
+                        Completed
+                    </FilterLink>
+                </p>
               {this.props.clients.map( client => (
-                  client.projects.map( (project, index) => {
+                  client.projects.filter(p => {
+                      if (this.props.projectFilter === 'SHOW_ALL') {
+                        return true;
+                      }
+                      if (this.props.projectFilter === 'SHOW_ACTIVE') {
+                        return !p.completed;
+                      }
+                      if (this.props.projectFilter === 'SHOW_COMPLETED') {
+                        return p.completed;
+                      }
+                      return true;
+                  }).map( (project, index) => {
                   //console.log(client.projects);
                  //let visibleProjects = getVisibleProjects( (client.projects, this.props.projectFilter) );
                   //visibleProjects.map( (project, index) => (
