@@ -52,7 +52,7 @@ export const handleLogin = (username, password) => {
   }
 }
 
-export const handleSignUp = (userName, password, passwordConfirm, email) => {
+export const handleSignUp = (userName, password, passwordConfirm, email, firstName, lastName, phone, address) => {
     console.log('handleSignup fired with username:', userName)
   return dispatch => {
     dispatch(requestDataFromServer())
@@ -66,7 +66,11 @@ export const handleSignUp = (userName, password, passwordConfirm, email) => {
         userName,
         password,
         passwordConfirm,
-        email
+        email,
+        firstName,
+        lastName,
+        phone,
+        address,
       })
     })
     .then(response => response.json())

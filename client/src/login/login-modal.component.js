@@ -27,6 +27,7 @@ const styles = {
   },
   slide: {
     //padding: 10,
+    overflow: "hidden",
   },
   paper: {
     // height: 150,
@@ -53,9 +54,13 @@ class LoginModal extends React.Component {
     };
 
   this.errorMessages = {
-    wordsError: "Please only use letters and numbers",
+    wordsError: "Please only use letters",
+    alphaNumError: "Please only use letters and numbers",
     numericError: "Please provide a number",
     urlError: "Please provide a valid URL",
+    passwordError: "Password must be at least 8 characters",
+    passwordConfirmError: "Passwords do not match",
+    emailError: "Please enter a valid email address",
   }
 
   this.styles = {
@@ -106,8 +111,12 @@ class LoginModal extends React.Component {
     let password = data.password
     let passwordConfirm = data.passwordConfirm
     let email = data.email
+    let firstName = data.firstName
+    let lastName = data.lastName
+    let phone = data.phone
+    let address = data.address
 
-    this.props.handleSignUp(userName, password, passwordConfirm, email)
+    this.props.handleSignUp(userName, password, passwordConfirm, email, firstName, lastName, phone, address)
 
   }
 
@@ -116,7 +125,7 @@ class LoginModal extends React.Component {
   }
 
   let {paperStyle, switchStyle, submitStyle } = this.styles;
-    let { wordsError, numericError, urlError } = this.errorMessages;
+    let { wordsError, numericError, urlError, passwordError, passwordConfirmError, emailError, alphaNumError } = this.errorMessages;
 
     const actionButtons =
     this.props.loginModalSlideIndex === 0 ?
@@ -203,7 +212,7 @@ class LoginModal extends React.Component {
               name="username"
               className="col-xs-9 col-xs-offset-3"
               validations="isAlphanumeric"
-              validationError={wordsError}
+              validationError={alphaNumError}
               required
               hintText="demo"
               floatingLabelText="Username"
@@ -234,43 +243,84 @@ class LoginModal extends React.Component {
               name="username"
               className="col-xs-9 col-xs-offset-3"
               validations="isAlphanumeric"
-              validationError={wordsError}
+              validationError={alphaNumError}
               required
               hintText="demo"
               floatingLabelText="Username"
             />
-            <br />
+            {/*<br />*/}
             <FormsyText
               name="password"
               className="col-xs-9 col-xs-offset-3"
               validations="minLength:8"
-              validationError="Password must be at least 8 characters"
+              validationError={passwordError}
               required
               type="password"
               floatingLabelText="Password"
               hintText="enter a password"
             />
-            <br />
+            {/*<br />*/}
             <FormsyText
               name="passwordConfirm"
               className="col-xs-9 col-xs-offset-3"
-              //validations="equalsField:password"
-              //validationError="Passwords do not match"
+              validations="equalsField:password"
+              validationError={passwordConfirmError}
               required
               type="password"
               floatingLabelText="Password Confirmation"
               hintText="Re-enter password"
             />
-            <br />
+            {/*<br />*/}
             <FormsyText
-              name="password"
+              name="firstName"
+              className="col-xs-9 col-xs-offset-3"
+              validations="isWords"
+              validationError={wordsError}
+              //required
+              hintText="John"
+              floatingLabelText="First Name"
+            />
+            {/*<br />*/}
+            <FormsyText
+              name="lastName"
+              className="col-xs-9 col-xs-offset-3"
+              validations="isWords"
+              validationError={wordsError}
+              //required
+              hintText="Doe"
+              floatingLabelText="Last Name"
+            />
+            <FormsyText
+              name="email"
               className="col-xs-9 col-xs-offset-3"
               validations="isEmail"
-              validationError="Please enter a valid email address"
+              validationError={emailError}
               required
               floatingLabelText="Email"
               hintText="email@email.com"
             />
+            <FormsyText
+              name="phone"
+              //type="tel"
+              className="col-xs-9 col-xs-offset-3"
+              //validations={{matchRegexp: '^\d{3}-\d{3}-\d{4}$' }}
+              validationError={numericError}
+              //required
+              hintText="555-555-5555"
+              floatingLabelText="Phone No."
+            />
+            {/*<br />*/}
+            <FormsyText
+              name="address"
+              className="col-xs-9 col-xs-offset-3"
+              //validations="isAlphanumeric"
+              //validationError={alphaNumError}
+              //required
+              hintText="123 Main St Somewhere CA 90026"
+              floatingLabelText="Address"
+            />
+            {/*<br />*/}
+            <div className="col-xs-9 col-xs-offset-3" style={{height:20}} />
           </Formsy.Form>
           </div>
         </SwipeableViews>
