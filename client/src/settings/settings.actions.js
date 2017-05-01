@@ -1,4 +1,4 @@
-export const handleUserUpdate = (userName, password, passwordConfirm, email, firstName, lastName, phone, address, userId) => {
+export const handleUserUpdate = (userName, email, firstName, lastName, phone, address, userId) => {
     console.log('handleUserUpdate fired with username:', userName)
   return dispatch => {
     dispatch(requestDataFromServer())
@@ -10,19 +10,22 @@ export const handleUserUpdate = (userName, password, passwordConfirm, email, fir
       },
       body: JSON.stringify({
         userName,
-        password,
-        passwordConfirm,
         email,
         firstName,
         lastName,
         phone,
         address,
-      })
+        userId
+      }),
+      credentials: 'include'
     })
     .then(response => response.json())
-    .then(res => dispatch(receiveData(res)))
-  }
-}
+    .then(res => {
+      return dispatch(receiveUserData(res.user))
+    })
+    .then( () => dispatch(receiveData()) )
+  };
+};
 
 const requestDataFromServer = () => ({
   type: 'REQUEST_DATA'
@@ -33,7 +36,11 @@ const requestDataFromServer = () => ({
 //   user
 // })
 
-const receiveData = (res) => ({
+const receiveUserData = (user) => ({
+  type: 'RECEIVE_USER_DATA',
+  user
+})
+
+const receiveData = () => ({
   type: 'RECEIVE_DATA',
-  res
 })

@@ -3,8 +3,12 @@ const requestDataFromServer = () => ({
   type: 'REQUEST_DATA'
 })
 
-const receiveClientDataFromServer = (clients) => ({
+const receiveData = () => ({
   type: 'RECEIVE_DATA',
+})
+
+const receiveClientDataFromServer = (clients) => ({
+  type: 'RECEIVE_CLIENT_DATA',
   clients
 })
 
@@ -47,6 +51,7 @@ export const fetchUserClients = (userId) => {
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients)))
+    .then( () => dispatch(receiveData()) )
   }
 }
 

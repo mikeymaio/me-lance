@@ -11,7 +11,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Formsy from 'formsy-react';
 import { FormsyText } from 'formsy-material-ui/lib';
 
-import * as actions from '../login/login.actions';
+import { fetchDataFromApi } from '../login/login.actions';
+import { handleUserUpdate } from './settings.actions';
 
 
 import { connect } from 'react-redux';
@@ -101,8 +102,6 @@ class Settings extends React.Component {
   const submitSignupForm = (data) => {
     console.log(data);
     let userName = data.username;
-    let password = data.password;
-    let passwordConfirm = data.passwordConfirm;
     let email = data.email;
     let firstName = data.firstName;
     let lastName = data.lastName;
@@ -111,7 +110,7 @@ class Settings extends React.Component {
 
     let userId = this.props.user.userId;
 
-    this.props.handleSignUp(userName, password, passwordConfirm, email, firstName, lastName, phone, address, userId)
+    this.props.handleUserUpdate(userName, email, firstName, lastName, phone, address, userId)
 
   }
 
@@ -253,11 +252,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        handleLoginModal: actions.handleLoginModal,
-        handleLoginSlides: actions.handleLoginSlides,
-        fetchDataFromApi: actions.fetchDataFromApi,
-        handleLogin: actions.handleLogin,
-        handleSignUp: actions.handleSignUp,
+        fetchDataFromApi: fetchDataFromApi,
+        handleUserUpdate: handleUserUpdate,
         },
         dispatch);
 }

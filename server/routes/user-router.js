@@ -165,10 +165,10 @@ router.put('/:id', (req, res) => {
     return res.status(401).json({ message: 'Not logged in' });
   }
   // ensure that the id in the request path and the one in request body match
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+  if (!(req.params.id && req.body.userId && req.params.id === req.body.userId)) {
     const message = (
       `Request path id (${req.params.id}) and request body id ` +
-      `(${req.body.id}) must match`);
+      `(${req.body.userId}) must match`);
     console.error(message);
     res.status(400).json({message: message});
   }
@@ -184,7 +184,9 @@ router.put('/:id', (req, res) => {
   User
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
     .exec()
-    .then(user => res.status(204).end())
+    .then(user => res.status(200).json({
+      user: user.apiRepr()
+    }).end())
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 

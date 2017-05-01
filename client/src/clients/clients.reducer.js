@@ -22,7 +22,7 @@ const clientReducer = (state=initialState, action) => {
                 //isLoading: false,
                 clientView: 'clientList',
             }
-        case 'RECEIVE_DATA':
+        case 'RECEIVE_CLIENT_DATA':
             return {
                 ...state,
                 //isLoading: false,
