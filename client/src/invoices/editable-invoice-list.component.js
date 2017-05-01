@@ -51,66 +51,73 @@ componentDidMount() {
 
     const FilterLink = ({
         filter,
+        currentFilter,
         children
-        }) => {
-            return (
-                <a href="#"
-                style={{marginLeft: '5px'}}
-                onClick={e => {
-                e.preventDefault();
-                this.props.filterInvoices(filter)
-                }} >
-                {children}
-                </a>
-            );
+    }) => {
+        if (filter === currentFilter) {
+            return <span style={{marginLeft: '5px', color: "#aaa"}}>{children}</span>;
+        }
+        return (
+            <a href="#"
+            style={{marginLeft: '5px', color: "#076"}}
+            onClick={e => {
+            e.preventDefault();
+            this.props.filterInvoices(filter)
+            }} >
+            {children}
+            </a>
+        );
     };
 
-    const getVisibleInvoices = (
-        invoices,
-        filter
-        ) => {
-            switch(filter) {
-            case 'SHOW_ALL':
-                return invoices
-            case 'SHOW_COMPLETED':
-                return invoices.filter(
-                i => i.completed
-                )
-            case 'SHOW_ACTIVE':
-                return invoices.filter(
-                i => !i.completed
-                )
-            default:
-                return invoices
-            }
-    }
+    // const getVisibleInvoices = (
+    //     invoices,
+    //     filter
+    //     ) => {
+    //         switch(filter) {
+    //         case 'SHOW_ALL':
+    //             return invoices
+    //         case 'SHOW_COMPLETED':
+    //             return invoices.filter(
+    //             i => i.completed
+    //             )
+    //         case 'SHOW_ACTIVE':
+    //             return invoices.filter(
+    //             i => !i.completed
+    //             )
+    //         default:
+    //             return invoices
+    //         }
+    // }
 
-    const visibleInvoices = getVisibleInvoices(
-        this.props.invoices,
-        this.props.invoiceFilter
-    )
+    // const visibleInvoices = getVisibleInvoices(
+    //     this.props.invoices,
+    //     this.props.invoiceFilter
+    // )
 
     return (
       <div>
           <h3 style={{color: "#076", display: "inline-block"}}>Your Invoices</h3>
-          {/*<p>
-          Show:
-          <FilterLink
-            filter="SHOW_ALL"
-            >
-            All
-          </FilterLink>
-          <FilterLink
-            filter="SHOW_ACTIVE"
-            >
-            Active
-          </FilterLink>
-          <FilterLink
-            filter="SHOW_COMPLETED"
-            >
-            Completed
-          </FilterLink>
-          </p>*/}
+          <p style={{color: '#076'}}>
+            Show:
+                <FilterLink
+                    filter="SHOW_ALL"
+                    currentFilter={this.props.invoiceFilter}
+                    >
+                    All
+                </FilterLink>
+                <FilterLink
+                    filter="SHOW_ACTIVE"
+                    currentFilter={this.props.invoiceFilter}
+                    >
+                    Active
+                </FilterLink>
+                <FilterLink
+                    filter="SHOW_COMPLETED"
+                    currentFilter={this.props.invoiceFilter}
+                    >
+                    Completed
+                </FilterLink>
+            </p>
             {/*{visibleInvoices.map( (row, index) => (*/}
             {this.props.clients.map( ( client, cIndex ) => (
                 client.projects.map( (project, pIndex) => (
@@ -126,7 +133,21 @@ componentDidMount() {
                         children={
                             <List>
                                 {console.log(project.invoices)}
-                                { project.invoices.map( (invoice, iIndex) => {
+                                { project.invoices.filter(i => {
+                                    new Date(i.billingPeriodEnd) < new Date() ? i.completed = true : false;
+                                    console.log(i);
+                                    if (this.props.invoiceFilter === 'SHOW_ALL') {
+                                        return true;
+                                    }
+                                    if (this.props.invoiceFilter === 'SHOW_ACTIVE') {
+                                        return !i.completed;
+                                    }
+                                    if (this.props.invoiceFilter === 'SHOW_COMPLETED') {
+                                        return i.completed;
+                                    }
+                                    return true;
+                                })
+                                .map( (invoice, iIndex) => {
                                     return <ListItem
                                         key={iIndex}
                                         value={iIndex}
