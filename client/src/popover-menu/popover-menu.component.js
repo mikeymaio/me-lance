@@ -8,6 +8,9 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 
 import * as actions from '../login/login.actions';
+
+import { handleMenuItemSelect } from '../menu/menu.actions';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -22,7 +25,7 @@ class PopoverMenu extends Component {
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
             >
-                <MenuItem value="1" primaryText="Settings"/>
+                <MenuItem value="1" primaryText="Settings" onTouchTap={() => this.props.handleMenuItemSelect('settings')}/>
                 <MenuItem value="2" primaryText="Help" />
                 <MenuItem value="3" primaryText="Send feedback" />
                 <MenuItem value="4" primaryText="Sign out" onTouchTap={this.props.handleLogout} />
@@ -44,6 +47,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleSession: actions.handleSession,
         handleLogout: actions.handleLogout,
+        handleMenuItemSelect: handleMenuItemSelect,
         // handleModal: actions.handleModal,
         // handleDrawer: actions.handleDrawer,
         // fetchDataFromApi: actions.fetchDataFromApi,
