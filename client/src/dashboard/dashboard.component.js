@@ -55,21 +55,24 @@ class Dashboard extends React.Component {
         <Tabs
           onChange={this.handleChange}
           value={this.state.slideIndex}
+          tabItemContainerStyle={{background: '#fff'}}
         >
-          <Tab label="Rundown" value={0} />
-          <Tab label="Stats" value={1} />
+          <Tab label="Rundown" value={0} buttonStyle={{color: '#076'}}/>
+          <Tab label="Stats" value={1} buttonStyle={{color: '#076'}} />
         </Tabs>
         <SwipeableViews
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}
           style={{maxHeight: 400, background: "#fff"}}
         >
-          <div>
-            Here's the deal...
+          <div style={styles.slide}>
+            <p>Here's the deal...</p>
           </div>
           <div style={styles.slide}>
             <div>
-              <ChartsMenu className="col-xs-3"/>
+              <ChartsMenu className="col-xs-3"
+              //autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}}
+              />
               { this.props.statsView === 'TIME_USE' ?
               <PieChart /> : false
               }

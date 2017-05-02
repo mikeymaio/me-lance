@@ -20,7 +20,7 @@ class ChartsMenu extends React.Component {
     render() {
         return (
             <Paper style={style} className={this.props.className}>
-            <Menu>
+            <Menu autoWidth={this.props.autoWidth} width={this.props.width} listStyle={this.props.listStyle} style={{width: '100%'}}>
                 <MenuItem primaryText="Time Use" onTouchTap={() => this.props.handleStatsView('TIME_USE')}/>
                 <MenuItem primaryText="Time Vs Income" onTouchTap={() => this.props.handleStatsView('TIME_VS_INCOME')}/>
                 <MenuItem primaryText="Hours Per Day" onTouchTap={() => this.props.handleStatsView('HRS_PER_DAY')}/>
