@@ -58,17 +58,19 @@ class BarChart extends React.Component {
   render() {
     getData(this.props.clients);
     return (
-      <Chart
-        chartType="ColumnChart"
-        //rows={this.state.rows}
-        //columns={this.state.columns}
-        data={data.dataArray}
-        options={this.state.options}
-        graph_id="BarChart"
-        width={'100%'}
-        height={'400px'}
-        //legend_toggle={false}
-      />
+      <div className="col-xs-8">
+        <Chart
+          chartType="ColumnChart"
+          //rows={this.state.rows}
+          //columns={this.state.columns}
+          data={data.dataArray}
+          options={this.state.options}
+          graph_id="BarChart"
+          width={'100%'}
+          height={'400px'}
+          //legend_toggle={false}
+        />
+      </div>
     );
   }
 }

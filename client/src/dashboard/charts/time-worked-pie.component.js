@@ -27,6 +27,7 @@ const getData = clients => {
   // this.setState({data});
 }
 
+
 class PieChart extends React.Component {
   constructor(props) {
     super(props);
@@ -35,14 +36,6 @@ class PieChart extends React.Component {
         title: 'Time Use',
         is3D: true,
       },
-      data: [
-          // ['Task', 'Hours Worked'],
-          // ['John Doe\'s Website',     9],
-          // ['Sally Smiths\'s Website',      6],
-          // ['John Smith\'s Website',  2],
-          // ['My Web App', 4],
-        ]
-
     };
   }
 
@@ -67,6 +60,7 @@ class PieChart extends React.Component {
   render() {
     getData(this.props.clients);
     return (
+      <div className="col-xs-8">
       <Chart
         chartType="PieChart"
         data={data.dataArray}
@@ -76,6 +70,7 @@ class PieChart extends React.Component {
         height={'400px'}
         //legend_toggle={false}
       />
+      </div>
     );
   }
 }

@@ -8,6 +8,7 @@ import loginReducer from './login/login.reducer';
 import drawerReducer from './drawer/drawer.reducer';
 import appReducer from './app/app.reducer';
 import settingsReducer from './settings/settings.reducer';
+import chartsReducer from './dashboard/charts/charts.reducer';
 
 
 const indexReducer = combineReducers({
@@ -20,6 +21,7 @@ const indexReducer = combineReducers({
     loginReducer,
     drawerReducer,
     settingsReducer,
+    chartsReducer,
 });
 
 
