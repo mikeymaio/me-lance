@@ -18,6 +18,7 @@ import {Card, CardHeader, CardText} from 'material-ui/Card';
 
 import Loader from '../loader/loader.component';
 
+
 class ClientListExpandable extends React.Component {
 constructor(props) {
   super(props)

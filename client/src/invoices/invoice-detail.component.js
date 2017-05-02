@@ -257,10 +257,6 @@ componentDidMount() {
             enableSelectAll={this.state.enableSelectAll}
           >
 
-         
-
-
-
             <TableRow>
               <TableHeaderColumn colSpan="6" style={{textAlign: 'left'}}>
                 Invoice #: {invoice.invoiceNo}
