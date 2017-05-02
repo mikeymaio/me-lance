@@ -188,19 +188,14 @@ class LoginModal extends React.Component {
           onChangeIndex={this.props.handleLoginSlides}
         >
           <div style={styles.slide}>
-            {/*<h2 style={styles.headline}>Log In</h2>*/}
             <Paper
             className="col-xs-6 col-xs-offset-3"
             style={styles.paper}
             zDepth={2}
               children={
               <h3
-              //className="col-xs-9 col-xs-offset-3"
               >To demo the app, log in with<br />username: demo<br />password: demo123</h3>
               } />
-              {/*{ this.props.isLoading ?
-            <CircularProgress style={{position: 'absolute', left: '47%', top: '45%', zIndex: 500}} size={60} thickness={7} />
-            : false }*/}
           <Formsy.Form
             id="login-form"
             onValid={enableButton}
