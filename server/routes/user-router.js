@@ -190,6 +190,50 @@ router.put('/:id', (req, res) => {
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
+// UPDATE USER PASSWORD
+
+router.put('/:id/password', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
+  // ensure that the id in the request path and the one in request body match
+  if (!(req.params.id && req.body.userId && req.params.id === req.body.userId)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body id ` +
+      `(${req.body.userId}) must match`);
+    console.error(message);
+    res.status(400).json({message: message});
+  }
+
+
+  User
+  .findById(req.params.id)
+  .exec()
+  .then( user => user.validatePassword(req.body.oldPassword))
+  .then(isValid => {
+      if (!isValid) {
+        // return callback(null, false, {message: 'Incorrect username or password'});
+        return err => res.status(500).json({message: 'Internal server error' + err});
+      }
+      else {
+        const encryption = User.hashPassword(req.body.password);
+
+        const toUpdate = {
+          dateModified: new Date().toISOString(),
+          hashedPassword: encryption.hash,
+          salt: encryption.salt
+      };
+      User
+      .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+      .exec()
+      .then(user => res.status(200).json({
+        user: user.apiRepr()
+      }).end())
+      .catch(err => res.status(500).json({message: 'Internal server error: ' + err}));
+      }
+  })
+})
+
 // DELETE USER
 
 router.delete('/:id', (req, res) => {
