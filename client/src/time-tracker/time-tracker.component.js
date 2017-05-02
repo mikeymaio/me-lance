@@ -32,6 +32,7 @@ export default class TimeTracker extends Component {
     };
     this.toggleStopwatch = this.toggleStopwatch.bind(this);
     this.resetStopwatch = this.resetStopwatch.bind(this);
+    this.startTimer = this.startTimer.bind(this);
   }
 
   toggleStopwatch() {
@@ -42,15 +43,24 @@ export default class TimeTracker extends Component {
     this.setState({stopwatchStart: false, stopwatchReset: true});
   }
 
+  startTimer() {
+    this.toggleStopwatch();
+    // let startTime = new ;
+    // console.log(startTime);
+  }
+
 
   render() {
     return (
       <div style={this.props.style}>
-        <h4 style={{display: "inline-block", color: "#076", marginRight: 10}} >Timetracker</h4>
+        <h5 style={{display: "inline-block", color: "#076", marginRight: 0}} >Timetracker</h5>
         <Stopwatch msecs start={this.state.stopwatchStart}
           reset={this.state.stopwatchReset}
           options={options}/>
-        <RaisedButton label={!this.state.stopwatchStart ? "Start" : "Stop"} onTouchTap={this.toggleStopwatch} />
+          {!this.state.stopwatchStart ?
+        <RaisedButton label="Start" onTouchTap={this.startTimer} /> :
+        <RaisedButton label="Stop" onTouchTap={this.toggleStopwatch} />
+          }
         <RaisedButton label="Reset" onTouchTap={this.resetStopwatch} />
       </div>
     );

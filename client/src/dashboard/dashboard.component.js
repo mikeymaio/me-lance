@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
             <p>Here's the deal...</p>
           </div>
           <div style={styles.slide}>
-            <div>
+            {/*<div>*/}
               <ChartsMenu className="col-xs-3"
               //autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}}
               />
@@ -82,7 +82,7 @@ class Dashboard extends React.Component {
               { this.props.statsView === 'HRS_PER_DAY' ?
               <PieChart2 /> : false
               }
-            </div>
+            {/*</div>*/}
           </div>
         </SwipeableViews>
       </div>

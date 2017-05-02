@@ -4,14 +4,30 @@ import { Provider } from 'react-redux';
 import App from './app/app';
 import store from './store';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import lightTheme from './my-theme-light';
 import darkTheme from './my-theme-dark';
 
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+
 import './index.css';
 
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: '#007766',
+    primary2Color: '#fff',
+    accent1Color: '#ff6a00',
+    accent2Color: '#007766',
+    textColor: '#007766',
+    alternateTextColor: '#fff',
 
+  },
+});
 
+const light = getMuiTheme(lightBaseTheme)
+const dark = getMuiTheme(darkBaseTheme)
 
 import { connect } from 'react-redux';
 
@@ -19,8 +35,8 @@ import { connect } from 'react-redux';
 class ToRender extends React.Component {
   render() {
     let theme = this.props.theme === 'dark' ?
-        darkTheme :
-        lightTheme;
+        dark :
+        muiTheme;
     return (
       <MuiThemeProvider
         muiTheme={theme}
