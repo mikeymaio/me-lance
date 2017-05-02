@@ -3,6 +3,13 @@ import React, { Component } from 'react';
 import Stopwatch from './timer.component';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import moment from 'moment';
+
+import * as actions from './time-tracker.actions'
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 const options = {
   container: {
     backgroundColor: '#FFF',
@@ -22,7 +29,7 @@ const options = {
 };
 
 
-export default class TimeTracker extends Component {
+class TimeTracker extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,6 +40,7 @@ export default class TimeTracker extends Component {
     this.toggleStopwatch = this.toggleStopwatch.bind(this);
     this.resetStopwatch = this.resetStopwatch.bind(this);
     this.startTimer = this.startTimer.bind(this);
+    this.stopTimer = this.stopTimer.bind(this);
   }
 
   toggleStopwatch() {
@@ -45,8 +53,18 @@ export default class TimeTracker extends Component {
 
   startTimer() {
     this.toggleStopwatch();
-    // let startTime = new ;
-    // console.log(startTime);
+    let startTime = new Date;
+    const time = moment.unix(startTime);
+    console.log('startTime = '+time._i);
+    this.props.handleTimerStart(time._i);
+  }
+
+  stopTimer() {
+    this.toggleStopwatch();
+    let stopTime = new Date;
+    const time = moment.unix(stopTime);
+    console.log('endTime = '+time._i);
+    this.props.handleTimerStop(time._i);
   }
 
 
@@ -59,10 +77,27 @@ export default class TimeTracker extends Component {
           options={options}/>
           {!this.state.stopwatchStart ?
         <RaisedButton label="Start" onTouchTap={this.startTimer} /> :
-        <RaisedButton label="Stop" onTouchTap={this.toggleStopwatch} />
+        <RaisedButton label="Stop" onTouchTap={this.stopTimer} />
           }
         <RaisedButton label="Reset" onTouchTap={this.resetStopwatch} />
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        startTime: state.timeTrackerReducer.startTime,
+        stopTime: state.timeTrackerReducer.stopTime,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        handleTimerStart: actions.handleTimerStart,
+        handleTimerStop: actions.handleTimerStop,
+        },
+        dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TimeTracker);
