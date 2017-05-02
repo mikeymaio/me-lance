@@ -5,7 +5,10 @@ import App from './app/app';
 import store from './store';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import muiTheme from './my-theme';
+import lightTheme from './my-theme-light';
+import darkTheme from './my-theme-dark';
+
+import ToRender from './to-render.component';
 
 import './index.css';
 
@@ -13,13 +16,15 @@ import './index.css';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
+
+
+
+
+
 ReactDOM.render(
   <Provider store={store}>
-  <MuiThemeProvider
-    muiTheme={muiTheme}
-  >
-  <App />
-  </MuiThemeProvider>
+  <ToRender />
   </Provider>,
   document.getElementById('root')
 );
+

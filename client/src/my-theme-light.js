@@ -1,7 +1,15 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+const palette = {
+    primary1Color: '#007766',
+    primary2Color: '#fff',
+    accent1Color: '#ff6a00',
+    accent2Color: '#007766',
+    textColor: '#007766',
+    alternateTextColor: '#fff',
+  }
 
-const muiTheme = getMuiTheme({
+const lightTheme = getMuiTheme({
   palette: {
     primary1Color: '#007766',
     primary2Color: '#fff',
@@ -12,6 +20,8 @@ const muiTheme = getMuiTheme({
   },
   appBar: {
     height: 40,
+    // color: palette.primary1Color,
+    // textColor: palette.alternateTextColor,
   },
   tabs: {
       textColor: '#bbb',
@@ -41,4 +51,4 @@ const muiTheme = getMuiTheme({
   // },
 });
 
-export default muiTheme;
+export default lightTheme;
