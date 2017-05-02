@@ -44,3 +44,11 @@ const receiveUserData = (user) => ({
 const receiveData = () => ({
   type: 'RECEIVE_DATA',
 })
+
+export const handleSettingsView = view => {
+    const UPDATE_SETTINGS_VIEW = 'UPDATE_SETTINGS_VIEW';
+    return {
+        type: UPDATE_SETTINGS_VIEW,
+        view,
+    }
+}
