@@ -10,7 +10,7 @@ import DrawerMenu from '../drawer/drawer.component';
 import PopoverMenu from '../popover-menu/popover-menu.component';
 
 import LoginModal from '../login/login-modal.component';
-// import TimeTracker from '../time-tracker/time-tracker.component';
+import TimeTracker from '../time-tracker/time-tracker.component';
 
 import * as actions from './header.actions';
 import { connect } from 'react-redux';
@@ -37,8 +37,8 @@ class Header extends Component {
             onToggle={this.props.handleSession}
             labelPosition="right"
             style={{margin: 20, width: '30%', display: 'inline-block'}}
-          />
-          <TimeTracker style={{width: '42%', display: 'inline-block', float: 'right', marginTop: 15}}/>*/}
+          />*/}
+          <TimeTracker style={{width: '42%', display: 'inline-block', float: 'right', marginTop: 15}}/>
       </div>
     );
   }
