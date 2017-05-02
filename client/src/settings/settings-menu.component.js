@@ -2,11 +2,12 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import Toggle from 'material-ui/Toggle';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { handleSettingsView } from './settings.actions';
+import * as actions from './settings.actions';
 
 const style = {
   display: 'inline-block',
@@ -21,7 +22,17 @@ class SettingsMenu extends React.Component {
             <Menu>
                 <MenuItem primaryText="Edit User Info" onTouchTap={() => this.props.handleSettingsView('EDIT_USER')}/>
                 <MenuItem primaryText="Change Password" onTouchTap={() => this.props.handleSettingsView('EDIT_PASSWORD')}/>
-                <MenuItem primaryText="Change Theme" onTouchTap={() => this.props.handleSettingsView('EDIT_THEME')}/>
+                <MenuItem
+                //primaryText="Change Theme"
+                //onTouchTap={() => this.props.handleSettingsView('EDIT_THEME')}
+                children={<Toggle
+                    label="Change Theme"
+                    toggled={this.props.theme === 'dark' ? true : false}
+                    style={{paddingTop: 14}}
+                    onToggle={ ( event, isInputChecked ) => {
+                        isInputChecked ? this.props.handleThemeChange('dark') : this.props.handleThemeChange('light')
+                    }}
+                    />}/>
             </Menu>
             </Paper>
         )
@@ -37,13 +48,15 @@ function mapStateToProps(state) {
         // loginModalSlideIndex: state.loginReducer.loginModalSlideIndex,
         user: state.loginReducer.user,
         settingsView: state.settingsReducer.settingsView,
+        theme: state.settingsReducer.theme,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         // fetchDataFromApi: fetchDataFromApi,
-        handleSettingsView: handleSettingsView,
+        handleSettingsView: actions.handleSettingsView,
+        handleThemeChange: actions.handleThemeChange,
         },
         dispatch);
 }

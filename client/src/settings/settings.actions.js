@@ -27,6 +27,30 @@ export const handleUserUpdate = (userName, email, firstName, lastName, phone, ad
   };
 };
 
+export const handlePasswordUpdate = (oldPassword, password, userId) => {
+  return dispatch => {
+    dispatch(requestDataFromServer())
+
+    fetch(`/api/users/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        oldPassword,
+        password,
+        userId
+      }),
+      credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(res => {
+      return dispatch(receiveUserData(res.user))
+    })
+    .then( () => dispatch(receiveData()) )
+  };
+};
+
 const requestDataFromServer = () => ({
   type: 'REQUEST_DATA'
 })
@@ -50,5 +74,13 @@ export const handleSettingsView = view => {
     return {
         type: UPDATE_SETTINGS_VIEW,
         view,
+    }
+}
+
+export const handleThemeChange = theme => {
+    const UPDATE_THEME = 'UPDATE_THEME';
+    return {
+        type: UPDATE_THEME,
+        theme,
     }
 }

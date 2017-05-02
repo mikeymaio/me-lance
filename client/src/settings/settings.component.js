@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import UpdateUser from './update-user.component';
+import UpdatePassword from './update-password.component';
 import SettingsMenu from './settings-menu.component';
 
 class Settings extends React.Component {
@@ -30,6 +31,9 @@ class Settings extends React.Component {
         <SettingsMenu className="col-xs-3"/>
         {this.props.settingsView === 'EDIT_USER' ?
         <UpdateUser className="col-xs-9"/> : false }
+
+        {this.props.settingsView === 'EDIT_PASSWORD' ?
+        <UpdatePassword className="col-xs-9"/> : false }
       </div>
     );
   }

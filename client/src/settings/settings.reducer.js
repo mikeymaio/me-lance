@@ -1,5 +1,6 @@
 const initialState = {
         settingsView: '',
+        theme: 'light',
     }
 
 
@@ -12,11 +13,11 @@ const settingsReducer = (state=initialState, action) => {
                 settingsView: action.view,
                 // settingsEdit: false,
             }
-        // case 'UPDATE_INVOICE_EDIT':
-        //     return {
-        //         ...state,
-        //         invoiceEdit: !state.invoiceEdit,
-        //     }
+        case 'UPDATE_THEME':
+            return {
+                ...state,
+                theme: action.theme,
+            }
         default:
             return state;
         }
