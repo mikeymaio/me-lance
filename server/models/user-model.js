@@ -47,6 +47,10 @@ const UserSchema = mongoose.Schema({
         type: Array,
         default: []
     },
+    timerStart: {
+        type: Number,
+        default: 0
+    },
     dateCreated: {type: Date},
     dateModified: {type: Date}
 });
@@ -60,6 +64,7 @@ UserSchema.methods.apiRepr = function () {
         phone: this.phone || '',
         address: this.address || '',
         templates: this.templates || [],
+        timerStart: this.timerStart || 0,
         dateCreated: this.dateCreated || '',
         dateModified: this.dateModified || '',
         userId: this._id || '',
