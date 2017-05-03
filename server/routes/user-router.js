@@ -173,7 +173,7 @@ router.put('/:id', (req, res) => {
     res.status(400).json({message: message});
   }
   const toUpdate = {dateModified: new Date().toISOString()};
-  const updateableFields = ['firstName', 'lastName', 'userName', 'email', 'phone', 'address', 'dateModified', 'templates'];
+  const updateableFields = ['firstName', 'lastName', 'userName', 'email', 'phone', 'address', 'dateModified', 'templates', 'timerStart'];
 
   updateableFields.forEach(field => {
     if (field in req.body) {
@@ -187,7 +187,7 @@ router.put('/:id', (req, res) => {
     .then(user => res.status(200).json({
       user: user.apiRepr()
     }).end())
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
+    .catch(err => res.status(500).json({message: 'Internal server error: ' + err}));
 });
 
 // UPDATE USER PASSWORD

@@ -211,18 +211,10 @@ componentDidMount() {
     return (
       <div style={{width: '100%'}}>
         <div style={{margin: 0, width: "100%", height: 40, position: "relative", zIndex: 2000}}>
-        {/*<a
-          href="#"
-          style={{fontSize: 16, paddingTop: 5, float: "left", color: "#076"}}
-          onClick={e => {
-          e.preventDefault();
-          this.props.handleInvoiceView("invoiceList")
-          }} >
-          back
-        </a>*/}
-        <FlatButton label="<- Back" backgroundColor='transparent' style={{margin: 0, float: "left"}} onTouchTap={() => this.props.handleInvoiceView("invoiceList")} />
-
-        <RaisedButton label="Export" backgroundColor='#fff' labelColor="#076" style={{margin: 0, float: "right"}} onTouchTap={this.saveToComputer} />
+          <FlatButton label="<- Back" backgroundColor='transparent' style={{margin: 0, float: "left"}} onTouchTap={() =>      this.props.handleInvoiceView("invoiceList")}
+          />
+          <RaisedButton label="Export" backgroundColor='#fff' labelColor="#076" style={{margin: 0, float: "right"}}           onTouchTap={this.saveToComputer}
+          />
         </div>
 
 

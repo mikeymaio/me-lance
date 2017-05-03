@@ -311,6 +311,7 @@ class LoginModal extends React.Component {
               //validations="isAlphanumeric"
               //validationError={alphaNumError}
               //required
+              multiLine={true}
               hintText="123 Main St Somewhere CA 90026"
               floatingLabelText="Address"
             />

@@ -3,6 +3,15 @@ import React, { Component } from 'react';
 import Stopwatch from './timer.component';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import moment from 'moment';
+
+import * as actions from './time-tracker.actions'
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import TimeTrackerModal from './time-tracker-modal.component';
+
 const options = {
   container: {
     backgroundColor: '#FFF',
@@ -22,7 +31,7 @@ const options = {
 };
 
 
-export default class TimeTracker extends Component {
+class TimeTracker extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,6 +42,7 @@ export default class TimeTracker extends Component {
     this.toggleStopwatch = this.toggleStopwatch.bind(this);
     this.resetStopwatch = this.resetStopwatch.bind(this);
     this.startTimer = this.startTimer.bind(this);
+    this.stopTimer = this.stopTimer.bind(this);
   }
 
   toggleStopwatch() {
@@ -45,24 +55,54 @@ export default class TimeTracker extends Component {
 
   startTimer() {
     this.toggleStopwatch();
-    // let startTime = new ;
-    // console.log(startTime);
+    let startTime = new Date().getTime();
+    // const time = moment.unix(startTime);
+    console.log('startTime = '+startTime);
+    this.props.handleTimerStart(startTime);
+  }
+
+  stopTimer() {
+    this.toggleStopwatch();
+    let stopTime = new Date().getTime();
+    // const time = moment.unix(stopTime);
+    console.log('endTime = '+stopTime);
+    this.props.handleTimerStop(stopTime);
+    this.props.handleTimeModal();
   }
 
 
   render() {
     return (
-      <div style={this.props.style}>
+      <div style={this.props.style} className="col-xs-12">
         <h5 style={{display: "inline-block", color: "#076", marginRight: 0}} >Timetracker</h5>
         <Stopwatch msecs start={this.state.stopwatchStart}
           reset={this.state.stopwatchReset}
           options={options}/>
           {!this.state.stopwatchStart ?
         <RaisedButton label="Start" onTouchTap={this.startTimer} /> :
-        <RaisedButton label="Stop" onTouchTap={this.toggleStopwatch} />
+        <RaisedButton label="Stop" onTouchTap={this.stopTimer} />
           }
         <RaisedButton label="Reset" onTouchTap={this.resetStopwatch} />
+        <TimeTrackerModal />
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        timerStart: state.timeTrackerReducer.timerStart,
+        timerStop: state.timeTrackerReducer.timerStop,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        handleTimerStart: actions.handleTimerStart,
+        handleTimerStop: actions.handleTimerStop,
+        handleTimeModal: actions.handleTimeModal,
+        },
+        dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TimeTracker);

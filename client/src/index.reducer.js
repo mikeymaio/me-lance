@@ -9,6 +9,7 @@ import drawerReducer from './drawer/drawer.reducer';
 import appReducer from './app/app.reducer';
 import settingsReducer from './settings/settings.reducer';
 import chartsReducer from './dashboard/charts/charts.reducer';
+import timeTrackerReducer from './time-tracker/time-tracker.reducer'
 
 
 const indexReducer = combineReducers({
@@ -22,6 +23,7 @@ const indexReducer = combineReducers({
     drawerReducer,
     settingsReducer,
     chartsReducer,
+    timeTrackerReducer
 });
 
 
