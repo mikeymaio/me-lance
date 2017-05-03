@@ -73,7 +73,7 @@ class TimeTracker extends Component {
 
   render() {
     return (
-      <div style={this.props.style}>
+      <div style={this.props.style} className="col-xs-12">
         <h5 style={{display: "inline-block", color: "#076", marginRight: 0}} >Timetracker</h5>
         <Stopwatch msecs start={this.state.stopwatchStart}
           reset={this.state.stopwatchReset}
@@ -91,8 +91,8 @@ class TimeTracker extends Component {
 
 function mapStateToProps(state) {
     return {
-        startTime: state.timeTrackerReducer.startTime,
-        stopTime: state.timeTrackerReducer.stopTime,
+        timerStart: state.timeTrackerReducer.timerStart,
+        timerStop: state.timeTrackerReducer.timerStop,
     };
 }
 

@@ -1,6 +1,6 @@
 const initialState = {
-        startTime: 0,
-        stopTime: 0,
+        timerStart: 0,
+        timerStop: 0,
         isTimeModalOpen: false
     }
 
@@ -11,18 +11,18 @@ const timeTrackerReducer = (state=initialState, action) => {
         case 'UPDATE_START_TIME':
             return {
                 ...state,
-                startTime: action.time,
+                timerStart: action.time,
             }
         case 'UPDATE_STOP_TIME':
             return {
                 ...state,
-                stopTime: action.time,
+                timerStop: action.time,
             }
         case 'TASK_COMPLETED':
             return {
                 ...state,
-                startTime: 0,
-                stopTime: 0,
+                timerStart: 0,
+                timerStop: 0,
             }
         case 'UPDATE_TIME_MODAL':
             return {

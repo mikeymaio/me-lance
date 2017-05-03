@@ -187,8 +187,8 @@ class TimeTrackerModal extends React.Component {
           open={this.props.isTimeModalOpen}
           //onRequestClose={this.props.handleLoginModal}
         >
-        {console.log(this.props.stopTime - this.props.startTime)}
-        Add { this.convertTimeToHours(this.props.stopTime, this.props.startTime) } hours to...
+        {console.log(this.props.timerStop - this.props.timerStart)}
+        Add { this.convertTimeToHours(this.props.timerStop, this.props.timerStart) } hours to...
         <br />
         <Formsy.Form
             id="add-time-form"
@@ -218,7 +218,7 @@ class TimeTrackerModal extends React.Component {
             />
             <FormsyText
                 name="time"
-                value={this.convertTimeToHours(this.props.stopTime, this.props.startTime)}
+                value={this.convertTimeToHours(this.props.timerStop, this.props.timerStart)}
                 style={{visibility: "hidden"}}
             />
             </Formsy.Form>
@@ -232,8 +232,8 @@ function mapStateToProps(state) {
     return {
         userId: state.loginReducer.user.userId,
         clients: state.clientReducer.clients,
-        startTime: state.timeTrackerReducer.startTime,
-        stopTime: state.timeTrackerReducer.stopTime,
+        timerStart: state.timeTrackerReducer.timerStart,
+        timerStop: state.timeTrackerReducer.timerStop,
         isTimeModalOpen: state.timeTrackerReducer.isTimeModalOpen,
     };
 }
@@ -245,6 +245,7 @@ function mapDispatchToProps(dispatch) {
         handleTimeModal: actions.handleTimeModal,
         handleAddInvoice: handleAddInvoice,
         handleUpdateInvoice: handleUpdateInvoice,
+        handleClearStartTime: actions.handleClearStartTime
         },
         dispatch);
 }
