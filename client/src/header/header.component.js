@@ -23,7 +23,8 @@ class Header extends Component {
       <div>
           <AppBar
           title="Freelancer"
-          style={{backgroundColor: '#007766',
+          style={{
+            //backgroundColor: '#007766',
                   //height: 150,
                   padding: 20,}}
           //iconElementLeft={<IconButton><NavigationClose /></IconButton>}
