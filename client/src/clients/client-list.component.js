@@ -133,6 +133,7 @@ constructor(props) {
                             disabled={!this.props.clientEdit}
                             underlineDisabledStyle={{display: 'none'}}
                             textareaStyle={{marginBottom: -5}}
+                            floatingLabelStyle={{left: 0}}
                             />
                             <Divider inset={false} style={{color: "#076", height: 3}} />
                             { this.props.clientEdit ?

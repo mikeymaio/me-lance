@@ -28,12 +28,14 @@ class Settings extends React.Component {
 
     return (
       <div className="col-xs-12">
-        <SettingsMenu className="col-xs-3"/>
-        {this.props.settingsView === 'EDIT_USER' ?
-        <UpdateUser className="col-xs-9"/> : false }
+        {/*<SettingsMenu className="col-xs-3"/>*/}
+        {/*{this.props.settingsView === 'EDIT_USER' ?*/}
+        <UpdateUser className="col-xs-9"/>
+        {/*: false*/}
+        {/*}*/}
 
-        {this.props.settingsView === 'EDIT_PASSWORD' ?
-        <UpdatePassword className="col-xs-9"/> : false }
+        {/*{this.props.settingsView === 'EDIT_PASSWORD' ?
+        <UpdatePassword className="col-xs-9"/> : false }*/}
       </div>
     );
   }

@@ -218,6 +218,7 @@ class UpdateUser extends React.Component {
               multiLine={true}
               hintText="123 Main St Somewhere CA 90026"
               floatingLabelText="Address"
+              floatingLabelStyle={{left: 15}}
             />
             {/*<br />*/}
             <div className="col-xs-9 col-xs-offset-3">
