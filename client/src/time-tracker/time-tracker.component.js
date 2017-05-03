@@ -10,6 +10,8 @@ import * as actions from './time-tracker.actions'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import TimeTrackerModal from './time-tracker-modal.component';
+
 const options = {
   container: {
     backgroundColor: '#FFF',
@@ -53,18 +55,19 @@ class TimeTracker extends Component {
 
   startTimer() {
     this.toggleStopwatch();
-    let startTime = new Date;
-    const time = moment.unix(startTime);
-    console.log('startTime = '+time._i);
-    this.props.handleTimerStart(time._i);
+    let startTime = new Date().getTime();
+    // const time = moment.unix(startTime);
+    console.log('startTime = '+startTime);
+    this.props.handleTimerStart(startTime);
   }
 
   stopTimer() {
     this.toggleStopwatch();
-    let stopTime = new Date;
-    const time = moment.unix(stopTime);
-    console.log('endTime = '+time._i);
-    this.props.handleTimerStop(time._i);
+    let stopTime = new Date().getTime();
+    // const time = moment.unix(stopTime);
+    console.log('endTime = '+stopTime);
+    this.props.handleTimerStop(stopTime);
+    this.props.handleTimeModal();
   }
 
 
@@ -80,6 +83,7 @@ class TimeTracker extends Component {
         <RaisedButton label="Stop" onTouchTap={this.stopTimer} />
           }
         <RaisedButton label="Reset" onTouchTap={this.resetStopwatch} />
+        <TimeTrackerModal />
       </div>
     );
   }
@@ -96,6 +100,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleTimerStart: actions.handleTimerStart,
         handleTimerStop: actions.handleTimerStop,
+        handleTimeModal: actions.handleTimeModal,
         },
         dispatch);
 }

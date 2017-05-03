@@ -87,3 +87,10 @@ export const handleTimerStop = time => {
         time,
     }
 }
+
+export function handleTimeModal() {
+    const UPDATE_TIME_MODAL = 'UPDATE_TIME_MODAL';
+    return {
+        type: UPDATE_TIME_MODAL,
+    }
+}
