@@ -35,6 +35,27 @@ const muiTheme = getMuiTheme({
   },
 });
 
+const muiDarkTheme = getMuiTheme({
+  palette: {
+    primary1Color: '#007766',
+    primary2Color: '#222',
+    accent1Color: '#fff',
+    accent2Color: '#007766',
+    textColor: '#007766',
+    alternateTextColor: '#222',
+
+  },
+  datePicker: {
+    color: '#ccc',
+    textColor: '#222',
+    calendarTextColor: '#076',
+    selectColor: '#076',
+    selectTextColor: '#eee',
+    calendarYearBackgroundColor: '#222',
+    disabledTextColor: '#076',
+  },
+});
+
 const light = getMuiTheme(lightBaseTheme)
 const dark = getMuiTheme(darkBaseTheme)
 
