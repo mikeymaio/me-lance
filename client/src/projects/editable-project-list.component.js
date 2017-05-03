@@ -257,6 +257,7 @@ componentDidMount() {
                             mode="landscape"
                             defaultDate={new Date(project.startDate)}
                             autoOk={true}
+                            firstDayOfWeek={0}
                             disabled={!this.props.projectEdit}
                             textFieldStyle={styles.datePicker}
                             underlineDisabledStyle={{display: 'none'}}
@@ -271,6 +272,7 @@ componentDidMount() {
                             mode="landscape"
                             defaultDate={new Date(project.endDate)}
                             autoOk={true}
+                            firstDayOfWeek={0}
                             disabled={!this.props.projectEdit}
                             textFieldStyle={styles.datePicker}
                             underlineDisabledStyle={{display: 'none'}}

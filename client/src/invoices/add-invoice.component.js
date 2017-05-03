@@ -101,7 +101,8 @@ class AddInvoice extends React.Component {
                 Invoice #: {project.invoices.length + 1}
               </TableHeaderColumn>
               <TableHeaderColumn colSpan="6" tooltip="Billing Period" style={{textAlign: 'left'}}>
-                Billing Period: <DatePicker name="billingPeriodStart" hintText="From" /> - <DatePicker name="billingPeriodEnd" hintText="To"/>
+                Billing Period: <DatePicker name="billingPeriodStart" hintText="From" container="inline"
+                mode="landscape" autoOk={true} firstDayOfWeek={0} /> - <DatePicker name="billingPeriodEnd" hintText="To" container="inline" mode="landscape" autoOk={true} firstDayOfWeek={0} />
               </TableHeaderColumn>
             </TableRow>
             <TableRow>

@@ -23,6 +23,7 @@ class MuiEditableTable extends React.Component {
             colSpec: [],
             reorderable: false,
             editable: false,
+            mode: "landscape",
             onChange: function () {
             }
         };
@@ -40,6 +41,7 @@ class MuiEditableTable extends React.Component {
                 colSpec: this.props.colSpec,
                 reorderable: this.props.reorderable || false,
                 editable: this.props.editable || false,
+                mode: this.props.mode || "landscape",
                 onChange: this.props.onChange
             }
         );
@@ -186,6 +188,7 @@ class MuiEditableTable extends React.Component {
                     value={column.fieldName in rowData ? rowData[column.fieldName] : new Date() }
                     formatDate={ column.formatDate }
                     firstDayOfWeek={this.props.firstDayOfWeek || 0}
+                    mode={this.state.mode}
                     autoOk={this.props.autoOk || true}
                     disabled={!this.props.editable}
                     //textFieldStyle={{textDecoration: "none", underline: "none"}}
