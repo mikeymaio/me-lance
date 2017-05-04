@@ -13,6 +13,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 // From https://github.com/oliviertassinari/react-swipeable-views
 import SwipeableViews from 'react-swipeable-views';
 
+import { handleDashboardSlides } from './dashboard.actions';
 import { fetchUserClients } from '../clients/clients.actions';
 
 import { connect } from 'react-redux';
@@ -33,19 +34,6 @@ const styles = {
 
 class Dashboard extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      slideIndex: 0,
-    };
-
-
-  this.handleChange = (value) => {
-    this.setState({
-      slideIndex: value,
-    });
-  };
-  }
   componentDidMount() {
     this.props.fetchUserClients(this.props.userId)
   }
@@ -54,8 +42,10 @@ class Dashboard extends React.Component {
     return (
       <div style={{marginBottom: 20}}>
         <Tabs
-          onChange={this.handleChange}
-          value={this.state.slideIndex}
+          onChange={this.props.handleDashboardSlides}
+          value={this.props.dashboardSlideIndex}
+          //onChange={this.handleChange}
+          //value={this.state.slideIndex}
           tabItemContainerStyle={{background: '#fff'}}
         >
           <Tab label="Time Use" value={0} buttonStyle={{color: '#076'}} style={{wordBreak: 'break-word', wordWrap: 'break-word', whiteSpace: 'normal'}} />
@@ -63,8 +53,8 @@ class Dashboard extends React.Component {
           <Tab label="Hours Per Day" value={2} buttonStyle={{color: '#076'}} style={{wordBreak: 'break-word', wordWrap: 'break-word', whiteSpace: 'normal'}} />
         </Tabs>
         <SwipeableViews
-          index={this.state.slideIndex}
-          onChangeIndex={this.handleChange}
+          index={this.props.dashboardSlideIndex}
+          onChangeIndex={this.props.handleDashboardSlides}
           style={{maxHeight: 400, background: "#fff"}}
         >
           {/*<div style={styles.slide}>
@@ -105,6 +95,7 @@ class Dashboard extends React.Component {
 function mapStateToProps(state) {
     return {
         clients: state.clientReducer.clients,
+        dashboardSlideIndex: state.dashboardReducer.dashboardSlideIndex,
         // clientEdit: state.clientReducer.clientEdit,
         // isLoading: state.clientReducer.isLoading,
         statsView: state.chartsReducer.statsView,
@@ -115,6 +106,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchUserClients: fetchUserClients,
+        handleDashboardSlides: handleDashboardSlides,
         },
         dispatch);
 }

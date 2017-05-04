@@ -10,11 +10,13 @@ import appReducer from './app/app.reducer';
 import settingsReducer from './settings/settings.reducer';
 import chartsReducer from './dashboard/charts/charts.reducer';
 import timeTrackerReducer from './time-tracker/time-tracker.reducer'
+import dashboardReducer from './dashboard/dashboard.reducer';
 
 
 const indexReducer = combineReducers({
     appReducer,
     headerReducer,
+    dashboardReducer,
     menuReducer,
     clientReducer,
     invoiceReducer,
