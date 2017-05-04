@@ -9,9 +9,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import MainMenu from '../menu/menu.component';
+
 import FlatButton from 'material-ui/FlatButton';
 
 import Divider from 'material-ui/Divider';
+
+import { handleLogout } from '../login/login.actions';
+
+import { handleMenuItemSelect } from '../menu/menu.actions';
 
 class DrawerMenu extends React.Component {
 
@@ -38,16 +43,17 @@ class DrawerMenu extends React.Component {
           open={this.props.isDrawerOpen}
           onRequestChange={this.props.handleDrawer}
         >
-        <FlatButton label="X" className="pull-right" onTouchTap={this.props.handleDrawer} />
-          <h4 className="pull-left">Freelancer</h4>
+        <div style={{backgroundColor: '#076', height: 40}} >
+          <FlatButton label="X" className="pull-right" onTouchTap={this.props.handleDrawer} style={{color: '#FFF'}}/>
+          <h4 className="pull-left" style={{color: '#FFF', marginLeft: 20}} >Freelancer</h4>
+          </div>
           <Divider style={{height: 3}} />
-          <MainMenu style={{width: "100%", float: "left"}} menuItemStyle={{display: "block", width: "100%", float: "left"}} />
-          <Divider style={{height: 3}} />
+          <MainMenu id="menu-drawer" style={{width: "100%", float: "left"}} menuItemStyle={{display: "block", width: "100%", float: "left"}} />
           <Menu>
-            <MenuItem value="1" primaryText="Settings" />
+            <MenuItem value="1" primaryText="My Info" onTouchTap={() => this.props.handleMenuItemSelect('settings')}/>
             <MenuItem value="2" primaryText="Help" />
             <MenuItem value="3" primaryText="Send feedback" />
-            <MenuItem value="4" primaryText="Sign out" />
+            <MenuItem value="4" primaryText="Sign out" onTouchTap={this.props.handleLogout} />
           </Menu>
         </Drawer>
       </div>
@@ -64,6 +70,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleDrawer: actions.handleDrawer,
+        // handleSession: actions.handleSession,
+        handleLogout: handleLogout,
+        handleMenuItemSelect: handleMenuItemSelect,
         },
         dispatch);
 }

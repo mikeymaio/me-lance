@@ -58,7 +58,7 @@ class BarChart extends React.Component {
   render() {
     getData(this.props.clients);
     return (
-      <div className="col-xs-8">
+      <div className="col-xs-12">
         <Chart
           chartType="ColumnChart"
           //rows={this.state.rows}

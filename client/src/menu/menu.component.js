@@ -35,7 +35,7 @@ class MainMenu extends React.Component {
 
   render() {
     return (
-      <div id="main-menu" style={{marginBottom: 10}}>
+      <div id={this.props.id} style={{marginBottom: 10}}>
         <Paper style={{width:'100%'}}>
               <Menu autoWidth={this.props.autoWidth} width={this.props.width} listStyle={this.props.listStyle} style={this.props.style}>
                 <MenuItem

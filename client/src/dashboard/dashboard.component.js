@@ -27,6 +27,7 @@ const styles = {
   },
   slide: {
     padding: 0,
+    overflow: 'hidden',
   },
 };
 
@@ -51,39 +52,47 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{marginBottom: 20}}>
         <Tabs
           onChange={this.handleChange}
           value={this.state.slideIndex}
           tabItemContainerStyle={{background: '#fff'}}
         >
-          <Tab label="Rundown" value={0} buttonStyle={{color: '#076'}}/>
-          <Tab label="Stats" value={1} buttonStyle={{color: '#076'}} />
+          <Tab label="Time Use" value={0} buttonStyle={{color: '#076'}} style={{wordBreak: 'break-word', wordWrap: 'break-word', whiteSpace: 'normal'}} />
+          <Tab label="Time to Income" value={1} buttonStyle={{color: '#076'}} style={{wordBreak: 'break-word', wordWrap: 'break-word', whiteSpace: 'normal'}} />
+          <Tab label="Hours Per Day" value={2} buttonStyle={{color: '#076'}} style={{wordBreak: 'break-word', wordWrap: 'break-word', whiteSpace: 'normal'}} />
         </Tabs>
         <SwipeableViews
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}
           style={{maxHeight: 400, background: "#fff"}}
         >
-          <div style={styles.slide}>
+          {/*<div style={styles.slide}>
             <p>Here's the deal...</p>
-          </div>
+          </div>*/}
           <div style={styles.slide}>
             {/*<div>*/}
-              <ChartsMenu className="col-xs-3"
+              {/*<ChartsMenu className="col-xs-3"
               //autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}}
-              />
-              { this.props.statsView === 'TIME_USE' ?
-              <PieChart /> : false
-              }
-              { this.props.statsView === 'TIME_VS_INCOME' ?
-              <BarChart /> : false
-              }
-              { this.props.statsView === 'HRS_PER_DAY' ?
-              <PieChart2 /> : false
-              }
-            {/*</div>*/}
-          </div>
+              />*/}
+              {/*{ this.props.statsView === 'TIME_USE' ?*/}
+              <PieChart />
+              {/*: false*/}
+              {/*}*/}
+              </div>
+              <div style={styles.slide}>
+              {/*{ this.props.statsView === 'TIME_VS_INCOME' ?*/}
+              <BarChart />
+              {/*: false*/}
+              {/*}*/}
+              </div>
+              <div style={styles.slide}>
+              {/*{ this.props.statsView === 'HRS_PER_DAY' ?*/}
+              <PieChart2 />
+              {/*: false*/}
+              {/*}*/}
+              </div>
+          {/*</div>*/}
         </SwipeableViews>
       </div>
     );

@@ -49,7 +49,7 @@ class PieChart extends React.Component {
   render() {
     getData(this.props.clients);
     return (
-      <div className="col-xs-8">
+      <div className="col-xs-12">
       <Chart
         chartType="PieChart"
         data={data.dataArray}
