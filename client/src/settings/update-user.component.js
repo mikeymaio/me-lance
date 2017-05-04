@@ -228,7 +228,7 @@ class UpdateUser extends React.Component {
                 onTouchTap={this.props.handleLoginModal}
             />
             <RaisedButton
-                label="Submit"
+                label="Save"
                 form="signup-form"
                 type="submit"
                 primary={true}

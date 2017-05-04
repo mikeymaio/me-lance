@@ -219,6 +219,7 @@ class LoginModal extends React.Component {
               hintText="demo123"
               type="password"
               floatingLabelText="Password"
+              required
             />
           </Formsy.Form>
           </div>

@@ -173,7 +173,7 @@ class TimeTrackerModal extends React.Component {
         onTouchTap={this.handleClose}
         style={submitStyle}
         type="submit"
-        label="Submit"
+        label="Save"
         disabled={!this.state.canSubmit}
       />,
     ];
@@ -185,6 +185,7 @@ class TimeTrackerModal extends React.Component {
           actions={actions}
           modal={true}
           open={this.props.isTimeModalOpen}
+          //contentStyle={{textAlign: 'center'}}
           //onRequestClose={this.props.handleLoginModal}
         >
         {console.log(this.props.timerStop - this.props.timerStart)}
