@@ -49,31 +49,19 @@ export function handleInvoiceEdit() {
     }
 }
 
-
-
-
 const requestDataFromServer = () => ({
   type: 'REQUEST_INVOICE_DATA'
 })
 
-// const receiveProjectDataFromServer = (projects) => ({
-//   type: 'RECEIVE_PROJECT_DATA',
-//   projects
-// })
-
-const receiveClientDataFromServer = (clients) => ({
+const receiveClientDataFromServer = clients => ({
   type: 'RECEIVE_CLIENT_DATA',
   clients
 })
 
-
-
-// const updateInvoiceData = (invoices) => ({
-//   type: 'UPDATE_INVOICE_DATA',
-//   invoices
-// })
-
-
+const receiveData = message => ({
+  type: 'RECEIVE_DATA',
+  message
+})
 
 export const handleAddInvoice = (invoiceNo, billingPeriodStart, billingPeriodEnd, tasks, userId, clientId, projectId) => {
     console.log('handleAddInvoicefired: ');
@@ -94,8 +82,8 @@ export const handleAddInvoice = (invoiceNo, billingPeriodStart, billingPeriodEnd
       }),
       credentials: 'include'
     })
-    // .then(response => response.json())
-    // .then(() =>  dispatch(addClientSuccess()))
+    .then(response => response.json())
+    .then( res =>  dispatch(receiveData(res.message)))
     .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
@@ -128,7 +116,8 @@ export const handleUpdateInvoice = (tasks, tax, userId, clientId, projectId, inv
       }),
       credentials: 'include'
     })
-    // .then( () => dispatch(handleInvoiceEdit()))
+    .then(response => response.json())
+    .then( res =>  dispatch(receiveData(res.message)))
     .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
@@ -162,7 +151,8 @@ export const handleDeleteInvoice = (userId, clientId, projectId, invoiceId) => {
       }),
       credentials: 'include'
     })
-    // .then(response => response.text())
+    .then(response => response.json())
+    .then( res =>  dispatch(receiveData(res.message)))
     .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {

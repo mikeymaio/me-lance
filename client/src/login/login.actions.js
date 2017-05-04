@@ -22,6 +22,11 @@ const receiveDataFromServer = (user) => ({
   user
 })
 
+const receiveData = (message) => ({
+  type: 'RECEIVE_DATA',
+  message
+})
+
 const receiveErrorFromServer = (error) => ({
   type: 'RECEIVE_ERROR',
   error
@@ -51,6 +56,7 @@ export const handleLogin = (username, password) => {
     .then(response => response.json() )
     .then(res => {
       if (res.user) {
+      dispatch(receiveData(res.message));
       return dispatch(receiveDataFromServer(res.user))
     }
     return dispatch(receiveErrorFromServer(res.error))

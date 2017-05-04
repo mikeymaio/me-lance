@@ -3,18 +3,15 @@ const requestDataFromServer = () => ({
   type: 'REQUEST_DATA'
 })
 
-const receiveData = () => ({
+const receiveData = (message) => ({
   type: 'RECEIVE_DATA',
+  message
 })
 
 const receiveClientDataFromServer = (clients) => ({
   type: 'RECEIVE_CLIENT_DATA',
   clients
 })
-
-// const completeUpdate = () => {
-//   type: 'COMPLETE_UPDATE'
-// }
 
 const updateClientData = (clients) => ({
   type: 'UPDATE_CLIENT_DATA',
@@ -77,9 +74,12 @@ export const handleAddClient = (firstName, lastName, company, phone, email, addr
       credentials: 'include'
     })
     .then(response => response.json())
-    .then(res => dispatch(updateClientData(res)))
-  }
-}
+    .then(res => {
+      dispatch(receiveData(res.message));
+      return dispatch(updateClientData(res.client))
+    });
+  };
+};
 
 export const handleUpdateClient = (firstName, lastName, company, phone, email, address, clientId, userId) => {
     console.log('handleUpdateClient fired with client name:', firstName, lastName)
@@ -102,7 +102,8 @@ export const handleUpdateClient = (firstName, lastName, company, phone, email, a
       }),
       credentials: 'include'
     })
-    // .then(response => response.text())
+    .then(response => response.json())
+    .then(res => dispatch(receiveData(res.message)))
     .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
@@ -133,7 +134,8 @@ export const handleDeleteClient = (clientId, userId) => {
       }),
       credentials: 'include'
     })
-    .then(response => response.text())
+    .then(response => response.json())
+    .then(res => dispatch(receiveData(res.message)))
     .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {

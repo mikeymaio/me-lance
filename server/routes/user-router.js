@@ -159,7 +159,8 @@ router.post('/login', function(req, res, next) {
     });
       }
       return res.status(200).json({
-      user: req.user.apiRepr()
+      user: req.user.apiRepr(),
+      message: `Welcome ${req.user.firstName}!`
     });
     });
   })(req, res, next);
@@ -198,8 +199,9 @@ router.put('/:id', (req, res) => {
   User
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
     .exec()
-    .then(user => res.status(200).json({
-      user: user.apiRepr()
+    .then(user => res.status(201).json({
+      user: user.apiRepr(),
+      message: 'Success! Your info has been updated'
     }).end())
     .catch(err => res.status(500).json({message: 'Internal server error: ' + err}));
 });
@@ -241,7 +243,8 @@ router.put('/:id/password', (req, res) => {
       .findByIdAndUpdate(req.params.id, {$set: toUpdate})
       .exec()
       .then(user => res.status(200).json({
-        user: user.apiRepr()
+        user: user.apiRepr(),
+        message: 'Success!'
       }).end())
       .catch(err => res.status(500).json({message: 'Internal server error: ' + err}));
       }

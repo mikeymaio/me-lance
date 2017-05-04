@@ -25,6 +25,8 @@ import Loader from '../loader/loader.component';
 
 import TimeTracker from '../time-tracker/time-tracker.component';
 
+import Notification from '../notifications/notification.component';
+
 
 import './app.css';
 
@@ -64,6 +66,7 @@ class App extends Component {
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceDetail' ? <InvoiceDetail /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'addInvoice' ? <AddInvoice /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'settings' ? <Settings /> : false}
+            <Notification />
           </div>
         </div>
         </div>

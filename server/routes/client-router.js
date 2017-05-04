@@ -76,7 +76,7 @@ router.post('/', (req, res) => {
       userId: req.body.userId
     })
     .then(
-      client => res.status(201).json(client.apiRepr()))
+      client => res.status(201).json({client: client.apiRepr(), message: `Success! ${client.firstName} ${client.lastName} has been added to your client list` }))
     .catch(err => {
       console.error('error on 82 = ' + err);
       res.status(500).json({message: 'Internal server error'});
@@ -114,7 +114,7 @@ router.put('/:id', (req, res) => {
   Client
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
     .exec()
-    .then(client => res.status(204).end())
+    .then(client => res.status(201).json({message: `Success! ${client.firstName} ${client.lastName}'s info has been updated`}).end())
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
@@ -130,7 +130,7 @@ router.delete('/:id', (req, res) => {
   Client
   .findByIdAndRemove(clientId)
   .exec()
-  .then(client => res.status(204).json({message: client}).end())
+  .then(client => res.status(201).json({message: `Success! ${client.firstName} ${client.lastName} has been deleted`}).end())
   .catch(err => res.status(500).json({message: 'Internal server error: ' + err }));
 });
 
@@ -157,7 +157,7 @@ router.post('/:id/projects', (req, res) => {
   Client
     .findByIdAndUpdate(clientId, {$push: {"projects": newProject}})
     .exec()
-    .then(client => res.status(204).end())
+    .then( () => res.status(201).json({message: `Success! Project added`}).end())
     .catch(err => res.status(500).json({message: 'error on 162 = ' + err}));
 });
 
@@ -202,9 +202,7 @@ router.put('/:id/projects/:projectId', (req, res) => {
       const updatedProjects = client.projects;
       return Client.update({_id: clientId}, {$set: {projects: updatedProjects}});
     })
-    .then( () => {
-      res.status(200).json({message: 'Success!'});
-    })
+    .then( () => res.status(201).json({message: `Success! Project updated`}).end())
     .catch(err => res.status(500).json({message: 'error on 214 = ' + err}));
 });
 
@@ -225,7 +223,7 @@ router.delete('/:id/projects/:projectId', (req, res) => {
     }
   }, {new: true})
   .exec()
-  .then( () => res.status(200).json({message: 'Success!'}).end() )
+  .then( () => res.status(201).json({message: `Success! Project deleted`}).end())
   .catch(err => res.status(500).json({message: 'Something went wrong: ' + err}));
 });
 
@@ -270,7 +268,7 @@ router.post('/:id/projects/:projectId/invoices', (req, res) => {
       return Client.update({_id: clientId}, {$set: {projects: updatedInvoices}});
     })
     .then( () => {
-      res.status(200).json({message: 'Success!'});
+      res.status(201).json({message: `Success! Invoice added`}).end()
     })
     .catch(err => res.status(500).json({message: 'error on 214 = ' + err}));
 });
@@ -328,7 +326,7 @@ router.put('/:id/projects/:projectId/invoices/:invoiceId', (req, res) => {
       return Client.update({_id: clientId}, {$set: {projects: updatedInvoices}});
     })
     .then( () => {
-      res.status(200).json({message: 'Success!'});
+      res.status(201).json({message: `Success! Invoice updated`}).end()
     })
     .catch(err => res.status(500).json({message: 'error on 214 = ' + err}));
 });
@@ -365,7 +363,7 @@ Client
     return Client.update({_id: clientId}, {$set: {projects: updatedInvoices}});
   })
   // .exec()
-  .then( () => res.status(200).json({message: 'Success!'}).end() )
+  .then( () => res.status(201).json({message: `Success! Invoice deleted`}).end() )
   .catch(err => res.status(500).json({message: 'Something went wrong: ' + err}));
 });
 

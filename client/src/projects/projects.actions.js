@@ -3,14 +3,19 @@ const requestDataFromServer = () => ({
   type: 'REQUEST_PROJECT_DATA'
 })
 
-const receiveProjectDataFromServer = (projects) => ({
+const receiveProjectDataFromServer = projects => ({
   type: 'RECEIVE_PROJECT_DATA',
   projects
 })
 
-const receiveClientDataFromServer = (clients) => ({
+const receiveClientDataFromServer = clients => ({
   type: 'RECEIVE_CLIENT_DATA',
   clients
+})
+
+const receiveData = message => ({
+  type: 'RECEIVE_DATA',
+  message
 })
 
 export function handleProjectDetailModal() {
@@ -61,8 +66,8 @@ export const handleAddProject = (clientName, projectName, rate, ratePer, notes, 
       }),
       credentials: 'include'
     })
-    // .then(response => response.json())
-    // .then(() =>  dispatch(addClientSuccess()))
+    .then(response => response.json())
+    .then(res =>  dispatch(receiveData(res.message)))
     .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
@@ -134,8 +139,8 @@ export const handleUpdateProject = (projectName, rate, ratePer, notes, startDate
       }),
       credentials: 'include'
     })
-    // .then(response => response.json())
-    // .then(res => {console.log(res); dispatch(updateProjectData(res))})
+    .then(response => response.json())
+    .then(res =>  dispatch(receiveData(res.message)))
     .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {
@@ -166,7 +171,8 @@ export const handleDeleteProject = (clientId, projectId, userId) => {
       }),
       credentials: 'include'
     })
-    // .then(response => response.text())
+    .then(response => response.json())
+    .then(res =>  dispatch(receiveData(res.message)))
     .then(fetch(`/api/clients?userId=${userId}`, {
       method: 'GET',
       headers: {

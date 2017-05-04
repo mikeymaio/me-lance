@@ -21,6 +21,7 @@ export const handleUserUpdate = (userName, email, firstName, lastName, phone, ad
     })
     .then(response => response.json())
     .then(res => {
+      dispatch(receiveData(res.message))
       return dispatch(receiveUserData(res.user))
     })
     .then( () => dispatch(receiveData()) )
@@ -60,13 +61,14 @@ const requestDataFromServer = () => ({
 //   user
 // })
 
-const receiveUserData = (user) => ({
+const receiveUserData = user => ({
   type: 'RECEIVE_USER_DATA',
   user
 })
 
-const receiveData = () => ({
+const receiveData = message => ({
   type: 'RECEIVE_DATA',
+  message
 })
 
 export const handleSettingsView = view => {
