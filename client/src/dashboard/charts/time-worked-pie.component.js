@@ -34,29 +34,18 @@ class PieChart extends React.Component {
     this.state = {
       options: {
         title: 'Time Use',
+        titleTextStyle: {
+        color: '#076',
+        fontName: 'sans-serif',
+        fontSize: 16,
+        },
+        legend: { textStyle: {color: '#076', fontSize: 14}},
         is3D: true,
       },
     };
   }
 
-// componentDidMount() {
-//   let data = [['Task', 'Hours Worked']];
-//   this.props.clients.map( client => (
-//     client.projects.map( project => {
-//       let projectName = project.projectName;
-//       let hours = 0;
-//       project.invoices.map( invoice => (
-//         invoice.tasks.map( task => (
-//           hours += task.hoursSpent
-//         ))
-//       ))
-//       console.log(projectName, hours);
-//       return data.push([projectName, hours]);
-//     })
-//   ))
-//   console.log('data = ' + data);
-//   this.setState({data});
-// }
+
   render() {
     getData(this.props.clients);
     return (

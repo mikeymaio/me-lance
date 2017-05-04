@@ -25,6 +25,13 @@ body {
   font-size: large;
 }
 
+#timetracker-mobile {
+    display: none !important;
+    text-align: center !important;
+    margin: 0 !important;
+    margin-bottom: 10px !important;
+  }
+
 .print-only {
   visibility: hidden;
   font-size: 3px;
@@ -65,5 +72,16 @@ body {
     visibility: hidden !important;
     /*position: fixed !important;
     bottom: 0 !important;*/
+  }
+}
+
+@media (max-width: 736px) {
+
+  #main-menu {
+      display: none;
+  }
+
+  #timetracker-mobile {
+    display: block !important;
   }
 }

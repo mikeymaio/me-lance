@@ -15,6 +15,26 @@ import * as actions from './header.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+
+import './header.css';
+
+
+class ToolBar extends Component {
+  render() {
+    return (
+      <Toolbar>
+        <ToolbarGroup firstChild={true} style={{marginTop: 0}}>
+          <TimeTracker id="timetracker" textColor="#FFF" style={{width: '100%', textAlign: 'center'}}/>
+        </ToolbarGroup>
+        <ToolbarGroup lastChild={true}>
+          <PopoverMenu />
+        </ToolbarGroup>
+      </Toolbar>
+    )
+  }
+};
+
 
 class Header extends Component {
 
@@ -27,11 +47,13 @@ class Header extends Component {
             //backgroundColor: '#007766',
                   //height: 150,
                   padding: 20,}}
-          //iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+                  titleStyle={{minWidth: 100}}
+          //showMenuIconButton={false}
           iconElementLeft={<DrawerMenu />}
-          iconElementRight={this.props.isLoggedIn ? <PopoverMenu /> : <LoginModal />}
+          //iconElementRight={this.props.isLoggedIn ? <PopoverMenu /> : <LoginModal />}
+          iconElementRight={<ToolBar />}
         />
-          <TimeTracker style={{marginTop: 15, display: 'block', width: '100%'}}/>
+          {/*<TimeTracker style={{marginTop: 15, display: 'block', width: '100%'}}/>*/}
       </div>
     );
   }

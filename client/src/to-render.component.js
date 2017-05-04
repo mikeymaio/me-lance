@@ -24,6 +24,9 @@ const muiTheme = getMuiTheme({
     alternateTextColor: '#fff',
 
   },
+  textField: {
+    disabledTextColor: '#076',
+  },
   datePicker: {
     color: '#ccc',
     textColor: '#FFF',
@@ -33,6 +36,9 @@ const muiTheme = getMuiTheme({
     calendarYearBackgroundColor: '#FFF',
     disabledTextColor: '#076',
   },
+  toolbar: {
+      backgroundColor: '#076',
+    },
 });
 
 const muiDarkTheme = getMuiTheme({
@@ -44,6 +50,9 @@ const muiDarkTheme = getMuiTheme({
     textColor: '#007766',
     alternateTextColor: '#222',
 
+  },
+  textField: {
+    disabledTextColor: '#076',
   },
   datePicker: {
     color: '#ccc',

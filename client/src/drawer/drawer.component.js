@@ -26,7 +26,7 @@ class DrawerMenu extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="drawer-menu">
         <button
             style={{height:30, width: 30, fontSize: '2em', color: 'white', backgroundColor: '#007766', border: 'none', marginLeft: 10, outline: 'none'}}
             onTouchTap={this.props.handleDrawer}>

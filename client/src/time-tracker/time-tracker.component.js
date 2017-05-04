@@ -25,7 +25,7 @@ const options = {
   },
   text: {
     fontSize: 30,
-    color: '#076',
+    color: '#fff',
     marginLeft: 7,
   }
 };
@@ -73,8 +73,8 @@ class TimeTracker extends Component {
 
   render() {
     return (
-      <div style={this.props.style} className="col-xs-12">
-        <h5 style={{display: "inline-block", color: "#076", marginRight: 0}} >Timetracker</h5>
+      <div id={this.props.id} style={this.props.style} className="col-xs-12">
+        <h4 style={{display: "inline-block", color: this.props.textColor, marginRight: 5}} >Timetracker</h4>
         <Stopwatch msecs start={this.state.stopwatchStart}
           reset={this.state.stopwatchReset}
           options={options}/>

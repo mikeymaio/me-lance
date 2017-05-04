@@ -19,9 +19,12 @@ class Landing extends Component {
       <div className="container-fluid" style={{backgroundColor: '#007766', color: 'white',
                   height: 500,
                   padding: 20,}}>
-                  <div className="pull-left"><h3>Freelancer</h3></div>
+                  <div className="pull-left"><h4>Freelancer</h4></div>
                   <div className="pull-right"><LoginModal /></div>
-                  <div className="col-xs-12" style={{textAlign: 'center'}}><h1>Boost Your Productivity Today!</h1>{ "{ IMAGE / ANIMATION / CAROUSEL HERE}" }</div>
+                  <div className="col-xs-12" style={{textAlign: 'center', marginTop: '20'}}>
+                    <h1>Boost Your Productivity Today!</h1>
+                    {/*<img src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.economywatch.com%2Ffiles%2Fimagecache%2Fstory%2Fstory%2Fproductivity_4.jpg&f=1" style={{height: '50%', width: '50%'}}/>*/}
+                  </div>
       </div>
       <div className="container-fluid" style={{
         //backgroundColor: '#007766', color: 'white',

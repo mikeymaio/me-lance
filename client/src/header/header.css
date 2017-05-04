@@ -1,0 +1,14 @@
+#drawer-menu {
+    display: none;
+}
+
+
+@media (max-width: 736px) {
+  #timetracker {
+    display: none;
+  }
+
+  #drawer-menu {
+      display: block;
+  }
+}
