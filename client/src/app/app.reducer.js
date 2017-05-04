@@ -17,6 +17,11 @@ const appReducer = (state=initialState, action) => {
                 ...state,
                 isLoading: false,
             }
+        case 'RECEIVE_ERROR':
+            return {
+                ...state,
+                isLoading: false,
+            }
         default:
             return state;
         }

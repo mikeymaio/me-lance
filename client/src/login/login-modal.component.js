@@ -37,7 +37,16 @@ const styles = {
   // padding: 5,
   textAlign: 'center',
   backgroundColor: '#eee'
-  }
+},
+  error: {
+      // height: 150,
+    //width: '45%',
+    //marginTop: 30,
+    //marginBottom: 20,
+    // padding: 5,
+    textAlign: 'center',
+    backgroundColor: '#fff'
+    }
 };
 
 const customContentStyle = {
@@ -141,7 +150,7 @@ class LoginModal extends React.Component {
         type="submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.props.handleLoginModal}
+        //onTouchTap={this.props.handleLoginModal}
         style={submitStyle}
         disabled={!this.state.canSubmit}
       />,
@@ -221,6 +230,13 @@ class LoginModal extends React.Component {
               floatingLabelText="Password"
               required
             />
+            <Paper
+            className="col-xs-6 col-xs-offset-3"
+            style={styles.error}
+            zDepth={0}
+              children={
+              <div style={{color: 'red'}} >{this.props.error}</div>
+              } />
           </Formsy.Form>
           </div>
           <div style={styles.slide}>
@@ -331,6 +347,7 @@ function mapStateToProps(state) {
     return {
         isLoginModalOpen: state.loginReducer.isLoginModalOpen,
         loginModalSlideIndex: state.loginReducer.loginModalSlideIndex,
+        error: state.loginReducer.error,
     };
 }
 

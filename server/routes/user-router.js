@@ -121,35 +121,49 @@ router.post('/', (req, res) => {
 //   });
 // })
 
-router.post('/login',
-passport.authenticate('local', {session: true,
-  // passport.authenticate('local', {session: true, successRedirect: '/dashboard', failureRedirect: '/login',
-  // failureFlash: 'Incorrect username or password'
-}),
-    (req, res) => {
-      console.log('user login post made')
-      res.status(200).json({
+
+// router.post('/login',
+// passport.authenticate('local', {session: true,
+//   // passport.authenticate('local', {session: true, successRedirect: '/dashboard', failureRedirect: '/login',
+//   // failureFlash: 'Incorrect username or password'
+// }),
+//     (req, res) => {
+//       console.log('user login post made')
+//       res.status(200).json({
+//       user: req.user.apiRepr()
+//     });
+//   });
+
+
+router.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err); // will generate a 500 error
+    }
+    // Generate a JSON response reflecting authentication status
+    if (! user) {
+      return res.status(401).json({
+      error: 'Incorrect username or password'
+    });
+    }
+    // ***********************************************************************
+    // "Note that when using a custom callback, it becomes the application's
+    // responsibility to establish a session (by calling req.login()) and send
+    // a response."
+    // Source: http://passportjs.org/docs
+    // ***********************************************************************
+    req.login(user, loginErr => {
+      if (loginErr) {
+        return res.status(401).json({
+      error: loginErr
+    });
+      }
+      return res.status(200).json({
       user: req.user.apiRepr()
     });
-  });
-
-// UNAUTHORIZED FOR TESTING
-  // router.post('/login', (req, res) => {
-  //     console.log('user login post made', req.body)
-  //     let user;
-  //     User
-  //       .findOne({userName: req.body.userName})
-  //       .exec()
-  //       .then(_user => {
-  //         user = _user;
-  //           return res.status(200).json({
-  //           user: user.apiRepr()
-  //         });
-  //     });
-  // });
-
-
-
+    });
+  })(req, res, next);
+});
 
 
 router.get('/logout', function(req, res){

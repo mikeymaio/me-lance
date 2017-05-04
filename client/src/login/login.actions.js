@@ -22,6 +22,11 @@ const receiveDataFromServer = (user) => ({
   user
 })
 
+const receiveErrorFromServer = (error) => ({
+  type: 'RECEIVE_ERROR',
+  error
+})
+
 const receiveSignUpResponse = (res) => ({
   type: 'RECEIVE_SIGNUP_DATA',
   res
@@ -43,11 +48,12 @@ export const handleLogin = (username, password) => {
       }),
       credentials: "include"
     })
-    .then(response => {
-      console.log(response.headers);
-      return response.json() })
+    .then(response => response.json() )
     .then(res => {
+      if (res.user) {
       return dispatch(receiveDataFromServer(res.user))
+    }
+    return dispatch(receiveErrorFromServer(res.error))
     })
   }
 }

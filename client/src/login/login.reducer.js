@@ -4,6 +4,7 @@ const initialState = {
         loginModalSlideIndex: 0,
         user: null,
         signUpRes: null,
+        error: '',
     }
 
 
@@ -20,7 +21,13 @@ const loginReducer = (state=initialState, action) => {
                 ...state,
                 user: action.user,
                 isLoginModalOpen: false,
-                isLoggedIn: true
+                isLoggedIn: true,
+                error: '',
+            }
+        case 'RECEIVE_ERROR':
+            return {
+                ...state,
+                error: action.error,
             }
             case 'RECEIVE_SIGNUP_DATA':
             return {
