@@ -62,7 +62,6 @@ class TimeTrackerModal extends React.Component {
   }
 
   this.submitForm = (data) => {
-    // alert(JSON.stringify(data, null, 4));
     console.log(data);
     let idS = data.project.split("-")
     let cIndex = idS[0]
@@ -73,12 +72,9 @@ class TimeTrackerModal extends React.Component {
     let client = this.props.clients[cIndex];
     let project = client.projects[pIndex];
 
-
     let invoiceNo = project.invoices.length + 1;
 
     let currentInvoice = project.invoices[project.invoices.length - 1];
-    let invoiceId = currentInvoice._id;
-    let tax = currentInvoice.tax;
 
     let userId = this.props.userId;
     let clientId = client.clientId;
@@ -92,6 +88,23 @@ class TimeTrackerModal extends React.Component {
         description: data.description
     }]
 
+    const newData = {
+        cIndex,
+        pIndex,
+        description
+    }
+    console.log(newData);
+
+    if ( !currentInvoice || new Date(currentInvoice.billingPeriodEnd) < new Date() ) {
+        // create a new invoice
+        return (
+          this.props.handleAddInvoice(invoiceNo, billingPeriodStart, billingPeriodEnd, newInvoiceTasks, userId, clientId, projectId),
+          this.props.handleClearStartTime(userId)
+        )
+    }
+    // update invoice
+    let invoiceId = currentInvoice._id;
+    let tax = currentInvoice.tax;
     const concatTasks = currentInvoice =>  {
         let tasksToAdd = [{
         hoursSpent: data.time,
@@ -101,28 +114,12 @@ class TimeTrackerModal extends React.Component {
         var newTasks = tasksToAdd.concat(currentInvoice.tasks);
         return newTasks;
     }
+    let updateInvoiceTasks = concatTasks(currentInvoice);
 
-    let updateInvoiceTasks = concatTasks(currentInvoice)
-
-    const newData = {
-        cIndex,
-        pIndex,
-        description
-    }
-    console.log(newData);
-
-    if ( new Date(currentInvoice.billingPeriodEnd) < new Date()) {
-        // create a new invoice
-        return (
-          this.props.handleAddInvoice(invoiceNo, billingPeriodStart, billingPeriodEnd, newInvoiceTasks, userId, clientId, projectId),
-          this.props.handleClearStartTime(userId)
-        )
-    }
-    // update invoice
-        return (
-          this.props.handleUpdateInvoice(updateInvoiceTasks, tax, userId, clientId, projectId, invoiceId),
-          this.props.handleClearStartTime(userId)
-        )
+    return (
+      this.props.handleUpdateInvoice(updateInvoiceTasks, tax, userId, clientId, projectId, invoiceId),
+      this.props.handleClearStartTime(userId)
+    )
 
 
   }
