@@ -40,7 +40,7 @@ class PieChart extends React.Component {
         fontSize: 16,
         },
         legend: { textStyle: {color: '#076', fontSize: 14}},
-        is3D: true,
+        is3D: false,
       },
     };
   }

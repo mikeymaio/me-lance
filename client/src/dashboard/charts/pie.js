@@ -16,6 +16,18 @@ const data = {
 	}]
 };
 
+import { defaults } from 'react-chartjs-2';
+import merge from 'lodash.merge';
+// or 
+// import { merge } from 'lodash'; 
+ 
+merge(defaults, {
+    global: {
+  		height: 50,
+      width: 50
+    },
+});
+
 const getData = clients => {
 		data.labels = []
 		data.datasets = [{data: [], backgroundColor: [], hoverBackgroundColor: []}]
@@ -42,12 +54,13 @@ class PieChart2 extends React.Component {
 		getData(this.props.clients)
     return (
       <div>
-        <h2>Time Usage</h2>
+        <h4>Time Usage</h4>
         <Pie data={data}
-					width={100}
-					height={100}
+					//width={100}
+					//height={100}
+          redraw={true}
 					options={{
-        		maintainAspectRatio: false
+        	  maintainAspectRatio: true
     			}}
 				/>
       </div>
