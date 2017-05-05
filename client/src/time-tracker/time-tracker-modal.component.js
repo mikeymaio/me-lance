@@ -63,6 +63,7 @@ class TimeTrackerModal extends React.Component {
 
   this.submitForm = (data) => {
     // alert(JSON.stringify(data, null, 4));
+    console.log(data);
     let idS = data.project.split("-")
     let cIndex = idS[0]
     let pIndex = idS[1]
@@ -80,8 +81,8 @@ class TimeTrackerModal extends React.Component {
     let tax = currentInvoice.tax;
 
     let userId = this.props.userId;
-    let clientId = this.props.clients[cIndex].clientId;
-    let projectId = client.projects[pIndex]._id;
+    let clientId = client.clientId;
+    let projectId = project._id;
     let billingPeriodStart = new Date();
     let billingPeriodEnd = moment(billingPeriodStart).add(14, 'days');
 
@@ -112,10 +113,16 @@ class TimeTrackerModal extends React.Component {
 
     if ( new Date(currentInvoice.billingPeriodEnd) < new Date()) {
         // create a new invoice
-        return this.props.handleAddInvoice(invoiceNo, billingPeriodStart, billingPeriodEnd, newInvoiceTasks, userId, clientId, projectId);
+        // return (
+          return this.props.handleAddInvoice(invoiceNo, billingPeriodStart, billingPeriodEnd, newInvoiceTasks, userId, clientId, projectId);
+        //this.props.handleClearStartTime()
+        // )
     }
     // update invoice
-        return this.props.handleUpdateInvoice(updateInvoiceTasks, tax, userId, clientId, projectId, invoiceId);
+        // return (
+          return this.props.handleUpdateInvoice(updateInvoiceTasks, tax, userId, clientId, projectId, invoiceId)
+        //this.props.handleClearStartTime()
+        // )
 
 
   }
@@ -188,8 +195,8 @@ class TimeTrackerModal extends React.Component {
           //contentStyle={{textAlign: 'center'}}
           //onRequestClose={this.props.handleLoginModal}
         >
-        {console.log(this.props.timerStop - this.props.timerStart)}
-        Add { this.convertTimeToHours(this.props.timerStop, this.props.timerStart) } hours to...
+        {console.log(this.props.timerStop - this.props.user.timerStart)}
+        Add { this.convertTimeToHours(this.props.timerStop, this.props.user.timerStart) } hours to...
         <br />
         <Formsy.Form
             id="add-time-form"
@@ -219,7 +226,7 @@ class TimeTrackerModal extends React.Component {
             />
             <FormsyText
                 name="time"
-                value={this.convertTimeToHours(this.props.timerStop, this.props.timerStart)}
+                value={this.convertTimeToHours(this.props.timerStop, this.props.user.timerStart)}
                 style={{visibility: "hidden"}}
             />
             </Formsy.Form>
@@ -231,9 +238,10 @@ class TimeTrackerModal extends React.Component {
 
 function mapStateToProps(state) {
     return {
+        user: state.loginReducer.user,
         userId: state.loginReducer.user.userId,
         clients: state.clientReducer.clients,
-        timerStart: state.timeTrackerReducer.timerStart,
+        // timerStart: state.timeTrackerReducer.timerStart,
         timerStop: state.timeTrackerReducer.timerStop,
         isTimeModalOpen: state.timeTrackerReducer.isTimeModalOpen,
     };

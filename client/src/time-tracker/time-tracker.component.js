@@ -58,7 +58,9 @@ class TimeTracker extends Component {
     let startTime = new Date().getTime();
     // const time = moment.unix(startTime);
     console.log('startTime = '+startTime);
-    this.props.handleTimerStart(startTime);
+    // this.props.handleTimerStart(startTime);
+    this.props.handleSaveStartTime(startTime, this.props.userId)
+
   }
 
   stopTimer() {
@@ -93,6 +95,7 @@ function mapStateToProps(state) {
     return {
         timerStart: state.timeTrackerReducer.timerStart,
         timerStop: state.timeTrackerReducer.timerStop,
+        userId: state.loginReducer.user.userId,
     };
 }
 
@@ -101,6 +104,7 @@ function mapDispatchToProps(dispatch) {
         handleTimerStart: actions.handleTimerStart,
         handleTimerStop: actions.handleTimerStop,
         handleTimeModal: actions.handleTimeModal,
+        handleSaveStartTime: actions.handleSaveStartTime,
         },
         dispatch);
 }

@@ -96,8 +96,15 @@ export const handleSaveStartTime = (timerStart, userId) => {
       }),
       credentials: 'include'
     })
-    .then(response => response.json())
-    .then(res => { console.log(res); return dispatch(receiveUserData(res.user)) }
+    .then(fetch(`/api/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    })
+    .then( response => response.json() )
+    .then( res => dispatch(receiveUserData(res.user)))
     )
     .then( () => dispatch(receiveData()) )
     .catch(err => console.log(err))
@@ -129,8 +136,15 @@ export const handleClearStartTime = userId => {
       }),
       credentials: 'include'
     })
-    .then(response => response.json())
-    .then(res => { console.log(res); return dispatch(receiveUserData(res.user)) }
+    .then(fetch(`/api/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    })
+    .then( response => response.json() )
+    .then( res => dispatch(receiveUserData(res.user)))
     )
     .then( () => {
         return dispatch(receiveData()) } )
