@@ -85,7 +85,7 @@ class TimeTracker extends Component {
         <RaisedButton label="Stop" onTouchTap={this.stopTimer} />
           }
         <RaisedButton label="Reset" onTouchTap={this.resetStopwatch} />
-        <TimeTrackerModal />
+        <TimeTrackerModal formId={this.props.formId} />
       </div>
     );
   }

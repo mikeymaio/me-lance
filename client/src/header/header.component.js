@@ -25,7 +25,7 @@ class ToolBar extends Component {
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true} style={{marginTop: 0}}>
-          <TimeTracker id="timetracker" textColor="#FFF" style={{width: '100%', textAlign: 'center'}}/>
+          <TimeTracker id="timetracker" formId="add-time-form" textColor="#FFF" style={{width: '100%', textAlign: 'center'}}/>
         </ToolbarGroup>
         <ToolbarGroup lastChild={true}>
           <PopoverMenu />

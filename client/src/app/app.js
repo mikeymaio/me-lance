@@ -52,7 +52,7 @@ class App extends Component {
           <div className="row">
             {/*<SubHeader />*/}
           <MainMenu id="main-menu" autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}} menuItemStyle={styleItem}/>
-          <TimeTracker id="timetracker-mobile" textColor="#076" style={{margin: 15, display: 'block', width: '100%'}}/>
+          <TimeTracker id="timetracker-mobile" formId="add-time-form-mobile" textColor="#076" style={{margin: 15, display: 'block', width: '100%'}}/>
           </div>
           <div
             className="col-xs-12 col-md-10 col-md-offset-1"

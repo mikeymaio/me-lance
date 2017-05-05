@@ -113,16 +113,16 @@ class TimeTrackerModal extends React.Component {
 
     if ( new Date(currentInvoice.billingPeriodEnd) < new Date()) {
         // create a new invoice
-        // return (
-          return this.props.handleAddInvoice(invoiceNo, billingPeriodStart, billingPeriodEnd, newInvoiceTasks, userId, clientId, projectId);
-        //this.props.handleClearStartTime()
-        // )
+        return (
+          this.props.handleAddInvoice(invoiceNo, billingPeriodStart, billingPeriodEnd, newInvoiceTasks, userId, clientId, projectId),
+          this.props.handleClearStartTime(userId)
+        )
     }
     // update invoice
-        // return (
-          return this.props.handleUpdateInvoice(updateInvoiceTasks, tax, userId, clientId, projectId, invoiceId)
-        //this.props.handleClearStartTime()
-        // )
+        return (
+          this.props.handleUpdateInvoice(updateInvoiceTasks, tax, userId, clientId, projectId, invoiceId),
+          this.props.handleClearStartTime(userId)
+        )
 
 
   }
@@ -174,7 +174,7 @@ class TimeTrackerModal extends React.Component {
       <FlatButton
         //label="Submit"
         //type="submit"
-        form="add-time-form"
+        form={this.props.formId}
         //primary={true}
         //disabled={true}
         onTouchTap={this.handleClose}
@@ -199,7 +199,7 @@ class TimeTrackerModal extends React.Component {
         Add { this.convertTimeToHours(this.props.timerStop, this.props.user.timerStart) } hours to...
         <br />
         <Formsy.Form
-            id="add-time-form"
+            id={this.props.formId}
             onValid={this.enableButton}
             onInvalid={this.disableButton}
             onValidSubmit={this.submitForm}
