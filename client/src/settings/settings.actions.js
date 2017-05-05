@@ -21,12 +21,27 @@ export const handleUserUpdate = (userName, email, firstName, lastName, phone, ad
     })
     .then(response => response.json())
     .then(res => {
-      dispatch(receiveData(res.message))
-      return dispatch(receiveUserData(res.user))
+      return dispatch(receiveData(res.message))
+      // return dispatch(receiveUserData(res.user))
     })
-    .then( () => dispatch(receiveData()) )
-  };
+    // .then( () => dispatch(receiveData()) )
+    .then(fetch(`/api/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    })
+    .then( response => response.json() )
+    .then( res => dispatch(receiveDataFromServer(res.user)))
+    )
+  }
 };
+
+const receiveDataFromServer = (user) => ({
+  type: 'RECEIVE_USER_DATA',
+  user
+})
 
 export const handlePasswordUpdate = (oldPassword, password, userId) => {
   return dispatch => {

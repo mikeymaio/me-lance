@@ -173,6 +173,22 @@ router.get('/logout', function(req, res){
 });
 
 
+// GET USER BY ID
+router.get('/:id', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'Not logged in' });
+  }
+
+  User
+    .findById(req.params.id)
+    .exec()
+    .then(user => res.status(201).json({
+      user: user.apiRepr(),
+      // message: 'Success! Your info has been updated'
+    }).end())
+    .catch(err => res.status(500).json({message: 'Internal server error: ' + err}));
+});
+
 // UPDATE USER
 
 router.put('/:id', (req, res) => {
