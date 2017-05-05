@@ -26,8 +26,8 @@ class PopoverMenu extends Component {
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
             >
                 <MenuItem value="1" primaryText="My Info" onTouchTap={() => this.props.handleMenuItemSelect('settings')}/>
-                <MenuItem value="2" primaryText="Help" />
-                <MenuItem value="3" primaryText="Send feedback" />
+                <MenuItem value="2" primaryText="Help" onTouchTap={() => this.props.handleMenuItemSelect('help')}/>
+                {/*<MenuItem value="3" primaryText="Send feedback" />*/}
                 <MenuItem value="4" primaryText="Sign out" onTouchTap={this.props.handleLogout} />
             </IconMenu>
         )
