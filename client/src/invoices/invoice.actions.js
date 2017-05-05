@@ -127,7 +127,7 @@ export const handleUpdateInvoice = (tasks, tax, userId, clientId, projectId, inv
     })
     .then(response => response.json())
     .then(res => dispatch(receiveClientDataFromServer(res.clients))))
-    .then( () => dispatch(handleInvoiceView( "invoiceList", null, null, null )))
+    .then( () => dispatch(handleInvoiceEdit()))
     .catch( err => console.log(err))
   }
 }
