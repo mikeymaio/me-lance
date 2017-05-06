@@ -78,7 +78,7 @@ class TimeTracker extends Component {
       <div id={this.props.id} style={this.props.style} className="col-xs-12">
         <h4 style={{display: "inline-block", color: this.props.textColor, marginRight: 5}} >Timetracker</h4>
         <Stopwatch msecs start={this.props.user.timerRunning}
-        startTime={this.props.user.timerStart}
+          startTime={this.props.user.timerStart}
           reset={this.state.stopwatchReset}
           options={options}/>
           {!this.props.user.timerRunning ?
