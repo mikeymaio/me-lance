@@ -11,6 +11,7 @@ import { fetchUserClients } from '../clients/clients.actions';
 
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
+import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import SelectField from 'material-ui/SelectField';
@@ -170,7 +171,8 @@ componentDidMount() {
                   //console.log(client.projects);
                  //let visibleProjects = getVisibleProjects( (client.projects, this.props.projectFilter) );
                   //visibleProjects.map( (project, index) => (
-                   return <Card key={project.projectName+index}>
+                   return <Card key={project.projectName+index}
+                   containerStyle={{padding: 0, paddingBottom: 0}}>
                     <CardHeader
                       title={project.projectName}
                       subtitle={project.clientName}
@@ -178,7 +180,7 @@ componentDidMount() {
                       actAsExpander={true}
                       showExpandableButton={true}
                     />
-                    <CardText expandable={true} children={
+                    <CardText expandable={true} style={{padding: 0}} children={
                     <form id="project-edit-form" onSubmit={(event) => {
                         event.preventDefault()
                         console.log('project-update-form submitted')
@@ -351,26 +353,39 @@ componentDidMount() {
                             />
                             <Divider inset={false} style={{color: "#076", height: 3}} />
                             { this.props.projectEdit ?
-                                <div>
-                                    <FlatButton key={`cancel${project.projectId}`} label="Cancel" onTouchTap={() =>                 this.props.handleProjectEdit()}
+                                <div style={{padding: 10}}>
+                                    <FlatButton
+                                        key={`cancel${project.projectId}`}
+                                        label="Cancel"
+                                        onTouchTap={() => this.props.handleProjectEdit()}
                                     />
-                                    <FlatButton label="Save" key={`save${project.projectId}`} type="submit"                         form="project-edit-form"
-                                    />
-                                </div>
-                                :
-                                <div>
-                                    <FlatButton key={`edit${project.projectId}`} label="Edit" style={{color: "#FFF",               backgroundColor: "#076"}} onTouchTap={() => this.props.handleProjectEdit()}
+                                    <FlatButton
+                                        label="Save"
+                                        key={`save${project.projectId}`}
+                                        style={{backgroundColor: '#076', color: '#fff'}}
+                                        type="submit"
+                                        form="project-edit-form"
                                     />
                                     <FlatButton
                                         className="pull-right"
                                         key={`delete${project.projectId}`}
                                         label="DELETE" onTouchTap={() => this.props.handleDeleteProject(project.clientId, project._id, project.userId)}
+                                        style={{backgroundColor: '#076', color: '#fff'}}
+                                    />
+                                </div>
+                                :
+                                <div style={{padding: 10}}>
+                                    <FlatButton
+                                        key={`edit${project.projectId}`}
+                                        label="Edit"
+                                        onTouchTap={() => this.props.handleProjectEdit()}
+                                        style={{backgroundColor: '#076', color: '#fff'}}
                                     />
                                 </div>}
-                                <Divider inset={false} style={{color: "#076", height: 3}} />
                         </form>
                     }
                   />
+                  <Divider style={{backgroundColor: '#187'}} />
               </Card>
                   }).sort(() => 1 )
             ))}

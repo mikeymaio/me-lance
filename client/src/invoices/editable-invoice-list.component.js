@@ -12,6 +12,8 @@ import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 
 import {List, ListItem, makeSelectable} from 'material-ui/List';
 
+import Divider from 'material-ui/Divider';
+
 
 import * as actions from './invoice.actions';
 import { fetchUserClients } from '../clients/clients.actions';
@@ -79,16 +81,20 @@ componentDidMount() {
             </p>
             {this.props.clients.map( ( client, cIndex ) => (
                 client.projects.map( (project, pIndex) => (
-                   <Card key={pIndex}>
+                   <Card
+                    key={pIndex}
+                    containerStyle={{padding: 0, paddingBottom: 0}}
+                    >
                         <CardHeader
                         title={project.projectName}
                         subtitle={project.clientName}
                         actAsExpander={true}
                         showExpandableButton={true}
                         />
-                        <CardText expandable={true}
+                        <CardText expandable={true} className="cardText" style={{padding: 0}}
                         children={
-                            <List>
+                            <List className="list" style={{padding: 0}} >
+                                <Divider />
                                 { project.invoices.filter(i => {
                                     new Date(i.billingPeriodEnd) < new Date() ? i.completed = true : false;
                                     if (this.props.invoiceFilter === 'SHOW_ALL') {
@@ -103,20 +109,30 @@ componentDidMount() {
                                     return true;
                                 })
                                 .map( (invoice, iIndex) => {
-                                    return <ListItem
-                                        key={iIndex}
-                                        value={iIndex}
-                                        primaryText={`${this.formatDate(invoice.billingPeriodStart)} - ${this.formatDate(invoice.billingPeriodEnd)}`}
-                                        secondaryText={`Invoice#: ${invoice.invoiceNo}`}
-                                        rightIconButton={<IconButton tooltip="View Details" touch={true} tooltipPosition="bottom-left" onTouchTap={() => this.props.handleInvoiceView("invoiceDetail", cIndex, pIndex, iIndex)} children={<i className="material-icons">&#xE145;</i>} />}
-                                        />
-                                }).sort(() => 1 )}
-                                <CardActions>
-                                    <FlatButton label="New Invoice" onTouchTap={ () => this.props.handleInvoiceView("addInvoice", cIndex, pIndex)} />
+                                    return (
+                                        <div style={{padding: 0}}>
+                                            <ListItem
+                                                key={iIndex}
+                                                value={iIndex}
+                                                primaryText={`${this.formatDate(invoice.billingPeriodStart)} - ${this.formatDate(invoice.billingPeriodEnd)}`}
+                                                secondaryText={`Invoice#: ${invoice.invoiceNo}`}
+                                                rightIconButton={<IconButton tooltip="View Details" touch={true} tooltipPosition="bottom-left" onTouchTap={() => this.props.handleInvoiceView("invoiceDetail", cIndex, pIndex, iIndex)} children={<i className="material-icons">&#xE145;</i>} />}
+                                                />
+                                            <Divider inset={true} />
+                                        </div>
+                                        )
+                                    }).sort(() => 1 )}
+                                <CardActions className="cardActions" style={{padding: 10}}>
+                                    <FlatButton
+                                        label="New Invoice"
+                                        style={{backgroundColor: '#076', color: '#fff', padding: 0}}
+                                        onTouchTap={ () => this.props.handleInvoiceView("addInvoice", cIndex, pIndex)}
+                                    />
                                 </CardActions>
                             </List>
                             }
                         />
+                        <Divider style={{backgroundColor: '#187'}} />
                     </Card>
                 ))
             ))}

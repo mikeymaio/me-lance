@@ -39,6 +39,10 @@ const muiTheme = getMuiTheme({
   toolbar: {
       backgroundColor: '#076',
     },
+    raisedButton: {
+      backgroundColor: '#076',
+      color: '#fff'
+    }
 });
 
 const muiDarkTheme = getMuiTheme({

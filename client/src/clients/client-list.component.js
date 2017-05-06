@@ -66,7 +66,7 @@ constructor(props) {
                       actAsExpander={true}
                       showExpandableButton={true}
                     />
-                    <CardText expandable={true} children={
+                    <CardText expandable={true} style={{padding: 0}} children={
                     <form id="client-edit-form" onSubmit={(event) => {
                         event.preventDefault()
                         console.log('client-update-form submitted')
@@ -137,22 +137,35 @@ constructor(props) {
                             />
                             <Divider inset={false} style={{color: "#076", height: 3}} />
                             { this.props.clientEdit ?
-                              <div>
-                                <FlatButton key={`cancel${client.clientId}`} label="Cancel" onTouchTap={() => this.props.handleClientEdit()} />
-                                <FlatButton key={`save${client.clientId}`} type="submit" form="client-edit-form" label="Save" //onTouchTap={() => this.props.handleClientEdit()}
-                                  />
+                              <div style={{padding: 10}}>
+                                <FlatButton
+                                  key={`cancel${client.clientId}`}
+                                  label="Cancel"
+                                  onTouchTap={() => this.props.handleClientEdit()} />
+                                <FlatButton
+                                  key={`save${client.clientId}`}
+                                  type="submit" form="client-edit-form"
+                                  label="Save"
+                                  style={{color: "#FFF", backgroundColor: "#076"}}
+                                />
+                                <FlatButton
+                                  className="pull-right"
+                                  key={`delete${client.clientId}`} label="DELETE" onTouchTap={() => this.props.handleDeleteClient(client.clientId, this.props.userId)}
+                                  style={{color: "#FFF", backgroundColor: "#076"}}
+                                />
                               </div>
                                 :
-                              <div>
-                                <FlatButton key={`edit${client.clientId}`} label="Edit" style={{color: "#FFF", backgroundColor: "#076"}} onTouchTap={() => this.props.handleClientEdit()} />
+                              <div style={{padding: 10}}>
                                 <FlatButton
-                                className="pull-right"
-                                key={`delete${client.clientId}`} label="DELETE" onTouchTap={() => this.props.handleDeleteClient(client.clientId, this.props.userId)} />
-                              </div>}
-                                <Divider inset={false} style={{color: "#076", height: 3}} />
+                                  key={`edit${client.clientId}`}
+                                  label="Edit" style={{color: "#FFF", backgroundColor: "#076"}}
+                                  onTouchTap={() => this.props.handleClientEdit()} />
+                                </div>
+                            }
                         </form>
                     }
                   />
+                  <Divider style={{backgroundColor: '#187'}} />
               </Card>
             ))}
           </List>
