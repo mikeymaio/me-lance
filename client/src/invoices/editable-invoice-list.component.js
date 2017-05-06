@@ -110,7 +110,7 @@ componentDidMount() {
                                 })
                                 .map( (invoice, iIndex) => {
                                     return (
-                                        <div style={{padding: 0}}>
+                                        <div key={iIndex} style={{padding: 0}}>
                                             <ListItem
                                                 key={iIndex}
                                                 value={iIndex}

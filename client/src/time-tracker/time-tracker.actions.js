@@ -28,7 +28,7 @@ export const handleTimerStart = time => {
     }
 }
 
-export const handleSaveStartTime = (timerStart, userId) => {
+export const handleSaveStartTime = (timerStart, timerRunning, userId) => {
     return dispatch => {
     dispatch(requestDataFromServer())
     // dispatch(handleTimerStart(timerStart))
@@ -40,6 +40,7 @@ export const handleSaveStartTime = (timerStart, userId) => {
       },
       body: JSON.stringify({
         timerStart,
+        timerRunning,
         userId
       }),
       credentials: 'include'
@@ -68,6 +69,38 @@ export const handleTimerStop = time => {
     }
 }
 
+export const handleSaveTimerStop = (time, timerRunning, userId) => {
+    return dispatch => {
+    dispatch(requestDataFromServer())
+    // dispatch(handleTimerStart(timerStart))
+    dispatch(handleTimerStop(time))
+    fetch(`/api/users/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        timerRunning,
+        userId
+      }),
+      credentials: 'include'
+    })
+    .then(fetch(`/api/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    })
+    .then( response => response.json() )
+    .then( res => dispatch(receiveUserData(res.user)))
+    )
+    .then( () => dispatch(receiveData()) )
+    // .then( () => dispatch(handleTimerStop(time)))
+    .catch(err => console.log(err))
+  }
+}
+
 export const handleClearStartTime = userId => {
     return dispatch => {
     dispatch(requestDataFromServer())
@@ -80,6 +113,7 @@ export const handleClearStartTime = userId => {
       },
       body: JSON.stringify({
         timerStart: 0,
+        timerRunning: false,
         userId
       }),
       credentials: 'include'

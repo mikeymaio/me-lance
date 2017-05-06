@@ -49,11 +49,11 @@ class StopWatch extends Component {
   }
 
   start() {
-    this.setState({startTime: this.state.startTime ? this.state.startTime :
+    this.setState({startTime: this.props.startTime ? this.props.startTime :
       new Date(), started: true});
     this.interval = this.interval ? this.interval : setInterval(() => {
       this.setState({
-        elapsed: new Date() - this.state.startTime
+        elapsed: new Date() - this.props.startTime
       });
     }, 1);
   }

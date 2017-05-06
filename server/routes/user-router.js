@@ -204,7 +204,7 @@ router.put('/:id', (req, res) => {
     res.status(400).json({message: message});
   }
   const toUpdate = {dateModified: new Date().toISOString()};
-  const updateableFields = ['firstName', 'lastName', 'userName', 'email', 'phone', 'address', 'dateModified', 'templates', 'timerStart'];
+  const updateableFields = ['firstName', 'lastName', 'userName', 'email', 'phone', 'address', 'dateModified', 'templates', 'timerStart', 'timerRunning'];
 
   updateableFields.forEach(field => {
     if (field in req.body) {

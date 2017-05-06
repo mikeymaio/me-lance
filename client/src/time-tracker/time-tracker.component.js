@@ -50,37 +50,38 @@ class TimeTracker extends Component {
   }
 
   resetStopwatch() {
-    this.setState({stopwatchStart: false, stopwatchReset: true});
+    this.setState({stopwatchStart: false, stopwatchReset: true}),
+    this.props.handleClearStartTime(this.props.userId);
   }
 
   startTimer() {
-    this.toggleStopwatch();
+    // this.toggleStopwatch();
     let startTime = new Date().getTime();
     // const time = moment.unix(startTime);
     console.log('startTime = '+startTime);
     // this.props.handleTimerStart(startTime);
-    this.props.handleSaveStartTime(startTime, this.props.userId)
+    this.props.handleSaveStartTime(startTime, true, this.props.userId)
 
   }
 
   stopTimer() {
-    this.toggleStopwatch();
+    // this.toggleStopwatch();
     let stopTime = new Date().getTime();
     // const time = moment.unix(stopTime);
     console.log('endTime = '+stopTime);
-    this.props.handleTimerStop(stopTime);
+    this.props.handleSaveTimerStop(stopTime, false, this.props.userId);
     this.props.handleTimeModal();
   }
-
 
   render() {
     return (
       <div id={this.props.id} style={this.props.style} className="col-xs-12">
         <h4 style={{display: "inline-block", color: this.props.textColor, marginRight: 5}} >Timetracker</h4>
-        <Stopwatch msecs start={this.state.stopwatchStart}
+        <Stopwatch msecs start={this.props.user.timerRunning}
+        startTime={this.props.user.timerStart}
           reset={this.state.stopwatchReset}
           options={options}/>
-          {!this.state.stopwatchStart ?
+          {!this.props.user.timerRunning ?
         <RaisedButton label="Start" onTouchTap={this.startTimer} /> :
         <RaisedButton label="Stop" onTouchTap={this.stopTimer} />
           }
@@ -96,6 +97,7 @@ function mapStateToProps(state) {
         timerStart: state.timeTrackerReducer.timerStart,
         timerStop: state.timeTrackerReducer.timerStop,
         userId: state.loginReducer.user.userId,
+        user: state.loginReducer.user,
     };
 }
 
@@ -105,6 +107,8 @@ function mapDispatchToProps(dispatch) {
         handleTimerStop: actions.handleTimerStop,
         handleTimeModal: actions.handleTimeModal,
         handleSaveStartTime: actions.handleSaveStartTime,
+        handleSaveTimerStop: actions.handleSaveTimerStop,
+        handleClearStartTime: actions.handleClearStartTime,
         },
         dispatch);
 }
