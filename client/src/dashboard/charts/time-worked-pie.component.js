@@ -23,7 +23,7 @@ const getData = clients => {
       return data.dataArray.push([projectName, hours]);
     })
   ))
-  console.log('data = ' + data);
+  console.log('data = ' + data.dataArray);
   // this.setState({data});
 }
 
@@ -50,6 +50,8 @@ class PieChart extends React.Component {
     getData(this.props.clients);
     return (
       <div className="col-xs-12">
+      {data.dataArray.length === 1 ?
+      <p style={{marginTop: '25%'}} > You don't have any active projects</p> :
       <Chart
         chartType="PieChart"
         data={data.dataArray}
@@ -59,6 +61,7 @@ class PieChart extends React.Component {
         height={'400px'}
         //legend_toggle={false}
       />
+      }
       </div>
     );
   }
