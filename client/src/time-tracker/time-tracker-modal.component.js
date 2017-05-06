@@ -221,10 +221,13 @@ class TimeTrackerModal extends React.Component {
                 hintText="description of task"
                 multiLine={true}
             />
+            <br />
             <FormsyText
                 name="time"
+                floatingLabelText="Hours"
+                hintText="Hours Worked"
                 value={this.convertTimeToHours(this.props.timerStop, this.props.user.timerStart)}
-                style={{visibility: "hidden"}}
+                //style={{visibility: "hidden"}}
             />
             </Formsy.Form>
         </Dialog>
