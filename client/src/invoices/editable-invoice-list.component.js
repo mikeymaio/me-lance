@@ -81,8 +81,8 @@ componentDidMount() {
                 client.projects.map( (project, pIndex) => (
                    <Card key={pIndex}>
                         <CardHeader
-                        title={project.clientName}
-                        subtitle={project.projectName}
+                        title={project.projectName}
+                        subtitle={project.clientName}
                         actAsExpander={true}
                         showExpandableButton={true}
                         />
