@@ -1,0 +1,64 @@
+/*.navbar, .navbar-inverse {
+	background-color: #076 !important;
+	border-radius: 0;
+	border: none !important;
+	margin-bottom: 0;
+	min-height: 80px;
+}
+
+.nav li {
+	display: inline;
+	color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+	color: #ffffff;
+	font-family: Lato;
+	font-size: 1.7em;
+	font-weight: 300;
+	padding: 30px 25px 33px 25px;
+}*/
+
+.navbar-inverse .navbar-nav li a:hover {
+	background-color: #076 !important;
+	transition: 0.7s all linear;
+	height: 100%;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #fff;
+}
+
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: #fff;
+	color: #076
+}
+
+.navbar-toggle:hover > .icon-bar {
+    background-color: #076 !important;
+	color: #076
+}
+
+.navbar-toggle:focus > .icon-bar {
+    background-color: #076 !important;
+	color: #076
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  .logo {
+    margin-left: 25px !important;
+  }
+  #bs-example-navbar-collapse-1 {
+	background-color: #fff;
+}
+  ul > li > a {
+	color: #076 !important;
+}
+ ul > li:hover > a {
+	color: #fff !important;
+}
+}
