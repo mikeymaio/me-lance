@@ -9,8 +9,6 @@ import myTheme from '../my-theme';
 
 import '../index.css';
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
 it('renders without crashing', () => {
