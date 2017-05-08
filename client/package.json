@@ -5,7 +5,7 @@
   "author": "Michael Maio <michael.maio22@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "github.com/HypeUFO/freelancer.git"
+    "url": "github.com/HypeUFO/me-lance.git"
   },
   "dependencies": {
     "chart.js": "^2.5.0",

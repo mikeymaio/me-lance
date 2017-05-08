@@ -1,12 +1,12 @@
 {
-  "name": "freelance-app-server",
+  "name": "me-lance-app-server",
   "version": "0.1.0",
-  "description": "Server portion of a full-stack starter template",
+  "description": "Server portion of me-lance",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
   },
-  "author": "Joe Turner <jturner@thinkful.com>",
+  "author": "Michael Maio <michael.maio22@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.0",

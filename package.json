@@ -1,7 +1,7 @@
 {
-  "name": "freelance-app",
+  "name": "me-lance-app",
   "version": "0.1.0",
-  "description": "A full-stack starter template",
+  "description": "A full-stack app for freelancers",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -18,7 +18,7 @@
     "server/node_modules",
     "client/node_modules"
   ],
-  "author": "Joe Turner <jturner@thinkful.com>",
+  "author": "Michael Maio <michael.maio22@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "cross-env": "^3.1.4",
