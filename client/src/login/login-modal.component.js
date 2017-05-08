@@ -175,7 +175,13 @@ class LoginModal extends React.Component {
 
     return (
       <div>
-        <FlatButton label="Login / Demo Account" style={{color: '#fff'}} onTouchTap={this.props.handleLoginModal}/>
+        <a href="#" style={{color: '#fff', textDecoration: 'none'}} onTouchTap={ () => {
+          this.props.handleLoginModal();
+          this.props.handleLoginSlides(0);
+          }}>
+          Login / Demo Account
+        </a>
+        {/*}*/}
         <Dialog
           actions={actionButtons}
           modal={false}

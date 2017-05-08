@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import SignUp from '../login/signup.component'; 
+import SignUp from '../login/signup.component';
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 import LoginModal from '../login/login-modal.component';
 
-import * as actions from '../header/header.actions';
+// import * as actions from '../header/header.actions';
+import * as actions from '../login/login.actions';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -62,26 +64,9 @@ componentDidMount() {
 
   render() {
     return (
-      <div>
-        {/*<nav className="navbar navbar-default navbar-fixed-top" style={{backgroundColor: '#076'}}>
-          <div className="container-fluid">
-            <div 
-            //className="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
-            >
-              <ul className="nav navbar-nav">
-                <li><Link style={styles.link} onClick={this.scrollToTop}>Freelancer</Link></li>
-                <li><Link style={styles.link} activeClass="active" className="about" to="about" spy={true} smooth={true} duration={500} >About</Link></li>
-                <li><Link style={styles.link} activeClass="active" className="test2" to="timetracker" spy={true} smooth={true} duration={500}>TimeTracker</Link></li>
-                <li><Link style={styles.link} activeClass="active" className="test3" to="invoice" spy={true} smooth={true} duration={500} >Invoices</Link></li>
-                <li><Link style={styles.link} activeClass="active" className="test4" to="signup" spy={true} smooth={true} duration={500}>Sign Up</Link></li>
-              </ul>
-              <div className="pull-right" style={{marginTop: 7}} ><LoginModal label="Login / Demo Account" /></div>
-            </div>
-          </div>
-        </nav>*/}
-
+      <div style={{backgroundColor: '#eee'}} >
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation" style={{backgroundColor: "#076", border: "none"}}>
-			<div className="container">
+			<div className="container-fluid">
          <div className="navbar-header">
            <Link className="pull-left logo" style={{lineHeight: 3.15, color: '#fff', textDecoration: 'none', fontSize: 16, marginRight: 35}} onClick={this.scrollToTop}>Freelancer</Link>
       <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -94,12 +79,18 @@ componentDidMount() {
 
     {/*<!-- Collect the nav links, forms, and other content for toggling -->*/}
     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul className="nav navbar-nav">
-                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" className="about" to="about" spy={true} smooth={true} duration={500} >About</Link></li>
-                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" className="test2" to="timetracker" spy={true} smooth={true} duration={500}>TimeTracker</Link></li>
-                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" className="test3" to="invoice" spy={true} smooth={true} duration={500} >Invoices</Link></li>
-                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" className="test4" to="signup" spy={true} smooth={true} duration={500}>Sign Up</Link></li>
+				<ul className="nav navbar-nav" style={{display: 'block', margin: 'auto', width: '85%'}}>
+                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="about" spy={true} smooth={true} duration={500} >About</Link></li>
+                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="timetracker" spy={true} smooth={true} duration={500}>TimeTracker</Link></li>
+                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="invoice" spy={true} smooth={true} duration={500} >Invoices</Link></li>
+                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} onTouchTap={() => {
+              this.props.handleLoginModal(),
+              this.props.handleLoginSlides(1);
+            }
+              }>Sign Up</Link></li>
+                <li className="login-link" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} ><LoginModal /></Link></li>
 				</ul>
+        {/*<div className="pull-right" style={{lineHeight: 3.6}}><LoginModal label="Login / Demo Account"/></div>*/}
 			</div>
       </div>
 		</nav>
@@ -127,38 +118,48 @@ componentDidMount() {
         <h1 style={{position: "relative", color: '#eee', textAlign: 'center', fontWeight: 'bold', marginTop: 29}}>Boost Your Productivity Today!</h1>
       </div>
       </div>
-      <div className="container-fluid" style={{
-        //backgroundColor: '#007766', color: 'white',
-                  //height: 500,
-                  padding: 20,}}>
-                  {/*<LoggedToggle />*/}
-                  {/*<p style={{textAlign: 'center'}}>Description of application here...(with images, icons, links, etc...)</p>*/}
-        <Element name="about" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, paddingTop: 70, display: 'block', width: '100%'}} >
+      <div className="container-fluid" style={{padding: 20,}}>
+
+        <Element name="about" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, padding: '70px 40px 70px 40px', display: 'block', width: '100%', border: '5px solid #076'}} >
           <img src="http://thetrendguys.com/wp-content/uploads/2012/09/Happy-Person-at-Work.jpg"
-           style={{width: '60%', height: '40%', float: 'right'}}
+           style={{width: '60%', height: '40%', float: 'right', paddingLeft: 20}}
           />
           <p>Keep track of your progress with customized charts</p>
         </Element>
 
-        <Element name="timetracker" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, paddingTop: 70, display: 'block', width: '100%'}} >
+        <Element name="timetracker" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, padding: '70px 40px 70px 40px', display: 'block', width: '100%', border: '5px solid #076'}} >
           <img
             src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-06%20at%205.58.15%20PM_zpsymcq2brg.png~original"
-            style={{width: '60%', height: '60%', float: 'left'}}
+            style={{width: '60%', height: '60%', float: 'left', paddingRight: 20}}
           />
         <p>Description of TimeTracker here...(with images, icons, links, etc...) jflskjfsldfkjslfkjsflskfjskjh sghlkd jghghskgh dlskghjgl kjhsglksjghlk djghdgdsgd gdgsdgsdg dsgdsgd gsdgdgdggdsgdgdgd gdgdgdgg</p>
         </Element>
 
-        <Element name="invoice" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, paddingTop: 70, display: 'block', width: '100%'}} >
+        <Element name="invoice" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, padding: '70px 40px 70px 40px', display: 'block', width: '100%', border: '5px solid #076'}} >
            <img src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-03%20at%208.26.04%20PM_zpschkqnrps.png~original"
-           style={{width: '60%', height: '60%', float: 'right'}}
+           style={{width: '60%', height: '60%', float: 'right', paddingLeft: 20}}
           />
           <p>Description of invoices here...(with images, icons, links, etc...) jflskjfsldfkjslfkjsflskfjskjh sghlkd jghghskgh dlskghjgl kjhsglksjghlk djghdgdsgd gdgsdgsdg dsgdsgd gsdgdgdggdsgdgdgd gdgdgdgg</p>
         </Element>
 
-        {/*<Element name="signup" className="element col-xs-8 col-offset-xs-2" style={{marginTop: 20, display: 'block', width: '100%'}}>
-          <p>Join Now!</p>
-          <RaisedButton label="Login / Demo Account" style={{color: '#fff'}} onTouchTap={this.props.handleLoginModal}/>
-        </Element>*/}
+        <Element name="signup" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, padding: '70px 40px 70px 40px', display: 'block', width: '100%', border: '5px solid #076'}}>
+          {/*<SignUp />*/}
+          <div style={{width: '75%', margin: 'auto', paddingLeft: 40, textAlign: 'center'}}>
+            <h4 style={{color: '#076'}} >What are you waiting for?</h4>
+            <RaisedButton
+              label="Join Now"
+              labelStyle={{color: '#fff'}}
+              buttonStyle={{backgroundColor: '#076'}}
+              style={{lineHeight: 0}}
+              onTouchTap={() => {
+              this.props.handleLoginModal(),
+              this.props.handleLoginSlides(1);
+            }
+              } />
+          </div>
+          {/*<p>Join Now!</p>
+          <RaisedButton label="Login / Demo Account" style={{color: '#fff'}} onTouchTap={this.props.handleLoginModal}/>*/}
+        </Element>
       </div>
       </div>
     );
@@ -179,8 +180,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        handleSession: actions.handleSession,
-        // handleModal: actions.handleModal,
+        // handleSession: actions.handleSession,
+        handleLoginModal: actions.handleLoginModal,
+        handleLoginSlides: actions.handleLoginSlides
         // handleDrawer: actions.handleDrawer,
         // fetchDataFromApi: actions.fetchDataFromApi,
         },

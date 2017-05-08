@@ -25,6 +25,11 @@ body {
   font-size: large;
 }
 
+#main-content {
+  background-color: "#eee" !important;
+  min-height: 540px !important;
+  }
+
 #timetracker-mobile {
     display: none !important;
     text-align: center !important;

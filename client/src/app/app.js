@@ -25,6 +25,8 @@ import Loader from '../loader/loader.component';
 
 import TimeTracker from '../time-tracker/time-tracker.component';
 
+import Help from '../help/help.component';
+
 import Notification from '../notifications/notification.component';
 
 
@@ -48,7 +50,7 @@ class App extends Component {
         { this.props.isLoggedIn ?
         <div>
         <Header className="app-header" />
-        <div className="container-fluid" style={{backgroundColor: "#eee"}}>
+        <div id="main-content" className="container-fluid" style={{backgroundColor: "#eee", minHeight: 540}}>
           <div className="row">
             {/*<SubHeader />*/}
           <MainMenu id="main-menu" autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}} menuItemStyle={styleItem}/>
@@ -66,6 +68,7 @@ class App extends Component {
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceDetail' ? <InvoiceDetail /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'addInvoice' ? <AddInvoice /> : false}
             {this.props.isLoggedIn && this.props.selectedItem === 'settings' ? <Settings /> : false}
+            {this.props.isLoggedIn && this.props.selectedItem === 'help' ? <Help /> : false}
             <Notification />
           </div>
         </div>

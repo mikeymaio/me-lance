@@ -19,6 +19,10 @@
 	padding: 30px 25px 33px 25px;
 }*/
 
+p {
+	font-size: 16px;
+}
+
 .navbar-inverse .navbar-nav li a:hover {
 	background-color: #076 !important;
 	transition: 0.7s all linear;
@@ -44,8 +48,17 @@
 	color: #076
 }
 
+.login-link {
+	float: right !important;
+}
 
+a {
+	cursor: pointer;
+}
 
+.element {
+	background-color: #fff;
+}
 
 
 @media (max-width: 767px) {
@@ -59,6 +72,20 @@
 	color: #076 !important;
 }
  ul > li:hover > a {
+	color: #fff !important;
+}
+
+a {
+	color: #076 !important;
+}
+li:hover > a > div > a {
+	color: #fff !important;
+}
+.login-link {
+	float: none !important;
+}
+
+.logo {
 	color: #fff !important;
 }
 }
