@@ -28,7 +28,7 @@ const Header = () => {
     return (
       // <div>
         <AppBar
-          title="Freelancer"
+          title="Me-Lance"
           style={{padding: 20,}}
           titleStyle={{minWidth: 100}}
           iconElementLeft={<DrawerMenu />}

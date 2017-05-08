@@ -59,7 +59,7 @@ class Landing extends Component {
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation" style={{backgroundColor: "#076", border: "none"}}>
 			<div className="container-fluid">
         <div className="navbar-header">
-          <Link className="pull-left logo" to="#" style={{lineHeight: 3.15, color: '#fff', textDecoration: 'none', fontSize: 16, marginRight: 35}} onClick={this.scrollToTop}>Freelancer</Link>
+          <Link className="pull-left logo" to="#" style={{lineHeight: 3.15, color: '#fff', textDecoration: 'none', fontSize: 16, marginRight: 35}} onClick={this.scrollToTop}>Me-Lance</Link>
           <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span className="sr-only">Toggle navigation</span>
             <span className="icon-bar"></span>
@@ -114,7 +114,7 @@ class Landing extends Component {
               style={{width: '100%', height: '100%'}} />
             } />
           <h1>Save time...</h1>
-          <p>At the heart of this app, is the time tracker. Just click start when you are ready to get to work. When you are done, you will be prompted to select a project, add a description of the tasks completed, and even edit the time you've spent. With one click, a new task will be added to your current invoice. If an invoice doesn't exist, don't sweat it! We'll create one for you.</p>
+          <p>At the heart of Me-Lance, is the time tracker. Just click start when you are ready to get to work. When you are done, you will be prompted to select a project, add a description of the tasks completed, and even edit the time you've spent. With one click, a new task will be added to your current invoice. If an invoice doesn't exist, don't sweat it! We'll create one for you.</p>
         </Element>
 
         <Element name="invoice" className="element col-xs-12" style={{margin: 6, padding: '140px 40px 20px 40px', display: 'block', width: '100%',

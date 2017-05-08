@@ -45,7 +45,7 @@ class DrawerMenu extends React.Component {
         >
         <div style={{backgroundColor: '#076', height: 40}} >
           <FlatButton label="X" className="pull-right" onTouchTap={this.props.handleDrawer} style={{color: '#FFF'}}/>
-          <h4 className="pull-left" style={{color: '#FFF', marginLeft: 20}} >Freelancer</h4>
+          <h4 className="pull-left" style={{color: '#FFF', marginLeft: 20}} >Me-Lance</h4>
           </div>
           <Divider style={{height: 3}} />
           <MainMenu id="menu-drawer" style={{width: "100%", float: "left"}} menuItemStyle={{display: "block", width: "100%", float: "left"}} />
