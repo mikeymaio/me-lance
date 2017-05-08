@@ -87,13 +87,15 @@ class InvoiceDetail extends React.Component {
         }
         const element = document.querySelector('#invoice-update-form');
 
-        html2canvas(element, {
-          onrendered: function(canvas) {
-            window.print(canvas);
-          },
-            imageTimeout: 2000,
-            removeContainer: true,
-        })
+        window.print(element);
+
+        // html2canvas(element, {
+        //   onrendered: function(canvas) {
+        //     window.print(canvas);
+        //   },
+        //     imageTimeout: 2000,
+        //     removeContainer: true,
+        // })
     }
 
 

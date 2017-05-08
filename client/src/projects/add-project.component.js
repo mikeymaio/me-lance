@@ -164,13 +164,6 @@ handleTemplateChange = (event, index, value) => {
             >
                 {billingOptions}
             </SelectField>
-                <br />
-            <TextField
-                name="budget"
-                floatingLabelText="Budget"
-                hintText="10,000"
-                style={styles.input}
-            />
             <br />
             <TextField
                 name="notes"
@@ -180,28 +173,13 @@ handleTemplateChange = (event, index, value) => {
                 style={styles.input}
             />
                 <br />
-            <TextField
+            {/*<TextField
                 name="billingCycle"
                 floatingLabelText="Billing Cycle"
                 hintText="weekly, bi-weekly, monthly..."
                 style={styles.input}
-                />
+                />*/}
                 <br />
-                <br />
-            <SelectField
-                value={this.state.selectedTemplate}
-                onChange={this.handleTemplateChange}
-                name="invoiceTemp"
-                floatingLabelText="Invoice Template"
-                hintText="Select Invoice Template"
-                style={styles.selectMenu}
-            >
-                <MenuItem key="newTemp" value="New Template" primaryText="New Template" />
-                {this.props.templates.map( ( template, index ) => (
-                    <MenuItem key={index} value={template.title} primaryText={template.title} />
-                ))}
-                </SelectField>
-
                 <Divider inset={false} style={{color: "#076", height: 3}} />
                     <div>
                         <FlatButton label="Cancel" onTouchTap={() => this.props.handleProjectView("projectList")} />
