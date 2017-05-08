@@ -17,7 +17,7 @@ const options = {
     backgroundColor: '#FFF',
     padding: 5,
     borderRadius: 5,
-    width: 220,
+    width: 150,
     height: '100%',
     display: 'inline-block',
     color: '#076',
@@ -82,10 +82,10 @@ class TimeTracker extends Component {
           reset={this.state.stopwatchReset}
           options={options}/>
           {!this.props.user.timerRunning ?
-        <RaisedButton label="Start" onTouchTap={this.startTimer} /> :
-        <RaisedButton label="Stop" onTouchTap={this.stopTimer} />
+        <RaisedButton label="Start" buttonStyle={{height: 30, lineHeight: '30px'}} style={{margin: '0px 1px'}} onTouchTap={this.startTimer} /> :
+        <RaisedButton label="Stop" buttonStyle={{height: 30, lineHeight: '30px'}} style={{margin: '0px 1px'}} onTouchTap={this.stopTimer} />
           }
-        <RaisedButton label="Reset" onTouchTap={this.resetStopwatch} />
+        <RaisedButton label="Reset" buttonStyle={{height: 30, lineHeight: '30px'}} style={{margin: '0px 1px'}} onTouchTap={this.resetStopwatch} />
         <TimeTrackerModal formId={this.props.formId} />
       </div>
     );
