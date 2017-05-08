@@ -8,6 +8,7 @@ import { FormsyText } from 'formsy-material-ui/lib';
 
 import { fetchDataFromApi } from '../login/login.actions';
 import { handleUserUpdate } from './settings.actions';
+import { handleMenuItemSelect } from '../menu/menu.actions';
 
 
 import { connect } from 'react-redux';
@@ -38,37 +39,37 @@ class UpdateUser extends React.Component {
 
   render() {
 
-       const enableButton = () => {
-    this.setState({
-      canSubmit: true,
-    });
-  }
+    const enableButton = () => {
+      this.setState({
+        canSubmit: true,
+      });
+    }
 
-  const disableButton = () => {
-    this.setState({
-      canSubmit: false,
-    });
-  }
+    const disableButton = () => {
+      this.setState({
+        canSubmit: false,
+      });
+    }
 
-  const submitSignupForm = (data) => {
-    let userName = data.username;
-    let email = data.email;
-    let firstName = data.firstName;
-    let lastName = data.lastName;
-    let phone = data.phone;
-    let address = data.address;
+    const submitSignupForm = (data) => {
+      let userName = data.username;
+      let email = data.email;
+      let firstName = data.firstName;
+      let lastName = data.lastName;
+      let phone = data.phone;
+      let address = data.address;
 
-    let userId = this.props.user.userId;
+      let userId = this.props.user.userId;
 
-    this.props.handleUserUpdate(userName, email, firstName, lastName, phone, address, userId)
+      this.props.handleUserUpdate(userName, email, firstName, lastName, phone, address, userId)
 
-  }
+    }
 
-  const notifyFormError = (data) => {
-    console.error('Form error:', data);
-  }
+    const notifyFormError = (data) => {
+      console.error('Form error:', data);
+    }
 
-  let {submitStyle } = this.styles;
+    let {submitStyle } = this.styles;
     let { wordsError, numericError, emailError, alphaNumError } = this.errorMessages;
 
     const user = this.props.user;
@@ -123,7 +124,6 @@ class UpdateUser extends React.Component {
             <FormsyText
               name="phone"
               value={user.phone}
-              //type="tel"
               className="col-xs-9 col-xs-offset-3"
               validationError={numericError}
               hintText="555-555-5555"
@@ -142,7 +142,7 @@ class UpdateUser extends React.Component {
                 <FlatButton
                 label="Cancel"
                 primary={true}
-                onTouchTap={this.props.handleLoginModal}
+                onTouchTap={() => this.props.handleMenuItemSelect('dashboard')}
             />
             <RaisedButton
                 label="Save"
@@ -150,7 +150,6 @@ class UpdateUser extends React.Component {
                 type="submit"
                 primary={true}
                 keyboardFocused={true}
-                onTouchTap={this.props.handleLoginModal}
                 style={submitStyle}
                 disabled={!this.state.canSubmit}
             />
@@ -163,8 +162,6 @@ class UpdateUser extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        // isLoginModalOpen: state.loginReducer.isLoginModalOpen,
-        // loginModalSlideIndex: state.loginReducer.loginModalSlideIndex,
         user: state.loginReducer.user,
     };
 }
@@ -173,6 +170,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchDataFromApi: fetchDataFromApi,
         handleUserUpdate: handleUserUpdate,
+        handleMenuItemSelect: handleMenuItemSelect,
         },
         dispatch);
 }
