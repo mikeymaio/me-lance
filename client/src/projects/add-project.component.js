@@ -36,10 +36,10 @@ const styles = {
 
 const billingOptions = [
   <MenuItem key={1} value="hr" primaryText="hr" />,
-  <MenuItem key={2} value="day" primaryText="day" />,
-  <MenuItem key={3} value="week" primaryText="week" />,
+//   <MenuItem key={2} value="day" primaryText="day" />,
+//   <MenuItem key={3} value="week" primaryText="week" />,
   <MenuItem key={4} value="fixed price" primaryText="fixed price" />,
-  <MenuItem key={5} value="other" primaryText="other" />,
+//   <MenuItem key={5} value="other" primaryText="other" />,
 ];
 
 class AddProject extends React.Component {
