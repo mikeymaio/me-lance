@@ -1,25 +1,21 @@
-// const requestDataFromAPI = () => ({
-//   type: 'REQUEST_DATA'
-// })
+export const fetchUserClients = (userId) => {
+    console.log('fetching your clients')
+  return dispatch => {
+    dispatch(requestDataFromServer())
 
-// const recieveDataFromAPI = (data) => ({
-//   type: 'RECEIVE_DATA',
-//   payload: data
-// })
-
-
-// export const fetchDataFromApi = (q) => {
-//   return dispatch => {
-//     dispatch(requestDataFromAPI())
-// //     SC.get('/tracks', {
-// //     q: q,
-// //     limit: 20,
-// //   })
-//     .then(response => {
-//         dispatch(recieveDataFromAPI(response))})
-//     .catch(ex => console.log('parsing failed', ex))
-//   }
-// }
+    fetch(`/api/clients?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // mode: 'same-origin',
+      credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(res => dispatch(receiveClientDataFromServer(res.clients)))
+    .then( () => dispatch(receiveData()) )
+  }
+}
 
 
 export const filterInvoices = filter => {
@@ -84,15 +80,8 @@ export const handleAddInvoice = (invoiceNo, billingPeriodStart, billingPeriodEnd
     })
     .then(response => response.json())
     .then( res =>  dispatch(receiveData(res.message)))
-    .then(fetch(`/api/clients?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
+    .then( () => dispatch(fetchUserClients(userId))
+    )
     .then( () => dispatch(handleInvoiceView( "invoiceList", null, null, null )))
     .catch(err => console.log(err))
   }
@@ -118,15 +107,8 @@ export const handleUpdateInvoice = (tasks, tax, userId, clientId, projectId, inv
     })
     .then(response => response.json())
     .then( res =>  dispatch(receiveData(res.message)))
-    .then(fetch(`/api/clients?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
+    .then( () => dispatch(fetchUserClients(userId))
+    )
     .then( () => dispatch(handleInvoiceEdit()))
     .catch( err => console.log(err))
   }
@@ -153,15 +135,8 @@ export const handleDeleteInvoice = (userId, clientId, projectId, invoiceId) => {
     })
     .then(response => response.json())
     .then( res =>  dispatch(receiveData(res.message)))
-    .then(fetch(`/api/clients?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
+    .then( () => dispatch(fetchUserClients(userId))
+    )
     .then( () => dispatch(handleInvoiceView( "invoiceList", null, null, null )))
     .catch(err => console.log(err))
   }

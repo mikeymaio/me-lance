@@ -104,15 +104,8 @@ export const handleUpdateClient = (firstName, lastName, company, phone, email, a
     })
     .then(response => response.json())
     .then(res => dispatch(receiveData(res.message)))
-    .then(fetch(`/api/clients?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
+    .then( () => dispatch(fetchUserClients(userId))
+    )
   }
 }
 
@@ -136,15 +129,8 @@ export const handleDeleteClient = (clientId, userId) => {
     })
     .then(response => response.json())
     .then(res => dispatch(receiveData(res.message)))
-    .then(fetch(`/api/clients?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
+    .then( () => dispatch(fetchUserClients(userId))
+    )
   }
 }
 

@@ -1,3 +1,22 @@
+export const fetchUserClients = (userId) => {
+    console.log('fetching your clients')
+  return dispatch => {
+    dispatch(requestDataFromServer())
+
+    fetch(`/api/clients?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // mode: 'same-origin',
+      credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(res => dispatch(receiveClientDataFromServer(res.clients)))
+    .then( () => dispatch(receiveData()) )
+  }
+}
+
 
 const requestDataFromServer = () => ({
   type: 'REQUEST_PROJECT_DATA'
@@ -68,15 +87,8 @@ export const handleAddProject = (clientName, projectName, rate, ratePer, notes, 
     })
     .then(response => response.json())
     .then(res =>  dispatch(receiveData(res.message)))
-    .then(fetch(`/api/clients?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
+    .then( () => dispatch(fetchUserClients(userId))
+    )
   }
 }
 
@@ -141,15 +153,8 @@ export const handleUpdateProject = (projectName, rate, ratePer, notes, startDate
     })
     .then(response => response.json())
     .then(res =>  dispatch(receiveData(res.message)))
-    .then(fetch(`/api/clients?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
+    .then( () => dispatch(fetchUserClients(userId))
+    )
   }
 }
 
@@ -173,15 +178,8 @@ export const handleDeleteProject = (clientId, projectId, userId) => {
     })
     .then(response => response.json())
     .then(res =>  dispatch(receiveData(res.message)))
-    .then(fetch(`/api/clients?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(res => dispatch(receiveClientDataFromServer(res.clients))))
+    .then( () => dispatch(fetchUserClients(userId))
+    )
   }
 }
 
