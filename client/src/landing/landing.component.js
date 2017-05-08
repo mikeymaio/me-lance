@@ -121,7 +121,7 @@ class Landing extends Component {
         }} >
           <Paper zDepth={2} style={{width: '60%', height: '60%', float: 'left', marginRight: 20}} children={
            <img
-            src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-03%20at%208.26.04%20PM_zpschkqnrps.png~original"
+            src="https://s18.postimg.org/97qebyr3t/Screen_Shot_2017-05-03_at_8.26.04_PM.png"
             alt="invoice"
             style={{width: '100%', height: '100%'}}
           />
@@ -136,7 +136,7 @@ class Landing extends Component {
           <Paper zDepth={2} style={{width: '60%', height: '60%', float: 'right', marginLeft: 20}} children={
             <img
               style={{width: '100%', height: '100%'}}
-              src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-06%20at%205.58.15%20PM_zpsymcq2brg.png~original"
+              src="https://s22.postimg.org/spbv0ajk1/Screen_Shot_2017-05-06_at_5.58.15_PM.png"
               alt="chart"
               />
           } />
