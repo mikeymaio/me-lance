@@ -14,15 +14,10 @@ import { bindActionCreators } from 'redux';
 import './landing.css';
 
 const Link       = Scroll.Link;
-const DirectLink = Scroll.DirectLink;
 const Element    = Scroll.Element;
 const Events     = Scroll.Events;
 const scroll     = Scroll.animateScroll;
 const scrollSpy  = Scroll.scrollSpy;
-
-const durationFn = function(deltaTop) {
-    return deltaTop;
-};
 
 const styles = {
   link: {
@@ -65,7 +60,7 @@ class Landing extends Component {
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation" style={{backgroundColor: "#076", border: "none"}}>
 			<div className="container-fluid">
         <div className="navbar-header">
-          <Link className="pull-left logo" style={{lineHeight: 3.15, color: '#fff', textDecoration: 'none', fontSize: 16, marginRight: 35}} onClick={this.scrollToTop}>Freelancer</Link>
+          <Link className="pull-left logo" to="#" style={{lineHeight: 3.15, color: '#fff', textDecoration: 'none', fontSize: 16, marginRight: 35}} onClick={this.scrollToTop}>Freelancer</Link>
           <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span className="sr-only">Toggle navigation</span>
             <span className="icon-bar"></span>
@@ -84,24 +79,27 @@ class Landing extends Component {
             data-toggle="collapse"
             data-target="#bs-example-navbar-collapse-1">
             <Link
+              to="#"
               style={styles.link}
               onTouchTap={() => {
-                this.props.handleLoginModal(),
+                this.props.handleLoginModal()
                 this.props.handleLoginSlides(1);
                 }
               }>
               Sign Up
             </Link>
           </li>
-          <li className="login-link" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} ><LoginModal /></Link></li>
+          <li className="login-link"><LoginModal /></li>
 				</ul>
 			</div>
       </div>
 		</nav>
 
     <div style={{backgroundColor: '#fff'}}>
-      <img src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.skipprichard.com%2Fwp-content%2Fuploads%2F2012%2F05%2FI-love-my-job.jpg&f=1" 
-           style={{width: '100%', height: 575, maxWidth: 975, display: 'block', margin: 'auto'}}
+      <img
+        src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.skipprichard.com%2Fwp-content%2Fuploads%2F2012%2F05%2FI-love-my-job.jpg&f=1"
+        alt="I love my job"
+        style={{width: '100%', height: 575, maxWidth: 975, display: 'block', margin: 'auto'}}
       />
 
       <div style={{height: 100, width: '75%', backgroundColor: 'rgba(0, 119, 102, 0.5)', position: 'absolute', top: '15%', left: '10%'}}>
@@ -113,8 +111,10 @@ class Landing extends Component {
         <Element name="about" className="element col-xs-12" style={{margin: 6, padding: '140px 40px 20px 40px', display: 'block', width: '100%',
         }} >
           <Paper zDepth={2} style={{width: '40%', height: '40%', float: 'right', marginLeft: 20}} children={
-  
-            <img src="https://s16.postimg.org/i3y6xzd1h/Time_Tracker.jpg" style={{width: '100%', height: '100%'}} />
+            <img
+              src="https://s16.postimg.org/i3y6xzd1h/Time_Tracker.jpg"
+              alt="time tracker"
+              style={{width: '100%', height: '100%'}} />
             } />
           <h1>Save time...</h1>
           <p>At the heart of this app, is the time tracker. Just click start when you are ready to get to work. When you are done, you will be prompted to select a project, add a description of the tasks completed, and even edit the time you've spent. With one click, a new task will be added to your current invoice. If an invoice doesn't exist, don't sweat it! We'll create one for you.</p>
@@ -124,7 +124,9 @@ class Landing extends Component {
         }} >
           <Paper zDepth={2} style={{width: '60%', height: '60%', float: 'left', marginRight: 20}} children={
            <img
-           style={{width: '100%', height: '100%'}}src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-03%20at%208.26.04%20PM_zpschkqnrps.png~original"
+            src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-03%20at%208.26.04%20PM_zpschkqnrps.png~original"
+            alt="invoice"
+            style={{width: '100%', height: '100%'}}
           />
           }
           />
@@ -136,14 +138,16 @@ class Landing extends Component {
         }} >
           <Paper zDepth={2} style={{width: '60%', height: '60%', float: 'right', marginLeft: 20}} children={
             <img
-            style={{width: '100%', height: '100%'}}
-              src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-06%20at%205.58.15%20PM_zpsymcq2brg.png~original"/>
+              style={{width: '100%', height: '100%'}}
+              src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-06%20at%205.58.15%20PM_zpsymcq2brg.png~original"
+              alt="chart"
+              />
           } />
           <h1>Keep track of your success</h1>
         <p>Interactive charts and statistics help you stay on track and discover your most profitable clients</p>
         </Element>
 
-        <Element name="signup" className="element col-xs-12" style={{margin: 6, padding: '40px 40px 40px 20px', display: 'block', width: '100%',
+        <Element name="signup" className="element col-xs-12" style={{margin: 6, padding: '40px 40px 40px 20px', display: 'block', width: '100%'
         }}>
           <div style={{width: '75%', margin: 'auto', paddingLeft: 40, textAlign: 'center'}}>
             <h4 style={{color: '#076'}} >What are you waiting for?</h4>
@@ -153,7 +157,7 @@ class Landing extends Component {
               buttonStyle={{backgroundColor: '#076'}}
               style={{lineHeight: 0}}
               onTouchTap={() => {
-              this.props.handleLoginModal(),
+              this.props.handleLoginModal()
               this.props.handleLoginSlides(1);
             }
               } />

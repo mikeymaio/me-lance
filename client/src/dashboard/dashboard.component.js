@@ -1,17 +1,9 @@
 // import { Chart } from 'react-google-charts';
 import React from 'react';
 
-import Divider from 'material-ui/Divider';
 import PieChart from './charts/time-worked-pie.component';
-import BarChart from './charts/time-to-income-bar.component';
 
-import PieChart2 from './charts/pie';
-
-import LineChart from './charts/time-per-day-line.component';
-
-import ClientProitBarCHart from './charts/most-profitable-clients.component';
-
-import ChartsMenu from './charts/charts-menu.component';
+import ClientProfitBarChart from './charts/most-profitable-clients.component';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 // From https://github.com/oliviertassinari/react-swipeable-views
@@ -54,12 +46,9 @@ class Dashboard extends React.Component {
         <Tabs
           onChange={this.props.handleDashboardSlides}
           value={this.props.dashboardSlideIndex}
-          //onChange={this.handleChange}
-          //value={this.state.slideIndex}
           tabItemContainerStyle={{background: '#fff'}}
         >
           <Tab label="Time Use" value={0} buttonStyle={styles.button} style={styles.tab} />
-          {/*<Tab label="Time to Income" value={1} buttonStyle={styles.button} style={styles.tab} />*/}
           <Tab label="Client Profit" value={1} buttonStyle={styles.button} style={styles.tab} />
         </Tabs>
         <SwipeableViews
@@ -70,11 +59,8 @@ class Dashboard extends React.Component {
           <div style={styles.slide}>
             <PieChart />
           </div>
-          {/*<div style={styles.slide}>
-            <LineChart />
-          </div>*/}
           <div style={styles.slide}>
-            <ClientProitBarCHart />
+            <ClientProfitBarChart />
           </div>
         </SwipeableViews>
       </div>
@@ -82,15 +68,10 @@ class Dashboard extends React.Component {
   }
 }
 
-// export default Dashboard;
-
-
 function mapStateToProps(state) {
     return {
         clients: state.clientReducer.clients,
         dashboardSlideIndex: state.dashboardReducer.dashboardSlideIndex,
-        // clientEdit: state.clientReducer.clientEdit,
-        // isLoading: state.clientReducer.isLoading,
         statsView: state.chartsReducer.statsView,
         userId: state.loginReducer.user.userId,
     };

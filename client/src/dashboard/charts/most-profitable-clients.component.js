@@ -16,12 +16,12 @@ const getData = clients => {
         client.projects.map(project => {
             let rate = project.rate
             let hours = 0;
-            project.invoices.map(invoice => {
+            project.invoices.map(invoice => (
                 invoice.tasks.map(task => (
                     hours += task.hoursSpent
                 ))
-            })
-            income += hours * rate;
+            ))
+            return income += hours * rate;
         })
         return data.dataArray.push([clientName, income])
     })

@@ -1,3 +1,18 @@
+const requestDataFromServer = () => ({
+  type: 'REQUEST_INVOICE_DATA'
+})
+
+const receiveClientDataFromServer = clients => ({
+  type: 'RECEIVE_CLIENT_DATA',
+  clients
+})
+
+const receiveData = message => ({
+  type: 'RECEIVE_DATA',
+  message
+})
+
+
 export const fetchUserClients = (userId) => {
     console.log('fetching your clients')
   return dispatch => {
@@ -44,20 +59,6 @@ export function handleInvoiceEdit() {
         type: UPDATE_INVOICE_EDIT
     }
 }
-
-const requestDataFromServer = () => ({
-  type: 'REQUEST_INVOICE_DATA'
-})
-
-const receiveClientDataFromServer = clients => ({
-  type: 'RECEIVE_CLIENT_DATA',
-  clients
-})
-
-const receiveData = message => ({
-  type: 'RECEIVE_DATA',
-  message
-})
 
 export const handleAddInvoice = (invoiceNo, billingPeriodStart, billingPeriodEnd, tasks, userId, clientId, projectId) => {
     console.log('handleAddInvoicefired: ');

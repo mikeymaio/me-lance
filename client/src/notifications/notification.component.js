@@ -1,7 +1,5 @@
 import React from 'react';
 import Snackbar from 'material-ui/Snackbar';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

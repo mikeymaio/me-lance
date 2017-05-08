@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-// import { AppRegistry, StyleSheet,Text,View, TouchableHighlight } from 'react-native';
+
 import Stopwatch from './timer.component';
 import RaisedButton from 'material-ui/RaisedButton';
-
-import moment from 'moment';
 
 import * as actions from './time-tracker.actions'
 
@@ -50,7 +48,7 @@ class TimeTracker extends Component {
   }
 
   resetStopwatch() {
-    this.setState({stopwatchStart: false, stopwatchReset: true}),
+    this.setState({stopwatchStart: false, stopwatchReset: true})
     this.props.handleClearStartTime(this.props.userId);
   }
 

@@ -1,3 +1,22 @@
+const requestDataFromServer = () => ({
+  type: 'REQUEST_DATA'
+})
+
+const receiveUserData = user => ({
+  type: 'RECEIVE_USER_DATA',
+  user
+})
+
+const receiveData = message => ({
+  type: 'RECEIVE_DATA',
+  message
+})
+
+const receiveDataFromServer = (user) => ({
+  type: 'RECEIVE_USER_DATA',
+  user
+})
+
 export const handleUserUpdate = (userName, email, firstName, lastName, phone, address, userId) => {
     console.log('handleUserUpdate fired with username:', userName)
   return dispatch => {
@@ -38,11 +57,6 @@ export const handleUserUpdate = (userName, email, firstName, lastName, phone, ad
   }
 };
 
-const receiveDataFromServer = (user) => ({
-  type: 'RECEIVE_USER_DATA',
-  user
-})
-
 export const handlePasswordUpdate = (oldPassword, password, userId) => {
   return dispatch => {
     dispatch(requestDataFromServer())
@@ -66,25 +80,6 @@ export const handlePasswordUpdate = (oldPassword, password, userId) => {
     .then( () => dispatch(receiveData()) )
   };
 };
-
-const requestDataFromServer = () => ({
-  type: 'REQUEST_DATA'
-})
-
-// const receiveDataFromServer = (user) => ({
-//   type: 'RECEIVE_USER_DATA',
-//   user
-// })
-
-const receiveUserData = user => ({
-  type: 'RECEIVE_USER_DATA',
-  user
-})
-
-const receiveData = message => ({
-  type: 'RECEIVE_DATA',
-  message
-})
 
 export const handleSettingsView = view => {
     const UPDATE_SETTINGS_VIEW = 'UPDATE_SETTINGS_VIEW';

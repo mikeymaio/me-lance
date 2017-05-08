@@ -44,15 +44,12 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        {/*<div className="app-header">
-        </div>*/}
         {this.props.isLoading ? <Loader style={{zIndex: 5000}}/> : false}
         { this.props.isLoggedIn ?
         <div>
         <Header className="app-header" />
         <div id="main-content" className="container-fluid" style={{backgroundColor: "#eee", minHeight: 540}}>
           <div className="row">
-            {/*<SubHeader />*/}
           <MainMenu id="main-menu" autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}} menuItemStyle={styleItem}/>
           <TimeTracker id="timetracker-mobile" formId="add-time-form-mobile" textColor="#076" style={{margin: 15, display: 'block', width: '100%'}}/>
           </div>

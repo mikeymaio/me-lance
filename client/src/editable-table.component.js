@@ -48,14 +48,6 @@ class MuiEditableTable extends React.Component {
     }
 
     render() {
-        const editableTableStyle = {
-            display: "flex",
-            flexFlow: "column nowrap",
-            justifyContent: "space-between",
-            alignItems: "center",
-            fontFamily: "Roboto, sans-serif",
-        };
-
         return (
             <div className="wrapper" style={{width: "1203%"}}>
                 <div className="mui-editable-table"
@@ -122,19 +114,14 @@ class MuiEditableTable extends React.Component {
 
     renderRow(dataRow, index) {
         const dataRowStyle = {
-            width: "100%",
             display: "flex",
             flexFlow: "row nowrap",
             alignItems: "center",
-            border: "0",
-           // height: "40px",
-            width: "100%",
-            minWidth: 320,
             justifyContent: "flex-start",
-            display: "flex",
-            flexFlow: "row nowrap",
             flexShrink: 2,
             border: "0",
+            width: "100%",
+            minWidth: 320,
             height: "100%",
             color: "rgb(158, 158, 158)",
             fontSize: "12px",

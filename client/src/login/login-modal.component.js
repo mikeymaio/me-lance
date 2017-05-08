@@ -66,31 +66,18 @@ class LoginModal extends React.Component {
     wordsError: "Please only use letters",
     alphaNumError: "Please only use letters and numbers",
     numericError: "Please provide a number",
-    urlError: "Please provide a valid URL",
     passwordError: "Password must be at least 8 characters",
     passwordConfirmError: "Passwords do not match",
     emailError: "Please enter a valid email address",
   }
 
   this.styles = {
-    paperStyle: {
-      width: 300,
-      margin: 'auto',
-      padding: 20,
-    },
-    switchStyle: {
-      marginBottom: 16,
-    },
     submitStyle: {
       marginTop: 32,
     },
   }
   }
 
-
-//       componentDidMount() {
-//     this.props.fetchDataFromApi()
-//   }
 
   render() {
 
@@ -133,8 +120,8 @@ class LoginModal extends React.Component {
     console.error('Form error:', data);
   }
 
-  let {paperStyle, switchStyle, submitStyle } = this.styles;
-    let { wordsError, numericError, urlError, passwordError, passwordConfirmError, emailError, alphaNumError } = this.errorMessages;
+  let {submitStyle } = this.styles;
+    let { wordsError, numericError, passwordError, passwordConfirmError, emailError, alphaNumError } = this.errorMessages;
 
     const actionButtons =
     this.props.loginModalSlideIndex === 0 ?
@@ -150,7 +137,6 @@ class LoginModal extends React.Component {
         type="submit"
         primary={true}
         keyboardFocused={true}
-        //onTouchTap={this.props.handleLoginModal}
         style={submitStyle}
         disabled={!this.state.canSubmit}
       />,
@@ -174,14 +160,13 @@ class LoginModal extends React.Component {
     ];
 
     return (
-      <div>
+      <div style={{padding: 15}}>
         <a href="#" style={{color: '#fff', textDecoration: 'none'}} onTouchTap={ () => {
           this.props.handleLoginModal();
           this.props.handleLoginSlides(0);
           }}>
           Login / Demo Account
         </a>
-        {/*}*/}
         <Dialog
           actions={actionButtons}
           modal={false}
@@ -266,7 +251,6 @@ class LoginModal extends React.Component {
               hintText="demo"
               floatingLabelText="Username"
             />
-            {/*<br />*/}
             <FormsyText
               name="password"
               className="col-xs-9 col-xs-offset-3"
@@ -277,7 +261,6 @@ class LoginModal extends React.Component {
               floatingLabelText="Password"
               hintText="enter a password"
             />
-            {/*<br />*/}
             <FormsyText
               name="passwordConfirm"
               className="col-xs-9 col-xs-offset-3"
@@ -288,23 +271,19 @@ class LoginModal extends React.Component {
               floatingLabelText="Password Confirmation"
               hintText="Re-enter password"
             />
-            {/*<br />*/}
             <FormsyText
               name="firstName"
               className="col-xs-9 col-xs-offset-3"
               validations="isWords"
               validationError={wordsError}
-              //required
               hintText="John"
               floatingLabelText="First Name"
             />
-            {/*<br />*/}
             <FormsyText
               name="lastName"
               className="col-xs-9 col-xs-offset-3"
               validations="isWords"
               validationError={wordsError}
-              //required
               hintText="Doe"
               floatingLabelText="Last Name"
             />
@@ -319,26 +298,18 @@ class LoginModal extends React.Component {
             />
             <FormsyText
               name="phone"
-              //type="tel"
               className="col-xs-9 col-xs-offset-3"
-              //validations={{matchRegexp: '^\d{3}-\d{3}-\d{4}$' }}
               validationError={numericError}
-              //required
               hintText="555-555-5555"
               floatingLabelText="Phone No."
             />
-            {/*<br />*/}
             <FormsyText
               name="address"
               className="col-xs-9 col-xs-offset-3"
-              //validations="isAlphanumeric"
-              //validationError={alphaNumError}
-              //required
               multiLine={true}
               hintText="123 Main St Somewhere CA 90026"
               floatingLabelText="Address"
             />
-            {/*<br />*/}
             <div className="col-xs-9 col-xs-offset-3" style={{height:20}} />
           </Formsy.Form>
           </div>

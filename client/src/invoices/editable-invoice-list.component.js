@@ -8,9 +8,9 @@ import { bindActionCreators } from 'redux';
 
 import FlatButton from 'material-ui/FlatButton';
 
-import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
+import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 
-import {List, ListItem, makeSelectable} from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
 
 import Divider from 'material-ui/Divider';
 
@@ -96,7 +96,9 @@ componentDidMount() {
                             <List className="list" style={{padding: 0}} >
                                 <Divider />
                                 { project.invoices.filter(i => {
-                                    new Date(i.billingPeriodEnd) < new Date() ? i.completed = true : false;
+                                    if (new Date(i.billingPeriodEnd) < new Date() ) {
+                                         i.completed = true
+                                    }
                                     if (this.props.invoiceFilter === 'SHOW_ALL') {
                                         return true;
                                     }

@@ -1,23 +1,3 @@
-export const fetchUserClients = (userId) => {
-    console.log('fetching your clients')
-  return dispatch => {
-    dispatch(requestDataFromServer())
-
-    fetch(`/api/clients?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      // mode: 'same-origin',
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(res => dispatch(receiveClientDataFromServer(res.clients)))
-    .then( () => dispatch(receiveData()) )
-  }
-}
-
-
 const requestDataFromServer = () => ({
   type: 'REQUEST_PROJECT_DATA'
 })
@@ -36,6 +16,25 @@ const receiveData = message => ({
   type: 'RECEIVE_DATA',
   message
 })
+
+export const fetchUserClients = (userId) => {
+    console.log('fetching your clients')
+  return dispatch => {
+    dispatch(requestDataFromServer())
+
+    fetch(`/api/clients?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // mode: 'same-origin',
+      credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(res => dispatch(receiveClientDataFromServer(res.clients)))
+    .then( () => dispatch(receiveData()) )
+  }
+}
 
 export function handleProjectDetailModal() {
     const UPDATE_PROJECT_DETAIL_MODAL = 'UPDATE_PROJECT_DETAIL_MODAL';

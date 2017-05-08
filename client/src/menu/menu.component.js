@@ -7,8 +7,6 @@ import Paper from 'material-ui/Paper';
 
 import * as actions from './menu.actions';
 
-import { handleView } from '../session/session.actions';
-
 import { handleClientView } from '../clients/clients.actions';
 
 import { handleProjectView } from '../projects/projects.actions';
@@ -18,18 +16,6 @@ import { handleInvoiceView } from '../invoices/invoice.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-const style = {
-  display: 'inline-block',
-  margin: '0 32px 16px 0',
-  width: '100%'
-};
-
-const styleItem = {
-  display: 'inline',
-  float: 'left',
-  width: '25%',
-  textAlign: 'center'
-};
 
 class MainMenu extends React.Component {
 
@@ -71,7 +57,6 @@ class MainMenu extends React.Component {
 function mapStateToProps(state) {
     return {
         selectedItem: state.menuReducer.selectedItem,
-        //view: state.sessionReducer.view
     };
 }
 

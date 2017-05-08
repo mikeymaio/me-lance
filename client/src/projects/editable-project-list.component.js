@@ -11,7 +11,6 @@ import { fetchUserClients } from '../clients/clients.actions';
 
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import SelectField from 'material-ui/SelectField';
@@ -19,9 +18,6 @@ import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 
 import Loader from '../loader/loader.component';
-
-
-import Checkbox from 'material-ui/Checkbox';
 
 import FilterLink from '../filter-link.component';
 
@@ -168,15 +164,11 @@ componentDidMount() {
                       }
                       return true;
                   }).map( (project, index) => {
-                  //console.log(client.projects);
-                 //let visibleProjects = getVisibleProjects( (client.projects, this.props.projectFilter) );
-                  //visibleProjects.map( (project, index) => (
                    return <Card key={project.projectName+index}
                    containerStyle={{padding: 0, paddingBottom: 0}}>
                     <CardHeader
                       title={project.projectName}
                       subtitle={project.clientName}
-                      //avatar="images/ok-128.jpg"
                       actAsExpander={true}
                       showExpandableButton={true}
                     />
@@ -187,7 +179,6 @@ componentDidMount() {
                         let projectName = event.target.projectName.value;
                         let rate = event.target.rate.value;
                         let ratePer = this.state.billingCycleValue;
-                        {/*let budget = event.target.budget.value;*/}
                         let notes = event.target.notes.value;
                         let startDate = event.target.startDate.value;
                         let endDate = event.target.endDate.value;
@@ -239,17 +230,6 @@ componentDidMount() {
                             {billingOptions}
                         </SelectField>
                         <br />
-                        {/*<TextField
-                            name="budget"
-                            floatingLabelText="Budget"
-                            floatingLabelFixed={true}
-                            hintText="$"
-                            defaultValue={project.budget}
-                            disabled={!this.props.projectEdit}
-                            underlineDisabledStyle={{display: 'none'}}
-                            style={styles.input}
-                            />*/}
-                            <br />
                         <DatePicker
                             name="startDate"
                             hintText="Start Date"
@@ -291,39 +271,6 @@ componentDidMount() {
                             multiLine={true}
                             style={styles.input}
                             />
-                            <br />
-                        {/*<TextField
-                            name="billingCycle"
-                            floatingLabelText="Billing Cycle"
-                            floatingLabelFixed={true}
-                            defaultValue={project.billingCycle}
-                            hintText="weekly, bi-weekly, monthly..."
-                            disabled={!this.props.projectEdit}
-                            underlineDisabledStyle={{display: 'none'}}
-                            style={styles.input}
-                            />*/}
-                            {/*<br />*/}
-                            {/*<SelectField
-                            name="invoiceTemp"
-                            value={this.state.selectedTemplate}
-                            onChange={this.handleTemplateChange}
-                            floatingLabelText="Invoice Template"
-                            floatingLabelFixed={true}
-                            hintText={project.template}
-                            disabled={!this.props.projectEdit}
-                            underlineDisabledStyle={{display: 'none'}}
-                            style={styles.selectMenu}
-                            hintStyle={{color: '#076'}}
-                            labelStyle={{color: '#076'}}
-                        >*/}
-                        {/*{ this.props.user.templates ?
-                            this.props.user.templates.map( ( template, index ) => (
-                                <MenuItem key={index} value={template.title} primaryText={template.title} />
-                            ))
-                            :*/}
-                            {/*{<MenuItem key={0} value="New Template" primaryText="New Template" />}*/}
-                        {/*}*/}
-                        {/*</SelectField>*/}
                         <br />
                         <SelectField
                             value={this.state.completed}
@@ -399,7 +346,6 @@ function mapStateToProps(state) {
     return {
         clients: state.clientReducer.clients,
         projectEdit: state.projectReducer.projectEdit,
-        isLoading: state.projectReducer.isLoading,
         userId: state.loginReducer.user.userId,
         user: state.loginReducer.user,
         projectFilter: state.projectReducer.projectFilter,
@@ -412,12 +358,8 @@ function mapDispatchToProps(dispatch) {
         handleUpdateProject: actions.handleUpdateProject,
         handleDeleteProject: actions.handleDeleteProject,
         handleProjectView: actions.handleProjectView,
-        testLoader: actions.testLoader,
         fetchUserClients: fetchUserClients,
         filterProjects: actions.filterProjects,
-        // filterClients: actions.filterClients,
-        // handleAddClientModal: actions.handleAddClientModal,
-        // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);
 }

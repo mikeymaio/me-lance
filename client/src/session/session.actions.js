@@ -107,6 +107,7 @@ export const handleLogout = (userName) => {
 }
 
 export const handleView = view => {
-  type: 'UPDATE_VIEW',
+  const UPDATE_VIEW = 'UPDATE_VIEW';
+  type: UPDATE_VIEW,
   view
 }

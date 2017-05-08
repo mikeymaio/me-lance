@@ -1,12 +1,10 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 
 import Formsy from 'formsy-react';
-import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-    FormsySelect, FormsyText, FormsyTime, FormsyToggle, FormsyAutoComplete } from 'formsy-material-ui/lib';
+import { FormsySelect, FormsyText } from 'formsy-material-ui/lib';
 
 import * as actions from './time-tracker.actions'
 
@@ -27,22 +25,7 @@ class TimeTrackerModal extends React.Component {
             canSubmit: false,
         }
 
-
-  this.errorMessages = {
-    wordsError: "Please only use letters",
-    numericError: "Please provide a number",
-    urlError: "Please provide a valid URL",
-  },
-
   this.styles = {
-    paperStyle: {
-      width: 300,
-      margin: 'auto',
-      padding: 20,
-    },
-    switchStyle: {
-      marginBottom: 16,
-    },
     submitStyle: {
       marginTop: 32,
     },
@@ -159,8 +142,7 @@ class TimeTrackerModal extends React.Component {
 }
   render() {
 
-      let {paperStyle, switchStyle, submitStyle } = this.styles;
-    let { wordsError, numericError, urlError } = this.errorMessages;
+      let { submitStyle } = this.styles;
 
     const actions = [
       <FlatButton
@@ -169,11 +151,7 @@ class TimeTrackerModal extends React.Component {
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        //label="Submit"
-        //type="submit"
         form={this.props.formId}
-        //primary={true}
-        //disabled={true}
         onTouchTap={this.handleClose}
         style={submitStyle}
         type="submit"
@@ -189,8 +167,6 @@ class TimeTrackerModal extends React.Component {
           actions={actions}
           modal={true}
           open={this.props.isTimeModalOpen}
-          //contentStyle={{textAlign: 'center'}}
-          //onRequestClose={this.props.handleLoginModal}
         >
         {console.log(this.props.timerStop - this.props.user.timerStart)}
         Add { this.convertTimeToHours(this.props.timerStop, this.props.user.timerStart) } hours to...
@@ -206,7 +182,6 @@ class TimeTrackerModal extends React.Component {
               name="project"
               required
               floatingLabelText="Project"
-              //menuItems={this.selectFieldItems}
             >
             {this.props.clients.map( (client, cIndex) => (
                 client.projects.map( (project, pIndex) => (
@@ -227,7 +202,6 @@ class TimeTrackerModal extends React.Component {
                 floatingLabelText="Hours"
                 hintText="Hours Worked"
                 value={this.convertTimeToHours(this.props.timerStop, this.props.user.timerStart)}
-                //style={{visibility: "hidden"}}
             />
             </Formsy.Form>
         </Dialog>
@@ -241,7 +215,6 @@ function mapStateToProps(state) {
         user: state.loginReducer.user,
         userId: state.loginReducer.user.userId,
         clients: state.clientReducer.clients,
-        // timerStart: state.timeTrackerReducer.timerStart,
         timerStop: state.timeTrackerReducer.timerStop,
         isTimeModalOpen: state.timeTrackerReducer.isTimeModalOpen,
     };
