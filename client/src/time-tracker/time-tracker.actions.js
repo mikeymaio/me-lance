@@ -56,7 +56,7 @@ export const handleSaveStartTime = (timerStart, timerRunning, userId) => {
     .then( res => dispatch(receiveUserData(res.user)))
     )
     .then( () => dispatch(receiveData()) )
-    .catch(err => console.log(err))
+    .catch(err => alert(err))
   }
 }
 
@@ -97,7 +97,7 @@ export const handleSaveTimerStop = (time, timerRunning, userId) => {
     )
     .then( () => dispatch(receiveData()) )
     // .then( () => dispatch(handleTimerStop(time)))
-    .catch(err => console.log(err))
+    .catch(err => alert(err))
   }
 }
 
@@ -130,7 +130,7 @@ export const handleClearStartTime = userId => {
     )
     .then( () => {
         return dispatch(receiveData()) } )
-    .catch(err => console.log(err))
+    .catch(err => alert(err))
   }
 }
 

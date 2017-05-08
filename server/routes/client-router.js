@@ -5,8 +5,6 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-// const morgan = require('morgan');
-
 mongoose.Promise = global.Promise;
 
 const {
@@ -83,11 +81,6 @@ router.post('/', (req, res) => {
     });
 });
 
-
-
-
-
-
 // UPDATE CLIENT
 
 router.put('/:id', (req, res) => {
@@ -133,7 +126,6 @@ router.delete('/:id', (req, res) => {
   .then(client => res.status(201).json({message: `Success! ${client.firstName} ${client.lastName} has been deleted`}).end())
   .catch(err => res.status(500).json({message: 'Internal server error: ' + err }));
 });
-
 
 // ADD PROJECT
 
@@ -226,8 +218,6 @@ router.delete('/:id/projects/:projectId', (req, res) => {
   .then( () => res.status(201).json({message: `Success! Project deleted`}).end())
   .catch(err => res.status(500).json({message: 'Something went wrong: ' + err}));
 });
-
-
 
 
 // ADD INVOICE
@@ -366,8 +356,6 @@ Client
   .then( () => res.status(201).json({message: `Success! Invoice deleted`}).end() )
   .catch(err => res.status(500).json({message: 'Something went wrong: ' + err}));
 });
-
-
 
 
 module.exports = router;

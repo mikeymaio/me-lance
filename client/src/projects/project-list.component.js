@@ -152,11 +152,6 @@ componentDidMount() {
             }
     }
 
-    // const visibleProjects = getVisibleProjects(
-    //     this.props.invoices,
-    //     this.props.invoiceFilter
-    // )
-
     return (
       <div>
         <br />
@@ -169,41 +164,18 @@ componentDidMount() {
                 onTouchTap={() => this.props.handleProjectView('addProject')}
                 style={{float: "right"}}
               />
-              {/*<p>
-          Show:
-          <FilterLink
-            filter="SHOW_ALL"
-            >
-            All
-          </FilterLink>
-          <FilterLink
-            filter="SHOW_ACTIVE"
-            >
-            Active
-          </FilterLink>
-          <FilterLink
-            filter="SHOW_COMPLETED"
-            >
-            Completed
-          </FilterLink>
-          </p>*/}
               {this.props.clients.map( client => (
                   client.projects.map( (project, index) => {
-                  //console.log(client.projects);
-                 //let visibleProjects = getVisibleProjects( (client.projects, this.props.projectFilter) );
-                  //visibleProjects.map( (project, index) => (
                    return <Card key={project.projectName+index}>
                     <CardHeader
                       title={project.projectName}
                       subtitle={project.clientName}
-                      //avatar="images/ok-128.jpg"
                       actAsExpander={true}
                       showExpandableButton={true}
                     />
                     <CardText expandable={true} children={
                     <form id="project-edit-form" onSubmit={(event) => {
                         event.preventDefault()
-                        console.log('project-update-form submitted')
                         let projectName = event.target.projectName.value;
                         let rate = event.target.rate.value;
                         let ratePer = this.state.billingCycleValue;
@@ -420,11 +392,8 @@ function mapDispatchToProps(dispatch) {
         testLoader: actions.testLoader,
         fetchUserClients: fetchUserClients,
         filterProjects: actions.filterProjects,
-        // filterClients: actions.filterClients,
-        // handleAddClientModal: actions.handleAddClientModal,
-        // fetchDataFromApi: actions.fetchDataFromApi,
-        },
-        dispatch);
+    },
+    dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);

@@ -16,9 +16,7 @@ const { User } = require('./models/user-model');
 
 mongoose.Promise = global.Promise;
 
-const {
-    //PORT,
-     DATABASE_URL} = require('./config');
+const { DATABASE_URL } = require('./config');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({secret: 'anystringoftext',

@@ -145,7 +145,6 @@ componentDidMount() {
 
 function mapStateToProps(state) {
     return {
-        // isAddClientModalOpen: state.clientReducer.isAddClientModalOpen,
         clients: state.clientReducer.clients,
         invoices: state.invoiceReducer.invoices,
         invoiceFilter: state.invoiceReducer.invoiceFilter,
@@ -155,13 +154,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        // fetchUserInvoices: actions.fetchUserInvoices,
         handleInvoiceView: actions.handleInvoiceView,
         filterInvoices: actions.filterInvoices,
         fetchUserClients: fetchUserClients,
-        // fetchDataFromApi: actions.fetchDataFromApi,
         },
-        dispatch);
+    dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InvoiceList);

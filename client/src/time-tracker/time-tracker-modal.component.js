@@ -45,12 +45,9 @@ class TimeTrackerModal extends React.Component {
   }
 
   this.submitForm = (data) => {
-    console.log(data);
     let idS = data.project.split("-")
     let cIndex = idS[0]
     let pIndex = idS[1]
-
-    let description = data.description;
 
     let client = this.props.clients[cIndex];
     let project = client.projects[pIndex];
@@ -70,13 +67,6 @@ class TimeTrackerModal extends React.Component {
         date: new Date(),
         description: data.description
     }]
-
-    const newData = {
-        cIndex,
-        pIndex,
-        description
-    }
-    console.log(newData);
 
     if ( !currentInvoice || new Date(currentInvoice.billingPeriodEnd) < new Date() ) {
         // create a new invoice
@@ -168,7 +158,6 @@ class TimeTrackerModal extends React.Component {
           modal={true}
           open={this.props.isTimeModalOpen}
         >
-        {console.log(this.props.timerStop - this.props.user.timerStart)}
         Add { this.convertTimeToHours(this.props.timerStop, this.props.user.timerStart) } hours to...
         <br />
         <Formsy.Form

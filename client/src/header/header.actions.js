@@ -28,7 +28,6 @@ export function handleDrawer() {
 }
 
 export const handleLogout = (userName) => {
-    console.log('handleLogout fired')
   return dispatch => {
     dispatch(requestDataFromServer())
 

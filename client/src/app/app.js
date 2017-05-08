@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Header from '../header/header.component';
 import MainMenu from '../menu/menu.component';
 
-
 import InvoiceList from '../invoices/editable-invoice-list.component';
 import InvoiceDetail from '../invoices/invoice-detail.component';
 import AddInvoice from '../invoices/add-invoice.component';
@@ -50,35 +49,33 @@ class App extends Component {
         <Header className="app-header" />
         <div id="main-content" className="container-fluid" style={{backgroundColor: "#eee", minHeight: 540}}>
           <div className="row">
-          <MainMenu id="main-menu" autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}} menuItemStyle={styleItem}/>
-          <TimeTracker id="timetracker-mobile" formId="add-time-form-mobile" textColor="#076" style={{margin: 15, display: 'block', width: '100%'}}/>
+            <MainMenu id="main-menu" autoWidth={false} width="100%" listStyle={{width: '0.01%'}} style={{width:'100%'}} menuItemStyle={styleItem}/>
+            <TimeTracker id="timetracker-mobile" formId="add-time-form-mobile" textColor="#076" style={{margin: 15, display: 'block', width: '100%'}}/>
+            </div>
+            <div
+              className="col-xs-12 col-md-10 col-md-offset-1"
+              style={{textAlign: 'center'}}>
+              {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
+              {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'clientList' ? <ClientList /> : false}
+              {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'addClient' ? <AddClient /> : false}
+              {this.props.isLoggedIn && this.props.selectedItem === 'projects' && this.props.projectView === 'projectList' ? <ProjectList /> : false}
+              {this.props.isLoggedIn && this.props.selectedItem === 'projects' && this.props.projectView === 'addProject' ? <AddProject /> : false}
+              {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceList' ? <InvoiceList /> : false}
+              {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceDetail' ? <InvoiceDetail /> : false}
+              {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'addInvoice' ? <AddInvoice /> : false}
+              {this.props.isLoggedIn && this.props.selectedItem === 'settings' ? <Settings /> : false}
+              {this.props.isLoggedIn && this.props.selectedItem === 'help' ? <Help /> : false}
+              <Notification />
+            </div>
           </div>
-          <div
-            className="col-xs-12 col-md-10 col-md-offset-1"
-            style={{textAlign: 'center'}}>
-            {this.props.isLoggedIn && this.props.selectedItem === 'dashboard' ? <ExampleChart /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'clientList' ? <ClientList /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'clients' && this.props.clientView === 'addClient' ? <AddClient /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'projects' && this.props.projectView === 'projectList' ? <ProjectList /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'projects' && this.props.projectView === 'addProject' ? <AddProject /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceList' ? <InvoiceList /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'invoiceDetail' ? <InvoiceDetail /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'invoices' && this.props.invoiceView === 'addInvoice' ? <AddInvoice /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'settings' ? <Settings /> : false}
-            {this.props.isLoggedIn && this.props.selectedItem === 'help' ? <Help /> : false}
-            <Notification />
-          </div>
-        </div>
         </div>
         :
-            <Landing />
+        <Landing />
         }
       </div>
     );
   }
 }
-
-// export default App;
 
 function mapStateToProps(state) {
     return {

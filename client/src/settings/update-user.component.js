@@ -51,7 +51,6 @@ class UpdateUser extends React.Component {
   }
 
   const submitSignupForm = (data) => {
-    console.log(data);
     let userName = data.username;
     let email = data.email;
     let firstName = data.firstName;
@@ -93,47 +92,21 @@ class UpdateUser extends React.Component {
               hintText="demo"
               floatingLabelText="Username"
             />
-            {/*<br />*/}
-            {/*<FormsyText
-              name="password"
-              className="col-xs-9 col-xs-offset-3"
-              validations="minLength:8"
-              validationError={passwordError}
-              required
-              type="password"
-              floatingLabelText="Password"
-              hintText="enter a password"
-            />
-            {/*<br />*/}
-            {/*<FormsyText
-              name="passwordConfirm"
-              className="col-xs-9 col-xs-offset-3"
-              validations="equalsField:password"
-              validationError={passwordConfirmError}
-              required
-              type="password"
-              floatingLabelText="Password Confirmation"
-              hintText="Re-enter password"
-            />*/}
-            {/*<br />*/}
             <FormsyText
               name="firstName"
               value={user.firstName}
               className="col-xs-9 col-xs-offset-3"
               validations="isWords"
               validationError={wordsError}
-              //required
               hintText="John"
               floatingLabelText="First Name"
             />
-            {/*<br />*/}
             <FormsyText
               name="lastName"
               value={user.lastName}
               className="col-xs-9 col-xs-offset-3"
               validations="isWords"
               validationError={wordsError}
-              //required
               hintText="Doe"
               floatingLabelText="Last Name"
             />
@@ -152,26 +125,19 @@ class UpdateUser extends React.Component {
               value={user.phone}
               //type="tel"
               className="col-xs-9 col-xs-offset-3"
-              //validations={{matchRegexp: '^\d{3}-\d{3}-\d{4}$' }}
               validationError={numericError}
-              //required
               hintText="555-555-5555"
               floatingLabelText="Phone No."
             />
-            {/*<br />*/}
             <FormsyText
               name="address"
               value={user.address}
               className="col-xs-9 col-xs-offset-3"
-              //validations="isAlphanumeric"
-              //validationError={alphaNumError}
-              //required
               multiLine={true}
               hintText="123 Main St Somewhere CA 90026"
               floatingLabelText="Address"
               floatingLabelStyle={{left: 15}}
             />
-            {/*<br />*/}
             <div className="col-xs-9 col-xs-offset-3">
                 <FlatButton
                 label="Cancel"

@@ -31,7 +31,6 @@ class Landing extends Component {
       this.scrollToTop = this.scrollToTop.bind(this);
   }
 
-
   componentDidMount() {
 
     Events.scrollEvent.register('begin', function() {
@@ -68,8 +67,6 @@ class Landing extends Component {
             <span className="icon-bar"></span>
           </button>
         </div>
-
-    {/* Collect the nav links for toggling */}
       <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul className="nav navbar-nav" style={{display: 'block', margin: 'auto', width: '85%'}}>
           <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="about" spy={true} smooth={true} duration={500} >About</Link></li>
@@ -169,13 +166,8 @@ class Landing extends Component {
   }
 }
 
-// export default Header;
-
-
 function mapStateToProps(state) {
     return {
-        // isModalOpen: state.headerReducer.isModalOpen,
-        // isDrawerOpen: state.headerReducer.isDrawerOpen,
         isLoading: state.headerReducer.isLoading,
         isLoggedIn: state.headerReducer.isLoggedIn,
     };
@@ -183,11 +175,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        // handleSession: actions.handleSession,
         handleLoginModal: actions.handleLoginModal,
         handleLoginSlides: actions.handleLoginSlides
-        // handleDrawer: actions.handleDrawer,
-        // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);
 }

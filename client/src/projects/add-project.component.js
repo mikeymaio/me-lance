@@ -89,7 +89,6 @@ handleTemplateChange = (event, index, value) => {
         <Divider />
         <form id="project-add-form" onSubmit={(event) => {
             event.preventDefault()
-            console.log('project-add-form submitted' + this.props.userId)
             let clientName = `${this.props.clients[this.state.selectedClientIndex].firstName} ${this.props.clients[this.state.selectedClientIndex].lastName}`;
             let projectName = event.target.projectName.value;
             let rate = event.target.rate.value;

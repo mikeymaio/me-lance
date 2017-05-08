@@ -119,10 +119,6 @@ const ClientSchema = mongoose.Schema({
         type: String,
         default: ""
     },
-    // projects: {
-    //     type: Array,
-    //     // default: [ProjectSchema]
-    // },
     projects: [ProjectSchema],
     userId: {
         type: String,

@@ -69,7 +69,6 @@ constructor(props) {
                     <CardText expandable={true} style={{padding: 0}} children={
                     <form id="client-edit-form" onSubmit={(event) => {
                         event.preventDefault()
-                        console.log('client-update-form submitted')
                         let firstName = event.target.firstName.value
                         let lastName = event.target.lastName.value
                         let company = event.target.company.value

@@ -28,7 +28,6 @@ const options = {
   }
 };
 
-
 class TimeTracker extends Component {
   constructor(props) {
     super(props);
@@ -53,20 +52,13 @@ class TimeTracker extends Component {
   }
 
   startTimer() {
-    // this.toggleStopwatch();
     let startTime = new Date().getTime();
-    // const time = moment.unix(startTime);
-    console.log('startTime = '+startTime);
-    // this.props.handleTimerStart(startTime);
     this.props.handleSaveStartTime(startTime, true, this.props.userId)
 
   }
 
   stopTimer() {
-    // this.toggleStopwatch();
     let stopTime = new Date().getTime();
-    // const time = moment.unix(stopTime);
-    console.log('endTime = '+stopTime);
     this.props.handleSaveTimerStop(stopTime, false, this.props.userId);
     this.props.handleTimeModal();
   }

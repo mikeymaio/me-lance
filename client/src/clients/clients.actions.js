@@ -34,7 +34,6 @@ export function handleClientEdit() {
 }
 
 export const fetchUserClients = (userId) => {
-    console.log('fetching your clients')
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -53,7 +52,6 @@ export const fetchUserClients = (userId) => {
 }
 
 export const handleAddClient = (firstName, lastName, company, phone, email, address, userId) => {
-    console.log('handleAddClient fired with client name:', firstName, lastName)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -82,7 +80,6 @@ export const handleAddClient = (firstName, lastName, company, phone, email, addr
 };
 
 export const handleUpdateClient = (firstName, lastName, company, phone, email, address, clientId, userId) => {
-    console.log('handleUpdateClient fired with client name:', firstName, lastName)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -109,11 +106,7 @@ export const handleUpdateClient = (firstName, lastName, company, phone, email, a
   }
 }
 
-
-
-
 export const handleDeleteClient = (clientId, userId) => {
-    console.log('deleting client: ', clientId)
   return dispatch => {
     dispatch(requestDataFromServer())
 

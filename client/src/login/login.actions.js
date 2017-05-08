@@ -38,7 +38,6 @@ const receiveSignUpResponse = (res) => ({
 })
 
 export const handleLogin = (username, password) => {
-    console.log('handleLogin fired with username:', username)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -65,7 +64,6 @@ export const handleLogin = (username, password) => {
 }
 
 export const handleSignUp = (userName, password, passwordConfirm, email, firstName, lastName, phone, address) => {
-    console.log('handleSignup fired with username:', userName)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -107,7 +105,6 @@ export function handleLoginSlides(value) {
   };
 
 export const handleLogout = () => {
-    console.log('handleLogout fired')
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -124,6 +121,6 @@ export const handleLogout = () => {
     // .then(response => response.json())
     // .then(res => dispatch(receiveDataFromServer(res)))
     .then(() => dispatch(handleSession()))
-    .catch( err => console.log(err))
+    .catch( err => alert(err))
   }
 }

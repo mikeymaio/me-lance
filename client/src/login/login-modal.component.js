@@ -1,11 +1,9 @@
 import React from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
-// From https://github.com/oliviertassinari/react-swipeable-views
 import SwipeableViews from 'react-swipeable-views';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
-
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import Formsy from 'formsy-react';
@@ -16,8 +14,6 @@ import * as actions from './login.actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-
-
 const styles = {
   headline: {
     fontSize: 24,
@@ -26,24 +22,15 @@ const styles = {
     fontWeight: 400,
   },
   slide: {
-    //padding: 10,
     overflow: "hidden",
   },
   paper: {
-    // height: 150,
-  //width: '45%',
   marginTop: 30,
   marginBottom: 20,
-  // padding: 5,
   textAlign: 'center',
   backgroundColor: '#eee'
 },
   error: {
-      // height: 150,
-    //width: '45%',
-    //marginTop: 30,
-    //marginBottom: 20,
-    // padding: 5,
     textAlign: 'center',
     backgroundColor: '#fff'
     }
@@ -102,7 +89,6 @@ class LoginModal extends React.Component {
   }
 
   const submitSignupForm = (data) => {
-    console.log(data);
     let userName = data.username
     let password = data.password
     let passwordConfirm = data.passwordConfirm

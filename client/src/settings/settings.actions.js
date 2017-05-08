@@ -18,7 +18,6 @@ const receiveDataFromServer = (user) => ({
 })
 
 export const handleUserUpdate = (userName, email, firstName, lastName, phone, address, userId) => {
-    console.log('handleUserUpdate fired with username:', userName)
   return dispatch => {
     dispatch(requestDataFromServer())
 

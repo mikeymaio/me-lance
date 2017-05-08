@@ -175,7 +175,6 @@ componentDidMount() {
                     <CardText expandable={true} style={{padding: 0}} children={
                     <form id="project-edit-form" onSubmit={(event) => {
                         event.preventDefault()
-                        console.log('project-update-form submitted')
                         let projectName = event.target.projectName.value;
                         let rate = event.target.rate.value;
                         let ratePer = this.state.billingCycleValue;

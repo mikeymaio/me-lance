@@ -18,7 +18,6 @@ const receiveData = message => ({
 })
 
 export const fetchUserClients = (userId) => {
-    console.log('fetching your clients')
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -52,7 +51,6 @@ export function handleAddProjectModal() {
 
 export const filterProjects = filter => {
     const SET_PROJECT_FILTER = 'SET_PROJECT_FILTER'
-    console.log('projectFilter = ', filter);
     return {
           type: SET_PROJECT_FILTER,
           filter
@@ -61,7 +59,6 @@ export const filterProjects = filter => {
 
 
 export const handleAddProject = (clientName, projectName, rate, ratePer, notes, startDate, endDate, timeSpent, userId, clientId) => {
-    console.log('handleAddProject fired: ', clientName, projectName, rate, ratePer, notes, startDate, endDate, timeSpent, userId, clientId)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -92,7 +89,6 @@ export const handleAddProject = (clientName, projectName, rate, ratePer, notes, 
 }
 
 export const fetchUserProjects = (userId) => {
-    console.log('fetching your projects')
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -125,7 +121,6 @@ export function handleProjectEdit() {
 }
 
 export const handleUpdateProject = (projectName, rate, ratePer, notes, startDate, endDate, totalTimeSpent, billingCycle, completed, userId, clientId, projectId) => {
-    console.log('handleUpdateProject fired with project name:', projectName)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -160,7 +155,6 @@ export const handleUpdateProject = (projectName, rate, ratePer, notes, startDate
 
 
 export const handleDeleteProject = (clientId, projectId, userId) => {
-    console.log('deleting project: ', projectId)
   return dispatch => {
     dispatch(requestDataFromServer())
 

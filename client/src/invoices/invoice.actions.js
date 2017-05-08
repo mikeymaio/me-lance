@@ -14,7 +14,6 @@ const receiveData = message => ({
 
 
 export const fetchUserClients = (userId) => {
-    console.log('fetching your clients')
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -35,7 +34,6 @@ export const fetchUserClients = (userId) => {
 
 export const filterInvoices = filter => {
     const SET_INVOICE_FILTER = 'SET_INVOICE_FILTER'
-    console.log('filter = ', filter);
     return {
           type: SET_INVOICE_FILTER,
           filter
@@ -61,7 +59,6 @@ export function handleInvoiceEdit() {
 }
 
 export const handleAddInvoice = (invoiceNo, billingPeriodStart, billingPeriodEnd, tasks, userId, clientId, projectId) => {
-    console.log('handleAddInvoicefired: ');
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -84,7 +81,7 @@ export const handleAddInvoice = (invoiceNo, billingPeriodStart, billingPeriodEnd
     .then( () => dispatch(fetchUserClients(userId))
     )
     .then( () => dispatch(handleInvoiceView( "invoiceList", null, null, null )))
-    .catch(err => console.log(err))
+    .catch(err => alert(err))
   }
 }
 
@@ -111,14 +108,13 @@ export const handleUpdateInvoice = (tasks, tax, userId, clientId, projectId, inv
     .then( () => dispatch(fetchUserClients(userId))
     )
     .then( () => dispatch(handleInvoiceEdit()))
-    .catch( err => console.log(err))
+    .catch( err => alert(err))
   }
 }
 
 
 
 export const handleDeleteInvoice = (userId, clientId, projectId, invoiceId) => {
-    console.log('deleting project: ', projectId)
   return dispatch => {
     dispatch(requestDataFromServer())
 
@@ -139,6 +135,6 @@ export const handleDeleteInvoice = (userId, clientId, projectId, invoiceId) => {
     .then( () => dispatch(fetchUserClients(userId))
     )
     .then( () => dispatch(handleInvoiceView( "invoiceList", null, null, null )))
-    .catch(err => console.log(err))
+    .catch(err => alert(err))
   }
 }
