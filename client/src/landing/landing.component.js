@@ -112,13 +112,12 @@ class Landing extends Component {
 
         <Element name="about" className="element col-xs-12" style={{margin: 6, padding: '140px 40px 20px 40px', display: 'block', width: '100%',
         }} >
-          <Paper zDepth={2} style={{width: '60%', height: '40%', float: 'right', marginLeft: 20}} children={
-            <img src="http://thetrendguys.com/wp-content/uploads/2012/09/Happy-Person-at-Work.jpg"
-           style={{width: '100%', height: '100%'}}
-            />
+          <Paper zDepth={2} style={{width: '40%', height: '40%', float: 'right', marginLeft: 20}} children={
+  
+            <img src="https://s16.postimg.org/i3y6xzd1h/Time_Tracker.jpg" style={{width: '100%', height: '100%'}} />
             } />
           <h1>Save time...</h1>
-          <p>At the heart of this app, is the TimeTracker. Just click start when you are ready to get to work. When you are done, you will be prompted to select a project, add a description of the tasks completed, and even edit the time you've spent. With one click, a new task will be added to your current invoice. If an invoice doesn't exist, don't sweat it! We'll create one for you.</p>
+          <p>At the heart of this app, is the time tracker. Just click start when you are ready to get to work. When you are done, you will be prompted to select a project, add a description of the tasks completed, and even edit the time you've spent. With one click, a new task will be added to your current invoice. If an invoice doesn't exist, don't sweat it! We'll create one for you.</p>
         </Element>
 
         <Element name="invoice" className="element col-xs-12" style={{margin: 6, padding: '140px 40px 20px 40px', display: 'block', width: '100%',
