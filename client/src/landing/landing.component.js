@@ -1,19 +1,15 @@
 import React, {Component} from 'react';
-import SignUp from '../login/signup.component';
-// import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import Scroll from 'react-scroll';
+
+import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 
 import LoginModal from '../login/login-modal.component';
 
-// import * as actions from '../header/header.actions';
 import * as actions from '../login/login.actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import Scroll from 'react-scroll';
-import RaisedButton from 'material-ui/RaisedButton';
-
-// import LoggedToggle from '../demo-toggle-temp';
 
 import './landing.css';
 
@@ -41,7 +37,7 @@ class Landing extends Component {
   }
 
 
-componentDidMount() {
+  componentDidMount() {
 
     Events.scrollEvent.register('begin', function() {
       console.log("begin", arguments);
@@ -57,6 +53,7 @@ componentDidMount() {
   scrollToTop() {
     scroll.scrollToTop();
   }
+
   componentWillUnmount() {
     Events.scrollEvent.remove('begin');
     Events.scrollEvent.remove('end');
@@ -67,51 +64,44 @@ componentDidMount() {
       <div style={{backgroundColor: '#eee'}} >
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation" style={{backgroundColor: "#076", border: "none"}}>
 			<div className="container-fluid">
-         <div className="navbar-header">
-           <Link className="pull-left logo" style={{lineHeight: 3.15, color: '#fff', textDecoration: 'none', fontSize: 16, marginRight: 35}} onClick={this.scrollToTop}>Freelancer</Link>
-      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span className="sr-only">Toggle navigation</span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-      </button>
-    </div>
+        <div className="navbar-header">
+          <Link className="pull-left logo" style={{lineHeight: 3.15, color: '#fff', textDecoration: 'none', fontSize: 16, marginRight: 35}} onClick={this.scrollToTop}>Freelancer</Link>
+          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span className="sr-only">Toggle navigation</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+        </div>
 
-    {/*<!-- Collect the nav links, forms, and other content for toggling -->*/}
-    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    {/* Collect the nav links for toggling */}
+      <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul className="nav navbar-nav" style={{display: 'block', margin: 'auto', width: '85%'}}>
-                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="about" spy={true} smooth={true} duration={500} >About</Link></li>
-                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="timetracker" spy={true} smooth={true} duration={500}>TimeTracker</Link></li>
-                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="invoice" spy={true} smooth={true} duration={500} >Invoices</Link></li>
-                <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} onTouchTap={() => {
-              this.props.handleLoginModal(),
-              this.props.handleLoginSlides(1);
-            }
-              }>Sign Up</Link></li>
-                <li className="login-link" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} ><LoginModal /></Link></li>
+          <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="about" spy={true} smooth={true} duration={500} >About</Link></li>
+          <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="invoice" spy={true} smooth={true} duration={500} >Invoices</Link></li>
+          <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="charts" spy={true} smooth={true} duration={500}>Stats</Link></li>
+          <li
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1">
+            <Link
+              style={styles.link}
+              onTouchTap={() => {
+                this.props.handleLoginModal(),
+                this.props.handleLoginSlides(1);
+                }
+              }>
+              Sign Up
+            </Link>
+          </li>
+          <li className="login-link" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} ><LoginModal /></Link></li>
 				</ul>
-        {/*<div className="pull-right" style={{lineHeight: 3.6}}><LoginModal label="Login / Demo Account"/></div>*/}
 			</div>
       </div>
 		</nav>
-  {/*</div>*/}
 
-      {/*<div className="container-fluid" style={{backgroundColor: '#007766', color: 'white',
-                  //height: 500,
-                  paddingTop: 20
-                  }}
-                  >
-                  <div className="pull-left"><h4>Freelancer</h4></div>
-                  <div className="pull-right"><LoginModal /></div>
-                  <div className="col-xs-12" style={{textAlign: 'center', marginTop: 20}}>
-                    {/*<h1>Boost Your Productivity Today!</h1>*/}
-                    {/*<img src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.economywatch.com%2Ffiles%2Fimagecache%2Fstory%2Fstory%2Fproductivity_4.jpg&f=1" style={{height: '50%', width: '50%'}}/>*/}
-                  {/*</div>*/}
-
-      {/*</div>*/}
-      <div>
+    <div style={{backgroundColor: '#fff'}}>
       <img src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.skipprichard.com%2Fwp-content%2Fuploads%2F2012%2F05%2FI-love-my-job.jpg&f=1" 
-           style={{width: '100%', height: 500, maxWidth: 975, display: 'block', margin: 'auto'}}
+           style={{width: '100%', height: 575, maxWidth: 975, display: 'block', margin: 'auto'}}
       />
 
       <div style={{height: 100, width: '75%', backgroundColor: 'rgba(0, 119, 102, 0.5)', position: 'absolute', top: '15%', left: '10%'}}>
@@ -120,30 +110,42 @@ componentDidMount() {
       </div>
       <div className="container-fluid" style={{padding: 20,}}>
 
-        <Element name="about" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, padding: '70px 40px 70px 40px', display: 'block', width: '100%', border: '5px solid #076'}} >
-          <img src="http://thetrendguys.com/wp-content/uploads/2012/09/Happy-Person-at-Work.jpg"
-           style={{width: '60%', height: '40%', float: 'right', paddingLeft: 20}}
-          />
-          <p>Keep track of your progress with customized charts</p>
+        <Element name="about" className="element col-xs-12" style={{margin: 6, padding: '140px 40px 20px 40px', display: 'block', width: '100%',
+        }} >
+          <Paper zDepth={2} style={{width: '60%', height: '40%', float: 'right', marginLeft: 20}} children={
+            <img src="http://thetrendguys.com/wp-content/uploads/2012/09/Happy-Person-at-Work.jpg"
+           style={{width: '100%', height: '100%'}}
+            />
+            } />
+          <h1>Save time...</h1>
+          <p>At the heart of this app, is the TimeTracker. Just click start when you are ready to get to work. When you are done, you will be prompted to select a project, add a description of the tasks completed, and even edit the time you've spent. With one click, a new task will be added to your current invoice. If an invoice doesn't exist, don't sweat it! We'll create one for you.</p>
         </Element>
 
-        <Element name="timetracker" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, padding: '70px 40px 70px 40px', display: 'block', width: '100%', border: '5px solid #076'}} >
-          <img
-            src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-06%20at%205.58.15%20PM_zpsymcq2brg.png~original"
-            style={{width: '60%', height: '60%', float: 'left', paddingRight: 20}}
+        <Element name="invoice" className="element col-xs-12" style={{margin: 6, padding: '140px 40px 20px 40px', display: 'block', width: '100%',
+        }} >
+          <Paper zDepth={2} style={{width: '60%', height: '60%', float: 'left', marginRight: 20}} children={
+           <img
+           style={{width: '100%', height: '100%'}}src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-03%20at%208.26.04%20PM_zpschkqnrps.png~original"
           />
-        <p>Description of TimeTracker here...(with images, icons, links, etc...) jflskjfsldfkjslfkjsflskfjskjh sghlkd jghghskgh dlskghjgl kjhsglksjghlk djghdgdsgd gdgsdgsdg dsgdsgd gsdgdgdggdsgdgdgd gdgdgdgg</p>
+          }
+          />
+          <h1>Get paid faster</h1>
+          <p>Manage your invoices with ease! You can edit your invoices at any time, add tasks manually, or edit as you need to. When you are ready, click export to download or print. Getting paid has never been so easy!</p>
         </Element>
 
-        <Element name="invoice" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, padding: '70px 40px 70px 40px', display: 'block', width: '100%', border: '5px solid #076'}} >
-           <img src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-03%20at%208.26.04%20PM_zpschkqnrps.png~original"
-           style={{width: '60%', height: '60%', float: 'right', paddingLeft: 20}}
-          />
-          <p>Description of invoices here...(with images, icons, links, etc...) jflskjfsldfkjslfkjsflskfjskjh sghlkd jghghskgh dlskghjgl kjhsglksjghlk djghdgdsgd gdgsdgsdg dsgdsgd gsdgdgdggdsgdgdgd gdgdgdgg</p>
+        <Element name="charts" className="element col-xs-12" style={{margin: 6, padding: '140px 40px 20px 40px', display: 'block', width: '100%',
+        }} >
+          <Paper zDepth={2} style={{width: '60%', height: '60%', float: 'right', marginLeft: 20}} children={
+            <img
+            style={{width: '100%', height: '100%'}}
+              src="http://i1076.photobucket.com/albums/w459/michaelmaio22/Screen%20Shot%202017-05-06%20at%205.58.15%20PM_zpsymcq2brg.png~original"/>
+          } />
+          <h1>Keep track of your success</h1>
+        <p>Interactive charts and statistics help you stay on track and discover your most profitable clients</p>
         </Element>
 
-        <Element name="signup" className="element col-xs-8 col-offset-xs-2" style={{margin: 10, padding: '70px 40px 70px 40px', display: 'block', width: '100%', border: '5px solid #076'}}>
-          {/*<SignUp />*/}
+        <Element name="signup" className="element col-xs-12" style={{margin: 6, padding: '40px 40px 40px 20px', display: 'block', width: '100%',
+        }}>
           <div style={{width: '75%', margin: 'auto', paddingLeft: 40, textAlign: 'center'}}>
             <h4 style={{color: '#076'}} >What are you waiting for?</h4>
             <RaisedButton
@@ -157,8 +159,6 @@ componentDidMount() {
             }
               } />
           </div>
-          {/*<p>Join Now!</p>
-          <RaisedButton label="Login / Demo Account" style={{color: '#fff'}} onTouchTap={this.props.handleLoginModal}/>*/}
         </Element>
       </div>
       </div>
