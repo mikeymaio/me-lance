@@ -240,7 +240,7 @@ componentDidMount() {
           fixedFooter={this.state.fixedFooter}
           selectable={this.state.selectable}
           multiSelectable={this.state.multiSelectable}
-          wrapperStyle={{width: "100%"}}
+          wrapperStyle={{width: "100%", marginBottom: '20px'}}
         >
           <TableHeader
             //style={{borderBottom: '3px solid #007766'}}
@@ -371,7 +371,7 @@ componentDidMount() {
               </TableRowColumn>
             </TableRow>
             <TableRow>
-              <TableRowColumn colSpan="12" style={{textAlign: 'center'}}>
+              <TableRowColumn colSpan="12" style={{textAlign: 'center', paddingBottom: '12px'}}>
                 Please transfer the amount within 30 days
               </TableRowColumn>
             </TableRow>
