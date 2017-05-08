@@ -18,8 +18,6 @@ import moment from 'moment';
 
 import taxByState from '../tax-by-state';
 
-import html2canvas from 'html2canvas';
-
 import './invoice.css';
 
   const formatDate = date => {
@@ -59,7 +57,6 @@ class InvoiceDetail extends React.Component {
   this.handleTaxChange = (event, index, value) => this.setState({taxValue: value});
 
   this.formatPrice =  rate => {
-        // const rateInCents = rate/100;
         return rate.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2});
     }
 
@@ -80,23 +77,14 @@ class InvoiceDetail extends React.Component {
 
 }
 
-    save() {
-        if (!navigator.onLine) {
-            console.warn('No active internet connection!');
-            return false;
-        }
-        const element = document.querySelector('#invoice-update-form');
-
-        window.print(element);
-
-        // html2canvas(element, {
-        //   onrendered: function(canvas) {
-        //     window.print(canvas);
-        //   },
-        //     imageTimeout: 2000,
-        //     removeContainer: true,
-        // })
-    }
+  save() {
+      if (!navigator.onLine) {
+          console.warn('No active internet connection!');
+          return false;
+      }
+      const element = document.querySelector('#invoice-update-form');
+      window.print(element);
+  }
 
 
 componentDidMount() {

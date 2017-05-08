@@ -14,9 +14,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import moment from 'moment';
-/**
- * A modal dialog can only be closed by selecting one of the actions.
- */
+
 class TimeTrackerModal extends React.Component {
     constructor(props) {
         super(props)

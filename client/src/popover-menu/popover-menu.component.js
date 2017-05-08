@@ -36,9 +36,6 @@ class PopoverMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-        // isModalOpen: state.headerReducer.isModalOpen,
-        // isDrawerOpen: state.headerReducer.isDrawerOpen,
-        isLoading: state.loginReducer.isLoading,
         isLoggedIn: state.loginReducer.isLoggedIn,
     };
 }
@@ -48,9 +45,6 @@ function mapDispatchToProps(dispatch) {
         handleSession: actions.handleSession,
         handleLogout: actions.handleLogout,
         handleMenuItemSelect: handleMenuItemSelect,
-        // handleModal: actions.handleModal,
-        // handleDrawer: actions.handleDrawer,
-        // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);
 }

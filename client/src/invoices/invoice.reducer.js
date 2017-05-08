@@ -1,5 +1,4 @@
 const initialState = {
-        isLoading: false,
         invoiceFilter: 'SHOW_ALL',
         invoiceView: 'invoiceList',
         invoiceEdit: false,
@@ -13,16 +12,6 @@ const initialState = {
 const invoiceReducer = (state=initialState, action) => {
     state = state || initialState
     switch(action.type) {
-        case 'REQUEST_DATA':
-            return {
-                ...state,
-                isLoading: true
-            }
-        case 'RECEIVE_DATA':
-            return {
-                ...state,
-                isLoading: false, isLoggedIn: action.payload
-            }
         case 'SET_INVOICE_FILTER':
             return {
                 ...state,
@@ -45,7 +34,6 @@ const invoiceReducer = (state=initialState, action) => {
         default:
             return state;
         }
-        // return state;
     }
 
 export default invoiceReducer;

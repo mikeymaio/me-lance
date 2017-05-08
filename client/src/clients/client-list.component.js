@@ -177,7 +177,6 @@ function mapStateToProps(state) {
     return {
         clients: state.clientReducer.clients,
         clientEdit: state.clientReducer.clientEdit,
-        isLoading: state.clientReducer.isLoading,
         userId: state.loginReducer.user.userId,
     };
 }
@@ -189,10 +188,6 @@ function mapDispatchToProps(dispatch) {
         handleClientEdit: actions.handleClientEdit,
         handleUpdateClient: actions.handleUpdateClient,
         handleDeleteClient: actions.handleDeleteClient,
-        testLoader: actions.testLoader,
-        // filterClients: actions.filterClients,
-        // handleAddClientModal: actions.handleAddClientModal,
-        // fetchDataFromApi: actions.fetchDataFromApi,
         },
         dispatch);
 }

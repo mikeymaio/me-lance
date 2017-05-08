@@ -14,7 +14,6 @@ const menuReducer = (state=initialState, action) => {
         default:
             return state;
         }
-        // return state;
     }
 
 export default menuReducer;

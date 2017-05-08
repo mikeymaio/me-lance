@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import headerReducer from './header/header.reducer';
 import menuReducer from './menu/menu.reducer';
 import clientReducer from './clients/clients.reducer';
 import invoiceReducer from './invoices/invoice.reducer';
@@ -16,7 +15,6 @@ import notificationReducer from './notifications/notification.reducer';
 
 const indexReducer = combineReducers({
     appReducer,
-    headerReducer,
     dashboardReducer,
     menuReducer,
     clientReducer,

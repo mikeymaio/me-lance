@@ -1,7 +1,6 @@
 import update from 'immutability-helper';
 
 const initialState = {
-        isLoading: false,
         projectView: 'projectList',
         projectEdit: false,
 		projectFilter: 'SHOW_ALL',
@@ -11,23 +10,14 @@ const initialState = {
 const projectReducer = (state=initialState, action) => {
     state = state || initialState
     switch(action.type) {
-        case 'REQUEST_PROJECT_DATA':
-            return {
-                ...state,
-                isLoading: true
-            }
         case 'RECEIVE_PROJECT_DATA':
             return {
                 ...state,
-                isLoading: false,
-                // projects: action.projects,
                 projectView: 'projectList',
             }
         case 'RECEIVE_CLIENT_DATA':
             return {
                 ...state,
-                isLoading: false,
-                // projects: action.projects,
                 projectView: 'projectList',
                 projectEdit: false,
                 projectFilter: 'SHOW_ALL',
@@ -60,15 +50,9 @@ const projectReducer = (state=initialState, action) => {
                 ...state,
                 projectEdit: !state.projectEdit,
             }
-        // case 'TEST_LOADER':
-        //     return {
-        //         ...state,
-        //         isLoading: !state.isLoading
-        //     }
         default:
             return state;
         }
-        // return state;
     }
 
 export default projectReducer;

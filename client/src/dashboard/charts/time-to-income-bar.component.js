@@ -18,7 +18,6 @@ const getData = clients => {
           hours += task.hoursSpent
         ))
     })
-      console.log(projectName, hours);
       if (project.ratePer === "hr") {
         return data.dataArray.push([projectName, hours, hours * rate]);
       } if (project.ratePer === "fixed price") {
@@ -26,8 +25,6 @@ const getData = clients => {
       }
     })
   ))
-  console.log('data = ' + data);
-  // this.setState({data});
 }
 
 class BarChart extends React.Component {

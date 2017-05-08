@@ -160,7 +160,6 @@ class MuiEditableTable extends React.Component {
                     style={{width: "100%"}}
                     value={column.fieldName in rowData ? rowData[column.fieldName] : ''}
                     multiLine={true}
-                    //type={column.type}
                     disabled={!this.props.editable}
                     underlineDisabledStyle={{display: "none"}}
                     onChange={this.onFieldChange(index, column.fieldName)}
@@ -178,7 +177,6 @@ class MuiEditableTable extends React.Component {
                     mode={this.state.mode}
                     autoOk={this.props.autoOk || true}
                     disabled={!this.props.editable}
-                    //textFieldStyle={{textDecoration: "none", underline: "none"}}
                     underlineDisabledStyle={{display: "none"}}
                     onChange={this.onFieldChange(index, column.fieldName)}
                 />

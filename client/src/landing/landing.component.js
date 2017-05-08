@@ -166,13 +166,6 @@ class Landing extends Component {
   }
 }
 
-function mapStateToProps(state) {
-    return {
-        isLoading: state.headerReducer.isLoading,
-        isLoggedIn: state.headerReducer.isLoggedIn,
-    };
-}
-
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleLoginModal: actions.handleLoginModal,
@@ -181,5 +174,5 @@ function mapDispatchToProps(dispatch) {
         dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Landing);
+export default connect(mapDispatchToProps)(Landing);
 

@@ -19,10 +19,7 @@ import DatePicker from 'material-ui/DatePicker';
 
 import Loader from '../loader/loader.component';
 
-
 import Checkbox from 'material-ui/Checkbox';
-
-
 
 const styles = {
     input: {
@@ -179,7 +176,6 @@ componentDidMount() {
                         let projectName = event.target.projectName.value;
                         let rate = event.target.rate.value;
                         let ratePer = this.state.billingCycleValue;
-                        {/*let budget = event.target.budget.value;*/}
                         let notes = event.target.notes.value;
                         let startDate = event.target.startDate.value;
                         let endDate = event.target.endDate.value;
@@ -231,17 +227,6 @@ componentDidMount() {
                             {billingOptions}
                         </SelectField>
                         <br />
-                        {/*<TextField
-                            name="budget"
-                            floatingLabelText="Budget"
-                            floatingLabelFixed={true}
-                            hintText="$"
-                            defaultValue={project.budget}
-                            disabled={!this.props.projectEdit}
-                            underlineDisabledStyle={{display: 'none'}}
-                            style={styles.input}
-                            />*/}
-                            <br />
                         <DatePicker
                             name="startDate"
                             hintText="Start Date"
@@ -292,28 +277,6 @@ componentDidMount() {
                             underlineDisabledStyle={{display: 'none'}}
                             style={styles.input}
                             />*/}
-                            {/*<br />*/}
-                            {/*<SelectField
-                            name="invoiceTemp"
-                            value={this.state.selectedTemplate}
-                            onChange={this.handleTemplateChange}
-                            floatingLabelText="Invoice Template"
-                            floatingLabelFixed={true}
-                            hintText={project.template}
-                            disabled={!this.props.projectEdit}
-                            underlineDisabledStyle={{display: 'none'}}
-                            style={styles.selectMenu}
-                            hintStyle={{color: '#076'}}
-                            labelStyle={{color: '#076'}}
-                        >*/}
-                        {/*{ this.props.user.templates ?
-                            this.props.user.templates.map( ( template, index ) => (
-                                <MenuItem key={index} value={template.title} primaryText={template.title} />
-                            ))
-                            :*/}
-                            {/*{<MenuItem key={0} value="New Template" primaryText="New Template" />}*/}
-                        {/*}*/}
-                        {/*</SelectField>*/}
                         <br />
                         <SelectField
                             value={this.state.completed}
@@ -376,7 +339,6 @@ function mapStateToProps(state) {
     return {
         clients: state.clientReducer.clients,
         projectEdit: state.projectReducer.projectEdit,
-        isLoading: state.projectReducer.isLoading,
         userId: state.loginReducer.user.userId,
         user: state.loginReducer.user,
         projectFilter: state.projectReducer.projectFilter,

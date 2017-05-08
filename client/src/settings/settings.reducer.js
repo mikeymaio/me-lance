@@ -11,7 +11,6 @@ const settingsReducer = (state=initialState, action) => {
             return {
                 ...state,
                 settingsView: action.view,
-                // settingsEdit: false,
             }
         case 'UPDATE_THEME':
             return {
@@ -21,7 +20,6 @@ const settingsReducer = (state=initialState, action) => {
         default:
             return state;
         }
-        // return state;
     }
 
 export default settingsReducer;

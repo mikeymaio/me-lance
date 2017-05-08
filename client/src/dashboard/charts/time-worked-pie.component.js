@@ -19,12 +19,9 @@ const getData = clients => {
           hours += task.hoursSpent
         ))
       ))
-      console.log(projectName, hours);
       return data.dataArray.push([projectName, hours]);
     })
   ))
-  console.log('data = ' + data.dataArray);
-  // this.setState({data});
 }
 
 
@@ -59,14 +56,12 @@ class PieChart extends React.Component {
         graph_id="PieChart"
         width={'100%'}
         height={'400px'}
-        //legend_toggle={false}
       />
       }
       </div>
     );
   }
 }
-// export default PieChart;
 
 function mapStateToProps(state) {
     return {

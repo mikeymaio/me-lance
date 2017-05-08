@@ -70,7 +70,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleDrawer: actions.handleDrawer,
-        // handleSession: actions.handleSession,
         handleLogout: handleLogout,
         handleMenuItemSelect: handleMenuItemSelect,
         },

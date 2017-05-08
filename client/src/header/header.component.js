@@ -26,7 +26,6 @@ const ToolBar = () => {
 
 const Header = () => {
     return (
-      // <div>
         <AppBar
           title="Me-Lance"
           style={{padding: 20,}}
@@ -34,7 +33,6 @@ const Header = () => {
           iconElementLeft={<DrawerMenu />}
           iconElementRight={<ToolBar />}
         />
-      // {/*</div>*/}
     );
 }
 
