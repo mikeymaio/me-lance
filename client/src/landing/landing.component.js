@@ -59,7 +59,7 @@ class Landing extends Component {
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation" style={{backgroundColor: "#076", border: "none"}}>
 			<div className="container-fluid">
         <div className="navbar-header">
-          <Link className="pull-left logo" to="#" style={{lineHeight: 3.15, color: '#fff', textDecoration: 'none', fontSize: 16, marginRight: 35}} onClick={this.scrollToTop}>Me-Lance</Link>
+          <Link className="pull-left logo" to="#" style={{lineHeight: 3.15, color: '#fff', textDecoration: 'none', fontSize: 16, marginRight: 20, marginLeft: 15}} onClick={this.scrollToTop}>Me-Lance</Link>
           <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span className="sr-only">Toggle navigation</span>
             <span className="icon-bar"></span>
@@ -68,7 +68,7 @@ class Landing extends Component {
           </button>
         </div>
       <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul className="nav navbar-nav" style={{display: 'block', margin: 'auto', width: '85%'}}>
+				<ul className="nav navbar-nav" style={{display: 'block', margin: 'auto', width: '85%', float: 'right'}}>
           <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="about" spy={true} smooth={true} duration={500} >About</Link></li>
           <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="invoice" spy={true} smooth={true} duration={500} >Invoices</Link></li>
           <li data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><Link style={styles.link} activeClass="active" to="charts" spy={true} smooth={true} duration={500}>Stats</Link></li>
