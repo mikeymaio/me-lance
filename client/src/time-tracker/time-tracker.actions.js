@@ -26,6 +26,7 @@ export const handleTimerStart = time => {
         type: UPDATE_START_TIME,
         time,
     }
+    // add more
 }
 
 export const handleSaveStartTime = (timerStart, timerRunning, userId) => {

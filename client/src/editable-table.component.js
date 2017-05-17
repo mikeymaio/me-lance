@@ -18,6 +18,7 @@ class MuiEditableTable extends React.Component {
     constructor(props) {
         super(props);
 
+// add more
         this.state = {
             rowData: [],
             colSpec: [],
