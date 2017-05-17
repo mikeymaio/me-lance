@@ -26,6 +26,7 @@ const options = {
     color: '#fff',
     marginLeft: 7,
   }
+  // add some more
 };
 
 class TimeTracker extends Component {

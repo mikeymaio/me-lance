@@ -35,6 +35,7 @@ const rootReducer = (state, action) => {
   }
   return indexReducer(state, action)
 }
+// add more things
 
 export default rootReducer;
 
