@@ -147,12 +147,12 @@ class LoginModal extends React.Component {
 
     return (
       <div style={{padding: 15}}>
-        <a href="#" style={{color: '#fff', textDecoration: 'none'}} onTouchTap={ () => {
+        {/* <a href="#" style={{color: '#fff', textDecoration: 'none'}} onTouchTap={ () => {
           this.props.handleLoginModal();
           this.props.handleLoginSlides(0);
           }}>
           Login / Demo Account
-        </a>
+        </a> */}
         <Dialog
           actions={actionButtons}
           modal={false}

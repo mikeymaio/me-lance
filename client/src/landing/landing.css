@@ -65,30 +65,35 @@ a {
 
 
 @media (max-width: 767px) {
-  .logo {
-    margin-left: 25px !important;
-  }
-  #bs-example-navbar-collapse-1 {
-	background-color: #fff;
-}
-  ul > li > a {
-	color: #076 !important;
-}
- ul > li:hover > a {
-	color: #fff !important;
-}
+	.logo {
+		margin-left: 25px !important;
+	}
 
-a {
-	color: #076 !important;
-}
-li:hover > a > div > a {
-	color: #fff !important;
-}
-.login-link {
-	float: none !important;
-}
+	#bs-example-navbar-collapse-1 {
+		background-color: #fff;
+	}
 
-.logo {
-	color: #fff !important;
-}
+	ul > li {
+		color: #076 !important;
+	}
+
+	ul > li:hover > a {
+		color: #fff !important;
+	}
+
+	a {
+		color: #076 !important;
+	}
+
+	li:hover > a > div > a {
+		color: #fff !important;
+	}
+
+	.login-link {
+		float: none !important;
+	}
+
+	.logo {
+		color: #fff !important;
+	}
 }
