@@ -79,7 +79,7 @@ class Landing extends Component {
               to="#"
               style={styles.link}
               onTouchTap={() => {
-                this.props.handleLoginModal()
+                this.props.handleLoginModal();
                 this.props.handleLoginSlides(1);
                 }
               }>
@@ -166,13 +166,19 @@ class Landing extends Component {
   }
 }
 
+function mapStateToProps(state) {
+    return {
+        isModalOpen: state.loginReducer.isModalOpen,
+    };
+}
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleLoginModal: actions.handleLoginModal,
-        handleLoginSlides: actions.handleLoginSlides
+        handleLoginSlides: actions.handleLoginSlides,
         },
         dispatch);
 }
 
-export default connect(mapDispatchToProps)(Landing);
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);
 

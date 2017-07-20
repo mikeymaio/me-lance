@@ -68,7 +68,7 @@ class LoginModal extends React.Component {
 
   render() {
 
-       const enableButton = () => {
+  const enableButton = () => {
     this.setState({
       canSubmit: true,
     });
