@@ -6,7 +6,6 @@ deploy:
   provider: heroku
   api_key:
     secure: SmpJHKi6cuX1OmgUztQnHtE1SD23/8WyvJRPn4oPkkeZ4bQjDnM86QqDPy/N4nK2QSTHmbjJR4R6pGu18VQ87yQxIeEeXZQoVG+Rn2F/noRPHxzLbbdzHvC+05oFBl8Ir25zyEa3bGV4eYxYynteSfBjRu9yYc++tXt2498dzTkHRCl1/zg1C8Tdqr7wvvh/hiayr8+ixW6CyMODxXmz6PYOqLTRn/uODfsIZYQBL46faaIalgAT3K3s+A9rOVyHy1T5Fuaz7/3Hr+r7v8hYAaL2jqqtBSCHwC5xOhx+tMW/42+ITRMrSPJMc014tOp5kFpvpd9CksHrCbTMZ1TP+p3DFKLHq8zcNFvXoP3DsribY9OGmQ3O8itqELrm7IOF0BAGEaLJpaEoQG5Jcu/t9urfECVnT72EIVOSmmZwqXMkCpI8vM3R1fVUfvmWcnFBpx5/OJepDcJ0IIM9/fEJIU5nvsVmPBogEfd+uZZJmhAyxQhrRA4qODZeJMnJnSiGsBoTfHx7FK/8ZcS+7R+XR1Dx6SGXNAKWWghpNHvhVY+ZRW5cXSA9kTPcCtK5kQW57kdAOTHntgJmEC5uVVbOsAiBSBe7mxBl2KaMDY6uwZJ6EqvraB6oC9uzoZkLYzaTML+Ajwx54pU4mNNzYtmbHo7eI6Pjh16+BxVKSYSmP1E=
-  skip_cleanup: true
   app: me-lance
   on:
     repo: HypeUFO/me-lance
