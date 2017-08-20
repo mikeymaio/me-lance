@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Formsy from 'formsy-react';
 import { FormsyText } from 'formsy-material-ui/lib';
 
-import { fetchDataFromApi } from '../login/login.actions';
+// import { fetchDataFromApi } from '../login/login.actions';
 import { handleUserUpdate } from './settings.actions';
 import { handleMenuItemSelect } from '../menu/menu.actions';
 
@@ -168,7 +168,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        fetchDataFromApi: fetchDataFromApi,
+        // fetchDataFromApi: fetchDataFromApi,
         handleUserUpdate: handleUserUpdate,
         handleMenuItemSelect: handleMenuItemSelect,
         },

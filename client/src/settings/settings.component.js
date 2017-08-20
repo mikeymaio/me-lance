@@ -2,7 +2,7 @@ import React from 'react';
 
 import UpdateUser from './update-user.component';
 
-import { fetchDataFromApi } from '../login/login.actions';
+// import { fetchDataFromApi } from '../login/login.actions';
 import { handleUserUpdate } from './settings.actions';
 
 import { connect } from 'react-redux';
@@ -30,7 +30,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        fetchDataFromApi: fetchDataFromApi,
+        // fetchDataFromApi: fetchDataFromApi,
         handleUserUpdate: handleUserUpdate,
         },
         dispatch);
