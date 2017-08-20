@@ -1,16 +1,10 @@
 import React from 'react';
-
 import FlatButton from 'material-ui/FlatButton';
-
 import RaisedButton from 'material-ui/RaisedButton';
 import Formsy from 'formsy-react';
 import { FormsyText } from 'formsy-material-ui/lib';
-
-// import { fetchDataFromApi } from '../login/login.actions';
 import { handleUserUpdate } from './settings.actions';
 import { handleMenuItemSelect } from '../menu/menu.actions';
-
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -168,7 +162,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        // fetchDataFromApi: fetchDataFromApi,
         handleUserUpdate: handleUserUpdate,
         handleMenuItemSelect: handleMenuItemSelect,
         },

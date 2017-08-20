@@ -169,7 +169,6 @@ class Landing extends Component {
                     Login / Demo Account
                   </Link>
                 </li>
-                {/* <li className="login-link"><LoginModal /></li> */}
               </ul>
             </div>
           </div>
@@ -316,12 +315,8 @@ class Landing extends Component {
                 lineHeight: 0
               }}
                 onTouchTap={() => {
-                this
-                  .props
-                  .handleLoginModal()
-                this
-                  .props
-                  .handleLoginSlides(1);
+                this.props.handleLoginModal()
+                this.props.handleLoginSlides(1);
               }}/>
             </div>
           </Element>

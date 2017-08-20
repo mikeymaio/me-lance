@@ -318,7 +318,6 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         handleLoginModal: actions.handleLoginModal,
         handleLoginSlides: actions.handleLoginSlides,
-        // fetchDataFromApi: actions.fetchDataFromApi,
         handleLogin: actions.handleLogin,
         handleSignUp: actions.handleSignUp
         },
