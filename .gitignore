@@ -57,8 +57,3 @@ typings/
 # dotenv environment variables file
 .env
 .vscode/
-
-# Package locks
-package-lock.json
-client/package-lock.json
-server/package-lock.json
